@@ -1,6 +1,16 @@
 import ctypes
-awareness = ctypes.c_int()
-ctypes.windll.shcore.SetProcessDpiAwareness(2)
+# awareness = ctypes.c_int()
+try:
+    ctypes.windll.shcore.SetProcessDpiAwareness(2)
+except:
+    try:
+        ctypes.windll.user32.SetProcessDPIAware()
+        print('检测到不支持进程DPI设置（可能是系统版本低于Win10）')
+        print('程序将会继续执行，但在高分屏上可能存在分辨率问题')
+    except:
+        print('检测到不支持读取系统DPI设置（可能是系统版本低于Win8）')
+        print('程序将会继续执行，但在高分屏上可能存在分辨率问题')
+
 from mss import mss
 from PIL import Image 
 import win32gui
