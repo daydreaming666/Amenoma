@@ -90,7 +90,7 @@ class OCR:
         return {key:value for key,value in locals().items() if key not in ['art_img', 'self']}
 
     def detect_star(self, art_img):
-        star = art_img.crop(Config.star_coords)
+        star = art_img.crop([i*self.scale_ratio for i in Config.star_coords])
         cropped_star = self.crop(self.to_gray(star))
         coef = cropped_star.shape[1]/cropped_star.shape[0]
         coef = coef/1.30882352+0.21568627
