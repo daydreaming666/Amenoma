@@ -14,7 +14,7 @@ except:
 from mss import mss
 from PIL import Image 
 import win32gui
-import time
+import time, math
 import keyboard, mouse
 import sys, os
 import json
@@ -34,7 +34,7 @@ if not is_admin():
     # Re-run the program with admin rights
     # ctypes.windll.shell32.ShellExecuteW(None, "runas", sys.executable, " ".join(sys.argv+[bundle_dir]), None, 1)
     input('请在右键菜单选择以管理员模式运行')
-    exit(0)
+    sys.exit(0)
 
 def captureRect(rect):
     with mss() as sct:
@@ -124,8 +124,8 @@ def scanRows(rows):
     rows = list(rows)
     if len(rows)<1:
         return True
-    art_center_x = first_art_x+(art_width+art_gap_x-0.5)*0+art_width/2
-    art_center_y = first_art_y +(art_height+art_gap_y-0.5)*rows[0]+art_height/2
+    art_center_x = first_art_x+(art_width+art_gap_x)*0+art_width/2
+    art_center_y = first_art_y +(art_height+art_gap_y)*rows[0]+art_height/2
     mouse.move(left+art_center_x, top+art_center_y)
     mouse.click()
     for art_row in rows:
@@ -140,8 +140,8 @@ def scanRows(rows):
                 else:
                     art_col += 1
                 if art_row in rows:
-                    art_center_x = first_art_x+(art_width+art_gap_x-0.5)*art_col+art_width/2
-                    art_center_y = first_art_y +(art_height+art_gap_y-0.5)*art_row+art_height/2
+                    art_center_x = first_art_x+(art_width+art_gap_x)*art_col+art_width/2
+                    art_center_y = first_art_y +(art_height+art_gap_y)*art_row+art_height/2
                     mouse.move(left+art_center_x, top+art_center_y)
                     mouse.click()
                 info = ocr_model.detect_info(art_img)
@@ -165,7 +165,7 @@ def alignFirstRow():
         scrollToRow(0)
     
 
-def scrollToRow(target_row, max_scrolls=20):
+def scrollToRow(target_row, max_scrolls=20, extra_scroll=0):
     in_between_row = False
     rows_scrolled = 0
     lines_scrolled = 0
@@ -181,6 +181,8 @@ def scrollToRow(target_row, max_scrolls=20):
             lines_scrolled = 0
             # print(f'已翻{rows_scrolled}行')
             if rows_scrolled >= target_row:
+                for _ in range(extra_scroll):
+                    mouse.wheel(-1)
                 return rows_scrolled
         if lines_scrolled > max_scrolls:
             return rows_scrolled
@@ -211,9 +213,9 @@ if w==0 or h==0:
     w, h = eval(input("如果要强行继续运行，请输入原神的分辨率，格式是\"宽,高\"，例如 1920,1080（不用引号）："))
     left, top = 0, 0
 
-if abs(w/h-2560/1440)>0.05:
-    print('只支持16:9分辨率')
-    sys.exit(0)
+# if abs(w/h-2560/1440)>0.05:
+#     input('只支持16:9分辨率')
+#     sys.exit(0)
 
 
 # initialization
@@ -230,39 +232,71 @@ mouse.on_middle_click(to_stop)
 
 # All Parameters
 DRY_RUN = False
-art_cols = 7
-art_rows = 5
 
-first_art_x = 276/2560*w
-first_art_y = 161/1440*h
-art_width = 165/2560*w
-art_height = 203/1440*h
-art_expand = 6/2560*w
+scale_ratio = min(w/2560, h/1440)
 
-art_gap_x = 31/2560*w
-art_gap_y = 31/1440*h
+art_width = 164.39*scale_ratio
+art_height = 203.21*scale_ratio
+art_expand = 6*scale_ratio
 
-art_info_top = 160/1440*h
-art_info_left = 1723/2560*w
-art_info_width = 656/2560*w
-art_info_height = 1119/1440*h
+art_gap_x = 30.89*scale_ratio
+art_gap_y = 30.35*scale_ratio
 
-scroll_keypt_x = 435/2560*w
-scroll_keypt_y = 1270/1440*h
+art_info_width = 656*scale_ratio
+art_info_height = 1119*scale_ratio
+
+left_margin = (199.33 if w<2*h else 295.33)*scale_ratio
+right_margin = (871.33 if w<2*h else 967.33)*scale_ratio
+info_margin = 0 if w<2*h else 96*scale_ratio
+
+art_cols = int(math.floor((w-left_margin-right_margin+art_gap_x)/(art_width+art_gap_x)))
+
+art_shift = ((w-left_margin-right_margin+art_gap_x) - art_cols*(art_width+art_gap_x))/2
+
+
+first_art_x = left_margin + art_shift
+first_art_y = 161*scale_ratio
+
+
+art_info_top = 160*scale_ratio
+art_info_left = w-837*scale_ratio - info_margin
+
+scroll_keypt_x = left_margin + art_shift + 158*scale_ratio
+scroll_keypt_y = 1270*scale_ratio+h-1440*scale_ratio
+scroll_fin_keypt_x = left_margin + art_shift + 10*scale_ratio
+scroll_fin_keypt_y = 335*scale_ratio
+
+art_rows = int(round((scroll_keypt_y-first_art_y+art_gap_y)/(art_height+art_gap_y)))
+
+
+# print(art_cols, art_rows)
+# import win32api, win32ui
+# dc = win32gui.GetDC(0)
+# dcObj = win32ui.CreateDCFromHandle(dc)
+# hwnd = win32gui.WindowFromPoint((0,0))
+# red = win32api.RGB(255, 0, 0)
+# monitor = (0, 0, win32api.GetSystemMetrics(0), win32api.GetSystemMetrics(1))
+# while True:
+#     dcObj.Rectangle((int(left+first_art_x), int(top+first_art_y), int(left+first_art_x)+10, int(top+first_art_y)+10))
+#     dcObj.Rectangle((int(left+art_info_left), int(top+art_info_top), int(left+art_info_left)+10, int(top+art_info_top)+10))
+#     dcObj.Rectangle((int(left+art_info_left+art_info_width), int(top+art_info_top+art_info_height), int(left+art_info_left+art_info_width)+10, int(top+art_info_top+art_info_height)+10))
+#     dcObj.Rectangle((int(left+scroll_keypt_x), int(top+scroll_keypt_y), int(left+scroll_keypt_x)+10, int(top+scroll_keypt_y)+10)) 
+#     win32gui.InvalidateRect(hwnd, monitor, True)
 
 # # star color=255,204,50
 # scroll_fin_keypt_x = 358
 # scroll_fin_keypt_y = 320
 
 # margin near level number, color=233,229,220
-scroll_fin_keypt_x = 285/2560*w
-scroll_fin_keypt_y = 335/1440*h
+
+
 
 if not DRY_RUN:
     os.makedirs('artifacts', exist_ok=True)
 
 
 input('请打开圣遗物背包界面，最好翻到圣遗物列表最上面。按回车继续')
+input(f'自动判断圣遗物背包有{art_rows}行{art_cols}列，请务必确认是否正确！！错误请退出并更改分辨率后尝试')
 input('运行期间请保持原神在前台，请勿遮挡窗口或操作鼠标，按鼠标中键停止。按回车继续')
 input('开始后将尝试自动对齐第一行以方便识别，若对齐结果有误，请立刻按中键停止。按回车开始执行')
 print('程序将于5秒后自动开始运行，若此条提示显示时未自动切换到原神窗口，请手动点击原神窗口切到前台')
@@ -274,6 +308,7 @@ keyboard.release('alt')
 
 time.sleep(5)
 
+
 print('正在自动对齐')
 mouse.move(left+first_art_x, top+first_art_y)
 alignFirstRow()
@@ -284,12 +319,19 @@ try:
     while True:
         if stopped or not scanRows(rows=range(start_row, art_rows)) or start_row!=0:
             break
-        start_row = 5-scrollToRow(5, max_scrolls=20)
-        if start_row==5:
+        start_row = art_rows-scrollToRow(art_rows, max_scrolls=20, extra_scroll=1)
+        if start_row==art_rows:
             break
+    print()
+    if stopped:
+        print("用户已中断扫描")
+    elif start_row==art_rows:
+        print("没有检测到下一页圣遗物，自动终止")
+    else:
+        print("在最后点击位置未检测到圣遗物，自动终止")
 except Exception as e:
+    print()
     print(f"因为\"{e}\"而意外停止扫描，将保存已扫描的圣遗物信息")
-print()
 if saved:
     with open('artifacts.genshinart.json', "wb") as f:
         s = json.dumps(result, ensure_ascii=False)
