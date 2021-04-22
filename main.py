@@ -121,6 +121,9 @@ def saveArtifact(info):
 def scanRows(rows):
     global art_id
     global saved
+    rows = list(rows)
+    if len(rows)<1:
+        return True
     art_center_x = first_art_x+(art_width+art_gap_x-0.5)*0+art_width/2
     art_center_y = first_art_y +(art_height+art_gap_y-0.5)*rows[0]+art_height/2
     mouse.move(left+art_center_x, top+art_center_y)
@@ -196,7 +199,7 @@ if hwnd is None or hwnd==0:
     
 if hwnd is None or hwnd==0:
     input('未找到在运行的原神')
-    exit()
+    sys.exit(0)
 
 w,h = win32gui.GetClientRect(hwnd)[2:]
 
@@ -205,11 +208,12 @@ left, top = win32gui.ClientToScreen(hwnd, (0,0))
 
 if w==0 or h==0:
     print("不支持独占全屏模式")
-    exit()
+    w, h = eval(input("如果要强行继续运行，请输入原神的分辨率，格式是\"宽,高\"，例如 1920,1080（不用引号）："))
+    left, top = 0, 0
 
 if abs(w/h-2560/1440)>0.05:
-    print('请将原神设定成16:9分辨率')
-    exit()
+    print('只支持16:9分辨率')
+    sys.exit(0)
 
 
 # initialization
@@ -276,10 +280,15 @@ alignFirstRow()
 print('对齐完成，即将开始扫描')
 time.sleep(0.5)
 start_row = 0
-while True:
-    if stopped or not scanRows(rows=range(start_row, art_rows)) or start_row!=0:
-        break
-    start_row = 5-scrollToRow(5, max_scrolls=20)
+try:
+    while True:
+        if stopped or not scanRows(rows=range(start_row, art_rows)) or start_row!=0:
+            break
+        start_row = 5-scrollToRow(5, max_scrolls=20)
+        if start_row==5:
+            break
+except Exception as e:
+    print(f"因为\"{e}\"而意外停止扫描，将保存已扫描的圣遗物信息")
 print()
 if saved:
     with open('artifacts.genshinart.json', "wb") as f:
@@ -287,5 +296,5 @@ if saved:
         f.write(s.encode('utf-8'))
     print('总计扫描了{}个圣遗物，保存了{}个到artifacts.genshinart.json，未保存的则为识别结果无法理解，请到artifacts路径中查看'.format(art_id, saved))
 else:
-    print('总计扫描了{}个圣遗物，未保存任何圣遗物，未保存的则为识别结果无法理解，请到artifacts路径中查看'.format(art_id, saved))
+    print('总计扫描了{}个圣遗物，未保存任何圣遗物，未保存的则为识别结果无法理解，请到artifacts路径中查看'.format(art_id))
 input('已完成，按回车退出')
