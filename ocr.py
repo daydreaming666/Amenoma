@@ -78,7 +78,12 @@ class OCR:
         subattr_2 = art_img.crop([i*self.scale_ratio for i in Config.subattr_2_coords])
         subattr_3 = art_img.crop([i*self.scale_ratio for i in Config.subattr_3_coords])
         subattr_4 = art_img.crop([i*self.scale_ratio for i in Config.subattr_4_coords])
-        if np.all(np.abs(np.array(subattr_2, np.float)-[[[73,83,102]]]).max(axis=-1)>25):
+        if np.all(np.abs(np.array(subattr_1, np.float)-[[[73,83,102]]]).max(axis=-1)>25):
+            del subattr_1
+            del subattr_2
+            del subattr_3
+            del subattr_4
+        elif np.all(np.abs(np.array(subattr_2, np.float)-[[[73,83,102]]]).max(axis=-1)>25):
             del subattr_2
             del subattr_3
             del subattr_4
