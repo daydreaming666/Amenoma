@@ -1,7 +1,7 @@
 import json
 import numpy as np   
 from PIL import ImageFont, Image, ImageDraw
-import ArtsInfo
+from .. import ArtsInfo
 
 MainAttrDatabase = json.load(open('ReliquaryLevelExcelConfigData.json'))
 SubAttrDatabase = json.load(open('ReliquaryAffixExcelConfigData.json'))
@@ -41,7 +41,7 @@ def generate_images(texts, font_size_range=(15, 40)):
         result.append(generate_image(text, font_size_range=font_size_range))
     return np.array(result)
 
-fonts = {i:ImageFont.truetype("genshin2.ttf", i) for i in range(10,100)}
+fonts = {i:ImageFont.truetype("genshin.ttf", i) for i in range(10,100)}
 def generate_image(text, font_size_range=(15, 40)):
     pos = np.random.randint(0, 10), np.random.randint(0, 10)
     backcolor = (

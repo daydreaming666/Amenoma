@@ -105,11 +105,14 @@ class OCR:
         text_img = np.array(text_img)
         if len(text_img.shape) > 2:
             text_img = (text_img[..., :3] @ [[[0.299], [0.587], [0.114]]])[:, :, 0]
-        text_img -= text_img.min()
-        text_img /= text_img.max()
-        if text_img[0, 0] > 0.5:
-            text_img = 1 - text_img
         return np.array(text_img, np.float32)
+
+    def normalize(self, img, auto_inverse=True):
+        img -= img.min()
+        img /= img.max()
+        if auto_inverse and img[-1, -1] > 0.5:
+            img = 1 - img
+        return img
 
 
     def crop(self, img, tol=0.7):
@@ -146,12 +149,11 @@ class OCR:
         )
 
 
-    def preprocess(self, text_img, inference=True):
+    def preprocess(self, text_img):
         result = self.to_gray(text_img)
-        if inference:
-            result = self.crop(result)
-        else:
-            result = self.crop(result, np.random.random()*0.25+0.6)
+        result = self.normalize(result, True)
+        result = self.crop(result)
+        result = self.normalize(result, False)
         result = self.resize_to_height(result)
         result = self.pad_to_width(result)
         return result

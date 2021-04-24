@@ -1,4 +1,6 @@
-
-__pycache__/ArtsInfo.cpython-38.pyc
-__pycache__/ocr.cpython-38.pyc
 artifacts.genshinart.json
+ArtScanner/artifacts.dat
+ArtScanner/artifacts.dat.index
+ArtScanner/artifacts.dat.lock
+ArtScanner/artifacts.dat.tmp
+**/__pycache__/**
