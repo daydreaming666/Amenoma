@@ -81,6 +81,7 @@ art_id = 0
 saved = 0
 skipped = 0
 failed = 0
+star_dist = [0,0,0,0,0]
 
 os.makedirs('artifacts', exist_ok=True)
 
@@ -121,7 +122,9 @@ def artscannerCallback(art_img):
     global art_id
     global skipped
     global failed
+    global star_dist
     info = ocr_model.detect_info(art_img)
+    star_dist[info['star']-1] += 1
     if decodeValue(info['level'])<level_threshold:
         skipped += 1
     elif art_data.add(info, art_img):
@@ -150,11 +153,18 @@ try:
     else:
         print("在最后点击位置未检测到圣遗物，自动终止")
 except Exception as e:
-    raise
     print()
     print(f"因为\"{e}\"而意外停止扫描，将保存已扫描的圣遗物信息")
 if saved != 0:
     art_data.exportGenshinArtJSON('artifacts.genshinart.json')
 print(f'总计扫描了{skipped+saved}/{art_id}个圣遗物，保存了{saved}个到artifacts.genshinart.json，失败了{failed}个')
 print('无效识别/失败结果请到artifacts路径中查看')
+print('----------------------------')
+print('圣遗物星级分布：')
+print(f'5星：{star_dist[4]}')
+print(f'4星：{star_dist[3]}')
+print(f'3星：{star_dist[2]}')
+print(f'2星：{star_dist[1]}')
+print(f'1星：{star_dist[0]}')
+print('----------------------------')
 input('已完成，按回车退出')

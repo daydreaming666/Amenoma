@@ -1,0 +1,1 @@
+pyinstaller --onefile --add-data "mn_model.h5;." --hidden-import=h5py --hidden-import=h5py.defs --hidden-import=h5py.utils --hidden-import=h5py.h5ac --hidden-import=h5py._proxy --uac-admin -n ArtScanner main.py

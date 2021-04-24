@@ -1,6 +1,9 @@
-artifacts.genshinart.json
+ArtScanner/artifacts.genshinart.json
 ArtScanner/artifacts.dat
 ArtScanner/artifacts.dat.index
 ArtScanner/artifacts.dat.lock
 ArtScanner/artifacts.dat.tmp
 **/__pycache__/**
+ArtScanner/build/**
+ArtScanner/dist/**
+ArtScanner/*.spec

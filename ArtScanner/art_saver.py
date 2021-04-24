@@ -89,7 +89,6 @@ class ArtDatabase:
             transaction.commit()
             return True
         except Exception as e:
-            raise
             return False
 
     def exportGenshinArtJSON(self, path):
