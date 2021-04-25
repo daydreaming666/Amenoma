@@ -2,6 +2,7 @@
 import time
 import win32gui
 import mouse, math
+from PIL import ImageChops
 from utils import captureWindow
 
 class GameInfo:
@@ -55,7 +56,7 @@ class ArtScannerLogic:
         self.stopped = True
 
 
-    def waitSwitched(self, art_center_x, art_center_y, min_wait=0.1, max_wait=3):
+    def waitSwitched(self, art_center_x, art_center_y, min_wait=0.1, max_wait=3, condition=lambda pix:sum(pix)/3>200):
         total_wait = 0
         while True:
             pix = captureWindow(self.game_info.hwnd, (
@@ -63,7 +64,7 @@ class ArtScannerLogic:
                 art_center_y, 
                 art_center_x-self.game_info.art_width/2-self.game_info.art_expand+1.5, 
                 art_center_y+1.5))
-            if sum(pix.getpixel((0,0)))/3>200:
+            if condition(pix.getpixel((0,0))):
                 return True
             else:
                 time.sleep(min_wait)
@@ -149,8 +150,21 @@ class ArtScannerLogic:
                     return rows_scrolled
             if lines_scrolled > max_scrolls:
                 return rows_scrolled
+            get_first_art = lambda : captureWindow(self.game_info.hwnd, (
+                self.game_info.first_art_x+self.game_info.art_width/2-1, 
+                self.game_info.first_art_y+self.game_info.art_height/2, 
+                self.game_info.first_art_x+self.game_info.art_width/2+1, 
+                self.game_info.first_art_y+self.game_info.art_height))
+            first_art = get_first_art()
             for _ in range(7 if lines_scrolled==0 and target_row>0 else 1):
                 mouse.wheel(-1)
                 lines_scrolled += 1
                 # print('翻一下')
-            time.sleep(interval)
+            total_waited = 0
+            while True:
+                time.sleep(interval)
+                total_waited += interval
+                if total_waited>5:
+                    break
+                if ImageChops.difference(get_first_art(), first_art).getbbox():
+                    break

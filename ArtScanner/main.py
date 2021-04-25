@@ -97,7 +97,7 @@ print('---------------------------------')
 input('运行期间请保持原神在前台，请勿遮挡窗口或操作鼠标，按鼠标中键停止。按回车继续')
 input('开始后将尝试自动对齐第一行以方便识别，若对齐结果有误，请立刻按中键停止。按回车继续')
 print('---------------------------------')
-if input('是否进行高级设置，例如等级过滤，稀有度过滤，翻页速度，确认请输入y：').strip().lower()=='y':
+if input('是否进行高级设置，例如等级过滤，稀有度过滤，翻页延迟，确认请输入y：').strip().lower()=='y':
     level_threshold = input('请输入圣遗物等级阈值(0-20)(比如：16，则仅将保存16级及以上的圣遗物信息)。直接按回车则默认保存所有圣遗物信息。')
     rarity_threshold = input('请输入圣遗物星级阈值(1-5)(比如：5，则仅将保存5星的圣遗物信息)。直接按回车则默认保存所有圣遗物信息。')
     scroll_interval = input('请输入翻页时的检测延迟（秒），数值越小翻页速度越快，但越可能造成跳行提前结束等问题，直接回车则为默认值0.05。')
@@ -106,15 +106,15 @@ print('程序将于5秒后自动开始运行，若此条提示显示时未自动
 
 try:
     level_threshold = int(level_threshold)
-except ValueError:
+except:
     level_threshold = 0
 try:
     rarity_threshold = int(rarity_threshold)
-except ValueError:
+except:
     rarity_threshold = 0
 try:
     scroll_interval = float(scroll_interval)
-except ValueError:
+except:
     scroll_interval = 0.05
 
 keyboard.press('alt')
