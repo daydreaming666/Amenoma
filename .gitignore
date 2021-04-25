@@ -7,3 +7,5 @@ ArtScanner/artifacts.dat.tmp
 ArtScanner/build/**
 ArtScanner/dist/**
 ArtScanner/*.spec
+ArtScanner/artifacts/**
+

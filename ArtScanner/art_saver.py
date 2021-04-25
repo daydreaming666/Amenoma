@@ -75,12 +75,16 @@ class Artifact(persistent.Persistent):
 
 class ArtDatabase:
     def __init__(self, path='artifacts.dat'):
-        self.storage = ZODB.FileStorage.FileStorage(path)
-        self.db = ZODB.DB(self.storage)
+        # self.storage = ZODB.FileStorage.FileStorage(path)
+        # self.db = ZODB.DB(self.storage)
+        self.db = ZODB.DB(None)
         self.conn = self.db.open()
         self.root = self.conn.root()
         if 'size' not in self.root:
             self.root['size'] = 0
+
+    def __del__(self):
+        self.db.close()
 
     def add(self, info, art_img):
         try:

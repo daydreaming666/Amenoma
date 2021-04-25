@@ -42,7 +42,7 @@ class GameInfo:
         self.scroll_fin_keypt_y = 335*self.scale_ratio
 
         self.art_rows = int(round((1270*self.scale_ratio+self.h-1440*self.scale_ratio-self.first_art_y+self.art_gap_y)/(self.art_height+self.art_gap_y)))
-        self.incomplete_lastrow = (1270*self.scale_ratio+self.h-1440*self.scale_ratio-self.first_art_y+self.art_gap_y)/(self.art_height+self.art_gap_y)-self.art_rows<0.7
+        self.incomplete_lastrow = ((1270*self.scale_ratio+self.h-1440*self.scale_ratio-self.first_art_y+self.art_gap_y)/(self.art_height+self.art_gap_y)-self.art_rows+1)<0.7
 
 
 
@@ -124,7 +124,7 @@ class ArtScannerLogic:
             self.scrollToRow(0)
         
 
-    def scrollToRow(self, target_row, max_scrolls=20, extra_scroll=0):
+    def scrollToRow(self, target_row, max_scrolls=20, extra_scroll=0, interval=0.05):
         in_between_row = False
         rows_scrolled = 0
         lines_scrolled = 0
@@ -149,8 +149,8 @@ class ArtScannerLogic:
                     return rows_scrolled
             if lines_scrolled > max_scrolls:
                 return rows_scrolled
-            for _ in range(6 if lines_scrolled==0 and target_row>0 else 1):
+            for _ in range(7 if lines_scrolled==0 and target_row>0 else 1):
                 mouse.wheel(-1)
                 lines_scrolled += 1
                 # print('翻一下')
-            time.sleep(0.05)
+            time.sleep(interval)

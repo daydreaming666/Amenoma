@@ -82,23 +82,40 @@ saved = 0
 skipped = 0
 failed = 0
 star_dist = [0,0,0,0,0]
+star_dist_saved = [0,0,0,0,0]
+
 
 os.makedirs('artifacts', exist_ok=True)
 
 input('请打开圣遗物背包界面，最好翻到圣遗物列表最上面。按回车继续')
+print('---------------------------------')
 if game_info.incomplete_lastrow:
     input(f'检测到圣遗物背包有{game_info.art_rows}行{game_info.art_cols}列，但最后一行不完整可能会影响自动翻页效果，建议更改分辨率到16:9')
 else:
     input(f'自动判断圣遗物背包有{game_info.art_rows}行{game_info.art_cols}列，请务必确认是否正确！！错误请退出并更改分辨率后尝试')
+print('---------------------------------')
 input('运行期间请保持原神在前台，请勿遮挡窗口或操作鼠标，按鼠标中键停止。按回车继续')
 input('开始后将尝试自动对齐第一行以方便识别，若对齐结果有误，请立刻按中键停止。按回车继续')
-level_threshold = input('请输入圣遗物等级阈值(0-20)(比如：16，则仅将保存16级及以上的圣遗物信息)。直接按回车则默认保存所有圣遗物信息。')
+print('---------------------------------')
+if input('是否进行高级设置，例如等级过滤，稀有度过滤，翻页速度，确认请输入y：').strip().lower()=='y':
+    level_threshold = input('请输入圣遗物等级阈值(0-20)(比如：16，则仅将保存16级及以上的圣遗物信息)。直接按回车则默认保存所有圣遗物信息。')
+    rarity_threshold = input('请输入圣遗物星级阈值(1-5)(比如：5，则仅将保存5星的圣遗物信息)。直接按回车则默认保存所有圣遗物信息。')
+    scroll_interval = input('请输入翻页时的检测延迟（秒），数值越小翻页速度越快，但越可能造成跳行提前结束等问题，直接回车则为默认值0.05。')
+print('---------------------------------')
 print('程序将于5秒后自动开始运行，若此条提示显示时未自动切换到原神窗口，请手动点击原神窗口切到前台')
 
 try:
     level_threshold = int(level_threshold)
 except ValueError:
     level_threshold = 0
+try:
+    rarity_threshold = int(rarity_threshold)
+except ValueError:
+    rarity_threshold = 0
+try:
+    scroll_interval = float(scroll_interval)
+except ValueError:
+    scroll_interval = 0.05
 
 keyboard.press('alt')
 win32gui.ShowWindow(hwnd,5)
@@ -125,10 +142,11 @@ def artscannerCallback(art_img):
     global star_dist
     info = ocr_model.detect_info(art_img)
     star_dist[info['star']-1] += 1
-    if decodeValue(info['level'])<level_threshold:
+    if decodeValue(info['level'])<level_threshold or decodeValue(info['star'])<rarity_threshold:
         skipped += 1
     elif art_data.add(info, art_img):
         saved += 1
+        star_dist_saved[info['star']-1] += 1
     else:
         art_img.save(f'artifacts/{art_id}.png')
         s = json.dumps(info)
@@ -142,13 +160,13 @@ try:
     while True:
         if art_scanner.stopped or not art_scanner.scanRows(rows=range(start_row, game_info.art_rows), callback=artscannerCallback) or start_row!=0:
             break
-        start_row = game_info.art_rows-art_scanner.scrollToRow(game_info.art_rows, max_scrolls=20, extra_scroll=int(game_info.art_rows>5))
+        start_row = game_info.art_rows-art_scanner.scrollToRow(game_info.art_rows, max_scrolls=20, extra_scroll=int(game_info.art_rows>5), interval=scroll_interval)
         if start_row==game_info.art_rows:
             break
     print()
     if art_scanner.stopped:
         print("用户已中断扫描")
-    elif start_row==game_info.art_rows:
+    elif start_row!=0:
         print("没有检测到下一页圣遗物，自动终止")
     else:
         print("在最后点击位置未检测到圣遗物，自动终止")
@@ -160,11 +178,11 @@ if saved != 0:
 print(f'总计扫描了{skipped+saved}/{art_id}个圣遗物，保存了{saved}个到artifacts.genshinart.json，失败了{failed}个')
 print('无效识别/失败结果请到artifacts路径中查看')
 print('----------------------------')
-print('圣遗物星级分布：')
-print(f'5星：{star_dist[4]}')
-print(f'4星：{star_dist[3]}')
-print(f'3星：{star_dist[2]}')
-print(f'2星：{star_dist[1]}')
-print(f'1星：{star_dist[0]}')
+print('圣遗物星级分布：（保存数量/扫描数量）')
+print(f'5星：{star_dist_saved[4]}/{star_dist[4]}')
+print(f'4星：{star_dist_saved[3]}/{star_dist[3]}')
+print(f'3星：{star_dist_saved[2]}/{star_dist[2]}')
+print(f'2星：{star_dist_saved[1]}/{star_dist[1]}')
+print(f'1星：{star_dist_saved[0]}/{star_dist[0]}')
 print('----------------------------')
 input('已完成，按回车退出')
