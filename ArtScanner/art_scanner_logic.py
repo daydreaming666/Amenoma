@@ -3,6 +3,7 @@ import time
 import win32gui
 import mouse, math
 from PIL import ImageChops
+import numpy as np
 from utils import captureWindow
 
 class GameInfo:
@@ -51,20 +52,25 @@ class ArtScannerLogic:
     def __init__(self, game_info):
         self.game_info = game_info
         self.stopped = False
+        self.avg_response_time = 1/60
     
     def interrupt(self):
         self.stopped = True
 
 
     def waitSwitched(self, art_center_x, art_center_y, min_wait=0.1, max_wait=3, condition=lambda pix:sum(pix)/3>200):
+        start = time.time()
         total_wait = 0
         while True:
+            mouse.move(self.game_info.left+art_center_x, self.game_info.top+art_center_y)
+            mouse.click()
             pix = captureWindow(self.game_info.hwnd, (
                 art_center_x-self.game_info.art_width/2-self.game_info.art_expand, 
                 art_center_y, 
                 art_center_x-self.game_info.art_width/2-self.game_info.art_expand+1.5, 
                 art_center_y+1.5))
             if condition(pix.getpixel((0,0))):
+                self.avg_response_time = 0.5*self.avg_response_time + 0.5*(time.time()-start)
                 return True
             else:
                 time.sleep(min_wait)
@@ -113,12 +119,13 @@ class ArtScannerLogic:
 
     def alignFirstRow(self):
         mouse.move(self.game_info.left+self.game_info.first_art_x, self.game_info.top+self.game_info.first_art_y)
+        mouse.click()
         pix = captureWindow(self.game_info.hwnd, (
             self.game_info.scroll_fin_keypt_x, 
             self.game_info.scroll_fin_keypt_y, 
             self.game_info.scroll_fin_keypt_x+1.5, 
             self.game_info.scroll_fin_keypt_y+1.5))
-        if pix.getpixel((0,0))[0]!=233 or pix.getpixel((0,0))[1]!=229 or pix.getpixel((0,0))[2]!=220:
+        if abs(pix.getpixel((0,0))[0]-233)>5 or abs(pix.getpixel((0,0))[1]-229)>5 or abs(pix.getpixel((0,0))[2]-220)>5:
             for _ in range(3):
                 mouse.wheel(1)
             time.sleep(0.1)
@@ -135,7 +142,7 @@ class ArtScannerLogic:
                 self.game_info.scroll_fin_keypt_y, 
                 self.game_info.scroll_fin_keypt_x+1.5, 
                 self.game_info.scroll_fin_keypt_y+1.5))
-            if pix.getpixel((0,0))[0]!=233 or pix.getpixel((0,0))[1]!=229 or pix.getpixel((0,0))[2]!=220:
+            if abs(pix.getpixel((0,0))[0]-233)>5 or abs(pix.getpixel((0,0))[1]-229)>5 or abs(pix.getpixel((0,0))[2]-220)>5:
                 # if in_between_row==False:
                 #     print('到行之间了')
                 in_between_row = True
@@ -150,21 +157,22 @@ class ArtScannerLogic:
                     return rows_scrolled
             if lines_scrolled > max_scrolls:
                 return rows_scrolled
-            get_first_art = lambda : captureWindow(self.game_info.hwnd, (
+            get_first_art = lambda : np.array(captureWindow(self.game_info.hwnd, (
                 self.game_info.first_art_x+self.game_info.art_width/2-1, 
                 self.game_info.first_art_y+self.game_info.art_height/2, 
                 self.game_info.first_art_x+self.game_info.art_width/2+1, 
-                self.game_info.first_art_y+self.game_info.art_height))
+                self.game_info.first_art_y+self.game_info.art_height)))
             first_art = get_first_art()
             for _ in range(7 if lines_scrolled==0 and target_row>0 else 1):
                 mouse.wheel(-1)
                 lines_scrolled += 1
                 # print('翻一下')
+            time.sleep(self.avg_response_time)
             total_waited = 0
             while True:
-                time.sleep(interval)
-                total_waited += interval
                 if total_waited>5:
                     break
-                if ImageChops.difference(get_first_art(), first_art).getbbox():
+                if np.max(np.abs(get_first_art()-first_art))>5:
                     break
+                time.sleep(interval)
+                total_waited += interval

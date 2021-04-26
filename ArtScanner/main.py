@@ -31,20 +31,34 @@ import json
 import ocr
 from art_saver import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
-from utils import decodeValue
+from utils import decodeValue, findWindowsByName, calcFormatWidth, setWindowToForeground
 
 if len(sys.argv)>1:
     bundle_dir = sys.argv[1]
 else:
     bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
 
+import win32gui
 
 window_name_cn = '原神'
-hwnd = win32gui.FindWindow(None, window_name_cn)
-    
-if hwnd is None or hwnd==0:
-    input('未找到在运行的原神')
-    sys.exit(0)
+while True:
+    windows = findWindowsByName(window_name_cn)
+    if len(windows) == 0:
+        window_name_cn = input('未找到在运行的原神，请在这里输入窗口标题（留空则列出所有尺寸非0窗口）：').strip().lower()
+    elif len(windows) == 1:
+        hwnd = windows[0][0]
+        break
+    else:
+        print('-----------------------------')
+        print(f'发现多个窗口名为{window_name_cn}，请从以下列表中选择：')
+        print('{0:^{4}} {1:^{5}} {2:^{6}} {3:^{7}}'.format('编号','窗口标题', '进程名', '窗口内部分辨率',
+            calcFormatWidth('编号', 5), calcFormatWidth('窗口标题', 25), calcFormatWidth('进程名', 25), calcFormatWidth('窗口内部分辨率', 15)))
+        for i, window in enumerate(windows):
+            print('{0:^5} {1:<{4}.{4}} {2:<{5}.{5}} {3:<15}'.format(i+1, window[1], os.path.basename(window[2]), str(window[3]), 
+                calcFormatWidth(window[1], 25), calcFormatWidth(window[2], 25)))
+        hwnd = windows[int(input('请输入要选择的编号：'))-1][0]
+        print('-----------------------------')
+        break
 
 game_info = GameInfo(hwnd)
 
@@ -117,10 +131,7 @@ try:
 except:
     scroll_interval = 0.05
 
-keyboard.press('alt')
-win32gui.ShowWindow(hwnd,5)
-win32gui.SetForegroundWindow(hwnd)
-keyboard.release('alt')
+setWindowToForeground(hwnd)
 
 time.sleep(5)
 
@@ -154,7 +165,7 @@ def artscannerCallback(art_img):
             f.write(s)
         failed += 1
     art_id += 1
-    print(f"\r已扫描{art_id}个圣遗物，已保存{saved}个，已跳过{skipped}个", end='')
+    print(f"\r已扫描{art_id}个圣遗物，已保存{saved}个，已跳过{skipped}个，游戏平均响应时间{art_scanner.avg_response_time*1000:3.0f}毫秒", end='')
 
 try:
     while True:
