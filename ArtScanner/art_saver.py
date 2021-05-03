@@ -5,8 +5,8 @@ import ZODB.FileStorage
 import persistent
 import transaction
 from enum import IntEnum as Enum
-import json
-
+import json, os, sys
+bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
 
 class ArtifactType(Enum):
     FLOWER = 0
@@ -79,9 +79,9 @@ class ArtifactStat:
 
 class Artifact(persistent.Persistent):
     rare_substat_ranges = {getattr(ArtifactStatType, k): {j//100:[i['PropValue'] for i in json.load(open(
-        'Tools/ReliquaryAffixExcelConfigData.json')) if i['DepotId'] == j and i['PropType'] == k] for j in [101, 201, 301, 401, 501]} for k in ArtsInfo.SubAttrNames.keys()}
+        f'{bundle_dir}/Tools/ReliquaryAffixExcelConfigData.json')) if i['DepotId'] == j and i['PropType'] == k] for j in [101, 201, 301, 401, 501]} for k in ArtsInfo.SubAttrNames.keys()}
     level_stat_range = {getattr(ArtifactStatType, k): {l: {r: sum([[j['Value'] for j in i['AddProps'] if j['PropType'] == k] for i in json.load(
-        open('Tools/ReliquaryLevelExcelConfigData.json')) if i.get('Level', -1) == l+1 and i.get('Rank', -1) == r], []) for r in range(1, 6)} for l in range(21)} for k in ArtsInfo.MainAttrNames.keys()}
+        open(f'{bundle_dir}/Tools/ReliquaryLevelExcelConfigData.json')) if i.get('Level', -1) == l+1 and i.get('Rank', -1) == r], []) for r in range(1, 6)} for l in range(21)} for k in ArtsInfo.MainAttrNames.keys()}
 
     def __init__(self, info, image):
         '''
