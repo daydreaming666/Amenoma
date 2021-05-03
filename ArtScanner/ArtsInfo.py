@@ -119,8 +119,8 @@ SetNamesGenshinArt = [
     "adventurer",  # 冒险家
     "luckyDog",  # 幸运儿
     "travelingDoctor",  # 游医
-    "paleFlame",  # 苍白之火
     "tenacityOfTheMillelith",  # 千岩牢固
+    "paleFlame",  # 苍白之火
 ]
 
 ArtNames = [
