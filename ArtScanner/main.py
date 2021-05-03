@@ -90,7 +90,7 @@ game_info.calculateCoordinates()
 # margin near level number, color=233,229,220
 
 # initialization
-ocr_model = ocr.OCR(scale_ratio=game_info.scale_ratio, model_path=os.path.join(bundle_dir, 'mn_model.h5'))
+ocr_model = ocr.OCR(scale_ratio=game_info.scale_ratio, model_weight=os.path.join(bundle_dir, 'mn_model_weight.h5'))
 art_id = 0
 saved = 0
 skipped = 0
@@ -160,9 +160,9 @@ def artscannerCallback(art_img):
         star_dist_saved[info['star']-1] += 1
     else:
         art_img.save(f'artifacts/{art_id}.png')
-        s = json.dumps(info)
-        with open(f"artifacts/{art_id}.json", "wt") as f:
-            f.write(s)
+        s = json.dumps(info, ensure_ascii=False)
+        with open(f"artifacts/{art_id}.json", "wb") as f:
+            f.write(s.encode('utf-8'))
         failed += 1
     art_id += 1
     print(f"\r已扫描{art_id}个圣遗物，已保存{saved}个，已跳过{skipped}个，游戏平均响应时间{art_scanner.avg_response_time*1000:3.0f}毫秒", end='')
@@ -183,7 +183,7 @@ try:
         print("在最后点击位置未检测到圣遗物，自动终止")
 except Exception as e:
     print()
-    print(f"因为\"{e}\"而意外停止扫描，将保存已扫描的圣遗物信息")
+    print(f"因为\"{repr(e)}\"而意外停止扫描，将保存已扫描的圣遗物信息")
 if saved != 0:
     art_data.exportGenshinArtJSON('artifacts.genshinart.json')
 print(f'总计扫描了{skipped+saved}/{art_id}个圣遗物，保存了{saved}个到artifacts.genshinart.json，失败了{failed}个')

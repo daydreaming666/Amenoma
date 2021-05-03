@@ -9,3 +9,4 @@ ArtScanner/dist/**
 ArtScanner/*.spec
 ArtScanner/artifacts/**
 
+.vscode/**

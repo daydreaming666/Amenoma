@@ -7,7 +7,7 @@ MainAttrDatabase = json.load(open('ReliquaryLevelExcelConfigData.json'))
 SubAttrDatabase = json.load(open('ReliquaryAffixExcelConfigData.json'))
 
 def gen_name():
-    return np.random.choice(ArtsInfo.ArtNames, size=1)[0]
+    return np.random.choice(sum(ArtsInfo.ArtNames, []), size=1)[0]
 
 def gen_type():
     return np.random.choice(ArtsInfo.TypeNames, size=1)[0]
