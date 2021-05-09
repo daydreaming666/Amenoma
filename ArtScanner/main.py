@@ -64,7 +64,7 @@ game_info = GameInfo(hwnd)
 
 if game_info.w==0 or game_info.h==0:
     print("不支持独占全屏模式")
-    game_info.w, game_info.h = eval(input("如果要强行继续运行，请输入原神的分辨率，格式是\"宽,高\"，例如 1920,1080（不用引号）："))
+    game_info.w, game_info.h = eval(input("如果要尝试继续运行，请输入原神的分辨率，格式是\"宽,高\"，例如 1920,1080（不用引号）："))
     game_info.left, game_info.top = 0, 0
 
 game_info.calculateCoordinates()
@@ -111,12 +111,20 @@ print('---------------------------------')
 input('运行期间请保持原神在前台，请勿遮挡窗口或操作鼠标，按鼠标中键停止。按回车继续')
 input('开始后将尝试自动对齐第一行以方便识别，若对齐结果有误，请立刻按中键停止。按回车继续')
 print('---------------------------------')
-if input('是否进行高级设置，例如等级过滤，稀有度过滤，翻页延迟，确认请输入y：').strip().lower()=='y':
+if input('是否进行高级设置，例如等级过滤，稀有度过滤，翻页延迟，导出格式，确认请输入y：').strip().lower()=='y':
+    export_type = input('请输入需要的导出格式，0=莫娜的占卜铺（回车默认值），1=MingyuLab。')
     level_threshold = input('请输入圣遗物等级阈值(0-20)(比如：16，则仅将保存16级及以上的圣遗物信息)。直接按回车则默认保存所有圣遗物信息。')
     rarity_threshold = input('请输入圣遗物星级阈值(1-5)(比如：5，则仅将保存5星的圣遗物信息)。直接按回车则默认保存所有圣遗物信息。')
-    scroll_interval = input('请输入翻页时的检测延迟（秒），数值越小翻页速度越快，但越可能造成跳行提前结束等问题，直接回车则为默认值0.05。')
+    scroll_interval = input('请输入翻页时的检测延迟（秒），数值越大翻页速度越慢，可以解决一些翻页时的检测BUG，直接回车则为默认值0.05。')
 print('---------------------------------')
 print('程序将于5秒后自动开始运行，若此条提示显示时未自动切换到原神窗口，请手动点击原神窗口切到前台')
+
+setWindowToForeground(hwnd)
+
+time.sleep(5)
+
+art_scanner = ArtScannerLogic(game_info)
+art_data = ArtDatabase('artifacts.dat')
 
 try:
     level_threshold = int(level_threshold)
@@ -130,13 +138,14 @@ try:
     scroll_interval = float(scroll_interval)
 except:
     scroll_interval = 0.05
+try:
+    exporter = [art_data.exportGenshinArtJSON, art_data.exportMingyuLabJSON][int(export_type)]
+    export_name = ['artifacts.genshinart.json', 'artifacts.mingyulab.json'][int(export_type)]
+except:
+    exporter = art_data.exportGenshinArtJSON
+    export_name = 'artifacts.genshinart.json'
 
-setWindowToForeground(hwnd)
 
-time.sleep(5)
-
-art_scanner = ArtScannerLogic(game_info)
-art_data = ArtDatabase('artifacts.dat')
 mouse.on_middle_click(art_scanner.interrupt)
 
 print('正在自动对齐')
@@ -185,8 +194,8 @@ except Exception as e:
     print()
     print(f"因为\"{repr(e)}\"而意外停止扫描，将保存已扫描的圣遗物信息")
 if saved != 0:
-    art_data.exportGenshinArtJSON('artifacts.genshinart.json')
-print(f'总计扫描了{skipped+saved}/{art_id}个圣遗物，保存了{saved}个到artifacts.genshinart.json，失败了{failed}个')
+    exporter(export_name)
+print(f'总计扫描了{skipped+saved}/{art_id}个圣遗物，保存了{saved}个到{export_name}，失败了{failed}个')
 print('无效识别/失败结果请到artifacts路径中查看')
 print('----------------------------')
 print('圣遗物星级分布：（保存数量/扫描数量）')

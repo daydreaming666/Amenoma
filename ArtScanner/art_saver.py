@@ -96,11 +96,10 @@ class Artifact(persistent.Persistent):
             image: PIL.Image, screenshot of the artifact, will be shrinked to 300x512 to save space
         '''
         typeid = ArtsInfo.TypeNames.index(info['type'])
-        setid = [i for i, v in enumerate(
+        self.setid = [i for i, v in enumerate(
             ArtsInfo.ArtNames) if info['name'] in v][0]
         self.name = info['name']
         self.type = ArtifactType(typeid)
-        self.setname = ArtsInfo.SetNamesGenshinArt[setid]
         self.level = decodeValue(info['level'])
         self.rarity = info['star']
         self.stat = ArtifactStat(
@@ -189,7 +188,7 @@ class ArtDatabase:
             art = self.root[str(art_id)]
             result[ArtsInfo.TypeNamesGenshinArt[art.type]].append(
                 {
-                    "setName": art.setname,
+                    "setName": ArtsInfo.SetNamesGenshinArt[art.setid],
                     "position": ArtsInfo.TypeNamesGenshinArt[art.type],
                     "detailName": art.name,
                     "mainTag": {
@@ -209,6 +208,26 @@ class ArtDatabase:
                     'star': art.rarity
                 }
             )
+        f = open(path, "wb")
+        s = json.dumps(result, ensure_ascii=False)
+        f.write(s.encode('utf-8'))
+        f.close()
+    
+    def exportMingyuLabJSON(self, path):
+        result = []
+        for art_id in range(self.root['size']):
+            art = self.root[str(art_id)]
+            result.append({
+                "asKey": ArtsInfo.SetNamesMingyuLab[art.setid],
+                "rarity": art.rarity,
+                "slot": ArtsInfo.TypeNamesMingyuLab[art.type],
+                "level": art.level,
+                "mainStat": ArtsInfo.AttrNamesMingyuLab[art.stat.type.name],
+                "mark": "none"
+            })
+            for i, stat in enumerate(art.substats):
+                result[-1][f"subStat{i+1}Type"] = ArtsInfo.AttrNamesMingyuLab[stat.type.name]
+                result[-1][f"subStat{i+1}Value"] = ArtsInfo.Formats[stat.type.name].format(stat.value).replace('%', '').replace(',', '')
         f = open(path, "wb")
         s = json.dumps(result, ensure_ascii=False)
         f.write(s.encode('utf-8'))

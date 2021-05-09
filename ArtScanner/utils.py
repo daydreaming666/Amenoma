@@ -17,9 +17,12 @@ def setWindowToForeground(hwnd):
     keyboard.release('alt')
 
 def getProcessName(hwnd):
-    pid = win32process.GetWindowThreadProcessId(hwnd)
-    handle = win32api.OpenProcess(win32con.PROCESS_QUERY_INFORMATION | win32con.PROCESS_VM_READ, False, pid[1])
-    return win32process.GetModuleFileNameEx(handle, 0)
+    try:
+        pid = win32process.GetWindowThreadProcessId(hwnd)
+        handle = win32api.OpenProcess(win32con.PROCESS_ALL_ACCESS, False, pid[1])
+        return win32process.GetModuleFileNameEx(handle, 0)
+    except:
+        return "Unknown"
 
 def findWindowsByName(name):
     windows = []
