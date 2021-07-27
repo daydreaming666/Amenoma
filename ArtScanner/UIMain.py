@@ -45,6 +45,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
             msgbox = QMessageBox.warning(self, 'Error', '请在右键菜单选择以管理员身份运行', QMessageBox.Yes, QMessageBox.Yes)
             sys.exit(0)
         self.initDpi()
+        self.print_log("初始化完成！")
 
     class ProgressBarThread(QThread):
         def __init__(self, bar: QProgressBar):
