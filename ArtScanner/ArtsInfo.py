@@ -61,7 +61,7 @@ SubAttrNames = {
 }
 
 RarityToMaxLvs = [4, 4, 12, 16, 20]
-RarityToBaseStatNumber = {1:[0], 2:[0,1], 3:[1,2], 4:[2,3], 5:[3,4]}
+RarityToBaseStatNumber = {1: [0], 2: [0, 1], 3: [1, 2], 4: [2, 3], 5: [3, 4]}
 
 ArtNames = [
     ["磐陀裂生之花", "嵯峨群峰之翼", "星罗圭璧之晷", "巉岩琢塑之樽", "不动玄石之相"],
@@ -135,7 +135,6 @@ Users = [
     "尤拉",
 ]
 
-
 TypeNamesGenshinArt = ["flower", "feather", "sand", "cup", "head"]
 AttrNamesGensinArt = {
     "FIGHT_PROP_CRITICAL": "critical",
@@ -194,7 +193,6 @@ SetNamesGenshinArt = [
     "tenacityOfTheMillelith",  # 千岩牢固
     "paleFlame",  # 苍白之火
 ]
-
 
 TypeNamesMingyuLab = ['flower', 'plume', 'eon', 'goblet', 'circlet']
 AttrNamesMingyuLab = {

@@ -1,12 +1,18 @@
-import ArtsInfo
-from utils import decodeValue
+import json
+import os
+import sys
+from enum import IntEnum as Enum
+
 import ZODB
 import ZODB.FileStorage
 import persistent
 import transaction
-from enum import IntEnum as Enum
-import json, os, sys
+
+import ArtsInfo
+from utils import decodeValue
+
 bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
+
 
 class ArtifactType(Enum):
     FLOWER = 0
@@ -50,7 +56,7 @@ class ArtifactStat:
     def __init__(self, name, value):
         name = ArtsInfo.AttrName2Ids[name]
         value = decodeValue(value)
-        if type(value) == float and (name+'_PERCENT') in ArtsInfo.MainAttrNames:
+        if type(value) == float and (name + '_PERCENT') in ArtsInfo.MainAttrNames:
             name += '_PERCENT'
         self.type = getattr(ArtifactStatType, name)
         self.value = value
@@ -58,30 +64,35 @@ class ArtifactStat:
     def __eq__(self, other):
         if type(other) == int or type(other) == float:
             self_value_str = ArtsInfo.Formats[self.type.name].format(
-                self.value+1e-5)
-            other_str = ArtsInfo.Formats[self.type.name].format(other+1e-5)
+                self.value + 1e-5)
+            other_str = ArtsInfo.Formats[self.type.name].format(other + 1e-5)
             return other_str == self_value_str
         return str(self) == str(other)
 
     def compare_value(self, other):
         self_value_str = ArtsInfo.Formats[self.type.name].format(
-                self.value+1e-5)
-        other_str = ArtsInfo.Formats[self.type.name].format(other+1e-5)
-        if self_value_str==other_str:
+            self.value + 1e-5)
+        other_str = ArtsInfo.Formats[self.type.name].format(other + 1e-5)
+        if self_value_str == other_str:
             return 0
-        if decodeValue(self_value_str)<decodeValue(other_str):
+        if decodeValue(self_value_str) < decodeValue(other_str):
             return -1
         return 1
-        
+
     def __str__(self):
-        return ArtsInfo.MainAttrNames[self.type.name] + "+" + ArtsInfo.Formats[self.type.name].format(self.value+1e-5)
+        return ArtsInfo.MainAttrNames[self.type.name] + "+" + ArtsInfo.Formats[self.type.name].format(self.value + 1e-5)
 
 
 class Artifact(persistent.Persistent):
-    rare_substat_ranges = {getattr(ArtifactStatType, k): {j//100:[i['PropValue'] for i in json.load(open(
-        f'{bundle_dir}/Tools/ReliquaryAffixExcelConfigData.json')) if i['DepotId'] == j and i['PropType'] == k] for j in [101, 201, 301, 401, 501]} for k in ArtsInfo.SubAttrNames.keys()}
-    level_stat_range = {getattr(ArtifactStatType, k): {l: {r: sum([[j['Value'] for j in i['AddProps'] if j['PropType'] == k] for i in json.load(
-        open(f'{bundle_dir}/Tools/ReliquaryLevelExcelConfigData.json')) if i.get('Level', -1) == l+1 and i.get('Rank', -1) == r], []) for r in range(1, 6)} for l in range(21)} for k in ArtsInfo.MainAttrNames.keys()}
+    rare_substat_ranges = {getattr(ArtifactStatType, k): {j // 100: [i['PropValue'] for i in json.load(open(
+        f'{bundle_dir}/Tools/ReliquaryAffixExcelConfigData.json')) if i['DepotId'] == j and i['PropType'] == k] for j in
+                                                          [101, 201, 301, 401, 501]} for k in
+                           ArtsInfo.SubAttrNames.keys()}
+    level_stat_range = {getattr(ArtifactStatType, k): {
+        l: {r: sum([[j['Value'] for j in i['AddProps'] if j['PropType'] == k] for i in json.load(
+            open(f'{bundle_dir}/Tools/ReliquaryLevelExcelConfigData.json')) if
+                    i.get('Level', -1) == l + 1 and i.get('Rank', -1) == r], []) for r in range(1, 6)} for l in
+        range(21)} for k in ArtsInfo.MainAttrNames.keys()}
 
     def __init__(self, info, image):
         '''
@@ -111,22 +122,23 @@ class Artifact(persistent.Persistent):
         assert self.is_valid(), "Artifact attributes are not valid"
 
     def is_valid(self):
-        if self.level > ArtsInfo.RarityToMaxLvs[self.rarity-1]:
+        if self.level > ArtsInfo.RarityToMaxLvs[self.rarity - 1]:
             return False
         if self.stat not in self.__class__.level_stat_range[self.stat.type][self.level][self.rarity]:
             return False
         if self.calculate_substat_upgrades() == []:
             return False
         return True
+
     def calculate_substat_upgrades(self):
         def all_possible_combinations(l, n_comb):
             if n_comb == 0:
                 return [0]
-            t = all_possible_combinations(l, n_comb-1)
+            t = all_possible_combinations(l, n_comb - 1)
             result = []
             for i in l:
                 for j in t:
-                    result.append(i+j)
+                    result.append(i + j)
             return result
 
         def all_possible_combinations_nested(l, target_values=None):
@@ -136,25 +148,27 @@ class Artifact(persistent.Persistent):
             result = []
             for i in l[0]:
                 for j in t:
-                    if target_values is None or sum(j)+i in target_values:
-                        result.append((i,)+j)
+                    if target_values is None or sum(j) + i in target_values:
+                        result.append((i,) + j)
             return result
-        n_upgrades = self.level//4
+
+        n_upgrades = self.level // 4
         substat_upgrade_possibilities = []
         for i in self.substats:
             substat_range = sorted(
                 self.__class__.rare_substat_ranges[i.type][self.rarity])
             substat_upgrade_possibilities.append([])
-            for j in range(1, n_upgrades+2):
-                if i.compare_value(substat_range[-1]*j)>0:
+            for j in range(1, n_upgrades + 2):
+                if i.compare_value(substat_range[-1] * j) > 0:
                     continue
-                if i.compare_value(substat_range[0]*j)<0:
+                if i.compare_value(substat_range[0] * j) < 0:
                     break
                 if i in [k for k in all_possible_combinations(substat_range, j)]:
                     substat_upgrade_possibilities[-1].append(j)
             if len(substat_upgrade_possibilities[-1]) == 0:
                 return []
-        return all_possible_combinations_nested(substat_upgrade_possibilities, target_values=set([i+n_upgrades for i in ArtsInfo.RarityToBaseStatNumber[self.rarity]]))
+        return all_possible_combinations_nested(substat_upgrade_possibilities, target_values=set(
+            [i + n_upgrades for i in ArtsInfo.RarityToBaseStatNumber[self.rarity]]))
 
 
 class ArtDatabase:
@@ -212,7 +226,7 @@ class ArtDatabase:
         s = json.dumps(result, ensure_ascii=False)
         f.write(s.encode('utf-8'))
         f.close()
-    
+
     def exportMingyuLabJSON(self, path):
         result = []
         for art_id in range(self.root['size']):
@@ -226,24 +240,29 @@ class ArtDatabase:
                 "mark": "none"
             })
             for i, stat in enumerate(art.substats):
-                result[-1][f"subStat{i+1}Type"] = ArtsInfo.AttrNamesMingyuLab[stat.type.name]
-                result[-1][f"subStat{i+1}Value"] = ArtsInfo.Formats[stat.type.name].format(stat.value).replace('%', '').replace(',', '')
+                result[-1][f"subStat{i + 1}Type"] = ArtsInfo.AttrNamesMingyuLab[stat.type.name]
+                result[-1][f"subStat{i + 1}Value"] = ArtsInfo.Formats[stat.type.name].format(stat.value).replace('%',
+                                                                                                                 '').replace(
+                    ',', '')
         f = open(path, "wb")
         s = json.dumps(result, ensure_ascii=False)
         f.write(s.encode('utf-8'))
         f.close()
 
-if __name__=='__main__':
+
+if __name__ == '__main__':
     art = Artifact({
-        "name":"沉波之盏",
-        "type":"空之杯",
-        "star":5,
-        "level":"+20",
-        "main_attr_name":"冰元素伤害加成",
-        "main_attr_value":"46.6%",
-        "subattr_1":"元素充能效率+18.1%",
-        "subattr_2":"暴击率+7.4%",
-        "subattr_3":"防御力+63",
-        "subattr_4":"暴击伤害+6.2%",
+        "name": "沉波之盏",
+        "type": "空之杯",
+        "star": 5,
+        "level": "+20",
+        "main_attr_name": "冰元素伤害加成",
+        "main_attr_value": "46.6%",
+        "subattr_1": "元素充能效率+18.1%",
+        "subattr_2": "暴击率+7.4%",
+        "subattr_3": "防御力+63",
+        "subattr_4": "暴击伤害+6.2%",
     }, None)
-    art = Artifact({"level": "+20", "main_attr_name": "生命值", "main_attr_value": "4,780", "name": "野花记忆的绿野", "subattr_1": "元素充能效率+4.5%", "subattr_2": "攻击力+15.7%", "subattr_3": "暴击伤害+14.0%", "subattr_4": "元素精通+42", "type": "生之花", "star": 5}, None)
+    art = Artifact({"level": "+20", "main_attr_name": "生命值", "main_attr_value": "4,780", "name": "野花记忆的绿野",
+                    "subattr_1": "元素充能效率+4.5%", "subattr_2": "攻击力+15.7%", "subattr_3": "暴击伤害+14.0%",
+                    "subattr_4": "元素精通+42", "type": "生之花", "star": 5}, None)

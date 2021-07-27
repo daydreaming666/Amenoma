@@ -1,11 +1,11 @@
 import os
-os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"   # see issue #152
+
+os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"  # see issue #152
 os.environ["CUDA_VISIBLE_DEVICES"] = "-1"
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3' 
+os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
 import numpy as np
 from PIL import Image
 import ArtsInfo
-import time
 import logging
 from tensorflow import get_logger
 from tensorflow.keras.models import Model
@@ -14,7 +14,9 @@ from tensorflow.keras.layers import Input, Reshape, Dense, Dropout, Bidirectiona
 from tensorflow.keras.backend import ctc_decode
 from mobilenetv3 import MobileNetV3_Small
 from tensorflow.strings import reduce_join
+
 get_logger().setLevel(logging.ERROR)
+
 
 # class OCR:
 #     def __init__(self, model_path='mn_model.h5', scale_ratio=1):
@@ -32,22 +34,23 @@ class Config:
     subattr_3_coords = [67, 584, 560, 624]
     subattr_4_coords = [67, 636, 560, 676]
 
+
 class OCR:
     def __init__(self, model_weight='mn_model_weight.h5', scale_ratio=1):
         self.scale_ratio = scale_ratio
         self.characters = sorted(
-                                [
-                                    *set(
-                                        "".join(
-                                            sum(ArtsInfo.ArtNames, [])
-                                            + ArtsInfo.TypeNames
-                                            + list(ArtsInfo.MainAttrNames.values())
-                                            + list(ArtsInfo.SubAttrNames.values())
-                                            + list(".,+%0123456789")
-                                        )
-                                    )
-                                ]
-                            )
+            [
+                *set(
+                    "".join(
+                        sum(ArtsInfo.ArtNames, [])
+                        + ArtsInfo.TypeNames
+                        + list(ArtsInfo.MainAttrNames.values())
+                        + list(ArtsInfo.SubAttrNames.values())
+                        + list(".,+%0123456789")
+                    )
+                )
+            ]
+        )
         # Mapping characters to integers
         self.char_to_num = StringLookup(
             vocabulary=list(self.characters), num_oov_indices=0, mask_token=""
@@ -69,39 +72,39 @@ class OCR:
         x = np.concatenate([self.preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
         y = self.model.predict(x)
         y = self.decode(y)
-        return {**{key:v for key, v in zip(sorted(info.keys()), y)}, **{'star':self.detect_star(art_img)}}
+        return {**{key: v for key, v in zip(sorted(info.keys()), y)}, **{'star': self.detect_star(art_img)}}
 
     def extract_art_info(self, art_img):
-        name = art_img.crop([i*self.scale_ratio for i in Config.name_coords])
-        type = art_img.crop([i*self.scale_ratio for i in Config.type_coords])
-        main_attr_name = art_img.crop([i*self.scale_ratio for i in Config.main_attr_name_coords])
-        main_attr_value = art_img.crop([i*self.scale_ratio for i in Config.main_attr_value_coords])
-        level = art_img.crop([i*self.scale_ratio for i in Config.level_coords])
-        subattr_1 = art_img.crop([i*self.scale_ratio for i in Config.subattr_1_coords])  # [73, 83, 102]
-        subattr_2 = art_img.crop([i*self.scale_ratio for i in Config.subattr_2_coords])
-        subattr_3 = art_img.crop([i*self.scale_ratio for i in Config.subattr_3_coords])
-        subattr_4 = art_img.crop([i*self.scale_ratio for i in Config.subattr_4_coords])
-        if np.all(np.abs(np.array(subattr_1, np.float)-[[[73,83,102]]]).max(axis=-1)>25):
+        name = art_img.crop([i * self.scale_ratio for i in Config.name_coords])
+        type = art_img.crop([i * self.scale_ratio for i in Config.type_coords])
+        main_attr_name = art_img.crop([i * self.scale_ratio for i in Config.main_attr_name_coords])
+        main_attr_value = art_img.crop([i * self.scale_ratio for i in Config.main_attr_value_coords])
+        level = art_img.crop([i * self.scale_ratio for i in Config.level_coords])
+        subattr_1 = art_img.crop([i * self.scale_ratio for i in Config.subattr_1_coords])  # [73, 83, 102]
+        subattr_2 = art_img.crop([i * self.scale_ratio for i in Config.subattr_2_coords])
+        subattr_3 = art_img.crop([i * self.scale_ratio for i in Config.subattr_3_coords])
+        subattr_4 = art_img.crop([i * self.scale_ratio for i in Config.subattr_4_coords])
+        if np.all(np.abs(np.array(subattr_1, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
             del subattr_1
             del subattr_2
             del subattr_3
             del subattr_4
-        elif np.all(np.abs(np.array(subattr_2, np.float)-[[[73,83,102]]]).max(axis=-1)>25):
+        elif np.all(np.abs(np.array(subattr_2, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
             del subattr_2
             del subattr_3
             del subattr_4
-        elif np.all(np.abs(np.array(subattr_3, np.float)-[[[73,83,102]]]).max(axis=-1)>25):
+        elif np.all(np.abs(np.array(subattr_3, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
             del subattr_3
             del subattr_4
-        elif np.all(np.abs(np.array(subattr_4, np.float)-[[[73,83,102]]]).max(axis=-1)>25):
+        elif np.all(np.abs(np.array(subattr_4, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
             del subattr_4
-        return {key:value for key,value in locals().items() if key not in ['art_img', 'self']}
+        return {key: value for key, value in locals().items() if key not in ['art_img', 'self']}
 
     def detect_star(self, art_img):
-        star = art_img.crop([i*self.scale_ratio for i in Config.star_coords])
+        star = art_img.crop([i * self.scale_ratio for i in Config.star_coords])
         cropped_star = self.crop(self.normalize(self.to_gray(star)))
-        coef = cropped_star.shape[1]/cropped_star.shape[0]
-        coef = coef/1.30882352+0.21568627
+        coef = cropped_star.shape[1] / cropped_star.shape[0]
+        coef = coef / 1.30882352 + 0.21568627
         return int(round(coef))
 
     def to_gray(self, text_img):
@@ -117,7 +120,6 @@ class OCR:
             img = 1 - img
         return img
 
-
     def crop(self, img, tol=0.7):
         # img is 2D image data
         # tol  is tolerance
@@ -129,19 +131,17 @@ class OCR:
         #     print(row_end-row_start, col_end-col_start)
         return img[row_start:row_end, col_start:col_end]
 
-
     def resize_to_height(self, img):
         height = self.height
         return (
-            np.array(
-                Image.fromarray(np.uint8(img * 255)).resize(
-                    (int(img.shape[1] * height / img.shape[0]), height),
-                    Image.BILINEAR,
+                np.array(
+                    Image.fromarray(np.uint8(img * 255)).resize(
+                        (int(img.shape[1] * height / img.shape[0]), height),
+                        Image.BILINEAR,
+                    )
                 )
-            )
-            / 255
+                / 255
         )
-
 
     def pad_to_width(self, img):
         width = self.width
@@ -150,7 +150,6 @@ class OCR:
         return np.pad(
             img, [[0, 0], [0, width - img.shape[1]]], mode="constant", constant_values=0
         )
-
 
     def preprocess(self, text_img):
         result = self.to_gray(text_img)
@@ -161,13 +160,12 @@ class OCR:
         result = self.pad_to_width(result)
         return result
 
-    
     def decode(self, pred):
         input_len = np.ones(pred.shape[0]) * pred.shape[1]
         # Use greedy search. For complex tasks, you can use beam search
         results = ctc_decode(pred, input_length=input_len, greedy=True)[0][0][
-            :, :self.max_length
-        ]
+                  :, :self.max_length
+                  ]
         # Iterate over the results and get back the text
         output_text = []
         for res in results:
@@ -176,7 +174,7 @@ class OCR:
             res = res.numpy().decode("utf-8")
             output_text.append(res)
         return output_text
-    
+
     def build_model(self, input_shape):
         input_img = Input(
             shape=(input_shape[0], input_shape[1], 1), name="image", dtype="float32"
