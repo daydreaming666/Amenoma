@@ -163,11 +163,10 @@ class OCR:
     def decode(self, pred):
         input_len = np.ones(pred.shape[0]) * pred.shape[1]
         # Use greedy search. For complex tasks, you can use beam search
-        results = ctc_decode(pred, input_length=input_len, greedy=True)[0][0][
-                  :, :self.max_length
-                  ]
+        results = ctc_decode(pred, input_length=input_len, greedy=True)[0][0][:, :self.max_length]
         # Iterate over the results and get back the text
         output_text = []
+
         for res in results:
             res = self.num_to_char(res)
             res = reduce_join(res)
@@ -197,3 +196,10 @@ class OCR:
 
         # Define the model
         self.model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
+
+
+if __name__ == '__main__':
+    img = Image.open('./artifacts/1.png')
+    ocr_model = OCR(model_weight='./mn_model_weight.h5', scale_ratio=0.625)
+    info = ocr_model.detect_info(img)
+    print(info)

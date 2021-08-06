@@ -172,6 +172,11 @@ def artscannerCallback(art_img):
     elif art_data.add(info, art_img):
         saved += 1
         star_dist_saved[info['star'] - 1] += 1
+        # 修改 保存图片
+        art_img.save(f'artifacts/{art_id}.png')
+        s = json.dumps(info, ensure_ascii=False)
+        with open(f"artifacts/{art_id}.json", "wb") as f:
+            f.write(s.encode('utf-8'))
     else:
         art_img.save(f'artifacts/{art_id}.png')
         s = json.dumps(info, ensure_ascii=False)
