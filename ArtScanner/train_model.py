@@ -1,4 +1,5 @@
 import json
+import random as rd
 
 import numpy as np
 import tensorflow as tf
@@ -349,54 +350,6 @@ def generate_image(text, font_size_range=(15, 40)):
     return img
 
 
-scale_ratio = 1
-characters = sorted(
-    [
-        *set(
-            "".join(
-                sum(ArtNames, [])
-                + TypeNames
-                + list(MainAttrNames.values())
-                + list(SubAttrNames.values())
-                + list(".,+%0123456789")
-            )
-        )
-    ]
-)
-char_to_num = StringLookup(
-    vocabulary=list(characters), num_oov_indices=0, mask_token="")
-num_to_char = StringLookup(
-    vocabulary=char_to_num.get_vocabulary(), oov_token="", mask_token="", invert=True)
-
-width = 240
-height = 16
-max_length = 15
-
-input_shape = (width, height)
-
-input_img = Input(
-    shape=(input_shape[0], input_shape[1], 1), name="image", dtype="float32"
-)
-mobilenet = MobileNetV3_Small(
-    (input_shape[0], input_shape[1], 1), 0, alpha=1.0, include_top=False
-).build()
-x = mobilenet(input_img)
-new_shape = ((input_shape[0] // 8), (input_shape[1] // 8) * 576)
-x = Reshape(target_shape=new_shape, name="reshape")(x)
-x = Dense(64, activation="relu", name="dense1")(x)
-x = Dropout(0.2)(x)
-
-# RNNs
-x = Bidirectional(LSTM(128, return_sequences=True, dropout=0.25))(x)
-x = Bidirectional(LSTM(64, return_sequences=True, dropout=0.25))(x)
-
-# Output layer
-output = Dense(len(characters) + 2, activation="softmax", name="dense2")(x)
-
-# Define the model
-model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
-
-
 # 灰度
 def to_gray(text_img):
     text_img = np.array(text_img)
@@ -484,7 +437,6 @@ def ctc_loss(y_true, y_pred):
 
 
 # A utility function to decode the output of the network
-@tf.autograph.experimental.do_not_convert
 def decode_batch_predictions(pred):
     input_len = np.ones(pred.shape[0]) * pred.shape[1]
     # Use greedy search. For complex tasks, you can use beam search
@@ -499,32 +451,6 @@ def decode_batch_predictions(pred):
         res = res.numpy().decode("utf-8")
         output_text.append(res)
     return output_text
-
-
-def train_generator():
-    q = 0
-    while True:
-        q += 1
-        info_train = [gen_name(), gen_type(), gen_main_attr_name(), gen_main_attr_value(),
-                      gen_level(), *gen_sub_attrs(3)]
-        imgs = generate_images(info_train)
-        info = {"name": preprocess(imgs[0]),
-                "type": preprocess(imgs[1]),
-                "main_attr_name": preprocess(imgs[2]),
-                "main_attr_value": preprocess(imgs[3]),
-                "level": preprocess(imgs[4]),
-                "subattr_1": preprocess(imgs[5]),
-                "subattr_2": preprocess(imgs[6]),
-                "subattr_3": preprocess(imgs[7]),
-                }
-        x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
-        f = [list(i.ljust(15)) for i in info_train]
-        w = []
-        for t in f:
-            w.append([i.encode('utf-8') if i != ' ' else b'' for i in t])
-        y = char_to_num(w)
-        yield x, y
-    return
 
 
 class CTCAccuracy(tf.keras.metrics.Metric):
@@ -552,14 +478,89 @@ class CTCAccuracy(tf.keras.metrics.Metric):
         self.all_count = 0
 
 
+def train_generator():
+    q = 0
+    while True:
+        q += 1
+        sub_attrs_num = rd.randrange(1, 5)
+        info_train = [gen_name(), gen_type(), gen_main_attr_name(), gen_main_attr_value(),
+                      gen_level(), *gen_sub_attrs(sub_attrs_num)]
+        imgs = generate_images(info_train)
+        info = {"name": imgs[0],
+                "type": imgs[1],
+                "main_attr_name": imgs[2],
+                "main_attr_value": imgs[3],
+                "level": imgs[4],
+                # "subattr_1": imgs[5],
+                # "subattr_2": imgs[6],
+                # "subattr_3": imgs[7],
+                }
+        for i in range(sub_attrs_num):
+            info[f'subattr_{i + 1}'] = imgs[i + 5]
+        # todo -- fix bugs here --
+        x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
+        f = [list(i.ljust(15)) for i in info_train]
+        w = []
+        for t in f:
+            w.append([i.encode('utf-8') if i != ' ' else b'' for i in t])
+        y = char_to_num(w)
+        yield x, y
+    return
+
+
+scale_ratio = 1
+characters = sorted(
+    [
+        *set(
+            "".join(
+                sum(ArtNames, [])
+                + TypeNames
+                + list(MainAttrNames.values())
+                + list(SubAttrNames.values())
+                + list(".,+%0123456789")
+            )
+        )
+    ]
+)
+char_to_num = StringLookup(
+    vocabulary=list(characters), num_oov_indices=0, mask_token="")
+num_to_char = StringLookup(
+    vocabulary=char_to_num.get_vocabulary(), oov_token="", mask_token="", invert=True)
+
+width = 240
+height = 16
+max_length = 15
+
+input_shape = (width, height)
+
+input_img = Input(
+    shape=(input_shape[0], input_shape[1], 1), name="image", dtype="float32"
+)
+mobilenet = MobileNetV3_Small(
+    (input_shape[0], input_shape[1], 1), 0, alpha=1.0, include_top=False
+).build()
+x = mobilenet(input_img)
+new_shape = ((input_shape[0] // 8), (input_shape[1] // 8) * 576)
+x = Reshape(target_shape=new_shape, name="reshape")(x)
+x = Dense(64, activation="relu", name="dense1")(x)
+x = Dropout(0.2)(x)
+
+# RNNs
+x = Bidirectional(LSTM(128, return_sequences=True, dropout=0.25))(x)
+x = Bidirectional(LSTM(64, return_sequences=True, dropout=0.25))(x)
+
+# Output layer
+output = Dense(len(characters) + 2, activation="softmax", name="dense2")(x)
+
+# Define the model
+model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
+
 opt = keras.optimizers.Adam()
 model.compile(loss=ctc_loss, optimizer=opt, metrics=[CTCAccuracy('ctc_accu')])
 model.run_eagerly = True
 model.summary()
 
-data = train_generator()
-
-model.fit(x=data, steps_per_epoch=1000, epochs=15)
+model.fit(x=train_generator(), steps_per_epoch=2500, epochs=20)
 
 print("Saving model to disk \n")
 mp = "./trained_model.h5"
