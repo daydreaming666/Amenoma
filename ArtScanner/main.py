@@ -96,7 +96,7 @@ game_info.calculateCoordinates()
 # margin near level number, color=233,229,220
 
 # initialization
-ocr_model = ocr.OCR(scale_ratio=game_info.scale_ratio, model_weight=os.path.join(bundle_dir, 'mn_model_weight.h5'))
+ocr_model = ocr.OCR(scale_ratio=game_info.scale_ratio, model_weight=os.path.join(bundle_dir, 'weights-improvement-55-1.00.hdf5'))
 art_id = 0
 saved = 0
 skipped = 0
@@ -172,15 +172,15 @@ def artscannerCallback(art_img):
     elif art_data.add(info, art_img):
         saved += 1
         star_dist_saved[info['star'] - 1] += 1
-        # 修改 保存图片
+        # todo - delete it --修改 保存图片
         art_img.save(f'artifacts/{art_id}.png')
         s = json.dumps(info, ensure_ascii=False)
         with open(f"artifacts/{art_id}.json", "wb") as f:
             f.write(s.encode('utf-8'))
     else:
-        art_img.save(f'artifacts/{art_id}.png')
+        art_img.save(f'artifacts/fail_{art_id}.png')
         s = json.dumps(info, ensure_ascii=False)
-        with open(f"artifacts/{art_id}.json", "wb") as f:
+        with open(f"artifacts/fail_{art_id}.json", "wb") as f:
             f.write(s.encode('utf-8'))
         failed += 1
     art_id += 1

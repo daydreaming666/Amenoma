@@ -491,15 +491,17 @@ def train_generator():
                 "main_attr_name": imgs[2],
                 "main_attr_value": imgs[3],
                 "level": imgs[4],
-                # "subattr_1": imgs[5],
-                # "subattr_2": imgs[6],
-                # "subattr_3": imgs[7],
                 }
+        expect_info = {"name": info_train[0],
+                       "type": info_train[1],
+                       "main_attr_name": info_train[2],
+                       "main_attr_value": info_train[3],
+                       "level": info_train[4]}
         for i in range(sub_attrs_num):
             info[f'subattr_{i + 1}'] = imgs[i + 5]
-        # todo -- fix bugs here --
+            expect_info[f'subattr_{i + 1}'] = info_train[i + 5]
         x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
-        f = [list(i.ljust(15)) for i in info_train]
+        f = [list(expect_info[key].ljust(15)) for key in sorted(expect_info.keys())]
         w = []
         for t in f:
             w.append([i.encode('utf-8') if i != ' ' else b'' for i in t])
@@ -560,8 +562,69 @@ model.compile(loss=ctc_loss, optimizer=opt, metrics=[CTCAccuracy('ctc_accu')])
 model.run_eagerly = True
 model.summary()
 
-model.fit(x=train_generator(), steps_per_epoch=2500, epochs=20)
 
-print("Saving model to disk \n")
-mp = "./trained_model.h5"
-model.save(mp)
+# test functions
+
+class Config:
+    name_coords = [33, 8, 619, 69]
+    type_coords = [32, 89, 350, 134]
+    main_attr_name_coords = [35, 200, 350, 240]
+    main_attr_value_coords = [35, 240, 350, 300]
+    star_coords = [30, 310, 350, 360]
+    level_coords = [43, 414, 112, 444]
+    subattr_1_coords = [67, 480, 560, 520]
+    subattr_2_coords = [67, 532, 560, 572]
+    subattr_3_coords = [67, 584, 560, 624]
+    subattr_4_coords = [67, 636, 560, 676]
+
+
+def extract_art_info(art_img):
+    name = art_img.crop([i * scale_ratio for i in Config.name_coords])
+    type = art_img.crop([i * scale_ratio for i in Config.type_coords])
+    main_attr_name = art_img.crop([i * scale_ratio for i in Config.main_attr_name_coords])
+    main_attr_value = art_img.crop([i * scale_ratio for i in Config.main_attr_value_coords])
+    level = art_img.crop([i * scale_ratio for i in Config.level_coords])
+    subattr_1 = art_img.crop([i * scale_ratio for i in Config.subattr_1_coords])  # [73, 83, 102]
+    subattr_2 = art_img.crop([i * scale_ratio for i in Config.subattr_2_coords])
+    subattr_3 = art_img.crop([i * scale_ratio for i in Config.subattr_3_coords])
+    subattr_4 = art_img.crop([i * scale_ratio for i in Config.subattr_4_coords])
+    if np.all(np.abs(np.array(subattr_1, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
+        del subattr_1
+        del subattr_2
+        del subattr_3
+        del subattr_4
+    elif np.all(np.abs(np.array(subattr_2, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
+        del subattr_2
+        del subattr_3
+        del subattr_4
+    elif np.all(np.abs(np.array(subattr_3, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
+        del subattr_3
+        del subattr_4
+    elif np.all(np.abs(np.array(subattr_4, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
+        del subattr_4
+    return {key: value for key, value in locals().items() if key not in ['art_img']}
+
+
+def detect_info(art_img):
+    info = extract_art_info(art_img)
+    x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
+    y = model.predict(x)
+    y = decode(y)
+    return {**{key: v for key, v in zip(sorted(info.keys()), y)}, **{'star': detect_star(art_img)}}
+
+
+def detect_star(art_img):
+    star = art_img.crop([i * scale_ratio for i in Config.star_coords])
+    cropped_star = crop(normalize(to_gray(star)))
+    coef = cropped_star.shape[1] / cropped_star.shape[0]
+    coef = coef / 1.30882352 + 0.21568627
+    return int(round(coef))
+
+
+filepath = "./train/weights-improvement-{epoch:02d}-{ctc_accu:.2f}.hdf5"
+checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath, monitor='ctc_accu', verbose=1, save_best_only=True,
+                                                mode='max')
+reduce = keras.callbacks.ReduceLROnPlateau(monitor='ctc_accu', factor=0.5, min_lr=1e-7, verbose=1, patience=3)
+callbacks_list = [reduce, checkpoint]
+
+history = model.fit(x=train_generator(), steps_per_epoch=512, epochs=168, callbacks=callbacks_list)

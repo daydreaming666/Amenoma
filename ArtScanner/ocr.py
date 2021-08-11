@@ -197,9 +197,3 @@ class OCR:
         # Define the model
         self.model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
 
-
-if __name__ == '__main__':
-    img = Image.open('./artifacts/1.png')
-    ocr_model = OCR(model_weight='./mn_model_weight.h5', scale_ratio=0.625)
-    info = ocr_model.detect_info(img)
-    print(info)

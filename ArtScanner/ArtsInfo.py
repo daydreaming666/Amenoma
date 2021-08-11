@@ -1,63 +1,63 @@
 Formats = {
-    "FIGHT_PROP_CRITICAL": "{:.1%}",
-    "FIGHT_PROP_CRITICAL_HURT": "{:.1%}",
-    "FIGHT_PROP_ATTACK": "{:,.0f}",
-    "FIGHT_PROP_ATTACK_PERCENT": "{:.1%}",
-    "FIGHT_PROP_ELEMENT_MASTERY": "{:,.0f}",
+    "FIGHT_PROP_CRITICAL":          "{:.1%}",
+    "FIGHT_PROP_CRITICAL_HURT":     "{:.1%}",
+    "FIGHT_PROP_ATTACK":            "{:,.0f}",
+    "FIGHT_PROP_ATTACK_PERCENT":    "{:.1%}",
+    "FIGHT_PROP_ELEMENT_MASTERY":   "{:,.0f}",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "{:.1%}",
-    "FIGHT_PROP_HP": "{:,.0f}",
-    "FIGHT_PROP_HP_PERCENT": "{:.1%}",
-    "FIGHT_PROP_DEFENSE": "{:,.0f}",
-    "FIGHT_PROP_DEFENSE_PERCENT": "{:.1%}",
+    "FIGHT_PROP_HP":                "{:,.0f}",
+    "FIGHT_PROP_HP_PERCENT":        "{:.1%}",
+    "FIGHT_PROP_DEFENSE":           "{:,.0f}",
+    "FIGHT_PROP_DEFENSE_PERCENT":   "{:.1%}",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "{:.1%}",
-    "FIGHT_PROP_HEAL_ADD": "{:.1%}",
-    "FIGHT_PROP_ROCK_ADD_HURT": "{:.1%}",
-    "FIGHT_PROP_WIND_ADD_HURT": "{:.1%}",
-    "FIGHT_PROP_ICE_ADD_HURT": "{:.1%}",
-    "FIGHT_PROP_WATER_ADD_HURT": "{:.1%}",
-    "FIGHT_PROP_FIRE_ADD_HURT": "{:.1%}",
-    "FIGHT_PROP_ELEC_ADD_HURT": "{:.1%}",
-    "FIGHT_PROP_GRASS_ADD_HURT": "{:.1%}",
-    "FIGHT_PROP_FIRE_SUB_HURT": "{:.1%}",
+    "FIGHT_PROP_HEAL_ADD":          "{:.1%}",
+    "FIGHT_PROP_ROCK_ADD_HURT":     "{:.1%}",
+    "FIGHT_PROP_WIND_ADD_HURT":     "{:.1%}",
+    "FIGHT_PROP_ICE_ADD_HURT":      "{:.1%}",
+    "FIGHT_PROP_WATER_ADD_HURT":    "{:.1%}",
+    "FIGHT_PROP_FIRE_ADD_HURT":     "{:.1%}",
+    "FIGHT_PROP_ELEC_ADD_HURT":     "{:.1%}",
+    "FIGHT_PROP_GRASS_ADD_HURT":    "{:.1%}",
+    "FIGHT_PROP_FIRE_SUB_HURT":     "{:.1%}",
 }
 
 MainAttrNames = {
-    "FIGHT_PROP_CRITICAL": "暴击率",
-    "FIGHT_PROP_CRITICAL_HURT": "暴击伤害",
-    "FIGHT_PROP_ATTACK": "攻击力",
-    "FIGHT_PROP_ATTACK_PERCENT": "攻击力",
-    "FIGHT_PROP_ELEMENT_MASTERY": "元素精通",
+    "FIGHT_PROP_CRITICAL":          "暴击率",
+    "FIGHT_PROP_CRITICAL_HURT":     "暴击伤害",
+    "FIGHT_PROP_ATTACK":            "攻击力",
+    "FIGHT_PROP_ATTACK_PERCENT":    "攻击力",
+    "FIGHT_PROP_ELEMENT_MASTERY":   "元素精通",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "元素充能效率",
-    "FIGHT_PROP_HP": "生命值",
-    "FIGHT_PROP_HP_PERCENT": "生命值",
-    "FIGHT_PROP_DEFENSE": "防御力",
-    "FIGHT_PROP_DEFENSE_PERCENT": "防御力",
+    "FIGHT_PROP_HP":                "生命值",
+    "FIGHT_PROP_HP_PERCENT":        "生命值",
+    "FIGHT_PROP_DEFENSE":           "防御力",
+    "FIGHT_PROP_DEFENSE_PERCENT":   "防御力",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "物理伤害加成",
-    "FIGHT_PROP_HEAL_ADD": "治疗加成",
-    "FIGHT_PROP_ROCK_ADD_HURT": "岩元素伤害加成",
-    "FIGHT_PROP_WIND_ADD_HURT": "风元素伤害加成",
-    "FIGHT_PROP_ICE_ADD_HURT": "冰元素伤害加成",
-    "FIGHT_PROP_WATER_ADD_HURT": "水元素伤害加成",
-    "FIGHT_PROP_FIRE_ADD_HURT": "火元素伤害加成",
-    "FIGHT_PROP_ELEC_ADD_HURT": "雷元素伤害加成",
-    "FIGHT_PROP_GRASS_ADD_HURT": "草元素伤害加成",
-    "FIGHT_PROP_FIRE_SUB_HURT": "火元素伤害减免",
+    "FIGHT_PROP_HEAL_ADD":          "治疗加成",
+    "FIGHT_PROP_ROCK_ADD_HURT":     "岩元素伤害加成",
+    "FIGHT_PROP_WIND_ADD_HURT":     "风元素伤害加成",
+    "FIGHT_PROP_ICE_ADD_HURT":      "冰元素伤害加成",
+    "FIGHT_PROP_WATER_ADD_HURT":    "水元素伤害加成",
+    "FIGHT_PROP_FIRE_ADD_HURT":     "火元素伤害加成",
+    "FIGHT_PROP_ELEC_ADD_HURT":     "雷元素伤害加成",
+    "FIGHT_PROP_GRASS_ADD_HURT":    "草元素伤害加成",
+    "FIGHT_PROP_FIRE_SUB_HURT":     "火元素伤害减免",
 }
 AttrName2Ids = {v: i.replace('_PERCENT', '') for i, v in MainAttrNames.items()}
 
 TypeNames = ["生之花", "死之羽", "时之沙", "空之杯", "理之冠"]
 
 SubAttrNames = {
-    "FIGHT_PROP_CRITICAL": "暴击率",
-    "FIGHT_PROP_CRITICAL_HURT": "暴击伤害",
-    "FIGHT_PROP_ATTACK": "攻击力",
-    "FIGHT_PROP_ATTACK_PERCENT": "攻击力",
-    "FIGHT_PROP_ELEMENT_MASTERY": "元素精通",
+    "FIGHT_PROP_CRITICAL":          "暴击率",
+    "FIGHT_PROP_CRITICAL_HURT":     "暴击伤害",
+    "FIGHT_PROP_ATTACK":            "攻击力",
+    "FIGHT_PROP_ATTACK_PERCENT":    "攻击力",
+    "FIGHT_PROP_ELEMENT_MASTERY":   "元素精通",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "元素充能效率",
-    "FIGHT_PROP_HP": "生命值",
-    "FIGHT_PROP_HP_PERCENT": "生命值",
-    "FIGHT_PROP_DEFENSE": "防御力",
-    "FIGHT_PROP_DEFENSE_PERCENT": "防御力",
+    "FIGHT_PROP_HP":                "生命值",
+    "FIGHT_PROP_HP_PERCENT":        "生命值",
+    "FIGHT_PROP_DEFENSE":           "防御力",
+    "FIGHT_PROP_DEFENSE_PERCENT":   "防御力",
 }
 
 RarityToMaxLvs = [4, 4, 12, 16, 20]
@@ -97,6 +97,8 @@ ArtNames = [
     ["游医的银莲", "游医的枭羽", "游医的怀钟", "游医的药壶", "游医的方巾"],
     ["勋绩之花", "昭武翎羽", "金铜时晷", "盟誓金爵", "将帅兜鏊"],
     ["无垢之花", "贤医之羽", "停摆之刻", "超越之盏", "嗤笑之面"],
+    ["明威之镡", "切落之羽", "雷云之笼", "绯花之壶", "华饰之兜"],   # 绝缘之旗印
+    ["羁缠之花", "思忆之矢", "朝露之时", "祈望之心", "无常之面"],   # 追忆之注连
 ]
 Users = [
     "空",
@@ -137,119 +139,124 @@ Users = [
 
 TypeNamesGenshinArt = ["flower", "feather", "sand", "cup", "head"]
 AttrNamesGensinArt = {
-    "FIGHT_PROP_CRITICAL": "critical",
-    "FIGHT_PROP_CRITICAL_HURT": "criticalDamage",
-    "FIGHT_PROP_ATTACK": "attackStatic",
-    "FIGHT_PROP_ATTACK_PERCENT": "attackPercentage",
-    "FIGHT_PROP_ELEMENT_MASTERY": "elementalMastery",
+    "FIGHT_PROP_CRITICAL":          "critical",
+    "FIGHT_PROP_CRITICAL_HURT":     "criticalDamage",
+    "FIGHT_PROP_ATTACK":            "attackStatic",
+    "FIGHT_PROP_ATTACK_PERCENT":    "attackPercentage",
+    "FIGHT_PROP_ELEMENT_MASTERY":   "elementalMastery",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "recharge",
-    "FIGHT_PROP_HP": "lifeStatic",
-    "FIGHT_PROP_HP_PERCENT": "lifePercentage",
-    "FIGHT_PROP_DEFENSE": "defendStatic",
-    "FIGHT_PROP_DEFENSE_PERCENT": "defendPercentage",
+    "FIGHT_PROP_HP":                "lifeStatic",
+    "FIGHT_PROP_HP_PERCENT":        "lifePercentage",
+    "FIGHT_PROP_DEFENSE":           "defendStatic",
+    "FIGHT_PROP_DEFENSE_PERCENT":   "defendPercentage",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "physicalBonus",
-    "FIGHT_PROP_HEAL_ADD": "cureEffect",
-    "FIGHT_PROP_ROCK_ADD_HURT": "rockBonus",
-    "FIGHT_PROP_WIND_ADD_HURT": "windBonus",
-    "FIGHT_PROP_ICE_ADD_HURT": "iceBonus",
-    "FIGHT_PROP_WATER_ADD_HURT": "waterBonus",
-    "FIGHT_PROP_FIRE_ADD_HURT": "fireBonus",
-    "FIGHT_PROP_ELEC_ADD_HURT": "thunderBonus",
-    "FIGHT_PROP_GRASS_ADD_HURT": "grassBonus",
-    "FIGHT_PROP_FIRE_SUB_HURT": "fireDeduct",
+    "FIGHT_PROP_HEAL_ADD":          "cureEffect",
+    "FIGHT_PROP_ROCK_ADD_HURT":     "rockBonus",
+    "FIGHT_PROP_WIND_ADD_HURT":     "windBonus",
+    "FIGHT_PROP_ICE_ADD_HURT":      "iceBonus",
+    "FIGHT_PROP_WATER_ADD_HURT":    "waterBonus",
+    "FIGHT_PROP_FIRE_ADD_HURT":     "fireBonus",
+    "FIGHT_PROP_ELEC_ADD_HURT":     "thunderBonus",
+    "FIGHT_PROP_GRASS_ADD_HURT":    "grassBonus",
+    "FIGHT_PROP_FIRE_SUB_HURT":     "fireDeduct",
 }
 SetNamesGenshinArt = [
-    "archaicPetra",  # 悠古的磐岩
-    "blizzardStrayer",  # 冰风迷途的勇士
-    "bloodstainedChivalry",  # 染血的骑士道
-    "crimsonWitch",  # 炽烈的炎之魔女
-    "gladiatorFinale",  # 角斗士的终幕礼
-    "heartOfDepth",  # 沉沦之心
-    "lavaWalker",  # 渡过烈火的贤人
-    "maidenBeloved",  # 被怜爱的少女
-    "noblesseOblige",  # 昔日宗室之仪
-    "retracingBolide",  # 逆飞的流星
-    "thunderSmoother",  # 平息雷鸣的尊者
-    "thunderingFury",  # 如雷的盛怒
-    "viridescentVenerer",  # 翠绿之影
-    "wandererTroupe",  # 流浪大地的乐团
-    "berserker",  # 战狂
-    "braveHeart",  # 勇士之心
-    "defenderWill",  # 守护之心
-    "exile",  # 流放者
-    "gambler",  # 赌徒
-    "instructor",  # 教官
-    "martialArtist",  # 武人
-    "prayersForDestiny",  # 祭水之人
-    "prayersForIllumination",  # 祭火之人
-    "prayersForWisdom",  # 祭雷之人
-    "prayersToSpringtime",  # 祭冰之人
-    "resolutionOfSojourner",  # 行者之心
-    "scholar",  # 学士
-    "tinyMiracle",  # 奇迹
-    "adventurer",  # 冒险家
-    "luckyDog",  # 幸运儿
-    "travelingDoctor",  # 游医
-    "tenacityOfTheMillelith",  # 千岩牢固
-    "paleFlame",  # 苍白之火
+    "archaicPetra",             # 悠古的磐岩
+    "blizzardStrayer",          # 冰风迷途的勇士
+    "bloodstainedChivalry",     # 染血的骑士道
+    "crimsonWitch",             # 炽烈的炎之魔女
+    "gladiatorFinale",          # 角斗士的终幕礼
+    "heartOfDepth",             # 沉沦之心
+    "lavaWalker",               # 渡过烈火的贤人
+    "maidenBeloved",            # 被怜爱的少女
+    "noblesseOblige",           # 昔日宗室之仪
+    "retracingBolide",          # 逆飞的流星
+    "thunderSmoother",          # 平息雷鸣的尊者
+    "thunderingFury",           # 如雷的盛怒
+    "viridescentVenerer",       # 翠绿之影
+    "wandererTroupe",           # 流浪大地的乐团
+    "berserker",                # 战狂
+    "braveHeart",               # 勇士之心
+    "defenderWill",             # 守护之心
+    "exile",                    # 流放者
+    "gambler",                  # 赌徒
+    "instructor",               # 教官
+    "martialArtist",            # 武人
+    "prayersForDestiny",        # 祭水之人
+    "prayersForIllumination",   # 祭火之人
+    "prayersForWisdom",         # 祭雷之人
+    "prayersToSpringtime",      # 祭冰之人
+    "resolutionOfSojourner",    # 行者之心
+    "scholar",                  # 学士
+    "tinyMiracle",              # 奇迹
+    "adventurer",               # 冒险家
+    "luckyDog",                 # 幸运儿
+    "travelingDoctor",          # 游医
+    "tenacityOfTheMillelith",   # 千岩牢固
+    "paleFlame",                # 苍白之火
+    "shimenawaReminiscence",    # 追忆之注连
+    "emblemOfSeveredFate",      # 绝缘之旗印
+
 ]
 
 TypeNamesMingyuLab = ['flower', 'plume', 'eon', 'goblet', 'circlet']
 AttrNamesMingyuLab = {
-    "FIGHT_PROP_CRITICAL": "critRate",
-    "FIGHT_PROP_CRITICAL_HURT": "critDamage",
-    "FIGHT_PROP_ATTACK": "flatATK",
-    "FIGHT_PROP_ATTACK_PERCENT": "percentATK",
-    "FIGHT_PROP_ELEMENT_MASTERY": "elementalMastery",
+    "FIGHT_PROP_CRITICAL":          "critRate",
+    "FIGHT_PROP_CRITICAL_HURT":     "critDamage",
+    "FIGHT_PROP_ATTACK":            "flatATK",
+    "FIGHT_PROP_ATTACK_PERCENT":    "percentATK",
+    "FIGHT_PROP_ELEMENT_MASTERY":   "elementalMastery",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "energyRecharge",
-    "FIGHT_PROP_HP": "flatHP",
-    "FIGHT_PROP_HP_PERCENT": "percentHP",
-    "FIGHT_PROP_DEFENSE": "flatDEF",
-    "FIGHT_PROP_DEFENSE_PERCENT": "percentDEF",
+    "FIGHT_PROP_HP":                "flatHP",
+    "FIGHT_PROP_HP_PERCENT":        "percentHP",
+    "FIGHT_PROP_DEFENSE":           "flatDEF",
+    "FIGHT_PROP_DEFENSE_PERCENT":   "percentDEF",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "physicalDamage",
-    "FIGHT_PROP_HEAL_ADD": "healing",
-    "FIGHT_PROP_ROCK_ADD_HURT": "geoDamage",
-    "FIGHT_PROP_WIND_ADD_HURT": "anemoDamage",
-    "FIGHT_PROP_ICE_ADD_HURT": "cryoDamage",
-    "FIGHT_PROP_WATER_ADD_HURT": "hydroDamage",
-    "FIGHT_PROP_FIRE_ADD_HURT": "pyroDamage",
-    "FIGHT_PROP_ELEC_ADD_HURT": "electroDamage",
-    "FIGHT_PROP_GRASS_ADD_HURT": "dendroDamage",
-    "FIGHT_PROP_FIRE_SUB_HURT": "pyroDEF",
+    "FIGHT_PROP_HEAL_ADD":          "healing",
+    "FIGHT_PROP_ROCK_ADD_HURT":     "geoDamage",
+    "FIGHT_PROP_WIND_ADD_HURT":     "anemoDamage",
+    "FIGHT_PROP_ICE_ADD_HURT":      "cryoDamage",
+    "FIGHT_PROP_WATER_ADD_HURT":    "hydroDamage",
+    "FIGHT_PROP_FIRE_ADD_HURT":     "pyroDamage",
+    "FIGHT_PROP_ELEC_ADD_HURT":     "electroDamage",
+    "FIGHT_PROP_GRASS_ADD_HURT":    "dendroDamage",
+    "FIGHT_PROP_FIRE_SUB_HURT":     "pyroDEF",
 }
 
 SetNamesMingyuLab = [
-    "archaic_petra",  # 悠古的磐岩
-    "blizzard_walker",  # 冰风迷途的勇士
-    "bloodstained_chivalry",  # 染血的骑士道
-    "crimson_witch_of_flames",  # 炽烈的炎之魔女
-    "gladiators_finale",  # 角斗士的终幕礼
-    "heart_of_depth",  # 沉沦之心
-    "lavawalker",  # 渡过烈火的贤人
-    "maiden_beloved",  # 被怜爱的少女
-    "noblesse_oblige",  # 昔日宗室之仪
-    "retracing_bolide",  # 逆飞的流星
-    "thundersoother",  # 平息雷鸣的尊者
-    "thundering_fury",  # 如雷的盛怒
-    "viridescent_venerer",  # 翠绿之影
-    "wanderers_troupe",  # 流浪大地的乐团
-    "berserker",  # 战狂
-    "brave_heart",  # 勇士之心
-    "defenders_will",  # 守护之心
-    "the_exile",  # 流放者
-    "gambler",  # 赌徒
-    "instructor",  # 教官
-    "martial_artist",  # 武人
-    "prayers_of_destiny",  # 祭水之人
-    "prayers_of_illumination",  # 祭火之人
-    "prayers_of_wisdom",  # 祭雷之人
-    "prayers_of_springtime",  # 祭冰之人
-    "resolution_of_sojourner",  # 行者之心
-    "scholar",  # 学士
-    "tiny_miracle",  # 奇迹
-    "adventurer",  # 冒险家
-    "lucky_dog",  # 幸运儿
-    "traveling_doctor",  # 游医
-    "tenacity_of_the_millelith",  # 千岩牢固
-    "pale_flame",  # 苍白之火
+    "archaic_petra",                # 悠古的磐岩
+    "blizzard_walker",              # 冰风迷途的勇士
+    "bloodstained_chivalry",        # 染血的骑士道
+    "crimson_witch_of_flames",      # 炽烈的炎之魔女
+    "gladiators_finale",            # 角斗士的终幕礼
+    "heart_of_depth",               # 沉沦之心
+    "lavawalker",                   # 渡过烈火的贤人
+    "maiden_beloved",               # 被怜爱的少女
+    "noblesse_oblige",              # 昔日宗室之仪
+    "retracing_bolide",             # 逆飞的流星
+    "thundersoother",               # 平息雷鸣的尊者
+    "thundering_fury",              # 如雷的盛怒
+    "viridescent_venerer",          # 翠绿之影
+    "wanderers_troupe",             # 流浪大地的乐团
+    "berserker",                    # 战狂
+    "brave_heart",                  # 勇士之心
+    "defenders_will",               # 守护之心
+    "the_exile",                    # 流放者
+    "gambler",                      # 赌徒
+    "instructor",                   # 教官
+    "martial_artist",               # 武人
+    "prayers_of_destiny",           # 祭水之人
+    "prayers_of_illumination",      # 祭火之人
+    "prayers_of_wisdom",            # 祭雷之人
+    "prayers_of_springtime",        # 祭冰之人
+    "resolution_of_sojourner",      # 行者之心
+    "scholar",                      # 学士
+    "tiny_miracle",                 # 奇迹
+    "adventurer",                   # 冒险家
+    "lucky_dog",                    # 幸运儿
+    "traveling_doctor",             # 游医
+    "tenacity_of_the_millelith",    # 千岩牢固
+    "pale_flame",                   # 苍白之火
+    "reminiscence_of_shime",        # 追忆之注连
+    "seal_of_insulation",           # 绝缘之旗印
 ]

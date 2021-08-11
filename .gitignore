@@ -11,3 +11,4 @@ ArtScanner/*.spec
 ArtScanner/artifacts/**
 
 .vscode/**
+/ArtScanner/artifacts/
