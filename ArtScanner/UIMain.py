@@ -4,7 +4,6 @@ import os
 import sys
 import time
 
-import threading
 import mouse
 from PyQt5.Qt import QThread
 from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QProgressBar
@@ -92,7 +91,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
         QApplication.processEvents()
         self.print_log("初始化 OCR 模型...")
         self.ocr_model = ocr.OCR(scale_ratio=self.game_info.scale_ratio,
-                                 model_weight=os.path.join(bundle_dir, 'mn_model_weight.h5'))
+                                 model_weight=os.path.join(bundle_dir, 'weights-improvement-55-1.00.hdf5'))
 
         QApplication.processEvents()
         self.print_log("初始化数据...")
