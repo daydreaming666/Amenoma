@@ -53,13 +53,17 @@ class ArtifactStatType(Enum):
 
 
 class ArtifactStat:
-    def __init__(self, name, value):
+    def __init__(self, name, value, level=0, isMain=False):
         name = ArtsInfo.AttrName2Ids[name]
         value = decodeValue(value)
         if type(value) == float and (name + '_PERCENT') in ArtsInfo.MainAttrNames:
             name += '_PERCENT'
         self.type = getattr(ArtifactStatType, name)
-        self.value = value
+        # self.value = value
+        if isMain:
+            self.value = ArtsInfo.MainAttrValue[name][level]
+        else:
+            self.value = value
 
     def __eq__(self, other):
         if type(other) == int or type(other) == float:
@@ -114,7 +118,7 @@ class Artifact(persistent.Persistent):
         self.level = decodeValue(info['level'])
         self.rarity = info['star']
         self.stat = ArtifactStat(
-            info['main_attr_name'], info['main_attr_value'])
+            info['main_attr_name'], info['main_attr_value'], level=self.level, isMain=True)
         self.substats = [ArtifactStat(*info[tag].split('+'))
                          for tag in sorted(info.keys()) if "subattr_" in tag]
         if image is not None:
