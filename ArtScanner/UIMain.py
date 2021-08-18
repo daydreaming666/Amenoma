@@ -87,7 +87,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     # 点击「开始扫描」
     def pushButton2_click(self):
-        QMessageBox.information(self, "", "请打开圣遗物背包界面，翻到圣遗物列表最上面", QMessageBox.Ok, QMessageBox.Ok)
+        QMessageBox.information(self, "info", "请打开圣遗物背包界面，翻到圣遗物列表顶部", QMessageBox.Ok, QMessageBox.Ok)
         QApplication.processEvents()
         self.print_log("初始化 OCR 模型...")
         self.ocr_model = ocr.OCR(scale_ratio=self.game_info.scale_ratio,
@@ -192,7 +192,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
         if self.saved != 0:
             self.exporter(self.export_name)
-        self.print_log(f'总计扫描了{self.skipped + self.saved}/{self.art_id}个圣遗物，保存了{self.saved}个到{self.export_name}，失败了{self.failed}个')
+        self.print_log(f'总计扫描了{self.skipped + self.saved}/{self.art_id}个圣遗物，'
+                       f'保存了{self.saved}个到{self.export_name}，失败了{self.failed}个')
         self.print_log('无效识别/失败结果请到artifacts路径中查看')
         self.print_log('----------------------------')
         self.print_log('圣遗物星级分布：（保存数量/扫描数量）')

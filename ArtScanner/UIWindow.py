@@ -207,7 +207,7 @@ class Ui_MainWindow(object):
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:11pt;\">4. 开始扫描，在此期间不要操作鼠标键盘，等待扫描完成（按鼠标中键终止扫描）</span></p></body></html>"))
         self.pushButton.setText(_translate("MainWindow", "捕获窗口"))
         self.label_2.setText(_translate("MainWindow", "导出格式"))
-        self.comboBox.setItemText(0, _translate("MainWindow", "莫娜占卜铺"))
+        self.comboBox.setItemText(0, _translate("MainWindow", "莫娜占卜铺 / GO"))
         self.comboBox.setItemText(1, _translate("MainWindow", "MingyuLab"))
         self.label_4.setText(_translate("MainWindow", "检测延迟"))
         self.label_5.setText(_translate("MainWindow", "秒"))
