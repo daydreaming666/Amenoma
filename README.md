@@ -1,13 +1,25 @@
 # GenshinArtScanner
 
-对这个老哥
-[ProblemFactory/GenshinArtScanner](https://github.com/ProblemFactory/GenshinArtScanner)
-的项目的一些继续开发
+## 功能
 
-- 增加 GUI
-- 重构代码
-- 增加功能
+扫描背包中的圣遗物，并导出至 json 格式。之后可导入圣遗物分析工具进行计算等。
 
+- 已支持 2.0 的圣遗物
+
+## 协议
+
+### 开源协议
+
+[APACHE LICENSE, VERSION 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+
+### 声明
+
+您下载或使用本软件，视为您知悉并同意以下内容：
+
+- 本软件为离线软件，无需网络环境，不会上传任何信息。
+- 本软件需要操控鼠标对自动对背包中的圣遗物进行点击，并对窗口进行截图。
+- 本项目仅为个人爱好，与 miHoYo 公司无任何关系
+- 本软件为开源软件，不对您因使用本软件而造成的任何损失负责。
 
 ## 用法
 
@@ -21,8 +33,14 @@
 ## 计划
 
 - 让 GUI 更好看一些
-- 支持 2.0 的圣遗物
 - 多语言支持
 
-~~深度学习我是一点也不会啊啊啊啊啊啊~~
+## 感谢
 
+- [ProblemFactory/GenshinArtScanner](https://github.com/ProblemFactory/GenshinArtScanner)
+的项目
+
+- [honeyhunterworld](https://genshin.honeyhunterworld.com/) 的数据支持
+- 各位测试与使用者的支持
+
+> 如果遇到问题或任何建议，请提交 issues 或邮件至 [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
