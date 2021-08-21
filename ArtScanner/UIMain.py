@@ -15,6 +15,10 @@ from art_scanner_logic import ArtScannerLogic, GameInfo
 from utils import decodeValue, findWindowsByName, setWindowToForeground
 
 window_name_cn = '原神'
+window_name_en = 'Genshin Impact'
+
+window_name = window_name_cn
+
 if len(sys.argv) > 1:
     bundle_dir = sys.argv[1]
 else:
@@ -64,7 +68,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
         pbThread.run()
 
         while True:
-            windows = findWindowsByName(window_name_cn)
+            windows = findWindowsByName(window_name)
 
             if len(windows) == 0:
                 self.textBrowser_3.append("未找到在运行的原神, 请尝试重新捕获")
@@ -72,7 +76,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
                 self.hwnd = windows[0][0]
                 break
             else:
-                self.textBrowser_3.append(f"发现多个窗口名为{window_name_cn}, 请尝试重新捕获")
+                self.textBrowser_3.append(f"发现多个窗口名为{window_name}, 请尝试重新捕获")
 
         self.progressBar.setValue(100)
         self.game_info = GameInfo(self.hwnd)

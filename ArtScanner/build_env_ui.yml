@@ -2,7 +2,6 @@ name: ArtScannerBuildUI
 channels:
   - conda-forge
   - defaults
-  - msys2
 dependencies:
   - _tflow_select=2.3.0=eigen
   - absl-py=0.12.0=pyhd8ed1ab_0
@@ -31,6 +30,7 @@ dependencies:
   - grpcio=1.37.0=py38he5377a8_0
   - h5py=2.10.0=py38h5e291fa_0
   - hdf5=1.10.4=nompi_hcc15c50_1106
+  - icu=58.2=ha925a31_3
   - idna=2.10=pyh9f0ad1d_0
   - importlib-metadata=4.0.1=py38haa244fe_0
   - jpeg=9d=h8ffe710_0
@@ -118,6 +118,7 @@ dependencies:
   - zstd=1.4.9=h6255e5f_0
   - pip:
     - keyboard==0.13.5
+    - levenshtein==0.13.0
     - mouse==0.7.1
     - mss==6.1.0
 prefix: D:\anaconda\envs\ArtScannerBuildUI

@@ -2,7 +2,6 @@ name: ArtScannerBuild
 channels:
   - conda-forge
   - defaults
-  - msys2
 dependencies:
   - _tflow_select=2.3.0=eigen
   - absl-py=0.12.0=pyhd8ed1ab_0
@@ -115,6 +114,7 @@ dependencies:
   - zstd=1.4.9=h6255e5f_0
   - pip:
     - keyboard==0.13.5
+    - levenshtein==0.13.0
     - mouse==0.7.1
     - mss==6.1.0
 prefix: D:\anaconda\envs\ArtScannerBuild
