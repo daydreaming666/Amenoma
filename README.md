@@ -78,8 +78,8 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 
 感谢支持。
 
-![](https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004740.jpg)
+<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004740.jpg" width="270" height="420" alt="Alipay"/>
 
-![](https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004735.png)
+<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004735.png" width="306" height="420" alt="Wechat"/>
 
 [PayPal@daydreaming666](https://www.paypal.me/daydreaming666)
