@@ -25,7 +25,7 @@ Multiple versions available for download:
 ## Usage
 
 1. Double-click ArtScanner.exe to open the program, and wait a while for the program to decompress. 
-2. Adjust the resolution of the *Genshin Impact* to 1600 * 900, open Bag - Artifact.
+2. Adjust the resolution of the *Genshin Impact* to 1600 * 900, open Bag - Artifacts.
 3. Capture the window and wait.
 4. Adjust scanning options.
 5. Start scanning 
