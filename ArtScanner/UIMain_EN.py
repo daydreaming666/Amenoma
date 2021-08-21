@@ -91,7 +91,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     # 点击「开始扫描」
     def pushButton2_click(self):
-        QMessageBox.information(self, "info", "Please open Bag - Artifact and turn to the top of list ", QMessageBox.Ok, QMessageBox.Ok)
+        QMessageBox.information(self, "info", "Please open Bag - Artifacts and turn to the top of list ", QMessageBox.Ok, QMessageBox.Ok)
         QApplication.processEvents()
         self.print_log("Initialize the OCR model ...")
         self.ocr_model = ocr_EN.OCR(scale_ratio=self.game_info.scale_ratio,
