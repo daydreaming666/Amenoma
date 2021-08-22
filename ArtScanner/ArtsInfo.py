@@ -199,8 +199,8 @@ SetNamesGenshinArt = [
     "travelingDoctor",          # 游医
     "tenacityOfTheMillelith",   # 千岩牢固
     "paleFlame",                # 苍白之火
-    "shimenawaReminiscence",    # 追忆之注连
     "emblemOfSeveredFate",      # 绝缘之旗印
+    "shimenawaReminiscence",    # 追忆之注连
 
 ]
 
@@ -262,8 +262,8 @@ SetNamesMingyuLab = [
     "traveling_doctor",             # 游医
     "tenacity_of_the_millelith",    # 千岩牢固
     "pale_flame",                   # 苍白之火
-    "reminiscence_of_shime",        # 追忆之注连
     "seal_of_insulation",           # 绝缘之旗印
+    "reminiscence_of_shime",        # 追忆之注连
 ]
 
 MainAttrValue = {
