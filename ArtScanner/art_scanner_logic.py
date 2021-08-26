@@ -9,7 +9,7 @@ from utils import captureWindow
 
 
 class GameInfo:
-    def __init__(self, hwnd, force_rect=None):
+    def __init__(self, hwnd):
         self.hwnd = hwnd
         self.w, self.h = win32gui.GetClientRect(self.hwnd)[2:]
         self.left, self.top = win32gui.ClientToScreen(self.hwnd, (0, 0))

@@ -185,8 +185,9 @@ class ArtDatabase:
         self.db = ZODB.DB(None)
         self.conn = self.db.open()
         self.root = self.conn.root()
-        if 'size' not in self.root:
-            self.root['size'] = 0
+        self.root['size'] = 0
+        # if 'size' not in self.root:
+        #     self.root['size'] = 0
 
     def __del__(self):
         self.db.close()
@@ -201,6 +202,10 @@ class ArtDatabase:
             if raise_error:
                 raise
             return False
+
+    # todo -- replace GO format
+    def exportGenshinOptimizerJSON(self, path):
+        self.exportGenshinArtJSON(path)
 
     def exportGenshinArtJSON(self, path):
         result = {"version": "1", "flower": [],

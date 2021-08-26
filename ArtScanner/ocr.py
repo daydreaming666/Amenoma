@@ -67,6 +67,9 @@ class OCR:
         self.build_model(input_shape=(self.width, self.height))
         self.model.load_weights(model_weight)
 
+    def setScaleRatio(self, scaleRatio):
+        self.scale_ratio = scaleRatio
+
     def detect_info(self, art_img):
         info = self.extract_art_info(art_img)
         x = np.concatenate([self.preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)

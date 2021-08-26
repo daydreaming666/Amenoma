@@ -5,100 +5,318 @@ import sys
 import time
 
 import mouse
-from PyQt5.Qt import QThread
-from PyQt5.QtWidgets import QMainWindow, QApplication, QMessageBox, QProgressBar
+import win32gui
+import win32api
+from PyQt5.QtCore import (pyqtSignal, pyqtSlot, QObject, QThread,
+                          QMutex, QWaitCondition)
+from PyQt5.QtGui import (QMovie, QPixmap, QCursor, QTextCharFormat, QColor)
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog)
 
 import ocr
-from UIWindow import Ui_MainWindow
+import utils
 from art_saver import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
-from utils import decodeValue, findWindowsByName, setWindowToForeground
-
-window_name_cn = '原神'
-window_name_en = 'Genshin Impact'
-
-window_name = window_name_cn
-
-if len(sys.argv) > 1:
-    bundle_dir = sys.argv[1]
-else:
-    bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
+from rcc import About_Dialog
+from rcc import Help_Dialog
+from rcc.MainWindow import Ui_MainWindow
 
 
-def isAdmin():
-    try:
-        return ctypes.windll.shell32.IsUserAnAdmin()
-    except:
-        return False
+class AboutDlg(QDialog, About_Dialog.Ui_Dialog):
+    def __init__(self, parent=None):
+        super(AboutDlg, self).__init__(parent)
+        self.setupUi(self)
+
+
+class HelpDlg(QDialog, Help_Dialog.Ui_Dialog):
+    def __init__(self, parent=None):
+        super(HelpDlg, self).__init__(parent)
+        self.setupUi(self)
 
 
 class UIMain(QMainWindow, Ui_MainWindow):
+    captureWindowSignal = pyqtSignal()
+    startScanSignal = pyqtSignal(dict)
+    initializeSignal = pyqtSignal()
+    detectGameInfoSignal = pyqtSignal()
+
     def __init__(self):
         super(UIMain, self).__init__()
         self.setupUi(self)
 
-        self.pushButton.clicked.connect(self.pushButton_click)
-        self.pushButton_2.clicked.connect(self.pushButton2_click)
-        self.hwnd_get = False
-        self.initEngine()
+        self.exportFileName = ''
+        self.gif = QMovie(':/rcc/rcc/loading.gif')
+        self.picOk = QPixmap(':/rcc/rcc/ok.png')
 
-    def initEngine(self):
-        self.print_log("初始化中...请等待")
-        if not isAdmin():
-            msgbox = QMessageBox.warning(self, 'Error', '请在右键菜单选择以管理员身份运行', QMessageBox.Yes, QMessageBox.Yes)
-            sys.exit(0)
-        self.initDpi()
-        self.print_log("初始化完成！")
+        # 连接按钮
+        self.pushButton.clicked.connect(self.startScan)
+        self.pushButton_2.clicked.connect(self.captureWindow)
+        self.pushButton_3.clicked.connect(self.showHelpDlg)
+        self.pushButton_4.clicked.connect(self.showExportedFile)
+        self.action_help.triggered.connect(self.showHelpDlg)
+        self.action_about.triggered.connect(self.showAboutDlg)
 
-    class ProgressBarThread(QThread):
-        def __init__(self, bar: QProgressBar):
-            self.bar = bar
-            super().__init__()
+        # 创建工作线程
+        self.worker = Worker()
+        self.workerThread = QThread()
+        self.worker.moveToThread(self.workerThread)
 
-        def run(self) -> None:
-            while self.bar.value() < 100:
-                self.bar.setValue(self.bar.value() + 1)
-                time.sleep(0.1)
+        self.worker.printLog.connect(self.printLog)
+        self.worker.printErr.connect(self.printErr)
+        self.worker.working.connect(self.onWorking)
+        self.worker.endWorking.connect(self.endWorking)
+        self.worker.endInit.connect(self.endInit)
+        self.worker.endScan.connect(self.endScan)
 
-    # 点击 「捕获窗口」
-    def pushButton_click(self):
-        self.progressBar.setValue(0)
-        self.textBrowser_3.append("捕获窗口中...请等待")
-        pbThread = self.ProgressBarThread(self.progressBar)
-        pbThread.run()
+        self.initializeSignal.connect(self.worker.initEngine)
+        self.detectGameInfoSignal.connect(self.worker.detectGameInfo)
+        self.startScanSignal.connect(self.worker.scanArts)
 
-        while True:
-            windows = findWindowsByName(window_name)
+        self.workerThread.start()
 
-            if len(windows) == 0:
-                self.textBrowser_3.append("未找到在运行的原神, 请尝试重新捕获")
-            elif len(windows) == 1:
-                self.hwnd = windows[0][0]
-                break
-            else:
-                self.textBrowser_3.append(f"发现多个窗口名为{window_name}, 请尝试重新捕获")
+        self.initialize()
 
-        self.progressBar.setValue(100)
-        self.game_info = GameInfo(self.hwnd)
+    # 通知工作线程进行初始化
+    def initialize(self):
+        self.pushButton.setEnabled(False)
+        self.pushButton_2.setEnabled(False)
+        self.initializeSignal.emit()
 
-        if self.game_info.w == 0 or self.game_info.h == 0:
-            self.textBrowser_3.append(f"不支持独占全屏模式, 请尝试重新捕获")
-            self.hwnd_get = False
+    @pyqtSlot()
+    def endInit(self):
+        self.pushButton.setEnabled(True)
+        self.pushButton_2.setEnabled(True)
+
+    @pyqtSlot()
+    def onWorking(self):
+        self.label.setMovie(self.gif)
+        self.gif.start()
+
+    @pyqtSlot()
+    def endWorking(self):
+        self.label.setPixmap(self.picOk)
+
+    @pyqtSlot()
+    def showHelpDlg(self):
+        dlg = HelpDlg(self)
+        point = self.rect().topRight()
+        globalPoint = self.mapToGlobal(point)
+        dlg.move(globalPoint)
+        return dlg.show()
+
+    @pyqtSlot()
+    def showAboutDlg(self):
+        dlg = AboutDlg(self)
+        return dlg.show()
+
+    @pyqtSlot(str)
+    def printLog(self, log: str):
+        self.textBrowser_3.append(log)
+        QApplication.processEvents()
+
+    @pyqtSlot(str)
+    def printErr(self, err: str):
+        self.textBrowser_3.append(f'<font color="red">{err}</font>')
+
+    @pyqtSlot()
+    def captureWindow(self):
+        self.detectGameInfoSignal.emit()
+
+    @pyqtSlot()
+    def startScan(self):
+        info = {
+            "star": [self.checkBox_5.isChecked(),
+                     self.checkBox_4.isChecked(),
+                     self.checkBox_3.isChecked(),
+                     self.checkBox_2.isChecked(),
+                     self.checkBox.isChecked()],
+            "levelMin": self.spinBox.value(),
+            "levelMax": self.spinBox_2.value(),
+            "delay": self.doubleSpinBox.value(),
+            "exporter": (0 if self.radioButton.isChecked() else
+                         1 if self.radioButton_2.isChecked() else
+                         2 if self.radioButton_3.isChecked() else -1)
+        }
+
+        self.setUIEnabled(False)
+
+        self.startScanSignal.emit(info)
+
+    def setUIEnabled(self, e: bool):
+        self.pushButton.setEnabled(e)
+        self.checkBox.setEnabled(e)
+        self.checkBox_2.setEnabled(e)
+        self.checkBox_3.setEnabled(e)
+        self.checkBox_4.setEnabled(e)
+        self.checkBox_5.setEnabled(e)
+
+        self.spinBox.setEnabled(e)
+        self.spinBox_2.setEnabled(e)
+        self.doubleSpinBox.setEnabled(e)
+
+        self.radioButton.setEnabled(e)
+        self.radioButton_2.setEnabled(e)
+        self.radioButton_3.setEnabled(e)
+
+    @pyqtSlot(str)
+    def endScan(self, filename: str):
+        self.setUIEnabled(True)
+        self.exportFileName = filename
+
+    @pyqtSlot()
+    def showExportedFile(self):
+        if self.exportFileName != '':
+            s = "/select, " + os.path.abspath(self.exportFileName)
+            win32api.ShellExecute(None, "open", "explorer.exe", s, None, 1)
         else:
-            self.hwnd_get = True
-            self.textBrowser_3.append(f"捕获成功，请开始扫描")
-            self.game_info.calculateCoordinates()
+            self.printErr("无导出文件")
 
-    # 点击「开始扫描」
-    def pushButton2_click(self):
-        QMessageBox.information(self, "info", "请打开圣遗物背包界面，翻到圣遗物列表顶部", QMessageBox.Ok, QMessageBox.Ok)
-        QApplication.processEvents()
-        self.print_log("初始化 OCR 模型...")
-        self.ocr_model = ocr.OCR(scale_ratio=self.game_info.scale_ratio,
-                                 model_weight=os.path.join(bundle_dir, 'weights-improvement-55-1.00.hdf5'))
+class Worker(QObject):
+    printLog = pyqtSignal(str)
+    printErr = pyqtSignal(str)
+    working = pyqtSignal()
+    endWorking = pyqtSignal()
+    endInit = pyqtSignal()
+    endScan = pyqtSignal(str)
 
-        QApplication.processEvents()
-        self.print_log("初始化数据...")
+    def __init__(self):
+        super(Worker, self).__init__()
+        self.isQuit = False
+        self.workingMutex = QMutex()
+        self.cond = QWaitCondition()
+        self.isInitialized = False
+        self.isWindowCaptured = False
+
+        # in initEngine
+        self.game_info = None
+        self.model = None
+        self.bundle_dir = None
+
+        # init in scanArts
+        self.art_id = 0
+        self.saved = 0
+        self.skipped = 0
+        self.failed = 0
+        self.star_dist = [0, 0, 0, 0, 0]
+        self.star_dist_saved = [0, 0, 0, 0, 0]
+        self.detectSettings = None
+
+    @pyqtSlot()
+    def initEngine(self):
+        self.working.emit()
+
+        # yield the thread
+        time.sleep(0.1)
+        self.log('初始化中，请稍候...')
+
+        # 创建文件夹
+        os.makedirs('artifacts', exist_ok=True)
+        self.log('检测 DPI 设定...')
+        try:
+            ctypes.windll.shcore.SetProcessDpiAwareness(2)
+        except:
+            try:
+                ctypes.windll.user32.SetProcessDPIAware()
+                self.error('检测到不支持进程 DPI 设置（可能是系统版本低于 Win10）')
+                self.error('程序将会继续，但可能存在分辨率问题')
+            except:
+                self.error('检测到不支持读取系统 DPI 设置（可能是系统版本低于 Win8）')
+                self.error('程序将会继续，但可能存在分辨率问题')
+
+        self.log('尝试捕获窗口...')
+
+        self.detectGameInfo()
+
+        self.log('初始化 OCR 模型...')
+        if len(sys.argv) > 1:
+            self.bundle_dir = sys.argv[1]
+        else:
+            self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
+
+        self.model = ocr.OCR(model_weight=os.path.join(self.bundle_dir, 'weights-improvement-55-1.00.hdf5'))
+
+        self.log('初始化完成')
+        if self.isWindowCaptured:
+            self.log('窗口已捕获，请检查行列数正确后开始扫描')
+            self.log(f'行: {self.game_info.art_rows} , 列: {self.game_info.art_cols}')
+            self.log('错误请更换分辨率后重试')
+        else:
+            self.error('窗口未捕获，请在重新捕获窗口后开始扫描')
+
+        self.log('开始扫描前请打开背包 - 圣遗物，并翻页至顶部')
+        self.endWorking.emit()
+        self.endInit.emit()
+
+    # 捕获窗口与计算边界
+    @pyqtSlot()
+    def detectGameInfo(self):
+        self.working.emit()
+        hwnd = self.captureWindow()
+        if self.isWindowCaptured:
+            self.game_info = GameInfo(hwnd)
+            if self.game_info.w == 0 or self.game_info.h == 0:
+                self.isWindowCaptured = False
+                self.error("当前原神窗口为全屏模式或最小化, 请调整后重新捕获窗口")
+            else:
+                self.game_info.calculateCoordinates()
+        self.endWorking.emit()
+
+    # 捕获窗口
+    def captureWindow(self) -> int:
+        hwnd = win32gui.FindWindow("UnityWndClass", "原神")
+        if hwnd > 0:
+            self.isWindowCaptured = True
+            self.log('捕获窗口成功')
+        else:
+            self.isWindowCaptured = False
+            self.error('捕获窗口失败')
+        return hwnd
+
+    @pyqtSlot(dict)
+    def scanArts(self, info: dict):
+        self.working.emit()
+        if not self.isWindowCaptured:
+            self.error('窗口未捕获，请重新捕获窗口')
+            self.endScan.emit('')
+            self.endWorking.emit()
+            return
+
+        self.model.setScaleRatio(self.game_info.scale_ratio)
+
+        if info['levelMin'] > info['levelMax']:
+            self.error('最小值与最大值设置有误')
+            self.endScan.emit('')
+            self.endWorking.emit()
+            return
+        self.detectSettings = info
+        artifactDB = ArtDatabase()
+        artScanner = ArtScannerLogic(self.game_info)
+
+        exporter = [artifactDB.exportGenshinArtJSON,
+                    artifactDB.exportMingyuLabJSON,
+                    artifactDB.exportGenshinOptimizerJSON][info['exporter']]
+        export_name = ['artifacts.genshinart.json',
+                       'artifacts.mingyulab.json',
+                       'artifacts.genshin-optimizer.json'][info['exporter']]
+
+        mouse.on_middle_click(artScanner.interrupt)
+
+        self.log('3 秒后将开始扫描...')
+        time.sleep(1)
+        utils.setWindowToForeground(self.game_info.hwnd)
+
+        self.log('3...')
+        time.sleep(1)
+        self.log('2...')
+        time.sleep(1)
+        self.log('1...')
+        time.sleep(1)
+
+        self.log('自动对齐中...')
+        artScanner.alignFirstRow()
+        self.log('对齐完成，即将开始扫描')
+        time.sleep(0.5)
+
+        start_row = 0
         self.art_id = 0
         self.saved = 0
         self.skipped = 0
@@ -106,146 +324,75 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.star_dist = [0, 0, 0, 0, 0]
         self.star_dist_saved = [0, 0, 0, 0, 0]
 
-        QApplication.processEvents()
-        self.print_log("创建文件夹...")
-        os.makedirs('artifacts', exist_ok=True)
+        def artscannerCallback(art_img):
+            detectedInfo = self.model.detect_info(art_img)
+            self.star_dist[detectedInfo['star'] - 1] += 1
+            detectedLevel = utils.decodeValue(detectedInfo['level'])
 
-        QApplication.processEvents()
-        if self.game_info.incomplete_lastrow:
-            self.print_log(
-                f'检测到圣遗物背包有 {self.game_info.art_rows} 行 {self.game_info.art_cols} 列，但最后一行不完整可能会影响自动翻页效果，建议更改分辨率到16:9')
-        else:
-            self.print_log(f'检测到圣遗物背包有{self.game_info.art_rows} 行 {self.game_info.art_cols} 列，请务必确认是否正确！！错误请更改分辨率后重试')
+            detectedStar = utils.decodeValue(detectedInfo['star'])
 
-        QApplication.processEvents()
+            if not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
+                    (self.detectSettings['star'][detectedStar - 1])):
+                self.skipped += 1
+            elif artifactDB.add(detectedInfo, art_img):
+                self.saved += 1
+                self.star_dist_saved[detectedInfo['star'] - 1] += 1
+            else:
+                art_img.save(f'artifacts/fail_{self.art_id}.png')
+                s = json.dumps(info, ensure_ascii=False)
+                with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
+                    f.write(s.encode('utf-8'))
+                self.failed += 1
+            self.art_id += 1
+            self.log(f"已扫描{self.art_id}个圣遗物，已保存{self.saved}个，已跳过{self.skipped}个")
 
-        time.sleep(2)
-
-        QApplication.processEvents()
-        self.export_type = self.comboBox.currentIndex()
-        self.print_log(f'导出格式 = {self.comboBox.currentText()}')
-
-        self.level_threshold = self.spinBox.value()
-        self.print_log(f'等级阈值 = {self.level_threshold}')
-
-        self.rarity_threshold = self.spinBox_2.value()
-        self.print_log(f'星级阈值 = {self.rarity_threshold}')
-
-        self.scroll_interval = self.doubleSpinBox.value()
-        self.print_log(f'检测延迟 = {self.scroll_interval}')
-
-        QApplication.processEvents()
-        self.print_log('程序即将自动开始运行')
-        self.print_log('运行期间请保持原神在前台，请勿遮挡窗口或操作鼠标，按鼠标中键停止。')
-
-        QApplication.processEvents()
-        self.print_log('3...')
-        time.sleep(1)
-        QApplication.processEvents()
-        self.print_log('2...')
-        time.sleep(1)
-        QApplication.processEvents()
-        self.print_log('1...')
-        time.sleep(1)
-
-        QApplication.processEvents()
-        self.print_log('OCR 将于 5 秒后开始运行,若此条提示显示时未自动切换到原神窗口，请手动点击原神窗口切到前台')
-        QApplication.processEvents()
-        setWindowToForeground(self.hwnd)
-        QApplication.processEvents()
-        time.sleep(5)
-
-        QApplication.processEvents()
-        self.art_scanner = ArtScannerLogic(self.game_info)
-        self.art_data = ArtDatabase('artifacts.dat')
-
-        self.exporter = [self.art_data.exportGenshinArtJSON, self.art_data.exportMingyuLabJSON][int(self.export_type)]
-        self.export_name = ['artifacts.genshinart.json', 'artifacts.mingyulab.json'][int(self.export_type)]
-        mouse.on_middle_click(self.art_scanner.interrupt)
-
-        QApplication.processEvents()
-        self.print_log('正在自动对齐')
-        self.art_scanner.alignFirstRow()
-        self.print_log('对齐完成，即将开始扫描')
-        time.sleep(0.5)
-        self.start_row = 0
-
-        QApplication.processEvents()
         try:
             while True:
-                QApplication.processEvents()
-                if self.art_scanner.stopped or not self.art_scanner.scanRows(
-                        rows=range(self.start_row, self.game_info.art_rows),
-                        callback=self.artscannerCallback) or self.start_row != 0:
+                if artScanner.stopped or not artScanner.scanRows(rows=range(start_row, self.game_info.art_rows),
+                                                                 callback=artscannerCallback) or start_row != 0:
                     break
-                self.start_row = self.game_info.art_rows - self.art_scanner.scrollToRow(self.game_info.art_rows,
-                                                                                        max_scrolls=20,
-                                                                                        extra_scroll=int(
-                                                                                            self.game_info.art_rows > 5),
-                                                                                        interval=self.scroll_interval)
-                if self.start_row == self.game_info.art_rows:
+                start_row = self.game_info.art_rows - artScanner.scrollToRow(self.game_info.art_rows, max_scrolls=20,
+                                                                             extra_scroll=int(
+                                                                                 self.game_info.art_rows > 5),
+                                                                             interval=self.detectSettings['delay'])
+                if start_row == self.game_info.art_rows:
                     break
-            if self.art_scanner.stopped:
-                self.print_log("用户已中断扫描")
-            elif self.start_row != 0:
-                self.print_log("没有检测到下一页圣遗物，自动终止")
+            if artScanner.stopped:
+                self.log('扫描已中断')
             else:
-                self.print_log("在最后点击位置未检测到圣遗物，自动终止")
+                self.log('扫描已完成')
         except Exception as e:
-            self.print_log(f"因为\"{repr(e)}\"而意外停止扫描，将保存已扫描的圣遗物信息")
+            self.error(repr(e))
+            self.log('扫描出错，已停止')
 
         if self.saved != 0:
-            self.exporter(self.export_name)
-        self.print_log(f'总计扫描了{self.skipped + self.saved}/{self.art_id}个圣遗物，'
-                       f'保存了{self.saved}个到{self.export_name}，失败了{self.failed}个')
-        self.print_log('无效识别/失败结果请到artifacts路径中查看')
-        self.print_log('----------------------------')
-        self.print_log('圣遗物星级分布：（保存数量/扫描数量）')
-        self.print_log(f'5星：{self.star_dist_saved[4]}/{self.star_dist[4]}')
-        self.print_log(f'4星：{self.star_dist_saved[3]}/{self.star_dist[3]}')
-        self.print_log(f'3星：{self.star_dist_saved[2]}/{self.star_dist[2]}')
-        self.print_log(f'2星：{self.star_dist_saved[1]}/{self.star_dist[1]}')
-        self.print_log(f'1星：{self.star_dist_saved[0]}/{self.star_dist[0]}')
-        self.print_log('----------------------------')
-        self.print_log('已完成')
+            exporter(export_name)
+        self.log(f'扫描: {self.saved}')
+        self.log(f'  - 保存: {self.saved}')
+        self.log(f'  - 跳过: {self.skipped}')
+        self.log(f'失败: {self.failed}')
+        self.log('失败结果已存储至 artifacts 文件夹')
 
-    def artscannerCallback(self, art_img):
-        QApplication.processEvents()
-        info = self.ocr_model.detect_info(art_img)
-        self.star_dist[info['star'] - 1] += 1
-        if decodeValue(info['level']) < self.level_threshold or decodeValue(info['star']) < self.rarity_threshold:
-            self.skipped += 1
-        elif self.art_data.add(info, art_img):
-            self.saved += 1
-            self.star_dist_saved[info['star'] - 1] += 1
-        else:
-            art_img.save(f'artifacts/{self.art_id}.png')
-            s = json.dumps(info, ensure_ascii=False)
-            with open(f"artifacts/{self.art_id}.json", "wb") as f:
-                f.write(s.encode('utf-8'))
-            self.failed += 1
-        self.art_id += 1
-        self.print_log(
-            f"\r已扫描{self.art_id}个圣遗物，已保存{self.saved}个，已跳过{self.skipped}个")
+        self.log('星级: (已保存 / 已扫描)')
+        self.log(f'5: {self.star_dist_saved[4]} / {self.star_dist[4]}')
+        self.log(f'4: {self.star_dist_saved[3]} / {self.star_dist[3]}')
+        self.log(f'3: {self.star_dist_saved[2]} / {self.star_dist[2]}')
+        self.log(f'2: {self.star_dist_saved[1]} / {self.star_dist[1]}')
+        self.log(f'1: {self.star_dist_saved[0]} / {self.star_dist[0]}')
 
-    def print_log(self, text):
-        self.textBrowser_4.append(text)
+        del artifactDB
+        self.endScan.emit(export_name)
+        self.endWorking.emit()
 
-    def initDpi(self):
-        try:
-            ctypes.windll.shcore.SetProcessDpiAwareness(2)
-        except:
-            try:
-                ctypes.windll.user32.SetProcessDPIAware()
-                self.print_log('检测到不支持进程DPI设置（可能是系统版本低于Win10）')
-                self.print_log('程序将会继续执行，但在高分屏上可能存在分辨率问题')
-            except:
-                self.print_log('检测到不支持读取系统DPI设置（可能是系统版本低于Win8）')
-                self.print_log('程序将会继续执行，但在高分屏上可能存在分辨率问题')
+    def log(self, content: str):
+        self.printLog.emit(content)
+
+    def error(self, err: str):
+        self.printErr.emit(err)
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
     uiMain = UIMain()
     uiMain.show()
-    sys.exit(app.exec_())
+    app.exec()
