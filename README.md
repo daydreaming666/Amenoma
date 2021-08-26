@@ -1,35 +1,40 @@
-# GAS -- GenshinArtScanner
+# 「天目」 -- Amenoma
 
 [简体中文](./README.md) | [English](./README_en.md)
+
+> 「天目流的诀窍就是滴水穿石的耐心和全力以赴的意志」
+
+原名 GenshinArtScanner.
 
 扫描背包中的圣遗物，并导出至 json 格式。之后可导入圣遗物分析工具( [莫娜占卜铺](https://www.mona-uranai.com) 、 [MingyuLab](https://genshin.mingyulab.com) 、 [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer ) 进行计算与规划等。
 
 - 已支持 原神2.0 的圣遗物!
+- 重构了扫描流程，大幅提高使用体验
 
 
 ## 下载
 
 有多个版本可供下载：
 
-- ArtScannerUI.exe
+- Amenoma.exe
   带界面的单文件版本，启动时间略长。(推荐)
 
-- ArtScannerUI.zip
+- Amenoma.zip
   带界面的多文件版本，解压后使用，启动时间较短。缺点是解压后占用空间较大。
 
-- ArtScannerCLI.exe
+- AmenomaCLI.exe
   使用命令行的单文件版本。
 
 > 使用中文界面时，请确保下载不带有后缀 *_EN* 的版本。不同语言的版本不能通用。
 
 ## 用法
 
-1. 双击 ArtScanner.exe 打开程序，等待一会儿代码的解压
+1. 双击 Amenoma.exe 打开程序，等待一会儿代码的解压
 2. 将原神调整分辨率为 1600 * 900，打开背包 - 圣遗物
 3. 捕获窗口并等待
 4. 调整扫描选项
 5. 开始扫描
-6. 扫描结果存储在运行文件夹 *artifacts.genshinart.json*(莫娜占卜铺 / Genshin Optimizer) / *artifacts.mingyulab.json*(MingyuLab)
+6. 扫描结果存储在运行文件夹 *artifacts.genshinart.json*(莫娜占卜铺) / *artifacts.mingyulab.json*(MingyuLab) / *artifacts.genshin-optimizer.json*(Genshin Optimizer)
 
 > [其他问题](#Q&A)
 
@@ -62,24 +67,26 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 
 - [ProblemFactory/GenshinArtScanner](https://github.com/ProblemFactory/GenshinArtScanner)
 的项目
-
 - [honeyhunterworld](https://genshin.honeyhunterworld.com/) 的数据支持
 - 各位测试与使用者的支持
 
 
 ## Q&A
 
-暂时还没写 QwQ
+已知问题：
+
+1. 在宽屏的显示器上（21:9），行列数计算错误。
 
 > 如果遇到问题或任何建议，请提交 issues 或邮件至 [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
 
 
 ## 捐赠
 
-感谢支持。
+我是一名在校大学生，该项目花费了我大量的时间。
+非常感谢您的支持！
 
-<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004740.jpg" width="270" height="420" alt="Alipay"/>
+<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004740.jpg" width="135" height="210" alt="Alipay"/>
 
-<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004735.png" width="306" height="420" alt="Wechat"/>
+<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004735.png" width="153" height="210" alt="Wechat"/>
 
 [PayPal@daydreaming666](https://www.paypal.me/daydreaming666)

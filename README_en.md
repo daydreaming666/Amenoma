@@ -1,21 +1,24 @@
-# GAS -- GenshinArtScanner
+# 「天目」 -- Amenoma
 
 [简体中文](./README.md) | [English](./README_en.md)
+
+> The essence of Amenoma Art is to have the patience to move mountains and unrelenting willpower.
+
+The Original name was GAS -- GenshinArtScanner
 
 Scan the Artifact in the backpack and export them to json format. Later, they can be imported to Artifact analysis tools( [mona-uranai](https://www.mona-uranai.com), [MingyuLab](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
 
 - genshin 2.0 Artifact supported!
+- Refactored the scanning process to greatly improve the user experience!
 
 ## Download
 
 Multiple versions available for download: 
 
-- ArtScannerUI_EN.exe
+- Amenoma_EN.exe
   Single-file version with GUI, which takes longer to start.
-- ArtScannerUI_EN.zip
+- Amenoma_EN.zip 
   Multi-file version with GUI, can be used after decompression, and the startup time is shorter.The disadvantage is that it takes up more space after decompression.
-- ArtScannerCLI_EN.exe
-  Single-file version with CLI.
 
 > For EngLish users:
 > 
@@ -29,7 +32,7 @@ Multiple versions available for download:
 3. Capture the window and wait.
 4. Adjust scanning options.
 5. Start scanning 
-6. Scan results are stored in current running folder *artifacts.genshinart.json*(mona-uranai / Genshin Optimizer) / *artifacts.mingyulab.json*(MingyuLab).
+6. Scan results are stored in current running folder *artifacts.genshinart.json*(mona-uranai) / *artifacts.mingyulab.json*(MingyuLab) / *artifacts.genshin-optimizer.json*(Genshin Optimizer).
 
 > [Other Questions](#Q&A)
 
@@ -59,20 +62,28 @@ When you download or use this software, you are deemed to know and agree to the 
 
 > The above content is subject to the Chinese version 
 
+## Thanks
+
+- [ProblemFactory/GenshinArtScanner](https://github.com/ProblemFactory/GenshinArtScanner) the Project
+- [honeyhunterworld](https://genshin.honeyhunterworld.com/) Data support.
+- Supports from users and testers.
 
 ## Q&A
 
-Not Written Yet...
+Known issues:
+
+1. On a widescreen display (21:9), rows and columns are calculated incorrectly. 
 
 > If you encounter problems or any suggestions, please submit issues or email to [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
 
 
 ## Donate
 
-Thanks a lot.
+I am a college student, and this project took me a lot of time.
+Thank you very much for your support! 
 
-<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004740.jpg" width="270" height="420" alt="Alipay"/>
+<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004740.jpg" width="135" height="210" alt="Alipay"/>
 
-<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004735.png" width="306" height="420" alt="Wechat"/>
+<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004735.png" width="153" height="210" alt="Wechat"/>
 
 [PayPal@daydreaming666](https://www.paypal.me/daydreaming666)
