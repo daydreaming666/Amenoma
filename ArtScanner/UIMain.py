@@ -4,6 +4,7 @@ import os
 import sys
 import time
 
+import webbrowser
 import mouse
 import win32gui
 import win32api
@@ -38,6 +39,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
     startScanSignal = pyqtSignal(dict)
     initializeSignal = pyqtSignal()
     detectGameInfoSignal = pyqtSignal()
+    openLinkSignal = pyqtSignal(str)
 
     def __init__(self):
         super(UIMain, self).__init__()
@@ -170,6 +172,10 @@ class UIMain(QMainWindow, Ui_MainWindow):
         else:
             self.printErr("无导出文件")
 
+    @pyqtSlot(str)
+    def openLink(self, link: str):
+        webbrowser.open(link)
+
 class Worker(QObject):
     printLog = pyqtSignal(str)
     printErr = pyqtSignal(str)
@@ -205,7 +211,7 @@ class Worker(QObject):
         self.working.emit()
 
         # yield the thread
-        time.sleep(0.1)
+        time.sleep(0.5)
         self.log('初始化中，请稍候...')
 
         # 创建文件夹
