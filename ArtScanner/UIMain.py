@@ -3,14 +3,14 @@ import json
 import os
 import sys
 import time
-
 import webbrowser
+
 import mouse
-import win32gui
 import win32api
+import win32gui
 from PyQt5.QtCore import (pyqtSignal, pyqtSlot, QObject, QThread,
                           QMutex, QWaitCondition)
-from PyQt5.QtGui import (QMovie, QPixmap, QCursor, QTextCharFormat, QColor)
+from PyQt5.QtGui import (QMovie, QPixmap)
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog)
 
 import ocr
@@ -175,6 +175,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str)
     def openLink(self, link: str):
         webbrowser.open(link)
+
 
 class Worker(QObject):
     printLog = pyqtSignal(str)
@@ -345,7 +346,7 @@ class Worker(QObject):
                 self.star_dist_saved[detectedInfo['star'] - 1] += 1
             else:
                 art_img.save(f'artifacts/fail_{self.art_id}.png')
-                s = json.dumps(info, ensure_ascii=False)
+                s = json.dumps(detectedInfo, ensure_ascii=False)
                 with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
                     f.write(s.encode('utf-8'))
                 self.failed += 1

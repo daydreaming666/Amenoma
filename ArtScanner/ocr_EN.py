@@ -61,11 +61,16 @@ class OCR:
             vocabulary=self.char_to_num.get_vocabulary(), oov_token="", mask_token="", invert=True
         )
 
+
+
         self.width = 384
         self.height = 16
         self.max_length = 40
         self.build_model(input_shape=(self.width, self.height))
         self.model.load_weights(model_weight)
+
+    def setScaleRatio(self, scaleRatio):
+        self.scale_ratio = scaleRatio
 
     def detect_info(self, art_img):
         info = self.extract_art_info_EN(art_img)
