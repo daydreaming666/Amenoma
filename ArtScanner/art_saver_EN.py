@@ -3,6 +3,7 @@ import os
 import sys
 from enum import IntEnum as Enum
 
+import Levenshtein
 import ZODB
 import ZODB.FileStorage
 import persistent
@@ -10,8 +11,6 @@ import transaction
 
 import ArtsInfo
 from utils import decodeValue
-
-import Levenshtein
 
 bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
 
@@ -89,7 +88,8 @@ class ArtifactStat:
         return 1
 
     def __str__(self):
-        return ArtsInfo.MainAttrNames_EN[self.type.name] + "+" + ArtsInfo.Formats[self.type.name].format(self.value + 1e-5)
+        return ArtsInfo.MainAttrNames_EN[self.type.name] + "+" + ArtsInfo.Formats[self.type.name].format(
+            self.value + 1e-5)
 
 
 class Artifact(persistent.Persistent):
@@ -121,9 +121,8 @@ class Artifact(persistent.Persistent):
             ndis = Levenshtein.distance(attr, n)
             if ndis < dis:
                 dis = ndis
-                corr_name= n
+                corr_name = n
         return corr_name
-
 
     def __init__(self, info, image):
         '''
@@ -301,6 +300,6 @@ if __name__ == '__main__':
         "subattr_3": "防御力+63",
         "subattr_4": "暴击伤害+6.2%",
     }, None)
-    art = Artifact({"level": "+20", "main_attr_name": "生命值", "main_attr_value": "4,780", "name": "野花记忆的绿野",
+    art2 = Artifact({"level": "+20", "main_attr_name": "生命值", "main_attr_value": "4,780", "name": "野花记忆的绿野",
                     "subattr_1": "元素充能效率+4.5%", "subattr_2": "攻击力+15.7%", "subattr_3": "暴击伤害+14.0%",
                     "subattr_4": "元素精通+42", "type": "生之花", "star": 5}, None)

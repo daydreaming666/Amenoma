@@ -3,6 +3,7 @@ import os
 import sys
 from enum import IntEnum as Enum
 
+import Levenshtein
 import ZODB
 import ZODB.FileStorage
 import persistent
@@ -101,6 +102,27 @@ class Artifact(persistent.Persistent):
                     i.get('Level', -1) == l + 1 and i.get('Rank', -1) == r], []) for r in range(1, 6)} for l in
         range(21)} for k in ArtsInfo.MainAttrNames.keys()}
 
+    def name_auto_correct(self, name) -> str:
+        corr_name = ""
+        dis = 10000000
+        for arts in ArtsInfo.ArtNames:
+            for rname in arts:
+                ndis = Levenshtein.distance(name, rname)
+                if ndis < dis:
+                    corr_name = rname
+                    dis = ndis
+        return corr_name
+
+    def attr_auto_correct(self, attr) -> str:
+        corr_name = ''
+        dis = 10000000
+        for n in ArtsInfo.MainAttrNames.values():
+            ndis = Levenshtein.distance(attr, n)
+            if ndis < dis:
+                dis = ndis
+                corr_name = n
+        return corr_name
+
     def __init__(self, info, image):
         '''
             info: dict with keys:
@@ -113,15 +135,17 @@ class Artifact(persistent.Persistent):
                 'subattr_{i}': str, substat description, i could be 1-4, example: '暴击率+3.5%', '攻击力+130'
             image: PIL.Image, screenshot of the artifact, will be shrinked to 300x512 to save space
         '''
-        typeid = ArtsInfo.TypeNames.index(info['type'])
+
+        self.name = self.name_auto_correct(info['name'])
+        typeid = ArtsInfo.TypeNames_EN.index(info['type'])
         self.setid = [i for i, v in enumerate(
-            ArtsInfo.ArtNames) if info['name'] in v][0]
-        self.name = info['name']
+            ArtsInfo.ArtNames) if self.name in v][0]
         self.type = ArtifactType(typeid)
         self.level = decodeValue(info['level'])
         self.rarity = info['star']
         self.stat = ArtifactStat(
-            info['main_attr_name'], info['main_attr_value'], rarity=self.rarity, level=self.level, isMain=True)
+            self.attr_auto_correct(info['main_attr_name']), info['main_attr_value'],
+            rarity=self.rarity, level=self.level, isMain=True)
         self.substats = [ArtifactStat(*info[tag].split('+'))
                          for tag in sorted(info.keys()) if "subattr_" in tag]
         if image is not None:
@@ -275,6 +299,6 @@ if __name__ == '__main__':
         "subattr_3": "防御力+63",
         "subattr_4": "暴击伤害+6.2%",
     }, None)
-    art = Artifact({"level": "+20", "main_attr_name": "生命值", "main_attr_value": "4,780", "name": "野花记忆的绿野",
-                    "subattr_1": "元素充能效率+4.5%", "subattr_2": "攻击力+15.7%", "subattr_3": "暴击伤害+14.0%",
-                    "subattr_4": "元素精通+42", "type": "生之花", "star": 5}, None)
+    art2 = Artifact({"level": "+20", "main_attr_name": "生命值", "main_attr_value": "4,780", "name": "野花记忆的绿野",
+                     "subattr_1": "元素充能效率+4.5%", "subattr_2": "攻击力+15.7%", "subattr_3": "暴击伤害+14.0%",
+                     "subattr_4": "元素精通+42", "type": "生之花", "star": 5}, None)
