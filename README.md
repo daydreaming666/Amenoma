@@ -51,7 +51,7 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 
 ### 开源协议
 
-[APACHE LICENSE, VERSION 2.0](http://www.apache.org/licenses/LICENSE-2.0.html)
+[GNU GENERAL PUBLIC LICENSE Version 3](https://www.gnu.org/licenses/gpl-3.0.html)
 
 ### 声明
 
