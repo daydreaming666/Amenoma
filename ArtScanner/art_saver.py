@@ -137,7 +137,7 @@ class Artifact(persistent.Persistent):
         '''
 
         self.name = self.name_auto_correct(info['name'])
-        typeid = ArtsInfo.TypeNames_EN.index(info['type'])
+        typeid = ArtsInfo.TypeNames.index(info['type'])
         self.setid = [i for i, v in enumerate(
             ArtsInfo.ArtNames) if self.name in v][0]
         self.type = ArtifactType(typeid)
