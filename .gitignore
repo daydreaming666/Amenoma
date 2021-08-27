@@ -15,3 +15,4 @@ ArtScanner/artifacts/**
 /ArtScanner/.ipynb_checkpoints/
 /ArtScanner/Tools/model_trainer/.ipynb_checkpoints/
 /ArtScanner/Tools/model_trainer/train/
+.idea/**
