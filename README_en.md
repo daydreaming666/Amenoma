@@ -4,7 +4,7 @@
 
 > The essence of Amenoma Art is to have the patience to move mountains and unrelenting willpower.
 
-The Original name was GAS -- GenshinArtScanner
+Upgraded from GAS -- GenshinArtScanner 's model.
 
 Scan the Artifact in the backpack and export them to json format. Later, they can be imported to Artifact analysis tools( [mona-uranai](https://www.mona-uranai.com), [MingyuLab](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
 
