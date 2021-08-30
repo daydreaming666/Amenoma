@@ -4,7 +4,7 @@
 
 > 「天目流的诀窍就是滴水穿石的耐心和全力以赴的意志」
 
-原名 GenshinArtScanner.
+在 GenshinArtScanner 模型的基础上升级而来。
 
 扫描背包中的圣遗物，并导出至 json 格式。之后可导入圣遗物分析工具( [莫娜占卜铺](https://www.mona-uranai.com) 、 [MingyuLab](https://genshin.mingyulab.com) 、 [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer ) 进行计算与规划等。
 
