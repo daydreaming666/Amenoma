@@ -4,8 +4,6 @@
 
 > 「天目流的诀窍就是滴水穿石的耐心和全力以赴的意志」
 
-在 GenshinArtScanner 模型的基础上升级而来。
-
 扫描背包中的圣遗物，并导出至 json 格式。之后可导入圣遗物分析工具( [莫娜占卜铺](https://www.mona-uranai.com) 、 [MingyuLab](https://genshin.mingyulab.com) 、 [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer ) 进行计算与规划等。
 
 - 已支持 原神2.0 的圣遗物!
@@ -66,16 +64,14 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 ## 鸣谢
 
 - [ProblemFactory/GenshinArtScanner](https://github.com/ProblemFactory/GenshinArtScanner)
-的项目
+的项目，本项目使用了GenshinArtScanner的模型
 - [honeyhunterworld](https://genshin.honeyhunterworld.com/) 的数据支持
 - 各位测试与使用者的支持
 
 
 ## Q&A
 
-已知问题：
-
-1. 在宽屏的显示器上（21:9），行列数计算错误。
+这里还没写呢 QwQ
 
 > 如果遇到问题或任何建议，请提交 issues 或邮件至 [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
 
