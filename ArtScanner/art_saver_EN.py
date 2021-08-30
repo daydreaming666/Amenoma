@@ -230,7 +230,40 @@ class ArtDatabase:
 
     # todo -- replace GO format
     def exportGenshinOptimizerJSON(self, path):
-        self.exportGenshinArtJSON(path)
+        result = {
+            "version": 1,       # artifact only
+            "source": "Amenoma",
+            "characters": [],
+            "artifacts": [],
+            "weapons": []
+        }
+        for art_id in range(self.root['size']):
+            art: Artifact = self.root[str(art_id)]
+            result['artifacts'].append(
+                {
+                    "setKey":      ArtsInfo.SetNamesGOAPI[art.setid],
+                    "slotKey":     ArtsInfo.TypeNamesGOAPI[art.type],
+                    "level":       art.level,
+                    "rarity":      art.rarity if 3 <= art.rarity <= 5 else 0,
+                    "MainStatKey": ArtsInfo.AttrNamesGOAPI[art.stat.type.name],
+                    "location":    "",      # not scanned yet
+                    "lock":        False,   # not scanned yet
+                    "substats": [
+                        {
+                            "name":  ArtsInfo.AttrNamesGOAPI[substat.type.name],
+                            "value": substat.value * 100
+                            if ArtsInfo.AttrNamesGOAPI[substat.type.name].endswith("_")
+                            else substat.value,
+                        }
+                        for substat in art.substats
+                    ]
+                }
+            )
+            f = open(path, "wb")
+            s = json.dumps(result, ensure_ascii=False)
+            f.write(s.encode('utf-8'))
+            f.close()
+
 
     def exportGenshinArtJSON(self, path):
         result = {"version": "1", "flower": [],
