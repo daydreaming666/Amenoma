@@ -4,8 +4,6 @@
 
 > The essence of Amenoma Art is to have the patience to move mountains and unrelenting willpower.
 
-Upgraded from GAS -- GenshinArtScanner 's model.
-
 Scan the Artifact in the backpack and export them to json format. Later, they can be imported to Artifact analysis tools( [mona-uranai](https://www.mona-uranai.com), [MingyuLab](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
 
 - genshin 2.0 Artifact supported!
@@ -64,15 +62,13 @@ When you download or use this software, you are deemed to know and agree to the 
 
 ## Thanks
 
-- [ProblemFactory/GenshinArtScanner](https://github.com/ProblemFactory/GenshinArtScanner) the Project
+- [ProblemFactory/GenshinArtScanner](https://github.com/ProblemFactory/GenshinArtScanner) This project uses the model of GenshinArtScanner.
 - [honeyhunterworld](https://genshin.honeyhunterworld.com/) Data support.
 - Supports from users and testers.
 
 ## Q&A
 
-Known issues:
-
-1. On a widescreen display (21:9), rows and columns are calculated incorrectly. 
+Not implemented yet. QwQ
 
 > If you encounter problems or any suggestions, please submit issues or email to [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
 
