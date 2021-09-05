@@ -228,7 +228,6 @@ class ArtDatabase:
                 raise
             return False
 
-    # todo -- replace GO format
     def exportGenshinOptimizerJSON(self, path):
         result = {
             "version": 1,       # artifact only
@@ -245,7 +244,7 @@ class ArtDatabase:
                     "slotKey":     ArtsInfo.TypeNamesGOAPI[art.type],
                     "level":       art.level,
                     "rarity":      art.rarity if 3 <= art.rarity <= 5 else 0,
-                    "MainStatKey": ArtsInfo.AttrNamesGOAPI[art.stat.type.name],
+                    "mainStatKey": ArtsInfo.AttrNamesGOAPI[art.stat.type.name],
                     "location":    "",      # not scanned yet
                     "lock":        False,   # not scanned yet
                     "substats": [

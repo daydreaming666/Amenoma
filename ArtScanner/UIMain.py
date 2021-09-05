@@ -3,7 +3,6 @@ import json
 import os
 import sys
 import time
-import webbrowser
 
 import mouse
 import win32api
@@ -39,7 +38,6 @@ class UIMain(QMainWindow, Ui_MainWindow):
     startScanSignal = pyqtSignal(dict)
     initializeSignal = pyqtSignal()
     detectGameInfoSignal = pyqtSignal()
-    openLinkSignal = pyqtSignal(str)
 
     def __init__(self):
         super(UIMain, self).__init__()
@@ -54,8 +52,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.captureWindow)
         self.pushButton_3.clicked.connect(self.showHelpDlg)
         self.pushButton_4.clicked.connect(self.showExportedFile)
-        self.action_help.triggered.connect(self.showHelpDlg)
-        self.action_about.triggered.connect(self.showAboutDlg)
+        self.pushButton_5.clicked.connect(self.showExtraSettings)
+        self.pushButton_6.clicked.connect(self.showAboutDlg)
 
         # 创建工作线程
         self.worker = Worker()
@@ -109,6 +107,10 @@ class UIMain(QMainWindow, Ui_MainWindow):
     def showAboutDlg(self):
         dlg = AboutDlg(self)
         return dlg.show()
+
+    @pyqtSlot()
+    def showExtraSettings(self):
+        pass
 
     @pyqtSlot(str)
     def printLog(self, log: str):
@@ -172,10 +174,6 @@ class UIMain(QMainWindow, Ui_MainWindow):
         else:
             self.printErr("无导出文件")
 
-    @pyqtSlot(str)
-    def openLink(self, link: str):
-        webbrowser.open(link)
-
 
 class Worker(QObject):
     printLog = pyqtSignal(str)
@@ -230,9 +228,11 @@ class Worker(QObject):
                 self.error('程序将会继续，但可能存在分辨率问题')
 
         self.log('尝试捕获窗口...')
+        self.endworking.emit()
 
         self.detectGameInfo()
 
+        self.working.emit()
         self.log('初始化 OCR 模型...')
         if len(sys.argv) > 1:
             self.bundle_dir = sys.argv[1]

@@ -52,8 +52,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.pushButton_2.clicked.connect(self.captureWindow)
         self.pushButton_3.clicked.connect(self.showHelpDlg)
         self.pushButton_4.clicked.connect(self.showExportedFile)
-        self.action_help.triggered.connect(self.showHelpDlg)
-        self.action_about.triggered.connect(self.showAboutDlg)
+        self.pushButton_5.clicked.connect(self.showExtraSettings)
+        self.pushButton_6.clicked.connect(self.showAboutDlg)
 
         # 创建工作线程
         self.worker = Worker()
@@ -107,6 +107,10 @@ class UIMain(QMainWindow, Ui_MainWindow):
     def showAboutDlg(self):
         dlg = AboutDlg(self)
         return dlg.show()
+
+    @pyqtSlot()
+    def showExtraSettings(self):
+        pass
 
     @pyqtSlot(str)
     def printLog(self, log: str):
@@ -226,17 +230,18 @@ class Worker(QObject):
                 self.error('The program will continue...')
 
         self.log('Trying to capture the window...')
+        self.endworking.emit()
 
         self.detectGameInfo()
 
+        self.working.emit()
         self.log('Initializing the OCR model...')
         if len(sys.argv) > 1:
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
 
-        self.model = ocr_EN.OCR(model_weight=os.path.join(self.bundle_dir,
-                                                          'weights-improvement-EN-81-1.00.hdf5'))
+        self.model = ocr_EN.OCR(model_weight=os.path.join(self.bundle_dir,                                                          'weights-improvement-EN-81-1.00.hdf5'))
 
         self.log('Initialize is finished.')
         if self.isWindowCaptured:
