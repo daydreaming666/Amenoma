@@ -55,6 +55,10 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.pushButton_5.clicked.connect(self.showExtraSettings)
         self.pushButton_6.clicked.connect(self.showAboutDlg)
 
+        self.radioButton.clicked.connect(self.selectedMona)
+        self.radioButton_2.clicked.connect(self.selectedMingyu)
+        self.radioButton_3.clicked.connect(self.selectedGO)
+
         # 创建工作线程
         self.worker = Worker()
         self.workerThread = QThread()
@@ -107,6 +111,39 @@ class UIMain(QMainWindow, Ui_MainWindow):
     def showAboutDlg(self):
         dlg = AboutDlg(self)
         return dlg.show()
+
+    @pyqtSlot()
+    def selectedMona(self):
+        self.checkBox.setChecked(True)
+        self.checkBox_2.setChecked(True)
+        self.checkBox_3.setChecked(False)
+        self.checkBox_4.setChecked(False)
+        self.checkBox_5.setChecked(False)
+
+        self.spinBox.setValue(0)
+        self.spinBox_2.setValue(20)
+
+    @pyqtSlot()
+    def selectedMingyu(self):
+        self.checkBox.setChecked(True)
+        self.checkBox_2.setChecked(False)
+        self.checkBox_3.setChecked(False)
+        self.checkBox_4.setChecked(False)
+        self.checkBox_5.setChecked(False)
+
+        self.spinBox.setValue(4)
+        self.spinBox_2.setValue(20)
+
+    @pyqtSlot()
+    def selectedGO(self):
+        self.checkBox.setChecked(True)
+        self.checkBox_2.setChecked(True)
+        self.checkBox_3.setChecked(False)
+        self.checkBox_4.setChecked(False)
+        self.checkBox_5.setChecked(False)
+
+        self.spinBox.setValue(0)
+        self.spinBox_2.setValue(20)
 
     @pyqtSlot()
     def showExtraSettings(self):
@@ -228,7 +265,7 @@ class Worker(QObject):
                 self.error('程序将会继续，但可能存在分辨率问题')
 
         self.log('尝试捕获窗口...')
-        self.endworking.emit()
+        self.endWorking.emit()
 
         self.detectGameInfo()
 
