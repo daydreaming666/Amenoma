@@ -8,16 +8,19 @@ import mouse
 import win32api
 import win32gui
 from PyQt5.QtCore import (pyqtSignal, pyqtSlot, QObject, QThread,
-                          QMutex, QWaitCondition)
+                          QMutex, QWaitCondition, Qt)
 from PyQt5.QtGui import (QMovie, QPixmap)
-from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog)
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog, QTableWidgetItem,
+                             QWidget, QCheckBox, QHBoxLayout)
 
 import ocr_EN
 import utils
+import ArtsInfo
 from art_saver_EN import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
 from rcc import About_Dialog_EN
 from rcc import Help_Dialog_EN
+from rcc import ExtraSettings_Dialog_EN
 from rcc.MainWindow_EN import Ui_MainWindow
 
 
@@ -28,9 +31,83 @@ class AboutDlg(QDialog, About_Dialog_EN.Ui_Dialog):
 
 
 class HelpDlg(QDialog, Help_Dialog_EN.Ui_Dialog):
+
     def __init__(self, parent=None):
         super(HelpDlg, self).__init__(parent)
         self.setupUi(self)
+
+
+class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
+    acceptSignal = pyqtSignal(dict)
+
+    def _addCheckboxAt(self, row: int, col: int, state: bool):
+        checkBoxWidget = QWidget()
+        checkBox = QCheckBox()
+        layoutCheckbox = QHBoxLayout(checkBoxWidget)
+        layoutCheckbox.addWidget(checkBox)
+        layoutCheckbox.setAlignment(Qt.AlignLeft)
+        layoutCheckbox.setContentsMargins(10, 0, 0, 0)
+
+        if state:
+            checkBox.setChecked(True)
+        else:
+            checkBox.setChecked(False)
+
+        self._checkboxes.append(checkBox)
+        self.tableWidget.setCellWidget(row, col, checkBoxWidget)
+
+    def __init__(self, settings, parent=None):
+        super(ExtraSettingsDlg, self).__init__(parent)
+        self.setupUi(self)
+
+        self._checkboxes = []
+
+        self.checkBox.setChecked(settings['EnhancedCaptureWindow'])
+        self.checkBox_2.setChecked(settings['ExportAllFormats'])
+        self.checkBox_3.setChecked(settings['FilterArtsByName'])
+        self.checkBox_4.setEnabled(settings['FilterArtsByName'])
+        self.tableWidget.setEnabled(settings['FilterArtsByName'])
+
+        self.checkBox_3.clicked.connect(self.handleAdvancedSettingsClicked)
+        self.checkBox_4.clicked.connect(self.handleSelectAllClicked)
+        self.pushButton.clicked.connect(self.handleAccept)
+
+        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setRowCount(len(ArtsInfo.SetNames))
+        self.tableWidget.horizontalHeader().setStretchLastSection(True)
+
+        for i, e in enumerate(ArtsInfo.SetNames):
+            self._addCheckboxAt(i, 0, settings['Filter'][i], e)
+
+
+    @pyqtSlot()
+    def handleSelectAllClicked(self):
+        if self.checkBox_4.isChecked():
+            for e in self._checkboxes:
+                e.setChecked(True)
+        else:
+            for e in self._checkboxes:
+                e.setChecked(False)
+
+    @pyqtSlot()
+    def handleAdvancedSettingsClicked(self):
+        if self.checkBox_3.isChecked():
+            self.tableWidget.setEnabled(True)
+            self.checkBox_4.setEnabled(True)
+        else:
+            self.tableWidget.setEnabled(False)
+            self.checkBox_4.setEnabled(False)
+
+    @pyqtSlot()
+    def handleAccept(self):
+        settings = {
+            "EnhancedCaptureWindow": self.checkBox.isChecked(),
+            "ExportAllFormats": self.checkBox_2.isChecked(),
+            "FilterArtsByName": self.checkBox_3.isChecked(),
+            "Filter": [i.isChecked() for i in self._checkboxes]
+        }
+        self.acceptSignal.emit(settings)
+
 
 
 class UIMain(QMainWindow, Ui_MainWindow):
@@ -46,6 +123,15 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.exportFileName = ''
         self.gif = QMovie(':/rcc/rcc/loading.gif')
         self.picOk = QPixmap(':/rcc/rcc/ok.png')
+
+        self._settings = {
+            "EnhancedCaptureWindow": False,
+            "ExportAllFormats": False,
+            "FilterArtsByName": False,
+            "Filter": [True for _ in ArtsInfo.SetNames]
+        }
+        self._helpDlg = HelpDlg(self)
+        self._isHelpDlgShowing = False
 
         # 连接按钮
         self.pushButton.clicked.connect(self.startScan)
@@ -101,16 +187,15 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def showHelpDlg(self):
-        dlg = HelpDlg(self)
         point = self.rect().topRight()
         globalPoint = self.mapToGlobal(point)
-        dlg.move(globalPoint)
-        return dlg.show()
+        self._helpDlg.move(globalPoint)
+        self._helpDlg.show()
 
     @pyqtSlot()
     def showAboutDlg(self):
         dlg = AboutDlg(self)
-        return dlg.show()
+        dlg.exec()
 
     @pyqtSlot()
     def selectedMona(self):
@@ -147,7 +232,9 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def showExtraSettings(self):
-        pass
+        dlg = ExtraSettingsDlg(self._settings, self)
+        dlg.acceptSignal.connect(self.handleExtraSettings)
+        dlg.exec()
 
     @pyqtSlot(str)
     def printLog(self, log: str):
@@ -210,6 +297,10 @@ class UIMain(QMainWindow, Ui_MainWindow):
             win32api.ShellExecute(None, "open", "explorer.exe", s, None, 1)
         else:
             self.printErr("No exported file")
+
+    @pyqtSlot(dict)
+    def handleExtraSettings(self, ret: dict):
+        self._settings = ret
 
 
 class Worker(QObject):
