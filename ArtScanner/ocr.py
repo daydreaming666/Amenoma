@@ -72,7 +72,9 @@ class OCR:
 
     def detect_info(self, art_img):
         info = self.extract_art_info(art_img)
-        x = np.concatenate([self.preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
+        x = np.concatenate([
+            self.preprocess(info[key]).T[None, :, :, None]
+            for key in sorted(info.keys())], axis=0)
         y = self.model.predict(x)
         y = self.decode(y)
         return {**{key: v for key, v in zip(sorted(info.keys()), y)}, **{'star': self.detect_star(art_img)}}
@@ -105,7 +107,7 @@ class OCR:
 
     def detect_star(self, art_img):
         star = art_img.crop([i * self.scale_ratio for i in Config.star_coords])
-        cropped_star = self.crop(self.normalize(self.to_gray(star)))
+        cropped_star = self.crop(self.normalize(self.to_gray(star), auto_inverse=False))
         coef = cropped_star.shape[1] / cropped_star.shape[0]
         coef = coef / 1.30882352 + 0.21568627
         return int(round(coef))
