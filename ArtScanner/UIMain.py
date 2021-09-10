@@ -128,6 +128,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
             "FilterArtsByName": False,
             "Filter": [True for _ in ArtsInfo.SetNames]
         }
+        self._helpDlg = HelpDlg(self)
+        self._isHelpDlgShowing = False
 
         # 连接按钮
         self.pushButton.clicked.connect(self.startScan)
@@ -183,16 +185,15 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def showHelpDlg(self):
-        dlg = HelpDlg(self)
         point = self.rect().topRight()
         globalPoint = self.mapToGlobal(point)
-        dlg.move(globalPoint)
-        dlg.show()
+        self._helpDlg.move(globalPoint)
+        self._helpDlg.show()
 
     @pyqtSlot()
     def showAboutDlg(self):
         dlg = AboutDlg(self)
-        dlg.show()
+        dlg.exec()
 
     @pyqtSlot()
     def selectedMona(self):
@@ -231,7 +232,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
     def showExtraSettings(self):
         dlg = ExtraSettingsDlg(self._settings, self)
         dlg.acceptSignal.connect(self.handleExtraSettings)
-        dlg.show()
+        dlg.exec()
 
     @pyqtSlot(str)
     def printLog(self, log: str):
@@ -259,7 +260,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
             "delay": self.doubleSpinBox.value(),
             "exporter": (0 if self.radioButton.isChecked() else
                          1 if self.radioButton_2.isChecked() else
-                         2 if self.radioButton_3.isChecked() else -1)
+                         2 if self.radioButton_3.isChecked() else -1),
+            "ExtraSettings": self._settings
         }
 
         self.setUIEnabled(False)
@@ -456,26 +458,65 @@ class Worker(QObject):
         self.star_dist = [0, 0, 0, 0, 0]
         self.star_dist_saved = [0, 0, 0, 0, 0]
 
-        def artscannerCallback(art_img):
-            detectedInfo = self.model.detect_info(art_img)
-            self.star_dist[detectedInfo['star'] - 1] += 1
-            detectedLevel = utils.decodeValue(detectedInfo['level'])
-
-            detectedStar = utils.decodeValue(detectedInfo['star'])
+        def artFilter(detected_info, art_img):
+            self.star_dist[detected_info['star'] - 1] += 1
+            detectedLevel = utils.decodeValue(detected_info['level'])
+            detectedStar = utils.decodeValue(detected_info['star'])
 
             if not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
                     (self.detectSettings['star'][detectedStar - 1])):
                 self.skipped += 1
-            elif artifactDB.add(detectedInfo, art_img):
+                status = 1
+            elif artifactDB.add(detected_info, art_img):
                 self.saved += 1
-                self.star_dist_saved[detectedInfo['star'] - 1] += 1
+                status = 2
+                self.star_dist_saved[detected_info['star'] - 1] += 1
             else:
-                art_img.save(f'artifacts/fail_{self.art_id}.png')
-                s = json.dumps(detectedInfo, ensure_ascii=False)
-                with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
-                    f.write(s.encode('utf-8'))
+                # art_img.save(f'artifacts/fail_{self.art_id}.png')
+                # s = json.dumps(detectedInfo, ensure_ascii=False)
+                # with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
+                #     f.write(s.encode('utf-8'))
+                status = 3
                 self.failed += 1
             self.art_id += 1
+            # status: 1 - skipped
+            #         2 - saved
+            #         3 - failed
+            saveImg(detected_info, art_img, status)
+
+        def saveImg(detected_info, art_img, status):
+            # failed
+            if status == 3:
+                art_img.save(f'artifacts/fail_{self.art_id}.png')
+                s = json.dumps(detected_info, ensure_ascii=False)
+                with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
+                    f.write(s.encode('utf-8'))
+
+        def artscannerCallback(art_img):
+            detectedInfo = self.model.detect_info(art_img)
+            artFilter(detectedInfo, art_img)
+            # self.star_dist[detectedInfo['star'] - 1] += 1
+            # detectedLevel = utils.decodeValue(detectedInfo['level'])
+            #
+            # detectedStar = utils.decodeValue(detectedInfo['star'])
+            #
+            # if not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
+            #         (self.detectSettings['star'][detectedStar - 1])):
+            #     self.skipped += 1
+            #     status = 1
+            # elif artifactDB.add(detectedInfo, art_img):
+            #     self.saved += 1
+            #     status = 2
+            #     self.star_dist_saved[detectedInfo['star'] - 1] += 1
+            # else:
+            #     # art_img.save(f'artifacts/fail_{self.art_id}.png')
+            #     # s = json.dumps(detectedInfo, ensure_ascii=False)
+            #     # with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
+            #     #     f.write(s.encode('utf-8'))
+            #     status = 3
+            #     self.failed += 1
+            # self.art_id += 1
+
             self.log(f"已扫描{self.art_id}个圣遗物，已保存{self.saved}个，已跳过{self.skipped}个")
 
         try:
@@ -528,9 +569,3 @@ if __name__ == '__main__':
     uiMain = UIMain()
     uiMain.show()
     app.exec()
-
-# if __name__ == '__main__':
-#     app = QApplication(sys.argv)
-#     dlg = ExtraSettingsDlg()
-#     dlg.show()
-#     app.exec()
