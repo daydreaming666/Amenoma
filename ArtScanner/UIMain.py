@@ -10,7 +10,7 @@ import win32gui
 from PyQt5.QtCore import (pyqtSignal, pyqtSlot, QObject, QThread,
                           QMutex, QWaitCondition, Qt)
 from PyQt5.QtGui import (QMovie, QPixmap)
-from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog, QTableWidgetItem,
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog,
                              QWidget, QCheckBox, QHBoxLayout)
 
 import ocr
@@ -21,6 +21,7 @@ from art_scanner_logic import ArtScannerLogic, GameInfo
 from rcc import About_Dialog
 from rcc import Help_Dialog
 from rcc import ExtraSettings_Dialog
+from rcc import InputWindow_Dialog
 from rcc.MainWindow import Ui_MainWindow
 
 
@@ -34,6 +35,19 @@ class HelpDlg(QDialog, Help_Dialog.Ui_Dialog):
     def __init__(self, parent=None):
         super(HelpDlg, self).__init__(parent)
         self.setupUi(self)
+
+
+class InputWindowDlg(QDialog, InputWindow_Dialog.Ui_Dialog):
+    retVal = pyqtSignal(str)
+
+    def __init__(self, parent=None):
+        super(InputWindowDlg, self).__init__(parent)
+        self.setupUi(self)
+        self.pushButton.clicked.connect(self.handleClick)
+
+    @pyqtSlot()
+    def handleClick(self):
+        self.retVal.emit(self.lineEdit.text())
 
 
 class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog.Ui_Dialog):
@@ -111,10 +125,10 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog.Ui_Dialog):
 
 
 class UIMain(QMainWindow, Ui_MainWindow):
-    captureWindowSignal = pyqtSignal()
     startScanSignal = pyqtSignal(dict)
     initializeSignal = pyqtSignal()
-    detectGameInfoSignal = pyqtSignal()
+    detectGameInfoSignal = pyqtSignal(bool)
+    setWindowNameSignal = pyqtSignal(str)
 
     def __init__(self):
         super(UIMain, self).__init__()
@@ -157,10 +171,13 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.worker.endWorking.connect(self.endWorking)
         self.worker.endInit.connect(self.endInit)
         self.worker.endScan.connect(self.endScan)
+        self.worker.showInputWindow.connect(self.showInputWindowName)
+
 
         self.initializeSignal.connect(self.worker.initEngine)
         self.detectGameInfoSignal.connect(self.worker.detectGameInfo)
         self.startScanSignal.connect(self.worker.scanArts)
+        self.setWindowNameSignal.connect(self.worker.setWindowName)
 
         self.workerThread.start()
 
@@ -237,6 +254,20 @@ class UIMain(QMainWindow, Ui_MainWindow):
         dlg.acceptSignal.connect(self.handleExtraSettings)
         dlg.exec()
 
+    @pyqtSlot(str, bool)
+    def showInputWindowName(self, window_name: str, isDup: bool):
+        dlg = InputWindowDlg(self)
+        if not isDup:
+            dlg.label.setText(f"未找到标题为 {window_name} 的窗口，请输入窗口标题后重新捕获")
+        else:
+            dlg.label.setText(f"找到多个标题为 {window_name} 的窗口，请输入窗口标题后重新捕获")
+        dlg.retVal.connect(self.handleInputWindowRet)
+        dlg.exec()
+
+    @pyqtSlot(str)
+    def handleInputWindowRet(self, window_name):
+        self.setWindowNameSignal.emit(window_name)
+
     @pyqtSlot(str)
     def printLog(self, log: str):
         self.textBrowser_3.append(log)
@@ -248,7 +279,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def captureWindow(self):
-        self.detectGameInfoSignal.emit()
+        self.detectGameInfoSignal.emit(self._settings['EnhancedCaptureWindow'])
 
     @pyqtSlot()
     def startScan(self):
@@ -312,6 +343,7 @@ class Worker(QObject):
     endWorking = pyqtSignal()
     endInit = pyqtSignal()
     endScan = pyqtSignal(str)
+    showInputWindow = pyqtSignal(str, bool)
 
     def __init__(self):
         super(Worker, self).__init__()
@@ -321,6 +353,7 @@ class Worker(QObject):
         self.isInitialized = False
         self.isWindowCaptured = False
 
+        self.windowName = '原神'
         # in initEngine
         self.game_info = None
         self.model = None
@@ -357,10 +390,9 @@ class Worker(QObject):
                 self.error('检测到不支持读取系统 DPI 设置（可能是系统版本低于 Win8）')
                 self.error('程序将会继续，但可能存在分辨率问题')
 
-        self.log('尝试捕获窗口...')
         self.endWorking.emit()
 
-        self.detectGameInfo()
+        self.detectGameInfo(False)
 
         self.working.emit()
         self.log('初始化 OCR 模型...')
@@ -384,10 +416,15 @@ class Worker(QObject):
         self.endInit.emit()
 
     # 捕获窗口与计算边界
-    @pyqtSlot()
-    def detectGameInfo(self):
+    @pyqtSlot(bool)
+    def detectGameInfo(self, isEnhanced: bool):
         self.working.emit()
-        hwnd = self.captureWindow()
+        if not isEnhanced:
+            self.log('尝试捕获窗口...')
+            hwnd = self.captureWindow()
+        else:
+            self.log(f'正在以增强模式捕获窗口 {self.windowName}...')
+            hwnd = self.captureWindowEnhanced()
         if self.isWindowCaptured:
             self.game_info = GameInfo(hwnd)
             if self.game_info.w == 0 or self.game_info.h == 0:
@@ -406,6 +443,28 @@ class Worker(QObject):
         else:
             self.isWindowCaptured = False
             self.error('捕获窗口失败')
+        return hwnd
+
+    @pyqtSlot(str)
+    def setWindowName(self, name: str):
+        self.windowName = name
+        self.log(f'已将窗口名设为{name}, 请重新捕获')
+
+    # 捕获窗口 强化版
+    @pyqtSlot(str)
+    def captureWindowEnhanced(self) -> int:
+        hwnd = -1
+        windows = utils.findWindowsByName(self.windowName)
+        if len(windows) == 0:
+            self.isWindowCaptured = False
+            self.showInputWindow.emit(self.windowName, False)
+        elif len(windows) == 1:
+            self.isWindowCaptured = True
+            hwnd = windows[0][0]
+            self.log(f"以窗口名{self.windowName}捕获窗口成功")
+        else:
+            self.isWindowCaptured = False
+            self.showInputWindow.emit(self.windowName, True)
         return hwnd
 
     @pyqtSlot(dict)
@@ -475,16 +534,9 @@ class Worker(QObject):
                 status = 2
                 self.star_dist_saved[detected_info['star'] - 1] += 1
             else:
-                # art_img.save(f'artifacts/fail_{self.art_id}.png')
-                # s = json.dumps(detectedInfo, ensure_ascii=False)
-                # with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
-                #     f.write(s.encode('utf-8'))
                 status = 3
                 self.failed += 1
             self.art_id += 1
-            # status: 1 - skipped
-            #         2 - saved
-            #         3 - failed
             saveImg(detected_info, art_img, status)
 
         def saveImg(detected_info, art_img, status):
@@ -498,28 +550,6 @@ class Worker(QObject):
         def artscannerCallback(art_img):
             detectedInfo = self.model.detect_info(art_img)
             artFilter(detectedInfo, art_img)
-            # self.star_dist[detectedInfo['star'] - 1] += 1
-            # detectedLevel = utils.decodeValue(detectedInfo['level'])
-            #
-            # detectedStar = utils.decodeValue(detectedInfo['star'])
-            #
-            # if not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
-            #         (self.detectSettings['star'][detectedStar - 1])):
-            #     self.skipped += 1
-            #     status = 1
-            # elif artifactDB.add(detectedInfo, art_img):
-            #     self.saved += 1
-            #     status = 2
-            #     self.star_dist_saved[detectedInfo['star'] - 1] += 1
-            # else:
-            #     # art_img.save(f'artifacts/fail_{self.art_id}.png')
-            #     # s = json.dumps(detectedInfo, ensure_ascii=False)
-            #     # with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
-            #     #     f.write(s.encode('utf-8'))
-            #     status = 3
-            #     self.failed += 1
-            # self.art_id += 1
-
             self.log(f"已扫描{self.art_id}个圣遗物，已保存{self.saved}个，已跳过{self.skipped}个")
 
         try:
