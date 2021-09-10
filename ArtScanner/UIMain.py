@@ -65,6 +65,7 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog.Ui_Dialog):
         self.checkBox_2.setChecked(settings['ExportAllFormats'])
         self.checkBox_3.setChecked(settings['FilterArtsByName'])
         self.checkBox_4.setEnabled(settings['FilterArtsByName'])
+        self.checkBox_5.setChecked(settings['ExportAllImages'])
         self.tableWidget.setEnabled(settings['FilterArtsByName'])
 
         self.checkBox_3.clicked.connect(self.handleAdvancedSettingsClicked)
@@ -101,6 +102,7 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog.Ui_Dialog):
         settings = {
             "EnhancedCaptureWindow": self.checkBox.isChecked(),
             "ExportAllFormats": self.checkBox_2.isChecked(),
+            "ExportAllImages" : self.checkBox_5.isChecked(),
             "FilterArtsByName": self.checkBox_3.isChecked(),
             "Filter": [i.isChecked() for i in self._checkboxes]
         }
@@ -125,6 +127,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self._settings = {
             "EnhancedCaptureWindow": False,
             "ExportAllFormats": False,
+            "ExportAllImages": False,
             "FilterArtsByName": False,
             "Filter": [True for _ in ArtsInfo.SetNames]
         }

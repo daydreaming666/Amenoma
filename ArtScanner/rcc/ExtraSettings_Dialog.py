@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(550, 400)
+        Dialog.resize(550, 450)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -177,6 +177,9 @@ class Ui_Dialog(object):
         self.checkBox_2 = QtWidgets.QCheckBox(self.tab_2)
         self.checkBox_2.setObjectName("checkBox_2")
         self.verticalLayout_3.addWidget(self.checkBox_2)
+        self.checkBox_5 = QtWidgets.QCheckBox(self.tab_2)
+        self.checkBox_5.setObjectName("checkBox_5")
+        self.verticalLayout_3.addWidget(self.checkBox_5)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.checkBox_3 = QtWidgets.QCheckBox(self.tab_2)
@@ -227,7 +230,8 @@ class Ui_Dialog(object):
         Dialog.setWindowTitle(_translate("Dialog", "更多设置"))
         self.checkBox.setText(_translate("Dialog", "使用增强的捕获窗口（云游戏玩家）"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Dialog", "扫描"))
-        self.checkBox_2.setText(_translate("Dialog", "一次性导出所有格式的文件"))
+        self.checkBox_2.setText(_translate("Dialog", "导出所有格式的json文件"))
+        self.checkBox_5.setText(_translate("Dialog", "导出所有圣遗物图片和识别结果"))
         self.checkBox_3.setText(_translate("Dialog", "使用套装名过滤圣遗物"))
         self.checkBox_4.setText(_translate("Dialog", "全(不)选"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Dialog", "导出"))

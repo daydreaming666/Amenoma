@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(550, 400)
+        Dialog.resize(550, 450)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -178,6 +178,9 @@ class Ui_Dialog(object):
         self.checkBox_2 = QtWidgets.QCheckBox(self.tab_2)
         self.checkBox_2.setObjectName("checkBox_2")
         self.verticalLayout_3.addWidget(self.checkBox_2)
+        self.checkBox_5 = QtWidgets.QCheckBox(self.tab_2)
+        self.checkBox_5.setObjectName("checkBox_5")
+        self.verticalLayout_3.addWidget(self.checkBox_5)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.checkBox_3 = QtWidgets.QCheckBox(self.tab_2)
@@ -229,7 +232,8 @@ class Ui_Dialog(object):
         self.checkBox.setText(_translate("Dialog", "Use enhanced capture window function\n"
 "(for cloud game player)"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Dialog", "Scan"))
-        self.checkBox_2.setText(_translate("Dialog", "Export files in each format in one go"))
+        self.checkBox_2.setText(_translate("Dialog", "Export all types of json format"))
+        self.checkBox_5.setText(_translate("Dialog", "Export all images and results of Artifacts"))
         self.checkBox_3.setText(_translate("Dialog", "Filter output by Artifact Set"))
         self.checkBox_4.setText(_translate("Dialog", "(Un)select All"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Dialog", "Export"))

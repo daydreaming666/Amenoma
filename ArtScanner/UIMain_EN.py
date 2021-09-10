@@ -31,7 +31,6 @@ class AboutDlg(QDialog, About_Dialog_EN.Ui_Dialog):
 
 
 class HelpDlg(QDialog, Help_Dialog_EN.Ui_Dialog):
-
     def __init__(self, parent=None):
         super(HelpDlg, self).__init__(parent)
         self.setupUi(self)
@@ -40,9 +39,9 @@ class HelpDlg(QDialog, Help_Dialog_EN.Ui_Dialog):
 class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
     acceptSignal = pyqtSignal(dict)
 
-    def _addCheckboxAt(self, row: int, col: int, state: bool):
+    def _addCheckboxAt(self, row: int, col: int, state: bool, text: str = ""):
         checkBoxWidget = QWidget()
-        checkBox = QCheckBox()
+        checkBox = QCheckBox(text)
         layoutCheckbox = QHBoxLayout(checkBoxWidget)
         layoutCheckbox.addWidget(checkBox)
         layoutCheckbox.setAlignment(Qt.AlignLeft)
@@ -66,19 +65,19 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
         self.checkBox_2.setChecked(settings['ExportAllFormats'])
         self.checkBox_3.setChecked(settings['FilterArtsByName'])
         self.checkBox_4.setEnabled(settings['FilterArtsByName'])
+        self.checkBox_5.setChecked(settings['ExportAllImages'])
         self.tableWidget.setEnabled(settings['FilterArtsByName'])
 
         self.checkBox_3.clicked.connect(self.handleAdvancedSettingsClicked)
         self.checkBox_4.clicked.connect(self.handleSelectAllClicked)
         self.pushButton.clicked.connect(self.handleAccept)
 
-        self.tableWidget.setColumnCount(2)
+        self.tableWidget.setColumnCount(1)
         self.tableWidget.setRowCount(len(ArtsInfo.SetNames))
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
 
         for i, e in enumerate(ArtsInfo.SetNames):
             self._addCheckboxAt(i, 0, settings['Filter'][i], e)
-
 
     @pyqtSlot()
     def handleSelectAllClicked(self):
@@ -103,6 +102,7 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
         settings = {
             "EnhancedCaptureWindow": self.checkBox.isChecked(),
             "ExportAllFormats": self.checkBox_2.isChecked(),
+            "ExportAllImages" : self.checkBox_5.isChecked(),
             "FilterArtsByName": self.checkBox_3.isChecked(),
             "Filter": [i.isChecked() for i in self._checkboxes]
         }
@@ -127,6 +127,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self._settings = {
             "EnhancedCaptureWindow": False,
             "ExportAllFormats": False,
+            "ExportAllImages": False,
             "FilterArtsByName": False,
             "Filter": [True for _ in ArtsInfo.SetNames]
         }
