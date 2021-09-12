@@ -490,10 +490,10 @@ class Worker(QObject):
 
         exporter = [artifactDB.exportGenshinArtJSON,
                     artifactDB.exportMingyuLabJSON,
-                    artifactDB.exportGenshinOptimizerJSON]
+                    artifactDB.exportGOODJSON]
         export_name = ['artifacts.genshinart.json',
                        'artifacts.mingyulab.json',
-                       'artifacts.genshin-optimizer.json']
+                       'artifacts.GOOD.json']
 
         mouse.on_middle_click(artScanner.interrupt)
 

@@ -266,9 +266,9 @@ SetNamesMingyuLab = [
     "reminiscence_of_shime",        # 追忆之注连
 ]
 
-TypeNamesGOAPI = ['flower', 'plume', 'sand', 'goblet', 'circlet']
+TypeNamesGOOD = ['flower', 'plume', 'sand', 'goblet', 'circlet']
 
-AttrNamesGOAPI = {
+AttrNamesGOOD = {
     "FIGHT_PROP_CRITICAL":          "critRate_",
     "FIGHT_PROP_CRITICAL_HURT":     "critDMG_",
     "FIGHT_PROP_ATTACK":            "atk",
@@ -290,7 +290,7 @@ AttrNamesGOAPI = {
     "FIGHT_PROP_GRASS_ADD_HURT":    "dendro_dmg_"
 }
 
-SetNamesGOAPI = [
+SetNamesGOOD = [
     'ArchaicPetra', 'BlizzardStrayer', 'BloodstainedChivalry',
     'CrimsonWitchofFlames', 'GladiatorsFinale', 'HeartofDepth',
     'Lavawalker', 'MaidenBeloved', 'NoblesseOblige',

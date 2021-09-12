@@ -233,9 +233,10 @@ class ArtDatabase:
                 raise
             return False
 
-    def exportGenshinOptimizerJSON(self, path):
+    def exportGOODJSON(self, path):
         result = {
-            "version": 1,       # artifact only
+            "format": "GOOD",
+            "version": 1,  # artifact only
             "source": "Amenoma",
             "characters": [],
             "artifacts": [],
@@ -245,18 +246,18 @@ class ArtDatabase:
             art: Artifact = self.root[str(art_id)]
             result['artifacts'].append(
                 {
-                    "setKey":      ArtsInfo.SetNamesGOAPI[art.setid],
-                    "slotKey":     ArtsInfo.TypeNamesGOAPI[art.type],
+                    "setKey":      ArtsInfo.SetNamesGOOD[art.setid],
+                    "slotKey":     ArtsInfo.TypeNamesGOOD[art.type],
                     "level":       art.level,
                     "rarity":      art.rarity if 3 <= art.rarity <= 5 else 0,
-                    "mainStatKey": ArtsInfo.AttrNamesGOAPI[art.stat.type.name],
+                    "mainStatKey": ArtsInfo.AttrNamesGOOD[art.stat.type.name],
                     "location":    "",      # not scanned yet
                     "lock":        False,   # not scanned yet
                     "substats": [
                         {
-                            "name":  ArtsInfo.AttrNamesGOAPI[substat.type.name],
+                            "key":   ArtsInfo.AttrNamesGOOD[substat.type.name],
                             "value": substat.value * 100
-                            if ArtsInfo.AttrNamesGOAPI[substat.type.name].endswith("_")
+                            if ArtsInfo.AttrNamesGOOD[substat.type.name].endswith("_")
                             else substat.value,
                         }
                         for substat in art.substats
