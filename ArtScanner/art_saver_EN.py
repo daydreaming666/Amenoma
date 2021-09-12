@@ -1,11 +1,11 @@
 import json
+import logging
 import os
 import sys
 from enum import IntEnum as Enum
 
 import Levenshtein
 import ZODB
-import ZODB.FileStorage
 import persistent
 import transaction
 
@@ -112,6 +112,7 @@ class Artifact(persistent.Persistent):
                 if ndis < dis:
                     corr_name = rname
                     dis = ndis
+        self.logger.info(f"corrected name from {name} to {corr_name} with distance {dis}")
         return corr_name
 
     def attr_auto_correct(self, attr) -> str:
@@ -122,6 +123,7 @@ class Artifact(persistent.Persistent):
             if ndis < dis:
                 dis = ndis
                 corr_name = n
+        self.logger.info(f"corrected attribute from {attr} to {corr_name} with distance {dis}")
         return corr_name
 
     def __init__(self, info, image):
@@ -136,8 +138,12 @@ class Artifact(persistent.Persistent):
                 'subattr_{i}': str, substat description, i could be 1-4, example: '暴击率+3.5%', '攻击力+130'
             image: PIL.Image, screenshot of the artifact, will be shrinked to 300x512 to save space
         '''
+        self.logger = logging.getLogger("Artifact Saver")
+        self.logger.addHandler(logging.FileHandler('ArtSaver.log'))
+        self.logger.info("Saving Artifact:" + str(info))
 
         self.name = self.name_auto_correct(info['name'])
+
         typeid = ArtsInfo.TypeNames_EN.index(info['type'])
         self.setid = [i for i, v in enumerate(
             ArtsInfo.ArtNames_EN) if self.name in v][0]
@@ -155,10 +161,13 @@ class Artifact(persistent.Persistent):
 
     def is_valid(self):
         if self.level > ArtsInfo.RarityToMaxLvs[self.rarity - 1]:
+            self.logger.error(f"Save Artifact failed: bad level")
             return False
         if self.stat not in self.__class__.level_stat_range[self.stat.type][self.level][self.rarity]:
+            self.logger.error(f"Save Artifact failed: bad main stat value")
             return False
-        if self.calculate_substat_upgrades() == []:
+        if not self.calculate_substat_upgrades():
+            self.logger.error(f"Save Artifact failed: bad sub stat value")
             return False
         return True
 
@@ -205,14 +214,10 @@ class Artifact(persistent.Persistent):
 
 class ArtDatabase:
     def __init__(self, path='artifacts.dat'):
-        # self.storage = ZODB.FileStorage.FileStorage(path)
-        # self.db = ZODB.DB(self.storage)
         self.db = ZODB.DB(None)
         self.conn = self.db.open()
         self.root = self.conn.root()
         self.root['size'] = 0
-        # if 'size' not in self.root:
-        #     self.root['size'] = 0
 
     def __del__(self):
         self.db.close()
