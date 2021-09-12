@@ -494,10 +494,10 @@ class Worker(QObject):
         artScanner = ArtScannerLogic(self.game_info)
 
         exporter = [artifactDB.exportGenshinArtJSON,
-                    artifactDB.exportMingyuLabJSON,
+                    artifactDB.exportGenmoCalcJSON,
                     artifactDB.exportGOODJSON]
         export_name = ['artifacts.genshinart.json',
-                       'artifacts.mingyulab.json',
+                       'artifacts.genmocalc.json',
                        'artifacts.GOOD.json']
 
         mouse.on_middle_click(artScanner.interrupt)

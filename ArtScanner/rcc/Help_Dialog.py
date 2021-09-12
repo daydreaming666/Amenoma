@@ -180,11 +180,12 @@ class Ui_Dialog(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'HYWenHei-85W\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'等线\'; font-size:10pt;\"><br /></span></p>\n"
-"<ol style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">将原神调整分辨率为 1600 * 900 (或其他满足 16 : 9 的分辨率)，打开背包 - 圣遗物</li>\n"
-"<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">捕获窗口并等待</li>\n"
+"<ol style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">将原神调整分辨率为 1600 * 900 (或其他满足 16 : 9 的分辨率)</li>\n"
+"<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">打开背包 - 圣遗物</li>\n"
+"<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">捕获窗口</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">调整扫描选项</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">开始扫描（鼠标中键结束）</li>\n"
-"<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">扫描结果存储在运行文件夹 <br /> <span style=\" color:#517FCB;\">artifacts.genshinart.json</span> (莫娜占卜铺)<br /> <span style=\" color:#517FCB;\">artifacts.mingyulab.json</span> (MingyuLab)<br /> <span style=\" color:#517FCB;\">artifacts.genshin-optimizer.json</span>（Genshin Optimizer）</li></ol>\n"
+"<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">扫描结果存储在运行文件夹 <br /> <span style=\" color:#517fcb;\">artifacts.genshinart.json</span>(莫娜占卜铺)<br /> <span style=\" color:#517fcb;\">artifacts.mingyulab.json</span>(原魔计算器)<br /> <span style=\" color:#517fcb;\">artifacts.GOOD.json</span>(Genshin Optimizer)</li></ol>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'等线\'; font-size:10pt;\"><br /></p></body></html>"))
         self.pushButton.setText(_translate("Dialog", "关闭"))
 

@@ -302,7 +302,7 @@ class ArtDatabase:
         f.write(s.encode('utf-8'))
         f.close()
 
-    def exportMingyuLabJSON(self, path):
+    def exportGenmoCalcJSON(self, path):
         result = []
         for art_id in range(self.root['size']):
             art = self.root[str(art_id)]

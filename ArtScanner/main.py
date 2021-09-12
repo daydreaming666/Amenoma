@@ -144,7 +144,7 @@ try:
 except:
     scroll_interval = 0.05
 try:
-    exporter = [art_data.exportGenshinArtJSON, art_data.exportMingyuLabJSON][int(export_type)]
+    exporter = [art_data.exportGenshinArtJSON, art_data.exportGenmoCalcJSON][int(export_type)]
     export_name = ['artifacts.genshinart.json', 'artifacts.mingyulab.json'][int(export_type)]
 except:
     exporter = art_data.exportGenshinArtJSON

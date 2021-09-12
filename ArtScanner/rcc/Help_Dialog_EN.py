@@ -150,6 +150,7 @@ class Ui_Dialog(object):
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.ToolTipText, brush)
         Dialog.setPalette(palette)
         Dialog.setStyleSheet("font: 9pt \"HYWenHei-85W\";")
+        Dialog.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
         self.verticalLayout.setObjectName("verticalLayout")
         self.textBrowser = QtWidgets.QTextBrowser(Dialog)
@@ -180,11 +181,12 @@ class Ui_Dialog(object):
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'HYWenHei-85W\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
 "<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><br /></p>\n"
-"<ol style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Adjust the resolution of the Genshin Impact to 1600 * 900 (or other resolutions that meet 16:9), open Bag - Artifacts.</li>\n"
+"<ol style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Adjust the resolution of the Genshin Impact to 1600 * 900 (or other resolutions that meet 16:9)</li>\n"
+"<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Open Inventory - Artifacts.</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Capture the window.</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Adjust scanning options.</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Start scanning (mouse middle click to interrupt).</li>\n"
-"<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Scan results are stored in <br /> <span style=\" color:#517FCB;\">artifacts.genshinart.json</span> (mona-uranai)<br /> <span style=\" color:#517FCB;\">artifacts.mingyulab.json</span> (MingyuLab)<br /> <span style=\" color:#517FCB;\">artifacts.genshin-optimizer.json</span>(Genshin Optimizer)</li></ol>\n"
+"<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Scan results are stored in <br /> <span style=\" color:#517fcb;\">artifacts.genshinart.json</span> (Mona-uranai)<br /> <span style=\" color:#517fcb;\">artifacts.mingyulab.json</span> (Genmo Calculator)<br /> <span style=\" color:#517fcb;\">artifacts.GOOD.json</span>(Genshin Optimizer)</li></ol>\n"
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'等线\'; font-size:10pt;\"><br /></p></body></html>"))
         self.pushButton.setText(_translate("Dialog", "close"))
 
