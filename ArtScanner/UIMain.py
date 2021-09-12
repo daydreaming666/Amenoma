@@ -82,6 +82,7 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog.Ui_Dialog):
         self.checkBox_4.setEnabled(settings['FilterArtsByName'])
         self.checkBox_5.setChecked(settings['ExportAllImages'])
         self.tableWidget.setEnabled(settings['FilterArtsByName'])
+        self.tabWidget.setCurrentIndex(settings["TabIndex"])
 
         self.checkBox_3.clicked.connect(self.handleAdvancedSettingsClicked)
         self.checkBox_4.clicked.connect(self.handleSelectAllClicked)
@@ -119,7 +120,8 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog.Ui_Dialog):
             "ExportAllFormats": self.checkBox_2.isChecked(),
             "ExportAllImages": self.checkBox_5.isChecked(),
             "FilterArtsByName": self.checkBox_3.isChecked(),
-            "Filter": [i.isChecked() for i in self._checkboxes]
+            "Filter": [i.isChecked() for i in self._checkboxes],
+            "TabIndex": self.tabWidget.currentIndex()
         }
         self.acceptSignal.emit(settings)
 
@@ -143,7 +145,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
             "ExportAllFormats": False,
             "ExportAllImages": False,
             "FilterArtsByName": False,
-            "Filter": [True for _ in ArtsInfo.SetNames]
+            "Filter": [True for _ in ArtsInfo.SetNames],
+            "TabIndex": 0
         }
         self._helpDlg = HelpDlg(self)
         self._isHelpDlgShowing = False
@@ -351,6 +354,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot(dict)
     def handleExtraSettings(self, ret: dict):
+        self.logger.info(f"Extra settings returned. ret={ret}")
         self._settings = ret
         self.groupBox_4.setEnabled(not self._settings['ExportAllFormats'])
 

@@ -82,6 +82,7 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
         self.checkBox_4.setEnabled(settings['FilterArtsByName'])
         self.checkBox_5.setChecked(settings['ExportAllImages'])
         self.tableWidget.setEnabled(settings['FilterArtsByName'])
+        self.tabWidget.setCurrentIndex(settings["TabIndex"])
 
         self.checkBox_3.clicked.connect(self.handleAdvancedSettingsClicked)
         self.checkBox_4.clicked.connect(self.handleSelectAllClicked)
@@ -117,9 +118,10 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
         settings = {
             "EnhancedCaptureWindow": self.checkBox.isChecked(),
             "ExportAllFormats": self.checkBox_2.isChecked(),
-            "ExportAllImages" : self.checkBox_5.isChecked(),
+            "ExportAllImages": self.checkBox_5.isChecked(),
             "FilterArtsByName": self.checkBox_3.isChecked(),
-            "Filter": [i.isChecked() for i in self._checkboxes]
+            "Filter": [i.isChecked() for i in self._checkboxes],
+            "TabIndex": self.tabWidget.currentIndex()
         }
         self.acceptSignal.emit(settings)
 
@@ -143,7 +145,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
             "ExportAllFormats": False,
             "ExportAllImages": False,
             "FilterArtsByName": False,
-            "Filter": [True for _ in ArtsInfo.Setnames_EN]
+            "Filter": [True for _ in ArtsInfo.Setnames_EN],
+            "TabIndex": 0
         }
         self._helpDlg = HelpDlg(self)
         self._isHelpDlgShowing = False
@@ -351,6 +354,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot(dict)
     def handleExtraSettings(self, ret: dict):
+        self.logger.info(f"Extra settings returned. ret={ret}")
         self._settings = ret
         self.groupBox_4.setEnabled(not self._settings['ExportAllFormats'])
 
@@ -427,7 +431,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model = ocr_EN.OCR(model_weight=os.path.join(self.bundle_dir,'weights-improvement-EN-81-1.00.hdf5'))
+        self.model = ocr_EN.OCR(model_weight=os.path.join(self.bundle_dir, 'weights-improvement-EN-81-1.00.hdf5'))
 
         self.log('Initialize is finished.')
         if self.isWindowCaptured:
