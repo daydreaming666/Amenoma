@@ -335,6 +335,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
     def handleExtraSettings(self, ret: dict):
         self._settings = ret
 
+        self.groupBox_4.setEnabled(self._settings['ExportAllFormats'])
+
 
 class Worker(QObject):
     printLog = pyqtSignal(str)
@@ -402,8 +404,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-
-        self.model = ocr_EN.OCR(model_weight=os.path.join(self.bundle_dir,                                                          'weights-improvement-EN-81-1.00.hdf5'))
+        self.model = ocr_EN.OCR(model_weight=os.path.join(self.bundle_dir,'weights-improvement-EN-81-1.00.hdf5'))
 
         self.log('Initialize is finished.')
         if self.isWindowCaptured:
@@ -493,10 +494,10 @@ class Worker(QObject):
 
         exporter = [artifactDB.exportGenshinArtJSON,
                     artifactDB.exportMingyuLabJSON,
-                    artifactDB.exportGenshinOptimizerJSON][info['exporter']]
+                    artifactDB.exportGenshinOptimizerJSON]
         export_name = ['artifacts.genshinart.json',
                        'artifacts.mingyulab.json',
-                       'artifacts.genshin-optimizer.json'][info['exporter']]
+                       'artifacts.genshin-optimizer.json']
 
         mouse.on_middle_click(artScanner.interrupt)
 
@@ -576,7 +577,11 @@ class Worker(QObject):
             self.log('Stopped with an Error.')
 
         if self.saved != 0:
-            exporter(export_name)
+            if info['ExtraSettings']['ExportAllFormats']:
+                list(map(lambda exp, name: exp(name), exporter, export_name))
+            else:
+                self.log(f"File exported as: {export_name[info['exporter']]}")
+                exporter[info['exporter']](export_name[info['exporter']])
         self.log(f'Scanned: {self.saved}')
         self.log(f'  - Saved:   {self.saved}')
         self.log(f'  - Skipped: {self.skipped}')
@@ -591,7 +596,7 @@ class Worker(QObject):
         self.log(f'1: {self.star_dist_saved[0]} / {self.star_dist[0]}')
 
         del artifactDB
-        self.endScan.emit(export_name)
+        self.endScan.emit(export_name[info['exporter']])
         self.endWorking.emit()
 
     def log(self, content: str):
