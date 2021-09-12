@@ -130,7 +130,7 @@ class Artifact(persistent.Persistent):
         self.level = utils.decodeValue(info['level'])
         self.rarity = info['star']
         self.stat = ArtifactStat(
-            utils.attr_auto_correct(info['main_attr_name']), info['main_attr_value'],
+            info['main_attr_name'], info['main_attr_value'],
             rarity=self.rarity, level=self.level, isMain=True)
         self.substats = [ArtifactStat(*info[tag].split('+'))
                          for tag in sorted(info.keys()) if "subattr_" in tag]

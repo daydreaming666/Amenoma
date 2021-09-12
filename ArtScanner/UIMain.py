@@ -544,14 +544,22 @@ class Worker(QObject):
         self.star_dist = [0, 0, 0, 0, 0]
         self.star_dist_saved = [0, 0, 0, 0, 0]
 
-        def artFilter(detected_info, art_img):
+        def autoCorrect(detected_info):
             detected_info['name'] = utils.name_auto_correct(detected_info['name'])
+            detected_info['setid'] = [i for i, v in enumerate(
+                ArtsInfo.ArtNames) if detected_info['name'] in v][0]
+            detected_info['main_attr_name'] = utils.attr_auto_correct(detected_info['main_attr_name'])
+            for tag in sorted(detected_info.keys()):
+                if "subattr_" in tag:
+                    info = detected_info[tag].split('+')
+                    detected_info[tag] = utils.attr_auto_correct(info[0]) + "+" + info[1]
+
+        def artFilter(detected_info, art_img):
+            autoCorrect(detected_info)
+
             self.star_dist[detected_info['star'] - 1] += 1
             detectedLevel = utils.decodeValue(detected_info['level'])
             detectedStar = utils.decodeValue(detected_info['star'])
-
-            detected_info['setid'] = [i for i, v in enumerate(
-                ArtsInfo.ArtNames) if detected_info['name'] in v][0]
 
             if (self.detectSettings["ExtraSettings"]["FilterArtsByName"] and
                     (not self.detectSettings["ExtraSettings"]["Filter"][detected_info['setid']])):
