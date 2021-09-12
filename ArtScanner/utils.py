@@ -6,6 +6,12 @@ import win32gui
 import win32process
 from PIL import Image
 from mss import mss
+import Levenshtein
+import ArtsInfo
+import logging
+
+logger = logging.getLogger("utils")
+logger.addHandler(logging.FileHandler("./Amenoma.log"))
 
 
 def calcFormatWidth(text, target):
@@ -68,3 +74,53 @@ def decodeValue(v):
         return float(v[:-1]) / 100
     else:
         return int(v.replace(',', '').replace('+', ''))
+
+
+def attr_auto_correct(attr: str) -> str:
+    corr_name = ''
+    dis = 10000000
+    for n in ArtsInfo.MainAttrNames.values():
+        ndis = Levenshtein.distance(attr, n)
+        if ndis < dis:
+            dis = ndis
+            corr_name = n
+    logger.info(f"corrected attribute from {attr} to {corr_name} with distance {dis}")
+    return corr_name
+
+
+def name_auto_correct(name: str) -> str:
+    corr_name = ""
+    dis = 10000000
+    for arts in ArtsInfo.ArtNames:
+        for rname in arts:
+            ndis = Levenshtein.distance(name, rname)
+            if ndis < dis:
+                corr_name = rname
+                dis = ndis
+    logger.info(f"corrected name from {name} to {corr_name} with distance {dis}")
+    return corr_name
+
+
+def attr_auto_correct_EN(attr: str) -> str:
+    corr_name = ''
+    dis = 10000000
+    for n in ArtsInfo.MainAttrNames_EN.values():
+        ndis = Levenshtein.distance(attr, n)
+        if ndis < dis:
+            dis = ndis
+            corr_name = n
+    logger.info(f"corrected attribute from {attr} to {corr_name} with distance {dis}")
+    return corr_name
+
+
+def name_auto_correct_EN(name: str) -> str:
+    corr_name = ""
+    dis = 10000000
+    for arts in ArtsInfo.ArtNames_EN:
+        for rname in arts:
+            ndis = Levenshtein.distance(name, rname)
+            if ndis < dis:
+                corr_name = rname
+                dis = ndis
+    logger.info(f"corrected name from {name} to {corr_name} with distance {dis}")
+    return corr_name

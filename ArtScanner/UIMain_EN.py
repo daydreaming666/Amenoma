@@ -14,7 +14,6 @@ from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog,
                              QWidget, QCheckBox, QHBoxLayout)
 
 import ocr_EN
-import ocr_EN
 import utils
 import ArtsInfo
 from art_saver_EN import ArtDatabase
@@ -124,7 +123,6 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
         self.acceptSignal.emit(settings)
 
 
-
 class UIMain(QMainWindow, Ui_MainWindow):
     startScanSignal = pyqtSignal(dict)
     initializeSignal = pyqtSignal()
@@ -173,7 +171,6 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.worker.endInit.connect(self.endInit)
         self.worker.endScan.connect(self.endScan)
         self.worker.showInputWindow.connect(self.showInputWindowName)
-
 
         self.initializeSignal.connect(self.worker.initEngine)
         self.detectGameInfoSignal.connect(self.worker.detectGameInfo)
@@ -527,12 +524,17 @@ class Worker(QObject):
         self.star_dist_saved = [0, 0, 0, 0, 0]
 
         def artFilter(detected_info, art_img):
+            detected_info['name'] = utils.name_auto_correct_EN(detected_info['name'])
             self.star_dist[detected_info['star'] - 1] += 1
             detectedLevel = utils.decodeValue(detected_info['level'])
             detectedStar = utils.decodeValue(detected_info['star'])
 
-            if not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
-                    (self.detectSettings['star'][detectedStar - 1])):
+            if (self.detectSettings["ExtraSettings"]["FilterArtsByName"] and
+                    (not self.detectSettings["ExtraSettings"]["Filter"][detected_info['name']])):
+                self.skipped += 1
+                status = 1
+            elif not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
+                      (self.detectSettings['star'][detectedStar - 1])):
                 self.skipped += 1
                 status = 1
             elif artifactDB.add(detected_info, art_img):
@@ -546,7 +548,7 @@ class Worker(QObject):
             saveImg(detected_info, art_img, status)
 
         def saveImg(detected_info, art_img, status):
-            if info['ExtraSettings']['ExportAllImages']:
+            if self.detectSettings['ExtraSettings']['ExportAllImages']:
                 if status == 3:
                     art_img.save(f'artifacts/fail_{self.art_id}.png')
                     s = json.dumps(detected_info, ensure_ascii=False)

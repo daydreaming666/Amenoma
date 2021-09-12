@@ -4,13 +4,12 @@ import os
 import sys
 from enum import IntEnum as Enum
 
-import Levenshtein
 import ZODB
 import persistent
 import transaction
 
 import ArtsInfo
-from utils import decodeValue
+import utils
 
 bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
 
@@ -56,7 +55,7 @@ class ArtifactStatType(Enum):
 class ArtifactStat:
     def __init__(self, name, value, rarity=0, level=0, isMain=False):
         name = ArtsInfo.AttrName2Ids_EN[name]
-        value = decodeValue(value)
+        value = utils.decodeValue(value)
         if type(value) == float and (name + '_PERCENT') in ArtsInfo.MainAttrNames_EN:
             name += '_PERCENT'
         self.type = getattr(ArtifactStatType, name)
@@ -83,7 +82,7 @@ class ArtifactStat:
         other_str = ArtsInfo.Formats[self.type.name].format(other + 1e-5)
         if self_value_str == other_str:
             return 0
-        if decodeValue(self_value_str) < decodeValue(other_str):
+        if utils.decodeValue(self_value_str) < utils.decodeValue(other_str):
             return -1
         return 1
 
@@ -103,29 +102,6 @@ class Artifact(persistent.Persistent):
                     i.get('Level', -1) == l + 1 and i.get('Rank', -1) == r], []) for r in range(1, 6)} for l in
         range(21)} for k in ArtsInfo.MainAttrNames_EN.keys()}
 
-    def name_auto_correct(self, name) -> str:
-        corr_name = ""
-        dis = 10000000
-        for arts in ArtsInfo.ArtNames_EN:
-            for rname in arts:
-                ndis = Levenshtein.distance(name, rname)
-                if ndis < dis:
-                    corr_name = rname
-                    dis = ndis
-        self.logger.info(f"corrected name from {name} to {corr_name} with distance {dis}")
-        return corr_name
-
-    def attr_auto_correct(self, attr) -> str:
-        corr_name = ''
-        dis = 10000000
-        for n in ArtsInfo.MainAttrNames_EN.values():
-            ndis = Levenshtein.distance(attr, n)
-            if ndis < dis:
-                dis = ndis
-                corr_name = n
-        self.logger.info(f"corrected attribute from {attr} to {corr_name} with distance {dis}")
-        return corr_name
-
     def __init__(self, info, image):
         '''
             info: dict with keys:
@@ -142,16 +118,17 @@ class Artifact(persistent.Persistent):
         self.logger.addHandler(logging.FileHandler('ArtSaver.log'))
         self.logger.info("Saving Artifact:" + str(info))
 
-        self.name = self.name_auto_correct(info['name'])
+        self.name = info['name']
 
         typeid = ArtsInfo.TypeNames_EN.index(info['type'])
         self.setid = [i for i, v in enumerate(
             ArtsInfo.ArtNames_EN) if self.name in v][0]
         self.type = ArtifactType(typeid)
-        self.level = decodeValue(info['level'])
+        self.level = utils.decodeValue(info['level'])
         self.rarity = info['star']
         self.stat = ArtifactStat(
-            self.attr_auto_correct(info['main_attr_name']), info['main_attr_value'],
+            utils.attr_auto_correct(info['main_attr_name']),
+            info['main_attr_value'],
             rarity=self.rarity, level=self.level, isMain=True)
         self.substats = [ArtifactStat(*info[tag].split('+'))
                          for tag in sorted(info.keys()) if "subattr_" in tag]
@@ -323,21 +300,3 @@ class ArtDatabase:
         s = json.dumps(result, ensure_ascii=False)
         f.write(s.encode('utf-8'))
         f.close()
-
-
-if __name__ == '__main__':
-    art = Artifact({
-        "name": "沉波之盏",
-        "type": "空之杯",
-        "star": 5,
-        "level": "+20",
-        "main_attr_name": "冰元素伤害加成",
-        "main_attr_value": "46.6%",
-        "subattr_1": "元素充能效率+18.1%",
-        "subattr_2": "暴击率+7.4%",
-        "subattr_3": "防御力+63",
-        "subattr_4": "暴击伤害+6.2%",
-    }, None)
-    art2 = Artifact({"level": "+20", "main_attr_name": "生命值", "main_attr_value": "4,780", "name": "野花记忆的绿野",
-                    "subattr_1": "元素充能效率+4.5%", "subattr_2": "攻击力+15.7%", "subattr_3": "暴击伤害+14.0%",
-                    "subattr_4": "元素精通+42", "type": "生之花", "star": 5}, None)
