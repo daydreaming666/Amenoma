@@ -14,6 +14,7 @@ from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog,
                              QWidget, QCheckBox, QHBoxLayout)
 
 import ocr_EN
+import ocr_EN
 import utils
 import ArtsInfo
 from art_saver_EN import ArtDatabase
@@ -545,12 +546,24 @@ class Worker(QObject):
             saveImg(detected_info, art_img, status)
 
         def saveImg(detected_info, art_img, status):
-            # failed
-            if status == 3:
-                art_img.save(f'artifacts/fail_{self.art_id}.png')
-                s = json.dumps(detected_info, ensure_ascii=False)
-                with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
-                    f.write(s.encode('utf-8'))
+            if info['ExtraSettings']['ExportAllImages']:
+                if status == 3:
+                    art_img.save(f'artifacts/fail_{self.art_id}.png')
+                    s = json.dumps(detected_info, ensure_ascii=False)
+                    with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
+                        f.write(s.encode('utf-8'))
+                else:
+                    art_img.save(f'artifacts/{self.art_id}.png')
+                    s = json.dumps(detected_info, ensure_ascii=False)
+                    with open(f"artifacts/{self.art_id}.json", "wb") as f:
+                        f.write(s.encode('utf-8'))
+            else:
+                # export only failed
+                if status == 3:
+                    art_img.save(f'artifacts/fail_{self.art_id}.png')
+                    s = json.dumps(detected_info, ensure_ascii=False)
+                    with open(f"artifacts/fail_{self.art_id}.json", "wb") as f:
+                        f.write(s.encode('utf-8'))
 
         def artscannerCallback(art_img):
             detectedInfo = self.model.detect_info(art_img)
