@@ -11,8 +11,11 @@ import ArtsInfo
 import logging
 
 logger = logging.getLogger("utils")
-logger.addHandler(logging.FileHandler("./Amenoma.log"))
-
+logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
+logHandler.setFormatter(logging.Formatter("[%(levelname)s] %(asctime)s /%(module)10s[%(lineno)3d]"
+                                          "%(name)10s: %(message)s"))
+logger.addHandler(logHandler)
+logger.setLevel(logging.INFO)
 
 def calcFormatWidth(text, target):
     return target - sum(unicodedata.east_asian_width(c) in 'WF' for c in text)

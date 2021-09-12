@@ -13,6 +13,13 @@ import utils
 
 bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
 
+logger = logging.getLogger("Art Saver")
+logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
+logHandler.setFormatter(logging.Formatter("[%(levelname)s] %(asctime)s /%(module)10s[%(lineno)3d]"
+                                          "%(name)10s: %(message)s"))
+logger.addHandler(logHandler)
+logger.setLevel(logging.INFO)
+
 
 class ArtifactType(Enum):
     FLOWER = 0
@@ -114,20 +121,16 @@ class Artifact(persistent.Persistent):
                 'subattr_{i}': str, substat description, i could be 1-4, example: '暴击率+3.5%', '攻击力+130'
             image: PIL.Image, screenshot of the artifact, will be shrinked to 300x512 to save space
         '''
-        self.logger = logging.getLogger("Artifact Saver")
-        self.logger.addHandler(logging.FileHandler('ArtSaver.log'))
-        self.logger.info("Saving Artifact:" + str(info))
 
         self.name = info['name']
 
         typeid = ArtsInfo.TypeNames_EN.index(info['type'])
-        self.setid = [i for i, v in enumerate(
-            ArtsInfo.ArtNames_EN) if self.name in v][0]
+        self.setid = info['setid']
         self.type = ArtifactType(typeid)
         self.level = utils.decodeValue(info['level'])
         self.rarity = info['star']
         self.stat = ArtifactStat(
-            utils.attr_auto_correct(info['main_attr_name']),
+            utils.attr_auto_correct_EN(info['main_attr_name']),
             info['main_attr_value'],
             rarity=self.rarity, level=self.level, isMain=True)
         self.substats = [ArtifactStat(*info[tag].split('+'))

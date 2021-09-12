@@ -3,6 +3,7 @@ import json
 import os
 import sys
 import time
+import logging
 
 import mouse
 import win32api
@@ -87,10 +88,10 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
         self.pushButton.clicked.connect(self.handleAccept)
 
         self.tableWidget.setColumnCount(1)
-        self.tableWidget.setRowCount(len(ArtsInfo.SetNames))
+        self.tableWidget.setRowCount(len(ArtsInfo.Setnames_EN))
         self.tableWidget.horizontalHeader().setStretchLastSection(True)
 
-        for i, e in enumerate(ArtsInfo.SetNames):
+        for i, e in enumerate(ArtsInfo.Setnames_EN):
             self._addCheckboxAt(i, 0, settings['Filter'][i], e)
 
     @pyqtSlot()
@@ -142,10 +143,17 @@ class UIMain(QMainWindow, Ui_MainWindow):
             "ExportAllFormats": False,
             "ExportAllImages": False,
             "FilterArtsByName": False,
-            "Filter": [True for _ in ArtsInfo.SetNames]
+            "Filter": [True for _ in ArtsInfo.Setnames_EN]
         }
         self._helpDlg = HelpDlg(self)
         self._isHelpDlgShowing = False
+
+        self.logger = logging.getLogger("Main")
+        logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
+        logHandler.setFormatter(logging.Formatter("[%(levelname)s] %(asctime)s /%(module)10s[%(lineno)3d]"
+                                                  "%(name)10s: %(message)s"))
+        self.logger.addHandler(logHandler)
+        self.logger.setLevel(logging.INFO)
 
         # 连接按钮
         self.pushButton.clicked.connect(self.startScan)
@@ -156,8 +164,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.pushButton_6.clicked.connect(self.showAboutDlg)
 
         self.radioButton.clicked.connect(self.selectedMona)
-        self.radioButton_2.clicked.connect(self.selectedMingyu)
-        self.radioButton_3.clicked.connect(self.selectedGO)
+        self.radioButton_2.clicked.connect(self.selectedGenmo)
+        self.radioButton_3.clicked.connect(self.selectedGOOD)
 
         # 创建工作线程
         self.worker = Worker()
@@ -183,6 +191,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     # 通知工作线程进行初始化
     def initialize(self):
+        self.logger.info("Worker thread initializing.")
         self.pushButton.setEnabled(False)
         self.pushButton_2.setEnabled(False)
         self.initializeSignal.emit()
@@ -203,6 +212,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def showHelpDlg(self):
+        self.logger.info("Help dialog shown.")
         point = self.rect().topRight()
         globalPoint = self.mapToGlobal(point)
         self._helpDlg.move(globalPoint)
@@ -210,11 +220,13 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def showAboutDlg(self):
+        self.logger.info("About dialog shown.")
         dlg = AboutDlg(self)
         dlg.exec()
 
     @pyqtSlot()
     def selectedMona(self):
+        self.logger.info("Mona selected.")
         self.checkBox.setChecked(True)
         self.checkBox_2.setChecked(True)
         self.checkBox_3.setChecked(False)
@@ -225,7 +237,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.spinBox_2.setValue(20)
 
     @pyqtSlot()
-    def selectedMingyu(self):
+    def selectedGenmo(self):
+        self.logger.info("Genmo Calc selected.")
         self.checkBox.setChecked(True)
         self.checkBox_2.setChecked(False)
         self.checkBox_3.setChecked(False)
@@ -236,7 +249,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.spinBox_2.setValue(20)
 
     @pyqtSlot()
-    def selectedGO(self):
+    def selectedGOOD(self):
+        self.logger.info("GOOD selected.")
         self.checkBox.setChecked(True)
         self.checkBox_2.setChecked(True)
         self.checkBox_3.setChecked(False)
@@ -248,12 +262,14 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def showExtraSettings(self):
+        self.logger.info("Extra settings dialog shown.")
         dlg = ExtraSettingsDlg(self._settings, self)
         dlg.acceptSignal.connect(self.handleExtraSettings)
         dlg.exec()
 
     @pyqtSlot(str, bool)
     def showInputWindowName(self, window_name: str, isDup: bool):
+        self.logger.info(f"Input window name dialog shown. window_name={window_name} isDup={isDup}")
         dlg = InputWindowDlg(self)
         if not isDup:
             dlg.label.setText(f"未找到标题为 {window_name} 的窗口，请输入窗口标题后重新捕获")
@@ -264,15 +280,18 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot(str)
     def handleInputWindowRet(self, window_name):
+        self.logger.info(f"Window name returned. window_name={window_name}")
         self.setWindowNameSignal.emit(window_name)
 
     @pyqtSlot(str)
     def printLog(self, log: str):
+        self.logger.info(f"Info message shown. msg={log}")
         self.textBrowser_3.append(log)
         QApplication.processEvents()
 
     @pyqtSlot(str)
     def printErr(self, err: str):
+        self.logger.error(f"Error message shown. msg={err}")
         self.textBrowser_3.append(f'<font color="red">{err}</font>')
 
     @pyqtSlot()
@@ -295,6 +314,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
                          2 if self.radioButton_3.isChecked() else -1),
             "ExtraSettings": self._settings
         }
+        self.logger.info(f"Start scan with settings. {info}")
 
         self.setUIEnabled(False)
 
@@ -332,8 +352,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
     @pyqtSlot(dict)
     def handleExtraSettings(self, ret: dict):
         self._settings = ret
-
-        self.groupBox_4.setEnabled(self._settings['ExportAllFormats'])
+        self.groupBox_4.setEnabled(not self._settings['ExportAllFormats'])
 
 
 class Worker(QObject):
@@ -352,6 +371,12 @@ class Worker(QObject):
         self.cond = QWaitCondition()
         self.isInitialized = False
         self.isWindowCaptured = False
+        self.logger = logging.getLogger("Worker")
+        logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
+        logHandler.setFormatter(logging.Formatter("[%(levelname)s] %(asctime)s /%(module)10s[%(lineno)3d]"
+                                                  "%(name)10s: %(message)s"))
+        self.logger.addHandler(logHandler)
+        self.logger.setLevel(logging.INFO)
 
         self.windowName = 'Genshin Impact'
         # in initEngine
@@ -529,19 +554,30 @@ class Worker(QObject):
             detectedLevel = utils.decodeValue(detected_info['level'])
             detectedStar = utils.decodeValue(detected_info['star'])
 
+            detected_info['setid'] = [i for i, v in enumerate(
+                ArtsInfo.ArtNames_EN) if detected_info['name'] in v][0]
+
             if (self.detectSettings["ExtraSettings"]["FilterArtsByName"] and
-                    (not self.detectSettings["ExtraSettings"]["Filter"][detected_info['name']])):
+                    (not self.detectSettings["ExtraSettings"]["Filter"][detected_info['setid']])):
+                self.logger.info(f"[FilterArtsByName] Skipped a Artifact."
+                                 f" id: {self.art_id + 1} detected info: {detected_info}  set: {ArtsInfo.Setnames_EN[detected_info['setid']]}")
                 self.skipped += 1
                 status = 1
             elif not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
                       (self.detectSettings['star'][detectedStar - 1])):
+                self.logger.info(f"[FilterArtsByLevelAndStar] Skipped a Artifact."
+                                 f" id: {self.art_id + 1} detected info: {detected_info}")
                 self.skipped += 1
                 status = 1
             elif artifactDB.add(detected_info, art_img):
+                self.logger.info(f"[ArtifactDB] Saved a Artifact."
+                                 f" id: {self.art_id + 1} detected info: {detected_info}")
                 self.saved += 1
                 status = 2
                 self.star_dist_saved[detected_info['star'] - 1] += 1
             else:
+                self.logger.info(f"[ArtifactDB] Failed to save a Artifact."
+                                 f" id: {self.art_id + 1} detected info: {detected_info}")
                 status = 3
                 self.failed += 1
             self.art_id += 1

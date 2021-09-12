@@ -13,6 +13,13 @@ import utils
 
 bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
 
+logger = logging.getLogger("Art Saver")
+logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
+logHandler.setFormatter(logging.Formatter("[%(levelname)s] %(asctime)s /%(module)10s[%(lineno)3d]"
+                                          "%(name)10s: %(message)s"))
+logger.addHandler(logHandler)
+logger.setLevel(logging.INFO)
+
 
 class ArtifactType(Enum):
     FLOWER = 0
@@ -113,15 +120,12 @@ class Artifact(persistent.Persistent):
                 'subattr_{i}': str, substat description, i could be 1-4, example: '暴击率+3.5%', '攻击力+130'
             image: PIL.Image, screenshot of the artifact, will be shrinked to 300x512 to save space
         '''
-        self.logger = logging.getLogger("Artifact Saver")
-        self.logger.addHandler(logging.FileHandler('./Amenoma.log'))
-        self.logger.info("Saving Artifact:" + str(info))
 
+        logger.info("Saving Artifact:" + str(info))
         self.name = info['name']
 
         typeid = ArtsInfo.TypeNames.index(info['type'])
-        self.setid = [i for i, v in enumerate(
-            ArtsInfo.ArtNames) if self.name in v][0]
+        self.setid = info['setid']
         self.type = ArtifactType(typeid)
         self.level = utils.decodeValue(info['level'])
         self.rarity = info['star']
@@ -136,13 +140,13 @@ class Artifact(persistent.Persistent):
 
     def is_valid(self):
         if self.level > ArtsInfo.RarityToMaxLvs[self.rarity - 1]:
-            self.logger.error(f"Save Artifact failed: bad level")
+            logger.error(f"Save Artifact failed: bad level")
             return False
         if self.stat not in self.__class__.level_stat_range[self.stat.type][self.level][self.rarity]:
-            self.logger.error(f"Save Artifact failed: bad main stat value")
+            logger.error(f"Save Artifact failed: bad main stat value")
             return False
         if not self.calculate_substat_upgrades():
-            self.logger.error(f"Save Artifact failed: bad sub stat value")
+            logger.error(f"Save Artifact failed: bad sub stat value")
             return False
         return True
 
