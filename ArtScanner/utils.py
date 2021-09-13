@@ -87,7 +87,9 @@ def attr_auto_correct(attr: str) -> str:
         if ndis < dis:
             dis = ndis
             corr_name = n
-    if dis < len(attr):
+    if dis == 0:
+        pass
+    elif dis <= (len(attr) // 3):
         logger.info(f"Corrected attribute from [{attr}] to [{corr_name}] with distance {dis}")
     else:
         logger.warning(f"Corrected attribute from [{attr}] to [{corr_name}] with distance {dis}")
@@ -103,7 +105,9 @@ def name_auto_correct(name: str) -> str:
             if ndis < dis:
                 corr_name = rname
                 dis = ndis
-    if dis < len(name):
+    if dis == 0:
+        pass
+    elif dis <= (len(name) // 3):
         logger.info(f"Corrected attribute from [{name}] to [{corr_name}] with distance {dis}")
     else:
         logger.warning(f"Corrected attribute from [{name}] to [{corr_name}] with distance {dis}")
@@ -118,7 +122,9 @@ def attr_auto_correct_EN(attr: str) -> str:
         if ndis < dis:
             dis = ndis
             corr_name = n
-    if dis < len(attr):
+    if dis == 0:
+        pass
+    elif dis <= (len(attr) // 3):
         logger.info(f"Corrected attribute from [{attr}] to [{corr_name}] with distance {dis}")
     else:
         logger.warning(f"Corrected attribute from [{attr}] to [{corr_name}] with distance {dis}")
@@ -134,7 +140,9 @@ def name_auto_correct_EN(name: str) -> str:
             if ndis < dis:
                 corr_name = rname
                 dis = ndis
-    if dis < len(name):
+    if dis == 0:
+        pass
+    elif dis <= (len(name) // 3):
         logger.info(f"Corrected attribute from [{name}] to [{corr_name}] with distance {dis}")
     else:
         logger.warning(f"Corrected attribute from [{name}] to [{corr_name}] with distance {dis}")

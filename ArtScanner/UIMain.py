@@ -3,7 +3,6 @@ import json
 import os
 import sys
 import time
-import logging
 
 import mouse
 import win32api

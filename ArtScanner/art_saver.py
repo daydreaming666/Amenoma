@@ -1,5 +1,4 @@
 import json
-import logging
 import os
 import sys
 from enum import IntEnum as Enum
@@ -114,7 +113,6 @@ class Artifact(persistent.Persistent):
             image: PIL.Image, screenshot of the artifact, will be shrinked to 300x512 to save space
         '''
 
-        logger.info("Saving Artifact:" + str(info))
         self.name = info['name']
 
         typeid = ArtsInfo.TypeNames.index(info['type'])

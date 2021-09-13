@@ -3,7 +3,6 @@ import json
 import os
 import sys
 import time
-import logging
 
 import mouse
 import win32api
@@ -564,7 +563,7 @@ class Worker(QObject):
             if (self.detectSettings["ExtraSettings"]["FilterArtsByName"] and
                     (not self.detectSettings["ExtraSettings"]["Filter"][detected_info['setid']])):
                 self.logger.info(f"[FilterArtsByName] Skipped a Artifact."
-                                 f" id: {self.art_id + 1} detected info: {detected_info}  set: {ArtsInfo.Setnames_EN[detected_info['setid']]}")
+                                 f" id: {self.art_id + 1} detected info: {detected_info} set: {ArtsInfo.Setnames_EN[detected_info['setid']]}")
                 self.skipped += 1
                 status = 1
             elif not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
