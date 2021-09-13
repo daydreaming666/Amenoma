@@ -632,7 +632,7 @@ class Worker(QObject):
             else:
                 self.log(f"导出文件: {export_name[info['exporter']]}")
                 exporter[info['exporter']](export_name[info['exporter']])
-        self.log(f'扫描: {self.saved}')
+        self.log(f'扫描: {self.art_id}')
         self.log(f'  - 保存: {self.saved}')
         self.log(f'  - 跳过: {self.skipped}')
         self.log(f'失败: {self.failed}')

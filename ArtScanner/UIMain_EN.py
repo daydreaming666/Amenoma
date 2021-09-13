@@ -636,7 +636,7 @@ class Worker(QObject):
             else:
                 self.log(f"File exported as: {export_name[info['exporter']]}")
                 exporter[info['exporter']](export_name[info['exporter']])
-        self.log(f'Scanned: {self.saved}')
+        self.log(f'Scanned: {self.art_id}')
         self.log(f'  - Saved:   {self.saved}')
         self.log(f'  - Skipped: {self.skipped}')
         self.log(f'Failed: {self.failed}')
