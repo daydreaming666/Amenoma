@@ -397,7 +397,7 @@ class Worker(QObject):
         self.log('initializing, please wait...')
 
         # 创建文件夹
-        os.makedirs('artifacts_EN', exist_ok=True)
+        os.makedirs('artifacts', exist_ok=True)
         self.log('Checking DPI settings...')
         try:
             ctypes.windll.shcore.SetProcessDpiAwareness(2)
