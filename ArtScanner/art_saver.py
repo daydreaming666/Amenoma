@@ -10,16 +10,9 @@ import transaction
 
 import ArtsInfo
 import utils
+from utils import logger
 
 bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-
-logger = logging.getLogger("Art Saver")
-logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
-logHandler.setFormatter(logging.Formatter("[%(levelname)s] %(asctime)s /%(module)10s[%(lineno)3d]"
-                                          "%(name)10s: %(message)s"))
-logger.addHandler(logHandler)
-logger.setLevel(logging.INFO)
-
 
 class ArtifactType(Enum):
     FLOWER = 0

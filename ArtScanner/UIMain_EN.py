@@ -151,12 +151,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self._helpDlg = HelpDlg(self)
         self._isHelpDlgShowing = False
 
-        self.logger = logging.getLogger("Main")
-        logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
-        logHandler.setFormatter(logging.Formatter("[%(levelname)s] %(asctime)s /%(module)10s[%(lineno)3d]"
-                                                  "%(name)10s: %(message)s"))
-        self.logger.addHandler(logHandler)
-        self.logger.setLevel(logging.INFO)
+        self.logger = utils.logger
 
         # 连接按钮
         self.pushButton.clicked.connect(self.startScan)
@@ -215,6 +210,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
     @pyqtSlot()
     def showHelpDlg(self):
+        self._helpDlg.accept()
         self.logger.info("Help dialog shown.")
         point = self.rect().topRight()
         globalPoint = self.mapToGlobal(point)
@@ -375,12 +371,8 @@ class Worker(QObject):
         self.cond = QWaitCondition()
         self.isInitialized = False
         self.isWindowCaptured = False
-        self.logger = logging.getLogger("Worker")
-        logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
-        logHandler.setFormatter(logging.Formatter("[%(levelname)s] %(asctime)s /%(module)10s[%(lineno)3d]"
-                                                  "%(name)10s: %(message)s"))
-        self.logger.addHandler(logHandler)
-        self.logger.setLevel(logging.INFO)
+
+        self.logger = utils.logger
 
         self.windowName = 'Genshin Impact'
         # in initEngine
