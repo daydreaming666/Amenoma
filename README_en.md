@@ -1,13 +1,15 @@
 # 「天目」 -- Amenoma
 
-[简体中文](./README.md) | [English](./README_en.md)
+[简体中文](README.md) | [English](README_en.md)
 
 > The essence of Amenoma Art is to have the patience to move mountains and unrelenting willpower.
 
-Scan the Artifact in the backpack and export them to json format. Later, they can be imported to Artifact analysis tools( [mona-uranai](https://www.mona-uranai.com), [MingyuLab](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
+Scan the Artifact in the backpack and export them to json format. Later, they can be imported to Artifact analysis tools( [Mona-uranai](https://www.mona-uranai.com), [Genmo Calculator](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
 
 - genshin 2.0 Artifact supported!
 - Refactored the scanning process to greatly improve the user experience!
+
+> Join My Discord Server -> [Amenoma Smithy](https://discord.gg/S3B9NB7Bk2)
 
 ## Download
 
@@ -26,13 +28,17 @@ Multiple versions available for download:
 ## Usage
 
 1. Double-click ArtScanner.exe to open the program, and wait a while for the program to decompress. 
-2. Adjust the resolution of the *Genshin Impact* to 1600 * 900, open Bag - Artifacts.
-3. Capture the window and wait.
-4. Adjust scanning options.
-5. Start scanning 
-6. Scan results are stored in current running folder *artifacts.genshinart.json*(mona-uranai) / *artifacts.mingyulab.json*(MingyuLab) / *artifacts.genshin-optimizer.json*(Genshin Optimizer).
+2. Adjust the resolution of the *Genshin Impact* to 1600 * 900 (Or others that meets 16:9).
+3. Open Inventory - Artifacts.
+4. Capture the window. (If it is not been captured)
+5. Adjust scanning options.
+6. Start scanning 
+7. Scan results are stored in current running folder.
+   - `artifacts.genshinart.json`  Mona-uranai 
+   - `artifacts.genmocalc.json`   Genmo Calculator
+   - `artifacts.GOOD.json`        Genshin Optimizer
 
-> [Other Questions](#Q&A)
+> [Other Questions](#qa)
 
 
 ## Development Environment Setup 
@@ -42,6 +48,7 @@ Multiple versions available for download:
 ```cmd
 conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 ```
+> More Info [AmenomaDevDocs](AmenomaDevDocs/)
 
 ## Copyright
 
@@ -54,9 +61,10 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 When you download or use this software, you are deemed to know and agree to the following: 
 
 - This software is offline software, no network environment is required, and no information will be uploaded. 
-- This software needs to manipulate the mouse to automatically click on the holy relic in the backpack and take a screenshot of the window. 
-- This project is only a personal hobby and has nothing to do with miHoYo.
+- This software needs to manipulate the mouse to automatically click on the Artifacts in the Inventory and take a screenshot of the window. Therefore, it needs Administrator permission.
+- This software only read information from screen, and never hook processes or modify memory.
 - This software is open source software and is not responsible for any losses caused by your use of this software. 
+- This project is only a personal hobby and has nothing to do with miHoYo.
 
 > The above content is subject to the Chinese version 
 
@@ -78,8 +86,6 @@ Not implemented yet. QwQ
 I am a college student, and this project took me a lot of time.
 Thank you very much for your support! 
 
-<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004740.jpg" width="135" height="210" alt="Alipay"/>
-
-<img src="https://daydreaming.top/wp-content/uploads/2021/08/QQ图片20210822004735.png" width="153" height="210" alt="Wechat"/>
+Alipay: 15269372273
 
 [PayPal@daydreaming666](https://www.paypal.me/daydreaming666)
