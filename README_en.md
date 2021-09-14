@@ -4,14 +4,34 @@
 
 > The essence of Amenoma Art is to have the patience to move mountains and unrelenting willpower.
 
-Scan the Artifact in the backpack and export them to json format. Later, they can be imported to Artifact analysis tools( [Mona-uranai](https://www.mona-uranai.com), [Genmo Calculator](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
+Scan the Artifact in the Inventory and export them to json format. Then, they can be imported to Artifact analysis tools ([Mona-uranai](https://www.mona-uranai.com), [Genmo Calculator](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
 
-- genshin 2.0 Artifact supported!
-- Refactored the scanning process to greatly improve the user experience!
+New Features:
 
-> Join My Discord Server -> [Amenoma Smithy](https://discord.gg/S3B9NB7Bk2)
+- Automatically adjust options according to the exporter
+- Adapt to GOOD (Genshin Open Object Description)
+- A useful logger 
+- Automatic correction of sub attributes name 
+- More options about scanning and exporting 
+  - A Enhanced capture window function(for cloud game players)
+  - Export all formats at once (use multiple tools for comparison) 
+  - Option to export all pictures (not only the failed Items)
+  - Filter Artifacts by set name
+- A little adjustments of UI
+
+Bug Fixes:
+
+- Fixed a bug that could identify the wrong number of stars 
+- The count of *Scanned* wrong.
+
+**Warning: DO NOT import *Genshin Optimizer*’s DB at GOOD format! It will erase your database(All Characters and Weapons). Use Mona's format instead.**
+
+> Join My Discord Server for reporting bugs & suggestions or just chatting with us. `-->` [Amenoma Smithy](https://discord.gg/S3B9NB7Bk2)
 
 ## Download
+
+- [Github Release](https://github.com/daydreaming666/Amenoma/releases)
+- [Google Drive](https://drive.google.com/drive/folders/1FYrsXy_nznVcV_aN4731FTDWQcAacivy?usp=sharing)
 
 Multiple versions available for download: 
 
@@ -48,7 +68,7 @@ Multiple versions available for download:
 ```cmd
 conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 ```
-> More Info [AmenomaDevDocs](AmenomaDevDocs/)
+> More development docs [AmenomaDevDocs](AmenomaDevDocs/.)
 
 ## Copyright
 
@@ -89,3 +109,7 @@ Thank you very much for your support!
 Alipay: 15269372273
 
 [PayPal@daydreaming666](https://www.paypal.me/daydreaming666)
+
+
+> PS. 
+> The project is maintained by a Chinese Dev whose English is not so good. Contact me if you need any help.

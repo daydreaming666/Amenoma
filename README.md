@@ -1,19 +1,46 @@
 # 「天目」 -- Amenoma
 
-[简体中文](./README.md) | [English](./README_en.md)
+[简体中文](README.md) | [English](README_en.md)
 
 > 「天目流的诀窍就是滴水穿石的耐心和全力以赴的意志」
 
 扫描背包中的圣遗物，并导出至 json 格式。之后可导入圣遗物分析工具( [莫娜占卜铺](https://www.mona-uranai.com) 、 [原魔计算器](https://genshin.mingyulab.com) 、 [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer ) 进行计算与规划等。
 
-- 已支持 原神2.0 的圣遗物!
-- 重构了扫描流程，大幅提高使用体验
+2.1.1版本已发布。
 
-> 加入 Discord Server [https://discord.gg/S3B9NB7Bk2](https://discord.gg/S3B9NB7Bk2)
+新功能：
+
+- 根据导出器自动调节调出选项
+- 适配 GOOD (Genshin Open Object Description)
+- 好用的 logger
+- 副词条名自动纠错
+- 更多的扫描和导出选项
+  - 使用增强的捕获窗口（云游戏适配）
+  - 一次性导出所有格式（方便使用多种工具对比）
+  - 可选择导出所有图片（不止导出失败的图片）
+  - 根据套装过滤圣遗物
+- 微小的 UI 调整
+
+bug 修复：
+
+- 修复了一个可能识别出错误星星数量的 bug
+- 已扫描数量统计错误
+
+**重要警告：目前，请不要使用 GOOD 格式导入 Genshin Optimizer！这会导致您的数据库被清空（角色和武器）。请使用莫娜格式导入。**
+
+> 加入
 > 
+> Discord Server [Amenoma Smithy](https://discord.gg/S3B9NB7Bk2)
+>
 > QQ 群： 910549414
+> 
+> 反馈 BUG, 提出建议 和 ~~聊天吹水~~
 
 ## 下载
+
+- [Github Release](https://github.com/daydreaming666/Amenoma/releases)
+- [Google Drive](https://drive.google.com/drive/folders/1FYrsXy_nznVcV_aN4731FTDWQcAacivy?usp=sharing)
+- [百度网盘 提取码:i2hd](https://pan.baidu.com/s/1CDHgZAbFWEPoqt4183GT9A)
 
 有多个版本可供下载：
 
@@ -52,7 +79,7 @@
 conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 ```
 
-> 更多信息[AmenomaDevDocs](AmenomaDevDocs/)
+> 更多开发文档[AmenomaDevDocs](AmenomaDevDocs/.)
 
 ## 版权说明
 
@@ -69,7 +96,6 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 - 本软件仅对屏幕信息进行识别，不会 hook 进程与修改内存。
 - 本软件为开源软件，不对您因使用本软件而造成的任何损失负责。
 - 本项目仅为个人爱好，与 miHoYo 公司无任何关系。
-
 
 
 ## 鸣谢
