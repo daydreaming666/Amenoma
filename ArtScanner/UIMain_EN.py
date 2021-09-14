@@ -627,6 +627,7 @@ class Worker(QObject):
             else:
                 self.log('Completed')
         except Exception as e:
+            self.logger.exception(e)
             self.error(repr(e))
             self.log('Stopped with an Error.')
 
@@ -661,7 +662,12 @@ class Worker(QObject):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    uiMain = UIMain()
-    uiMain.show()
-    app.exec()
+    try:
+        app = QApplication(sys.argv)
+        uiMain = UIMain()
+        uiMain.show()
+        app.exec()
+    except Exception as excp:
+        utils.logger.exception(excp)
+        win32api.ShellExecute(0, 'open', 'cmd.exe',
+                              r'/c echo Unhandled exception occured. Please contact with the author. && pause', None, 1)

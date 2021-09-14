@@ -10,7 +10,7 @@ import win32gui
 from PyQt5.QtCore import (pyqtSignal, pyqtSlot, QObject, QThread,
                           QMutex, QWaitCondition, Qt)
 from PyQt5.QtGui import (QMovie, QPixmap)
-from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog,
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog, QMessageBox,
                              QWidget, QCheckBox, QHBoxLayout)
 
 import ocr
@@ -623,6 +623,7 @@ class Worker(QObject):
             else:
                 self.log('扫描已完成')
         except Exception as e:
+            self.logger.exception(e)
             self.error(repr(e))
             self.log('扫描出错，已停止')
 
@@ -657,7 +658,12 @@ class Worker(QObject):
 
 
 if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    uiMain = UIMain()
-    uiMain.show()
-    app.exec()
+    try:
+        app = QApplication(sys.argv)
+        uiMain = UIMain()
+        uiMain.show()
+        app.exec()
+    except Exception as excp:
+        utils.logger.exception(excp)
+        win32api.ShellExecute(0, 'open', 'cmd.exe',
+                              r'/c echo Unhandled exception occured. Please contact with the author. && pause', None, 1)

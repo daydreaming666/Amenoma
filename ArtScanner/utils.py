@@ -12,7 +12,7 @@ import logging
 
 logger = logging.getLogger()
 logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
-logHandler.setFormatter(logging.Formatter("[%(levelname)5s] %(asctime)s /%(module)10s[%(lineno)3d]"
+logHandler.setFormatter(logging.Formatter("[%(levelname)7s] %(asctime)s /%(module)10s[%(lineno)3d]\t"
                                           "/%(message)s"))
 logger.addHandler(logHandler)
 logger.setLevel(logging.INFO)
