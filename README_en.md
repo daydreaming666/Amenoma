@@ -6,6 +6,8 @@
 
 Scan the Artifact in the Inventory and export them to json format. Then, they can be imported to Artifact analysis tools ([Mona-uranai](https://www.mona-uranai.com), [Genmo Calculator](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
 
+Version 2.1.1 released 
+
 New Features:
 
 - Automatically adjust options according to the exporter
