@@ -6,28 +6,6 @@
 
 扫描背包中的圣遗物，并导出至 json 格式。之后可导入圣遗物分析工具( [莫娜占卜铺](https://www.mona-uranai.com) 、 [原魔计算器](https://genshin.mingyulab.com) 、 [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer ) 进行计算与规划等。
 
-2.1.1版本已发布。
-
-新功能：
-
-- 根据导出器自动调节调出选项
-- 适配 GOOD (Genshin Open Object Description)
-- 好用的 logger
-- 副词条名自动纠错
-- 更多的扫描和导出选项
-  - 使用增强的捕获窗口（云游戏适配）
-  - 一次性导出所有格式（方便使用多种工具对比）
-  - 可选择导出所有图片（不止导出失败的图片）
-  - 根据套装过滤圣遗物
-- 微小的 UI 调整
-
-bug 修复：
-
-- 修复了一个可能识别出错误星星数量的 bug
-- 已扫描数量统计错误
-
-**重要警告：目前，请不要使用 GOOD 格式导入 Genshin Optimizer！这会导致您的数据库被清空（角色和武器）。请使用莫娜格式导入。**
-
 > 加入
 > 
 > Discord Server [Amenoma Smithy](https://discord.gg/S3B9NB7Bk2)
@@ -35,6 +13,10 @@ bug 修复：
 > QQ 群： 910549414
 > 
 > 反馈 BUG, 提出建议 和 ~~聊天吹水~~
+
+如果你是第一次使用，请确保完整读完此页。
+
+觉得好用，请给我 Star。 十分感谢！
 
 ## 下载
 
@@ -69,6 +51,30 @@ bug 修复：
    - `artifacts.GOOD.json`       Genshin Optimizer
 
 > [其他问题](#qa)
+
+
+## Release Notes
+
+2.1.1.1版本已发布。
+
+新功能：
+
+- 根据导出器自动调节调出选项
+- 适配 GOOD (Genshin Open Object Description)
+- 好用的 logger
+- 副词条名自动纠错
+- 更多的扫描和导出选项
+  - 使用增强的捕获窗口（云游戏适配）
+  - 一次性导出所有格式（方便使用多种工具对比）
+  - 可选择导出所有图片（不止导出失败的图片）
+  - 根据套装过滤圣遗物
+- 微小的 UI 调整
+
+bug 修复：
+
+- 修复了一个可能识别出错误星星数量的 bug
+- 已扫描数量统计错误
+- 错误的 GOOD 数据
 
 
 ## 开发环境搭建

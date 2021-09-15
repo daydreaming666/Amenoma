@@ -266,7 +266,7 @@ SetNamesMingyuLab = [
     "reminiscence_of_shime",        # 追忆之注连
 ]
 
-TypeNamesGOOD = ['flower', 'plume', 'sand', 'goblet', 'circlet']
+TypeNamesGOOD = ['flower', 'plume', 'sands', 'goblet', 'circlet']
 
 AttrNamesGOOD = {
     "FIGHT_PROP_CRITICAL":          "critRate_",
@@ -292,17 +292,17 @@ AttrNamesGOOD = {
 
 SetNamesGOOD = [
     'ArchaicPetra', 'BlizzardStrayer', 'BloodstainedChivalry',
-    'CrimsonWitchofFlames', 'GladiatorsFinale', 'HeartofDepth',
+    'CrimsonWitchOfFlames', 'GladiatorsFinale', 'HeartOfDepth',
     'Lavawalker', 'MaidenBeloved', 'NoblesseOblige',
     'RetracingBolide', 'Thundersoother', 'ThunderingFury',
     'ViridescentVenerer', 'WanderersTroupe', 'Berserker',
     'BraveHeart', 'DefendersWill', 'TheExile', 'Gambler',
-    'Instructor', 'MartialArtist', 'PrayersforDestiny',
-    'PrayersforIllumination', 'PrayersforWisdom', 'PrayerstoSpringtime',
-    'ResolutionofSojourner', 'Scholar', 'TinyMiracle',
+    'Instructor', 'MartialArtist', 'PrayersForDestiny',
+    'PrayersForIllumination', 'PrayersForWisdom', 'PrayersToSpringtime',
+    'ResolutionOfSojourner', 'Scholar', 'TinyMiracle',
     'Adventurer', 'LuckyDog', 'TravelingDoctor',
-    'TenacityoftheMillelith', 'PaleFlame',
-    'EmblemofSeveredFate', 'ShimenawasReminiscence'
+    'TenacityOftheMillelith', 'PaleFlame',
+    'EmblemOfSeveredFate', 'ShimenawasReminiscence'
 ]
 
 MainAttrValue = {

@@ -6,29 +6,11 @@
 
 Scan the Artifact in the Inventory and export them to json format. Then, they can be imported to Artifact analysis tools ([Mona-uranai](https://www.mona-uranai.com), [Genmo Calculator](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
 
-Version 2.1.1 released 
-
-New Features:
-
-- Automatically adjust options according to the exporter
-- Adapt to GOOD (Genshin Open Object Description)
-- A useful logger 
-- Automatic correction of sub attributes name 
-- More options about scanning and exporting 
-  - A Enhanced capture window function(for cloud game players)
-  - Export all formats at once (use multiple tools for comparison) 
-  - Option to export all pictures (not only the failed Items)
-  - Filter Artifacts by set name
-- A little adjustments of UI
-
-Bug Fixes:
-
-- Fixed a bug that could identify the wrong number of stars 
-- The count of *Scanned* wrong.
-
-**Warning: DO NOT import *Genshin Optimizer*’s DB at GOOD format! It will erase your database(All Characters and Weapons). Use Mona's format instead.**
-
 > Join My Discord Server for reporting bugs & suggestions or just chatting with us. `-->` [Amenoma Smithy](https://discord.gg/S3B9NB7Bk2)
+
+If you are using it for the first time, make sure to read this file. If anything confuses, contact me.
+
+Give me star if you think it's easy to use. Thanks!
 
 ## Download
 
@@ -62,6 +44,29 @@ Multiple versions available for download:
 
 > [Other Questions](#qa)
 
+
+## Release Notes
+
+Version 2.1.1.1 released 
+
+New Features:
+
+- Automatically adjust options according to the exporter
+- Adapt to GOOD (Genshin Open Object Description)
+- A useful logger 
+- Automatic correction of sub attributes name 
+- More options about scanning and exporting 
+  - A Enhanced capture window function(for cloud game players)
+  - Export all formats at once (use multiple tools for comparison) 
+  - Option to export all pictures (not only the failed Items)
+  - Filter Artifacts by set name
+- A little adjustments of UI
+
+Bug Fixes:
+
+- Fixed a bug that could identify the wrong number of stars 
+- The count of *Scanned* wrong.
+- wrong GOOD values
 
 ## Development Environment Setup 
 

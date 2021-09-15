@@ -210,9 +210,9 @@ class ArtDatabase:
             "format": "GOOD",
             "version": 1,  # artifact only
             "source": "Amenoma",
-            "characters": [],
+            # "characters": [],
             "artifacts": [],
-            "weapons": []
+            # "weapons": []
         }
         for art_id in range(self.root['size']):
             art: Artifact = self.root[str(art_id)]
