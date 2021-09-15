@@ -301,7 +301,7 @@ SetNamesGOOD = [
     'PrayersForIllumination', 'PrayersForWisdom', 'PrayersToSpringtime',
     'ResolutionOfSojourner', 'Scholar', 'TinyMiracle',
     'Adventurer', 'LuckyDog', 'TravelingDoctor',
-    'TenacityOftheMillelith', 'PaleFlame',
+    'TenacityOfTheMillelith', 'PaleFlame',
     'EmblemOfSeveredFate', 'ShimenawasReminiscence'
 ]
 
