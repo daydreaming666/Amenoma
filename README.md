@@ -114,7 +114,11 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 
 ## Q&A
 
-这里还没写呢 QwQ
+已知的问题：
+
+1. 祝圣精华/祝圣油膏没有被识别出，并且会导致一个错误。这并不影响扫描结果，忽略错误即可。
+2. 有时，对鼠标的控制完全不生效，包括滚轮和点击。假如你遇到了这个情况，请联系我，我需要更多的信息来找出原因。
+3. 有时，对齐操作进行的不正常。在扫描一开始时就会把列表向下滚动。检查下是否启用了色彩滤镜（如 NVIDIA） ，关闭重新扫描即可。
 
 > 如果遇到问题或任何建议，请提交 issues 或邮件至 [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
 

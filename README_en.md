@@ -1,4 +1,4 @@
-# 「天目」 -- Amenoma
+**# 「天目」 -- Amenoma
 
 [简体中文](README.md) | [English](README_en.md)
 
@@ -103,7 +103,11 @@ When you download or use this software, you are deemed to know and agree to the 
 
 ## Q&A
 
-Not implemented yet. QwQ
+known issues:
+
+1. Sanctifying Essence/Unction is not recognizable and will cause an error. It doesn't matter and will not affect the exporting. Just ignore the error.
+2. In some cases, mouse controlling not work at all, including moving and clicking. If this happens to you, please contact me. I need more info to figure out why this happens.
+3. The aligner doesn't work well in some cases. It scrolls down the list even at the beginning of scanning. If this happens, check that if you are using any color filters, e.g. Nvidia ... , close them and try scanning again.
 
 > If you encounter problems or any suggestions, please submit issues or email to [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
 
@@ -119,4 +123,4 @@ Alipay: 15269372273
 
 
 > PS. 
-> The project is maintained by a Chinese Dev whose English is not so good. Contact me if you need any help.
+> The project is maintained by a Chinese Dev whose English is not so good. Contact me if you need any help.**
