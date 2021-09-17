@@ -228,7 +228,7 @@ class ArtDatabase:
                     "substats": [
                         {
                             "key":   ArtsInfo.AttrNamesGOOD[substat.type.name],
-                            "value": substat.value * 100
+                            "value": round(substat.value * 100, 1)
                             if ArtsInfo.AttrNamesGOOD[substat.type.name].endswith("_")
                             else substat.value,
                         }

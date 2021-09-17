@@ -670,4 +670,4 @@ if __name__ == '__main__':
     except Exception as excp:
         utils.logger.exception(excp)
         win32api.ShellExecute(0, 'open', 'cmd.exe',
-                              r'/c echo Unhandled exception occured. Please contact with the author. && pause', None, 1)
+                              r'/c echo Unhandled exception occurred. Please contact with the author. && pause', None, 1)
