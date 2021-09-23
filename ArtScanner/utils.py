@@ -62,7 +62,7 @@ def captureWindow(hwnd, local_rect=None):
     if local_rect is None:
         local_rect = win32gui.GetClientRect(hwnd)
     else:
-        local_rect = tuple([int(round(i)) for i in local_rect])
+        local_rect = tuple([round(i) for i in local_rect])
     screen_rect = [*local_rect]
     screen_rect[:2] = win32gui.ClientToScreen(hwnd, local_rect[:2])
     screen_rect[2:] = win32gui.ClientToScreen(hwnd, local_rect[2:])

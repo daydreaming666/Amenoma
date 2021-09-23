@@ -618,7 +618,7 @@ def detect_star(art_img):
     cropped_star = crop(normalize(to_gray(star)))
     coef = cropped_star.shape[1] / cropped_star.shape[0]
     coef = coef / 1.30882352 + 0.21568627
-    return int(round(coef))
+    return round(coef)
 
 
 filepath = "./train/weights-improvement-{epoch:02d}-{ctc_accu:.2f}.hdf5"

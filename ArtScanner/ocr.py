@@ -110,7 +110,7 @@ class OCR:
         cropped_star = self.crop(self.normalize(self.to_gray(star), auto_inverse=False))
         coef = cropped_star.shape[1] / cropped_star.shape[0]
         coef = coef / 1.30882352 + 0.21568627
-        return int(round(coef))
+        return round(coef)
 
     def to_gray(self, text_img):
         text_img = np.array(text_img)
