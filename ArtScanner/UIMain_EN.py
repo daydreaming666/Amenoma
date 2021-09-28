@@ -284,13 +284,14 @@ class UIMain(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str)
     def printLog(self, log: str):
         self.logger.info(f"Info message shown. msg={log}")
-        self.textBrowser_3.append(log)
+        self.textBrowser_3.append(f'<font color="black">{log}</font>')
         QApplication.processEvents()
 
     @pyqtSlot(str)
     def printErr(self, err: str):
         self.logger.error(f"Error message shown. msg={err}")
         self.textBrowser_3.append(f'<font color="red">{err}</font>')
+        QApplication.processEvents()
 
     @pyqtSlot()
     def captureWindow(self):
@@ -422,7 +423,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model = ocr_EN.OCR(model_weight=os.path.join(self.bundle_dir, 'weights-improvement-EN-81-1.00.hdf5'))
+        self.model = ocr_EN.OCR(model=os.path.join(self.bundle_dir, 'savedmodel_EN.h5'))
 
         self.log('Initialize is finished.')
         if self.isWindowCaptured:
@@ -433,7 +434,7 @@ class Worker(QObject):
         else:
             self.error('The window is not captured, please recapture the window before start scanning.')
 
-        self.log('Please open Bag - Artifacts and turn the page to the top before start scanning.')
+        self.log('Please open Inventory - Artifacts and turn the page to the top before start scanning.')
         self.endWorking.emit()
         self.endInit.emit()
 

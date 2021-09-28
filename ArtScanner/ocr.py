@@ -8,11 +8,12 @@ from PIL import Image
 import ArtsInfo
 import logging
 from tensorflow import get_logger
-from tensorflow.keras.models import Model
+# from tensorflow.keras.models import Model
+import tensorflow.keras.models
 from tensorflow.keras.layers.experimental.preprocessing import StringLookup
-from tensorflow.keras.layers import Input, Reshape, Dense, Dropout, Bidirectional, LSTM
+# from tensorflow.keras.layers import Input, Reshape, Dense, Dropout, Bidirectional, LSTM
 from tensorflow.keras.backend import ctc_decode
-from mobilenetv3 import MobileNetV3_Small
+# from mobilenetv3 import MobileNetV3_Small
 from tensorflow.strings import reduce_join
 
 get_logger().setLevel(logging.ERROR)
@@ -36,7 +37,7 @@ class Config:
 
 
 class OCR:
-    def __init__(self, model_weight='mn_model_weight.h5', scale_ratio=1):
+    def __init__(self, model, scale_ratio=1):
         self.scale_ratio = scale_ratio
         self.characters = sorted(
             [
@@ -64,8 +65,9 @@ class OCR:
         self.width = 240
         self.height = 16
         self.max_length = 15
-        self.build_model(input_shape=(self.width, self.height))
-        self.model.load_weights(model_weight)
+        self.model = tensorflow.keras.models.load_model(model)
+        # self.build_model(input_shape=(self.width, self.height))
+        # self.model.load_weights(model_weight)
 
     def setScaleRatio(self, scaleRatio):
         self.scale_ratio = scaleRatio
@@ -179,26 +181,26 @@ class OCR:
             output_text.append(res)
         return output_text
 
-    def build_model(self, input_shape):
-        input_img = Input(
-            shape=(input_shape[0], input_shape[1], 1), name="image", dtype="float32"
-        )
-        mobilenet = MobileNetV3_Small(
-            (input_shape[0], input_shape[1], 1), 0, alpha=1.0, include_top=False
-        ).build()
-        x = mobilenet(input_img)
-        new_shape = ((input_shape[0] // 8), (input_shape[1] // 8) * 576)
-        x = Reshape(target_shape=new_shape, name="reshape")(x)
-        x = Dense(64, activation="relu", name="dense1")(x)
-        x = Dropout(0.2)(x)
-
-        # RNNs
-        x = Bidirectional(LSTM(128, return_sequences=True, dropout=0.25))(x)
-        x = Bidirectional(LSTM(64, return_sequences=True, dropout=0.25))(x)
-
-        # Output layer
-        output = Dense(len(self.characters) + 2, activation="softmax", name="dense2")(x)
-
-        # Define the model
-        self.model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
+    # def build_model(self, input_shape):
+    #     input_img = Input(
+    #         shape=(input_shape[0], input_shape[1], 1), name="image", dtype="float32"
+    #     )
+    #     mobilenet = MobileNetV3_Small(
+    #         (input_shape[0], input_shape[1], 1), 0, alpha=1.0, include_top=False
+    #     ).build()
+    #     x = mobilenet(input_img)
+    #     new_shape = ((input_shape[0] // 8), (input_shape[1] // 8) * 576)
+    #     x = Reshape(target_shape=new_shape, name="reshape")(x)
+    #     x = Dense(64, activation="relu", name="dense1")(x)
+    #     x = Dropout(0.2)(x)
+    #
+    #     # RNNs
+    #     x = Bidirectional(LSTM(128, return_sequences=True, dropout=0.25))(x)
+    #     x = Bidirectional(LSTM(64, return_sequences=True, dropout=0.25))(x)
+    #
+    #     # Output layer
+    #     output = Dense(len(self.characters) + 2, activation="softmax", name="dense2")(x)
+    #
+    #     # Define the model
+    #     self.model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
 

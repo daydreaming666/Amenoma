@@ -284,13 +284,14 @@ class UIMain(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str)
     def printLog(self, log: str):
         self.logger.info(f"Info message shown. msg={log}")
-        self.textBrowser_3.append(log)
+        self.textBrowser_3.append(f'<font color="black">{log}</font>')
         QApplication.processEvents()
 
     @pyqtSlot(str)
     def printErr(self, err: str):
         self.logger.error(f"Error message shown. msg={err}")
         self.textBrowser_3.append(f'<font color="red">{err}</font>')
+        QApplication.processEvents()
 
     @pyqtSlot()
     def captureWindow(self):
@@ -420,7 +421,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model = ocr.OCR(model_weight=os.path.join(self.bundle_dir, 'weights-improvement-55-1.00.hdf5'))
+        self.model = ocr.OCR(model=os.path.join(self.bundle_dir, 'savedmodel.h5'))
 
         self.log('初始化完成')
         if self.isWindowCaptured:
