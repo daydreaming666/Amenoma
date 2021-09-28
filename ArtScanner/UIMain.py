@@ -542,6 +542,7 @@ class Worker(QObject):
 
         def autoCorrect(detected_info):
             detected_info['name'] = utils.name_auto_correct(detected_info['name'])
+            detected_info['type'] = utils.type_auto_correct(detected_info['type'])
             detected_info['setid'] = [i for i, v in enumerate(
                 ArtsInfo.ArtNames) if detected_info['name'] in v][0]
             detected_info['main_attr_name'] = utils.attr_auto_correct(detected_info['main_attr_name'])
@@ -576,8 +577,8 @@ class Worker(QObject):
                 status = 2
                 self.star_dist_saved[detected_info['star'] - 1] += 1
             else:
-                self.logger.info(f"[ArtifactDB] Failed to save a Artifact."
-                                 f" id: {self.art_id + 1} detected info: {detected_info}")
+                self.logger.warning(f"[ArtifactDB] Failed to save a Artifact."
+                                    f" id: {self.art_id + 1} detected info: {detected_info}")
                 status = 3
                 self.failed += 1
             self.art_id += 1
