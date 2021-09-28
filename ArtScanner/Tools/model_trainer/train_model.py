@@ -58,8 +58,8 @@ MainAttrNames = {
     "FIGHT_PROP_WATER_ADD_HURT": "水元素伤害加成",
     "FIGHT_PROP_FIRE_ADD_HURT": "火元素伤害加成",
     "FIGHT_PROP_ELEC_ADD_HURT": "雷元素伤害加成",
-    "FIGHT_PROP_GRASS_ADD_HURT": "草元素伤害加成",
-    "FIGHT_PROP_FIRE_SUB_HURT": "火元素伤害减免",
+    # "FIGHT_PROP_GRASS_ADD_HURT":    "草元素伤害加成",
+    # "FIGHT_PROP_FIRE_SUB_HURT":     "火元素伤害减免",
 }
 AttrName2Ids = {v: i.replace('_PERCENT', '') for i, v in MainAttrNames.items()}
 
@@ -77,9 +77,6 @@ SubAttrNames = {
     "FIGHT_PROP_DEFENSE": "防御力",
     "FIGHT_PROP_DEFENSE_PERCENT": "防御力",
 }
-
-RarityToMaxLvs = [4, 4, 12, 16, 20]
-RarityToBaseStatNumber = {1: [0], 2: [0, 1], 3: [1, 2], 4: [2, 3], 5: [3, 4]}
 
 ArtNames = [
     ["磐陀裂生之花", "嵯峨群峰之翼", "星罗圭璧之晷", "巉岩琢塑之樽", "不动玄石之相"],
@@ -113,11 +110,12 @@ ArtNames = [
     ["冒险家之花", "冒险家尾羽", "冒险家怀表", "冒险家金杯", "冒险家头带"],
     ["幸运儿绿花", "幸运儿鹰羽", "幸运儿沙漏", "幸运儿之杯", "幸运儿银冠"],
     ["游医的银莲", "游医的枭羽", "游医的怀钟", "游医的药壶", "游医的方巾"],
-    ["勋绩之花", "昭武翎羽", "金铜时晷", "盟誓金爵", "将帅兜鏊"],
+    ["勋绩之花", "昭武翎羽", "金铜时晷", "盟誓金爵", "将帅兜鍪"],
     ["无垢之花", "贤医之羽", "停摆之刻", "超越之盏", "嗤笑之面"],
     ["明威之镡", "切落之羽", "雷云之笼", "绯花之壶", "华饰之兜"],  # 绝缘之旗印
     ["羁缠之花", "思忆之矢", "朝露之时", "祈望之心", "无常之面"],  # 追忆之注连
 ]
+
 Users = [
     "空",
     "荧",
@@ -152,135 +150,354 @@ Users = [
     "胡桃",
     "罗莎莉亚",
     "烟绯",
-    "尤拉",
+    "优菈",
+    "埃洛伊",
+    "珊瑚宫心海",
+    "雷电将军",
+    "九条裟罗",
+    "早柚",
+    "宵宫",
+    "神里绫华",
+    "枫原万叶",
+    "托马"
 ]
 
-TypeNamesGenshinArt = ["flower", "feather", "sand", "cup", "head"]
-AttrNamesGensinArt = {
-    "FIGHT_PROP_CRITICAL": "critical",
-    "FIGHT_PROP_CRITICAL_HURT": "criticalDamage",
-    "FIGHT_PROP_ATTACK": "attackStatic",
-    "FIGHT_PROP_ATTACK_PERCENT": "attackPercentage",
-    "FIGHT_PROP_ELEMENT_MASTERY": "elementalMastery",
-    "FIGHT_PROP_CHARGE_EFFICIENCY": "recharge",
-    "FIGHT_PROP_HP": "lifeStatic",
-    "FIGHT_PROP_HP_PERCENT": "lifePercentage",
-    "FIGHT_PROP_DEFENSE": "defendStatic",
-    "FIGHT_PROP_DEFENSE_PERCENT": "defendPercentage",
-    "FIGHT_PROP_PHYSICAL_ADD_HURT": "physicalBonus",
-    "FIGHT_PROP_HEAL_ADD": "cureEffect",
-    "FIGHT_PROP_ROCK_ADD_HURT": "rockBonus",
-    "FIGHT_PROP_WIND_ADD_HURT": "windBonus",
-    "FIGHT_PROP_ICE_ADD_HURT": "iceBonus",
-    "FIGHT_PROP_WATER_ADD_HURT": "waterBonus",
-    "FIGHT_PROP_FIRE_ADD_HURT": "fireBonus",
-    "FIGHT_PROP_ELEC_ADD_HURT": "thunderBonus",
-    "FIGHT_PROP_GRASS_ADD_HURT": "grassBonus",
-    "FIGHT_PROP_FIRE_SUB_HURT": "fireDeduct",
-}
-SetNamesGenshinArt = [
-    "archaicPetra",  # 悠古的磐岩
-    "blizzardStrayer",  # 冰风迷途的勇士
-    "bloodstainedChivalry",  # 染血的骑士道
-    "crimsonWitch",  # 炽烈的炎之魔女
-    "gladiatorFinale",  # 角斗士的终幕礼
-    "heartOfDepth",  # 沉沦之心
-    "lavaWalker",  # 渡过烈火的贤人
-    "maidenBeloved",  # 被怜爱的少女
-    "noblesseOblige",  # 昔日宗室之仪
-    "retracingBolide",  # 逆飞的流星
-    "thunderSmoother",  # 平息雷鸣的尊者
-    "thunderingFury",  # 如雷的盛怒
-    "viridescentVenerer",  # 翠绿之影
-    "wandererTroupe",  # 流浪大地的乐团
-    "berserker",  # 战狂
-    "braveHeart",  # 勇士之心
-    "defenderWill",  # 守护之心
-    "exile",  # 流放者
-    "gambler",  # 赌徒
-    "instructor",  # 教官
-    "martialArtist",  # 武人
-    "prayersForDestiny",  # 祭水之人
-    "prayersForIllumination",  # 祭火之人
-    "prayersForWisdom",  # 祭雷之人
-    "prayersToSpringtime",  # 祭冰之人
-    "resolutionOfSojourner",  # 行者之心
-    "scholar",  # 学士
-    "tinyMiracle",  # 奇迹
-    "adventurer",  # 冒险家
-    "luckyDog",  # 幸运儿
-    "travelingDoctor",  # 游医
-    "tenacityOfTheMillelith",  # 千岩牢固
-    "paleFlame",  # 苍白之火
-    "shimenawaReminiscence",  # 追忆之注连
-    "emblemOfSeveredFate",  # 绝缘之旗印
-
+MaterialsNameCHS = [
+    "长生仙",
+    "冒险阅历",
+    "冒险家的经验",
+    "特工祭刀",
+    "燃愿玛瑙块",
+    "燃愿玛瑙断片",
+    "燃愿玛瑙",
+    "燃愿玛瑙碎屑",
+    "蓝染花鳉",
+    "赤魔王",
+    "赤穗酒枡",
+    "杏仁",
+    "天云草实",
+    "紫晶块",
+    "苹果",
+    "孔雀木",
+    "灰烬之心",
+    "培根",
+    "竹节",
+    "竹笋",
+    "玄岩之塔",
+    "树莓",
+    "斗棘鱼",
+    "桦木",
+    "鸟蛋",
+    "漆黑陨铁的一角",
+    "苦炮鲀",
+    "黑铜号角",
+    "黑晶号角",
+    "血玉之枝",
+    "蓝色染料",
+    "凛风奔狼的断牙",
+    "凛风奔狼的裂齿",
+    "凛风奔狼的始龀",
+    "凛风奔狼的怀乡",
+    "璀璨原钻块",
+    "璀璨原钻断片",
+    "璀璨原钻",
+    "璀璨原钻碎屑",
+    "流纹褐蝶鱼",
+    "黄油",
+    "蝴蝶翅膀",
+    "卷心菜",
+    "嘟嘟莲",
+    "胡萝卜",
+    "塞西莉亚花",
+    "狮牙斗士的铁链",
+    "混沌枢纽",
+    "混沌回路",
+    "混沌炉心",
+    "混沌装置",
+    "混沌机关",
+    "混沌真眼",
+    "奶酪",
+    "「冷鲜肉」",
+    "漆黑陨铁的一块",
+    "净水之心",
+    "好感经验",
+    "远海夷地的瑚枝",
+    "石珀",
+    "螃蟹",
+    "蟹黄",
+    "奶油",
+    "智识之冕",
+    "水晶块",
+    "晶核",
+    "水晶宴",
+    "晶凝之华",
+    "晶化骨髓",
+    "水晶棱镜",
+    "萃华木",
+    "破损的面具",
+    "蒲公英籽",
+    "夤夜刻像",
+    "擒霞客",
+    "地脉的旧枝",
+    "地脉的枯叶",
+    "幽邃刻像",
+    "高塔孤王的残垣",
+    "血斛",
+    "排异之露",
+    "黯淡棱镜",
+    "孤云寒林的神体",
+    "导能绘卷",
+    "龙王之冕",
+    "狮牙斗士的理想",
+    "鱼干",
+    "东风之爪",
+    "东风之翎",
+    "东风的吐息",
+    "电气水晶",
+    "海皇香脂",
+    "原素花蜜",
+    "常燃火种",
+    "布匹",
+    "名刀镡",
+    "腐殖龙髓",
+    "狮牙斗士的枷锁",
+    "牢固的箭簇",
+    "杉木",
+    "鱼肉",
+    "烈焰花花蕊",
+    "面粉",
+    "禁咒绘卷",
+    "石化的骨片",
+    "禽肉",
+    "脆弱的骨片",
+    "高塔孤王的断片",
+    "「童真的断篇」",
+    "垂香木",
+    "青蛙",
+    "鎏金之鳞",
+    "琉璃百合",
+    "琉璃花鳉",
+    "晦暗刻像",
+    "远海夷地的金枝",
+    "金赤假龙",
+    "攫金鸦印",
+    "漆黑陨铁的一粒",
+    "「诗文」的指引",
+    "「勤劳」的指引",
+    "「风雅」的指引",
+    "「自由」的指引",
+    "「黄金」的指引",
+    "「天光」的指引",
+    "「繁荣」的指引",
+    "「抗争」的指引",
+    "「浮世」的指引",
+    "火腿",
+    "沉重号角",
+    "狱火之蝶",
+    "大英雄的经验",
+    "极寒之核",
+    "马尾",
+    "猎兵祭刀",
+    "飓风之种",
+    "督察长祭刀",
+    "铁块",
+    "远海夷地的琼枝",
+    "果酱",
+    "远海夷地的玉枝",
+    "绝云椒椒",
+    "未熟之玉",
+    "影打刀镡",
+    "灯纸纤维",
+    "堇瓜",
+    "地脉的新芽",
+    "尉官的徽记",
+    "雷光棱镜",
+    "蜥蜴尾巴",
+    "鳅鳅宝玉",
+    "莲蓬",
+    "发光髓",
+    "孤云寒林的光砂",
+    "肺棘鱼",
+    "孤云寒林的辉岩",
+    "魔晶块",
+    "枫木",
+    "魔偶机心",
+    "今昔剧画之鬼人",
+    "今昔剧画之一角",
+    "今昔剧画之虎啮",
+    "今昔剧画之恶尉",
+    "松茸",
+    "花鳉",
+    "牛奶",
+    "薄荷",
+    "冰雾花花朵",
+    "雾虚草囊",
+    "雾虚花粉",
+    "雾虚灯芯",
+    "雾海云间的金丹",
+    "雾海云间的铅丹",
+    "雾海云间的汞丹",
+    "雾海云间的转还",
+    "熔毁之刻",
+    "摩拉",
+    "蘑菇",
+    "生长碧翡块",
+    "生长碧翡断片",
+    "生长碧翡",
+    "生长碧翡碎屑",
+    "鸣草",
+    "鸣神御灵的亲爱",
+    "鸣神御灵的欢喜",
+    "鸣神御灵的勇武",
+    "鸣神御灵的明惠",
+    "夜泊石",
+    "北陆弓原胚",
+    "北陆法器原胚",
+    "北陆双手剑原胚",
+    "北陆长柄武器原胚",
+    "北陆单手剑原胚",
+    "破旧的刀镡",
+    "不祥的面具",
+    "鬼兜虫",
+    "洋葱",
+    "御伽木",
+    "胡椒",
+    "恒常机关之心",
+    "慕风蘑菇",
+    "「诗文」的哲学",
+    "「勤劳」的哲学",
+    "「风雅」的哲学",
+    "「自由」的哲学",
+    "「黄金」的哲学",
+    "「天光」的哲学",
+    "「繁荣」的哲学",
+    "「抗争」的哲学",
+    "「浮世」的哲学",
+    "漆黑陨铁的一片",
+    "松果",
+    "松木",
+    "浮生石片",
+    "偏光棱镜",
+    "土豆",
+    "原石",
+    "坚牢黄玉块",
+    "坚牢黄玉断片",
+    "坚牢黄玉",
+    "坚牢黄玉碎屑",
+    "炮鲀",
+    "流纹京紫蝶鱼",
+    "清心",
+    "白萝卜",
+    "雷鸣仙",
+    "兽肉",
+    "新兵的徽记",
+    "红色染料",
+    "孤云寒林的圣骸",
+    "稻米",
+    "北风之环",
+    "锖假龙",
+    "绯樱绣球",
+    "盐",
+    "却砂木",
+    "珊瑚真珠",
+    "香肠",
+    "高塔孤王的碎梦",
+    "海灵芝",
+    "海草",
+    "封魔绘卷",
+    "士官的徽记",
+    "狮牙斗士的镣铐",
+    "武炼之魂·孤影",
+    "魔王之刃·残片",
+    "锐利的箭簇",
+    "微光花蜜",
+    "哀叙冰玉块",
+    "哀叙冰玉断片",
+    "哀叙冰玉",
+    "哀叙冰玉碎屑",
+    "虾仁",
+    "霓裳花",
+    "天原银莲",
+    "藏银鸦印",
+    "史莱姆原浆",
+    "史莱姆凝液",
+    "史莱姆清",
+    "小灯草",
+    "熏鱼",
+    "熏禽肉",
+    "阴燃之珠",
+    "金鱼草",
+    "雪中君",
+    "浮游幽核",
+    "浮游干核",
+    "浮游晶化核",
+    "北风的魂匣",
+    "污秽的面具",
+    "星螺",
+    "星银矿石",
+    "雷霆数珠",
+    "奇异的「牙齿」",
+    "结实的骨片",
+    "糖",
+    "日落果",
+    "甜甜花",
+    "甜甜花鳉",
+    "北风之尾",
+    "「诗文」的教导",
+    "「勤劳」的教导",
+    "「风雅」的教导",
+    "「自由」的教导",
+    "「黄金」的教导",
+    "「天光」的教导",
+    "「繁荣」的教导",
+    "「抗争」的教导",
+    "「浮世」的教导",
+    "流纹茶蝶鱼",
+    "「看得见的风」",
+    "高塔孤王的破瓦",
+    "豆腐",
+    "番茄",
+    "寻宝鸦印",
+    "吞天之鲸·只角",
+    "鳗肉",
+    "最胜紫晶块",
+    "最胜紫晶断片",
+    "最胜紫晶",
+    "最胜紫晶碎屑",
+    "落落莓",
+    "涤净青金块",
+    "涤净青金断片",
+    "涤净青金",
+    "涤净青金碎屑",
+    "自在松石块",
+    "自在松石断片",
+    "自在松石",
+    "自在松石碎屑",
+    "鸩棘鱼",
+    "琉璃袋",
+    "汲取了生命力的龙牙",
+    "流浪者的经验",
+    "历战的箭簇",
+    "小麦",
+    "白铁块",
+    "骗骗花蜜",
+    "灯芯绒材",
+    "风车菊",
+    "钩钩果",
+    "黄色染料",
+    "梦见木",
 ]
 
-TypeNamesMingyuLab = ['flower', 'plume', 'eon', 'goblet', 'circlet']
-AttrNamesMingyuLab = {
-    "FIGHT_PROP_CRITICAL": "critRate",
-    "FIGHT_PROP_CRITICAL_HURT": "critDamage",
-    "FIGHT_PROP_ATTACK": "flatATK",
-    "FIGHT_PROP_ATTACK_PERCENT": "percentATK",
-    "FIGHT_PROP_ELEMENT_MASTERY": "elementalMastery",
-    "FIGHT_PROP_CHARGE_EFFICIENCY": "energyRecharge",
-    "FIGHT_PROP_HP": "flatHP",
-    "FIGHT_PROP_HP_PERCENT": "percentHP",
-    "FIGHT_PROP_DEFENSE": "flatDEF",
-    "FIGHT_PROP_DEFENSE_PERCENT": "percentDEF",
-    "FIGHT_PROP_PHYSICAL_ADD_HURT": "physicalDamage",
-    "FIGHT_PROP_HEAL_ADD": "healing",
-    "FIGHT_PROP_ROCK_ADD_HURT": "geoDamage",
-    "FIGHT_PROP_WIND_ADD_HURT": "anemoDamage",
-    "FIGHT_PROP_ICE_ADD_HURT": "cryoDamage",
-    "FIGHT_PROP_WATER_ADD_HURT": "hydroDamage",
-    "FIGHT_PROP_FIRE_ADD_HURT": "pyroDamage",
-    "FIGHT_PROP_ELEC_ADD_HURT": "electroDamage",
-    "FIGHT_PROP_GRASS_ADD_HURT": "dendroDamage",
-    "FIGHT_PROP_FIRE_SUB_HURT": "pyroDEF",
-}
 
-SetNamesMingyuLab = [
-    "archaic_petra",  # 悠古的磐岩
-    "blizzard_walker",  # 冰风迷途的勇士
-    "bloodstained_chivalry",  # 染血的骑士道
-    "crimson_witch_of_flames",  # 炽烈的炎之魔女
-    "gladiators_finale",  # 角斗士的终幕礼
-    "heart_of_depth",  # 沉沦之心
-    "lavawalker",  # 渡过烈火的贤人
-    "maiden_beloved",  # 被怜爱的少女
-    "noblesse_oblige",  # 昔日宗室之仪
-    "retracing_bolide",  # 逆飞的流星
-    "thundersoother",  # 平息雷鸣的尊者
-    "thundering_fury",  # 如雷的盛怒
-    "viridescent_venerer",  # 翠绿之影
-    "wanderers_troupe",  # 流浪大地的乐团
-    "berserker",  # 战狂
-    "brave_heart",  # 勇士之心
-    "defenders_will",  # 守护之心
-    "the_exile",  # 流放者
-    "gambler",  # 赌徒
-    "instructor",  # 教官
-    "martial_artist",  # 武人
-    "prayers_of_destiny",  # 祭水之人
-    "prayers_of_illumination",  # 祭火之人
-    "prayers_of_wisdom",  # 祭雷之人
-    "prayers_of_springtime",  # 祭冰之人
-    "resolution_of_sojourner",  # 行者之心
-    "scholar",  # 学士
-    "tiny_miracle",  # 奇迹
-    "adventurer",  # 冒险家
-    "lucky_dog",  # 幸运儿
-    "traveling_doctor",  # 游医
-    "tenacity_of_the_millelith",  # 千岩牢固
-    "pale_flame",  # 苍白之火
-    "reminiscence_of_shime",  # 追忆之注连
-    "seal_of_insulation",  # 绝缘之旗印
-]
+def gen_num():
+    return str(np.random.randint(0, 9999))
 
 
-def gen_name():
+def gen_material_name():
+    return np.random.choice(MaterialsNameCHS, size=1)[0]
+
+
+def gen_artifact_name():
     return np.random.choice(sum(ArtNames, []), size=1)[0]
 
 
@@ -305,6 +522,10 @@ def gen_level():
     return ["+" + str(i) for i in np.random.randint(0, 21, size=n)][0]
 
 
+def gen_equipped():
+    return np.random.choice(Users, size=1)[0] + "已装备"
+
+
 def gen_single_sub_attr():
     sub_attr_id = np.random.choice(list(SubAttrNames.keys()), size=1)[0]
     rare_sub_attr_ranges = [
@@ -317,18 +538,56 @@ def gen_single_sub_attr():
 
 
 def gen_sub_attrs(n=1):
-    return [gen_single_sub_attr() for i in range(n)]
+    return [gen_single_sub_attr() for _ in range(n)]
 
 
-def generate_images(texts, font_size_range=(15, 40)):
-    result = []
-    for text in texts:
-        result.append(generate_image(text, font_size_range=font_size_range))
-    #     return np.array(result)
-    return result
+def generate_artifact():
+    sub_attrs_num = rd.randrange(1, 5)
+    info_train = [gen_artifact_name(), gen_type(), gen_main_attr_name(), gen_main_attr_value(),
+                  gen_level(), gen_equipped(), *gen_sub_attrs(sub_attrs_num)]
+    imgs = generate_images(info_train)
+    info = {"name": imgs[0],
+            "type": imgs[1],
+            "main_attr_name": imgs[2],
+            "main_attr_value": imgs[3],
+            "level": imgs[4],
+            "equipped": imgs[5]
+            }
+    expect_info = {"name": info_train[0],
+                   "type": info_train[1],
+                   "main_attr_name": info_train[2],
+                   "main_attr_value": info_train[3],
+                   "level": info_train[4],
+                   "equipped": info_train[5]
+                   }
+    for i in range(sub_attrs_num):
+        info[f'subattr_{i + 1}'] = imgs[i + 6]
+        expect_info[f'subattr_{i + 1}'] = info_train[i + 6]
+    return info, expect_info
 
 
-fonts = {i: ImageFont.truetype("./Tools/genshin.ttf", i) for i in range(10, 100)}
+def generate_material():
+    info_train = [gen_material_name(), gen_num()]
+    imgs = generate_images(info_train)
+    info = {"name": imgs[0], "amount": imgs[1]}
+    expect_info = {"name": info_train[0], "amount": info_train[1]}
+    return info, expect_info
+
+
+def train_generator():
+    q = 0
+    while True:
+        q += 1
+        gen = np.random.choice([generate_artifact, generate_material], size=1)[0]
+        info, expect_info = gen()
+        x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
+        f = [list(expect_info[key]) for key in sorted(expect_info.keys())]
+        w = []
+        for lst in f:
+            w.append([i.encode('utf-8') for i in lst] + [b''] * (max_length - len(lst)))
+        y = char_to_num(w)
+        yield x, y
+    return
 
 
 def generate_image(text, font_size_range=(15, 40)):
@@ -350,7 +609,17 @@ def generate_image(text, font_size_range=(15, 40)):
     return img
 
 
-# 灰度
+def generate_images(texts, font_size_range=(15, 40)):
+    result = []
+    for text in texts:
+        result.append(generate_image(text, font_size_range=font_size_range))
+    #     return np.array(result)
+    return result
+
+
+fonts = {i: ImageFont.truetype("../genshin.ttf", i) for i in range(10, 100)}
+
+
 def to_gray(text_img):
     text_img = np.array(text_img)
     if len(text_img.shape) > 2:
@@ -390,6 +659,10 @@ def resize_to_height(img):
             ) / 255)
 
 
+def binarization(img, thresh=0.5):
+    return np.where((img < thresh), 0, img)
+
+
 def pad_to_width(img):
     global width
     width_ = width
@@ -403,6 +676,7 @@ def pad_to_width(img):
 def preprocess(text_img):
     result = to_gray(text_img)
     result = normalize(result, True)
+    result = binarization(result)
     result = crop(result)
     result = normalize(result, False)
     result = resize_to_height(result)
@@ -478,38 +752,6 @@ class CTCAccuracy(tf.keras.metrics.Metric):
         self.all_count = 0
 
 
-def train_generator():
-    q = 0
-    while True:
-        q += 1
-        sub_attrs_num = rd.randrange(1, 5)
-        info_train = [gen_name(), gen_type(), gen_main_attr_name(), gen_main_attr_value(),
-                      gen_level(), *gen_sub_attrs(sub_attrs_num)]
-        imgs = generate_images(info_train)
-        info = {"name": imgs[0],
-                "type": imgs[1],
-                "main_attr_name": imgs[2],
-                "main_attr_value": imgs[3],
-                "level": imgs[4],
-                }
-        expect_info = {"name": info_train[0],
-                       "type": info_train[1],
-                       "main_attr_name": info_train[2],
-                       "main_attr_value": info_train[3],
-                       "level": info_train[4]}
-        for i in range(sub_attrs_num):
-            info[f'subattr_{i + 1}'] = imgs[i + 5]
-            expect_info[f'subattr_{i + 1}'] = info_train[i + 5]
-        x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
-        f = [list(expect_info[key].ljust(15)) for key in sorted(expect_info.keys())]
-        w = []
-        for t in f:
-            w.append([i.encode('utf-8') if i != ' ' else b'' for i in t])
-        y = char_to_num(w)
-        yield x, y
-    return
-
-
 scale_ratio = 1
 characters = sorted(
     [
@@ -520,6 +762,9 @@ characters = sorted(
                 + list(MainAttrNames.values())
                 + list(SubAttrNames.values())
                 + list(".,+%0123456789")
+                + list(Users)
+                + list("已装备")
+                + list(MaterialsNameCHS)
             )
         )
     ]
@@ -564,7 +809,6 @@ model.summary()
 
 
 # test functions
-
 class Config:
     name_coords = [33, 8, 619, 69]
     type_coords = [32, 89, 350, 134]
@@ -576,6 +820,8 @@ class Config:
     subattr_2_coords = [67, 532, 560, 572]
     subattr_3_coords = [67, 584, 560, 624]
     subattr_4_coords = [67, 636, 560, 676]
+    equipped_coords = [105, 1060, 500, 1100]
+    lock_coords = [570, 405, 620, 455]
 
 
 def extract_art_info(art_img):
@@ -588,6 +834,7 @@ def extract_art_info(art_img):
     subattr_2 = art_img.crop([i * scale_ratio for i in Config.subattr_2_coords])
     subattr_3 = art_img.crop([i * scale_ratio for i in Config.subattr_3_coords])
     subattr_4 = art_img.crop([i * scale_ratio for i in Config.subattr_4_coords])
+    equipped = art_img.crop([i * scale_ratio for i in Config.equipped_coords])
     if np.all(np.abs(np.array(subattr_1, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
         del subattr_1
         del subattr_2
@@ -610,7 +857,8 @@ def detect_info(art_img):
     x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
     y = model.predict(x)
     y = decode(y)
-    return {**{key: v for key, v in zip(sorted(info.keys()), y)}, **{'star': detect_star(art_img)}}
+    return {**{key: v for key, v in zip(sorted(info.keys()), y)},
+            **{'star': detect_star(art_img), 'locked': detect_lock(art_img)}}
 
 
 def detect_star(art_img):
@@ -621,10 +869,18 @@ def detect_star(art_img):
     return int(round(coef))
 
 
+def detect_lock(img) -> bool:
+    lock = img.crop([i * scale_ratio for i in Config.lock_coords])
+    result = to_gray(lock)
+    result = normalize(result, auto_inverse=False)
+    result = np.where((result < 0.5), 0, 1)
+    return np.add.reduce(np.add.reduce(result)) < 500
+
+
 filepath = "./train/weights-improvement-{epoch:02d}-{ctc_accu:.2f}.hdf5"
 checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath, monitor='ctc_accu', verbose=1, save_best_only=True,
                                                 mode='max')
 reduce = keras.callbacks.ReduceLROnPlateau(monitor='ctc_accu', factor=0.5, min_lr=1e-7, verbose=1, patience=3)
 callbacks_list = [reduce, checkpoint]
 
-history = model.fit(x=train_generator(), steps_per_epoch=512, epochs=168, callbacks=callbacks_list)
+history = model.fit(x=train_generator(), steps_per_epoch=1024, epochs=256, callbacks=callbacks_list)

@@ -127,6 +127,9 @@ class OCR:
             img = 1 - img
         return img
 
+    def binarization(self, img, thresh=0.5):
+        return np.where((img < thresh), 0, img)
+
     def crop(self, img, tol=0.7):
         # img is 2D image data
         # tol  is tolerance
@@ -161,6 +164,7 @@ class OCR:
     def preprocess(self, text_img):
         result = self.to_gray(text_img)
         result = self.normalize(result, True)
+        result = self.binarization(result)
         result = self.crop(result)
         result = self.normalize(result, False)
         result = self.resize_to_height(result)

@@ -40,8 +40,8 @@ MainAttrNames = {
     "FIGHT_PROP_WATER_ADD_HURT":    "水元素伤害加成",
     "FIGHT_PROP_FIRE_ADD_HURT":     "火元素伤害加成",
     "FIGHT_PROP_ELEC_ADD_HURT":     "雷元素伤害加成",
-    "FIGHT_PROP_GRASS_ADD_HURT":    "草元素伤害加成",
-    "FIGHT_PROP_FIRE_SUB_HURT":     "火元素伤害减免",
+    # "FIGHT_PROP_GRASS_ADD_HURT":    "草元素伤害加成",
+    # "FIGHT_PROP_FIRE_SUB_HURT":     "火元素伤害减免",
 }
 AttrName2Ids = {v: i.replace('_PERCENT', '') for i, v in MainAttrNames.items()}
 
