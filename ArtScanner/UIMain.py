@@ -548,8 +548,8 @@ class Worker(QObject):
             detected_info['main_attr_name'] = utils.attr_auto_correct(detected_info['main_attr_name'])
             for tag in sorted(detected_info.keys()):
                 if "subattr_" in tag:
-                    info = detected_info[tag].split('+')
-                    detected_info[tag] = utils.attr_auto_correct(info[0]) + "+" + info[1]
+                    info_ = detected_info[tag].split('+')
+                    detected_info[tag] = utils.attr_auto_correct(info_[0]) + "+" + info_[1]
 
         def artFilter(detected_info, art_img):
             # 0 - init value
@@ -562,8 +562,13 @@ class Worker(QObject):
             try:
                 autoCorrect(detected_info)
                 self.log(f"识别到 [{detected_info['name']}]")
-                detectedLevel = utils.decodeValue(detected_info['level'])
-                detectedStar = utils.decodeValue(detected_info['star'])
+                if detected_info['name'] in ArtsInfo.ArtNames[-1]:
+                    self.log('[强化材料] 已跳过')
+                    self.skipped += 1
+                    status = 1
+                else:
+                    detectedLevel = utils.decodeValue(detected_info['level'])
+                    detectedStar = utils.decodeValue(detected_info['star'])
             except Exception as v:
                 self.error("数值处理失败")
                 self.logger.warning(f"[DecodeValue] error occurred")
@@ -627,8 +632,8 @@ class Worker(QObject):
             detectedInfo = self.model.detect_info(art_img)
             artFilter(detectedInfo, art_img)
             if not self.art_id % 7:
-                self.log(f"已扫描: {self.art_id}")
-                self.log(f"  - 成功: {self.saved}")
+                self.log(f"扫描: {self.art_id}")
+                self.log(f"  - 保存: {self.saved}")
                 self.log(f"  - 失败: {self.failed}")
                 self.log(f"  - 跳过: {self.skipped}")
 
@@ -658,13 +663,13 @@ class Worker(QObject):
             else:
                 self.log(f"导出文件: {export_name[info['exporter']]}")
                 exporter[info['exporter']](export_name[info['exporter']])
-        self.log(f'扫描: {self.art_id}')
-        self.log(f'  - 保存: {self.saved}')
-        self.log(f'  - 跳过: {self.skipped}')
-        self.log(f'失败: {self.failed}')
-        self.log('失败结果已存储至 artifacts 文件夹')
+        self.log(f"扫描: {self.art_id}")
+        self.log(f"  - 保存: {self.saved}")
+        self.log(f"  - 失败: {self.failed}")
+        self.log(f"  - 跳过: {self.skipped}")
+        self.log('失败结果将存储至 artifacts 文件夹')
 
-        self.log('星级: (已保存 / 已扫描)')
+        self.log('星级: (保存 / 扫描)')
         self.log(f'5: {self.star_dist_saved[4]} / {self.star_dist[4]}')
         self.log(f'4: {self.star_dist_saved[3]} / {self.star_dist[3]}')
         self.log(f'3: {self.star_dist_saved[2]} / {self.star_dist[2]}')
