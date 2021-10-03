@@ -210,6 +210,8 @@ class Config_EN:
     subattr_2_coords = [67, 532, 560, 572]
     subattr_3_coords = [67, 584, 560, 624]
     subattr_4_coords = [67, 636, 560, 676]
+    equipped_coords = [105, 1060, 500, 1100]
+    lock_coords = [570, 405, 620, 455]
 
 
 import json
@@ -619,6 +621,7 @@ def extract_art_info_EN(art_img):
     subattr_2 = art_img.crop([i * scale_ratio for i in Config_EN.subattr_2_coords])
     subattr_3 = art_img.crop([i * scale_ratio for i in Config_EN.subattr_3_coords])
     subattr_4 = art_img.crop([i * scale_ratio for i in Config_EN.subattr_4_coords])
+    equipped = art_img.crop([i * scale_ratio for i in Config_EN.equipped_coords])
     if np.all(np.abs(np.array(subattr_1, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
         del subattr_1
         del subattr_2
@@ -637,6 +640,7 @@ def extract_art_info_EN(art_img):
 
 
 model.fit(x=train_generator(), steps_per_epoch=8192, epochs=1)
+model.fit(x=train_generator(), steps_per_epoch=4096, epochs=2)
 model.fit(x=train_generator(), steps_per_epoch=4096, epochs=2)
 model.fit(x=train_generator(), steps_per_epoch=2048, epochs=4)
 model.fit(x=train_generator(), steps_per_epoch=1024, epochs=16)

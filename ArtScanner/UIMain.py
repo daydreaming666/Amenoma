@@ -559,6 +559,7 @@ class Worker(QObject):
             status = 0
 
             self.star_dist[detected_info['star'] - 1] += 1
+
             try:
                 autoCorrect(detected_info)
                 self.log(f"识别到 [{detected_info['name']}]")
@@ -696,5 +697,4 @@ if __name__ == '__main__':
     except Exception as excp:
         utils.logger.exception(excp)
         win32api.ShellExecute(0, 'open', 'cmd.exe',
-                              r'/c echo Unhandled exception occurred. Please contact with the author. && pause', None,
-                              1)
+                              r'/c echo Unhandled exception occurred. Please contact with the author. && pause', None, 1)

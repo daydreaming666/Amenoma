@@ -199,5 +199,27 @@ def equipped_auto_correct(name: str) -> str:
         logger.info(f"Corrected character from [{name}] to [{corr_name}] with distance {dis}")
     else:
         corr_name = "Traveler"
-        logger.warning(f"Corrected character from [{name}] to [{corr_name}] with distance {dis}")
+        logger.warning(f"Failed to recognize [{name}]. Used [Traveler]")
+    return corr_name
+
+
+def equipped_auto_correct_EN(name: str) -> str:
+    if len(name) < 10:
+        return ""
+    if Levenshtein.distance(name[:10], "Equipped: ") > 4:
+        return ""
+    corr_name = ""
+    dis = 10000000
+    for tname in ArtsInfo.UsersEN:
+        ndis = Levenshtein.distance(name[10:], tname)
+        if ndis < dis:
+            corr_name = tname
+            dis = ndis
+    if dis == 0:
+        pass
+    elif dis <= (len(name) // 3):
+        logger.info(f"Corrected character from [{name}] to [{corr_name}] with distance {dis}")
+    else:
+        corr_name = "Traveler"
+        logger.warning(f"Failed to recognize [{name}]. Used [Traveler]")
     return corr_name
