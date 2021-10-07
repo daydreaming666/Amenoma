@@ -10,17 +10,16 @@ import win32gui
 from PyQt5.QtCore import (pyqtSignal, pyqtSlot, QObject, QThread,
                           QMutex, QWaitCondition, Qt)
 from PyQt5.QtGui import (QMovie, QPixmap)
-from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog, QMessageBox,
-                             QWidget, QCheckBox, QHBoxLayout)
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog, QWidget, QCheckBox, QHBoxLayout)
 
+import ArtsInfo
 import ocr
 import utils
-import ArtsInfo
 from art_saver import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
 from rcc import About_Dialog
-from rcc import Help_Dialog
 from rcc import ExtraSettings_Dialog
+from rcc import Help_Dialog
 from rcc import InputWindow_Dialog
 from rcc.MainWindow import Ui_MainWindow
 
@@ -284,13 +283,14 @@ class UIMain(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str)
     def printLog(self, log: str):
         self.logger.info(f"Info message shown. msg={log}")
-        self.textBrowser_3.append(log)
+        self.textBrowser_3.append(f'<font color="black">{log}</font>')
         QApplication.processEvents()
 
     @pyqtSlot(str)
     def printErr(self, err: str):
         self.logger.error(f"Error message shown. msg={err}")
         self.textBrowser_3.append(f'<font color="red">{err}</font>')
+        QApplication.processEvents()
 
     @pyqtSlot()
     def captureWindow(self):
@@ -420,7 +420,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model = ocr.OCR(model_weight=os.path.join(self.bundle_dir, 'weights-improvement-55-1.00.hdf5'))
+        self.model = ocr.OCR(model=os.path.join(self.bundle_dir, 'savedmodel.h5'))
 
         self.log('初始化完成')
         if self.isWindowCaptured:
@@ -541,42 +541,69 @@ class Worker(QObject):
 
         def autoCorrect(detected_info):
             detected_info['name'] = utils.name_auto_correct(detected_info['name'])
+            detected_info['type'] = utils.type_auto_correct(detected_info['type'])
+            detected_info['equipped'] = utils.equipped_auto_correct(detected_info['equipped'])
             detected_info['setid'] = [i for i, v in enumerate(
                 ArtsInfo.ArtNames) if detected_info['name'] in v][0]
             detected_info['main_attr_name'] = utils.attr_auto_correct(detected_info['main_attr_name'])
             for tag in sorted(detected_info.keys()):
                 if "subattr_" in tag:
-                    info = detected_info[tag].split('+')
-                    detected_info[tag] = utils.attr_auto_correct(info[0]) + "+" + info[1]
+                    info_ = detected_info[tag].split('+')
+                    detected_info[tag] = utils.attr_auto_correct(info_[0]) + "+" + info_[1]
 
         def artFilter(detected_info, art_img):
-            autoCorrect(detected_info)
+            # 0 - init value
+            # 1 - skipped
+            # 2 - saved
+            # 3 - failed
+            status = 0
 
             self.star_dist[detected_info['star'] - 1] += 1
-            detectedLevel = utils.decodeValue(detected_info['level'])
-            detectedStar = utils.decodeValue(detected_info['star'])
 
-            if (self.detectSettings["ExtraSettings"]["FilterArtsByName"] and
-                    (not self.detectSettings["ExtraSettings"]["Filter"][detected_info['setid']])):
+            try:
+                autoCorrect(detected_info)
+                self.log(f"识别到 [{detected_info['name']}]")
+                if detected_info['name'] in ArtsInfo.ArtNames[-1]:
+                    self.log('[强化材料] 已跳过')
+                    self.skipped += 1
+                    status = 1
+                else:
+                    detectedLevel = utils.decodeValue(detected_info['level'])
+                    detectedStar = utils.decodeValue(detected_info['star'])
+            except Exception as v:
+                self.error("数值处理失败")
+                self.logger.warning(f"[DecodeValue] error occurred")
+                self.logger.exception(v)
+                self.failed += 1
+                status = 3
+
+            if status != 0:
+                pass
+            elif (self.detectSettings["ExtraSettings"]["FilterArtsByName"] and
+                  (not self.detectSettings["ExtraSettings"]["Filter"][detected_info['setid']])):
+                self.log("[名称过滤器] 已跳过")
                 self.logger.info(f"[FilterArtsByName] Skipped a Artifact."
                                  f" id: {self.art_id + 1} detected info: {detected_info} set: {ArtsInfo.SetNames[detected_info['setid']]}")
                 self.skipped += 1
                 status = 1
             elif not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
                       (self.detectSettings['star'][detectedStar - 1])):
+                self.log("[星级等级过滤器] 已跳过")
                 self.logger.info(f"[FilterArtsByLevelAndStar] Skipped a Artifact."
                                  f" id: {self.art_id + 1} detected info: {detected_info}")
                 self.skipped += 1
                 status = 1
             elif artifactDB.add(detected_info, art_img):
+                self.log("已保存")
                 self.logger.info(f"[ArtifactDB] Saved a Artifact."
                                  f" id: {self.art_id + 1} detected info: {detected_info}")
                 self.saved += 1
                 status = 2
                 self.star_dist_saved[detected_info['star'] - 1] += 1
             else:
-                self.logger.info(f"[ArtifactDB] Failed to save a Artifact."
-                                 f" id: {self.art_id + 1} detected info: {detected_info}")
+                self.error("数值验证失败")
+                self.logger.warning(f"[ArtifactDB] Failed to save a Artifact."
+                                    f" id: {self.art_id + 1} detected info: {detected_info}")
                 status = 3
                 self.failed += 1
             self.art_id += 1
@@ -605,7 +632,11 @@ class Worker(QObject):
         def artscannerCallback(art_img):
             detectedInfo = self.model.detect_info(art_img)
             artFilter(detectedInfo, art_img)
-            self.log(f"已扫描{self.art_id}个圣遗物，已保存{self.saved}个，已跳过{self.skipped}个")
+            if not self.art_id % 7:
+                self.log(f"扫描: {self.art_id}")
+                self.log(f"  - 保存: {self.saved}")
+                self.log(f"  - 失败: {self.failed}")
+                self.log(f"  - 跳过: {self.skipped}")
 
         try:
             while True:
@@ -633,13 +664,13 @@ class Worker(QObject):
             else:
                 self.log(f"导出文件: {export_name[info['exporter']]}")
                 exporter[info['exporter']](export_name[info['exporter']])
-        self.log(f'扫描: {self.art_id}')
-        self.log(f'  - 保存: {self.saved}')
-        self.log(f'  - 跳过: {self.skipped}')
-        self.log(f'失败: {self.failed}')
-        self.log('失败结果已存储至 artifacts 文件夹')
+        self.log(f"扫描: {self.art_id}")
+        self.log(f"  - 保存: {self.saved}")
+        self.log(f"  - 失败: {self.failed}")
+        self.log(f"  - 跳过: {self.skipped}")
+        self.log('失败结果将存储至 artifacts 文件夹')
 
-        self.log('星级: (已保存 / 已扫描)')
+        self.log('星级: (保存 / 扫描)')
         self.log(f'5: {self.star_dist_saved[4]} / {self.star_dist[4]}')
         self.log(f'4: {self.star_dist_saved[3]} / {self.star_dist[3]}')
         self.log(f'3: {self.star_dist_saved[2]} / {self.star_dist[2]}')
@@ -666,4 +697,4 @@ if __name__ == '__main__':
     except Exception as excp:
         utils.logger.exception(excp)
         win32api.ShellExecute(0, 'open', 'cmd.exe',
-                              r'/c echo Unhandled exception occured. Please contact with the author. && pause', None, 1)
+                              r'/c echo Unhandled exception occurred. Please contact with the author. && pause', None, 1)

@@ -96,7 +96,8 @@ game_info.calculateCoordinates()
 # margin near level number, color=233,229,220
 
 # initialization
-ocr_model = ocr.OCR(scale_ratio=game_info.scale_ratio, model_weight=os.path.join(bundle_dir, 'weights-improvement-55-1.00.hdf5'))
+ocr_model = ocr.OCR(scale_ratio=game_info.scale_ratio, model_weight=os.path.join(bundle_dir,
+                                                                                 'Tools/model_trainer/weights-improvement-55-1.00.hdf5'))
 art_id = 0
 saved = 0
 skipped = 0

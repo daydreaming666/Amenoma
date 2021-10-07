@@ -284,13 +284,14 @@ class UIMain(QMainWindow, Ui_MainWindow):
     @pyqtSlot(str)
     def printLog(self, log: str):
         self.logger.info(f"Info message shown. msg={log}")
-        self.textBrowser_3.append(log)
+        self.textBrowser_3.append(f'<font color="black">{log}</font>')
         QApplication.processEvents()
 
     @pyqtSlot(str)
     def printErr(self, err: str):
         self.logger.error(f"Error message shown. msg={err}")
         self.textBrowser_3.append(f'<font color="red">{err}</font>')
+        QApplication.processEvents()
 
     @pyqtSlot()
     def captureWindow(self):
@@ -422,7 +423,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model = ocr_EN.OCR(model_weight=os.path.join(self.bundle_dir, 'weights-improvement-EN-81-1.00.hdf5'))
+        self.model = ocr_EN.OCR(model=os.path.join(self.bundle_dir, 'savedmodel_EN.h5'))
 
         self.log('Initialize is finished.')
         if self.isWindowCaptured:
@@ -433,7 +434,7 @@ class Worker(QObject):
         else:
             self.error('The window is not captured, please recapture the window before start scanning.')
 
-        self.log('Please open Bag - Artifacts and turn the page to the top before start scanning.')
+        self.log('Please open Inventory - Artifacts and turn the page to the top before start scanning.')
         self.endWorking.emit()
         self.endInit.emit()
 
@@ -545,6 +546,8 @@ class Worker(QObject):
 
         def autoCorrect(detected_info):
             detected_info['name'] = utils.name_auto_correct_EN(detected_info['name'])
+            detected_info['type'] = utils.type_auto_correct_EN(detected_info['type'])
+            detected_info['equipped'] = utils.equipped_auto_correct_EN(detected_info['equipped'])
             detected_info['setid'] = [i for i, v in enumerate(
                 ArtsInfo.ArtNames_EN) if detected_info['name'] in v][0]
             detected_info['main_attr_name'] = utils.attr_auto_correct_EN(detected_info['main_attr_name'])
@@ -554,33 +557,58 @@ class Worker(QObject):
                     detected_info[tag] = utils.attr_auto_correct_EN(info[0]) + "+" + info[1]
 
         def artFilter(detected_info, art_img):
-            autoCorrect(detected_info)
+            # 0 - init value
+            # 1 - skipped
+            # 2 - saved
+            # 3 - failed
+            status = 0
 
             self.star_dist[detected_info['star'] - 1] += 1
-            detectedLevel = utils.decodeValue(detected_info['level'])
-            detectedStar = utils.decodeValue(detected_info['star'])
 
-            if (self.detectSettings["ExtraSettings"]["FilterArtsByName"] and
-                    (not self.detectSettings["ExtraSettings"]["Filter"][detected_info['setid']])):
+            try:
+                autoCorrect(detected_info)
+                self.log(f"Detected [{detected_info['name']}]")
+                if detected_info['name'] in ArtsInfo.ArtNames_EN[-1]:
+                    self.log('[Enhancement Materials] Skipped')
+                    self.skipped += 1
+                    status = 1
+                else:
+                    detectedLevel = utils.decodeValue(detected_info['level'])
+                    detectedStar = utils.decodeValue(detected_info['star'])
+            except Exception as v:
+                self.error("Failed to process numbers.")
+                self.logger.warning(f"[DecodeValue] error occurred")
+                self.logger.exception(v)
+                self.failed += 1
+                status = 3
+
+            if status != 0:
+                pass
+            elif (self.detectSettings["ExtraSettings"]["FilterArtsByName"] and
+                  (not self.detectSettings["ExtraSettings"]["Filter"][detected_info['setid']])):
+                self.log("[Name Filter] Skipped")
                 self.logger.info(f"[FilterArtsByName] Skipped a Artifact."
                                  f" id: {self.art_id + 1} detected info: {detected_info} set: {ArtsInfo.Setnames_EN[detected_info['setid']]}")
                 self.skipped += 1
                 status = 1
             elif not ((self.detectSettings['levelMin'] <= detectedLevel <= self.detectSettings['levelMax']) and
                       (self.detectSettings['star'][detectedStar - 1])):
+                self.log("[Star & Level Filter] Skipped")
                 self.logger.info(f"[FilterArtsByLevelAndStar] Skipped a Artifact."
                                  f" id: {self.art_id + 1} detected info: {detected_info}")
                 self.skipped += 1
                 status = 1
             elif artifactDB.add(detected_info, art_img):
+                self.log("Saved")
                 self.logger.info(f"[ArtifactDB] Saved a Artifact."
                                  f" id: {self.art_id + 1} detected info: {detected_info}")
                 self.saved += 1
                 status = 2
                 self.star_dist_saved[detected_info['star'] - 1] += 1
             else:
-                self.logger.info(f"[ArtifactDB] Failed to save a Artifact."
-                                 f" id: {self.art_id + 1} detected info: {detected_info}")
+                self.error("Failed to validate numbers.")
+                self.logger.warning(f"[ArtifactDB] Failed to save a Artifact."
+                                    f" id: {self.art_id + 1} detected info: {detected_info}")
                 status = 3
                 self.failed += 1
             self.art_id += 1
@@ -609,7 +637,11 @@ class Worker(QObject):
         def artscannerCallback(art_img):
             detectedInfo = self.model.detect_info(art_img)
             artFilter(detectedInfo, art_img)
-            self.log(f"Detected: {self.art_id}, Saved: {self.saved}, Skipped: {self.skipped}")
+            if not self.art_id % 7:
+                self.log(f"Scanned: {self.art_id}")
+                self.log(f"  - Saved: {self.saved}")
+                self.log(f"  - Failed: {self.failed}")
+                self.log(f"  - Skipped: {self.skipped}")
 
         try:
             while True:
@@ -637,11 +669,11 @@ class Worker(QObject):
             else:
                 self.log(f"File exported as: {export_name[info['exporter']]}")
                 exporter[info['exporter']](export_name[info['exporter']])
-        self.log(f'Scanned: {self.art_id}')
-        self.log(f'  - Saved:   {self.saved}')
-        self.log(f'  - Skipped: {self.skipped}')
-        self.log(f'Failed: {self.failed}')
-        self.log('The failed result has been stored in the folder artifacts_EN.')
+        self.log(f"Scanned: {self.art_id}")
+        self.log(f"  - Saved: {self.saved}")
+        self.log(f"  - Failed: {self.failed}")
+        self.log(f"  - Skipped: {self.skipped}")
+        self.log('The failed result will be stored in the folder artifacts.')
 
         self.log('Star: (Saved / Scanned)')
         self.log(f'5: {self.star_dist_saved[4]} / {self.star_dist[4]}')
@@ -670,4 +702,4 @@ if __name__ == '__main__':
     except Exception as excp:
         utils.logger.exception(excp)
         win32api.ShellExecute(0, 'open', 'cmd.exe',
-                              r'/c echo Unhandled exception occured. Please contact with the author. && pause', None, 1)
+                              r'/c echo Unhandled exception occurred. Please contact with the author. && pause', None, 1)

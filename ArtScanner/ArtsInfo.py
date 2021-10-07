@@ -1,63 +1,63 @@
 Formats = {
-    "FIGHT_PROP_CRITICAL":          "{:.1%}",
-    "FIGHT_PROP_CRITICAL_HURT":     "{:.1%}",
-    "FIGHT_PROP_ATTACK":            "{:,.0f}",
-    "FIGHT_PROP_ATTACK_PERCENT":    "{:.1%}",
-    "FIGHT_PROP_ELEMENT_MASTERY":   "{:,.0f}",
+    "FIGHT_PROP_CRITICAL": "{:.1%}",
+    "FIGHT_PROP_CRITICAL_HURT": "{:.1%}",
+    "FIGHT_PROP_ATTACK": "{:,.0f}",
+    "FIGHT_PROP_ATTACK_PERCENT": "{:.1%}",
+    "FIGHT_PROP_ELEMENT_MASTERY": "{:,.0f}",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "{:.1%}",
-    "FIGHT_PROP_HP":                "{:,.0f}",
-    "FIGHT_PROP_HP_PERCENT":        "{:.1%}",
-    "FIGHT_PROP_DEFENSE":           "{:,.0f}",
-    "FIGHT_PROP_DEFENSE_PERCENT":   "{:.1%}",
+    "FIGHT_PROP_HP": "{:,.0f}",
+    "FIGHT_PROP_HP_PERCENT": "{:.1%}",
+    "FIGHT_PROP_DEFENSE": "{:,.0f}",
+    "FIGHT_PROP_DEFENSE_PERCENT": "{:.1%}",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "{:.1%}",
-    "FIGHT_PROP_HEAL_ADD":          "{:.1%}",
-    "FIGHT_PROP_ROCK_ADD_HURT":     "{:.1%}",
-    "FIGHT_PROP_WIND_ADD_HURT":     "{:.1%}",
-    "FIGHT_PROP_ICE_ADD_HURT":      "{:.1%}",
-    "FIGHT_PROP_WATER_ADD_HURT":    "{:.1%}",
-    "FIGHT_PROP_FIRE_ADD_HURT":     "{:.1%}",
-    "FIGHT_PROP_ELEC_ADD_HURT":     "{:.1%}",
-    "FIGHT_PROP_GRASS_ADD_HURT":    "{:.1%}",
-    "FIGHT_PROP_FIRE_SUB_HURT":     "{:.1%}",
+    "FIGHT_PROP_HEAL_ADD": "{:.1%}",
+    "FIGHT_PROP_ROCK_ADD_HURT": "{:.1%}",
+    "FIGHT_PROP_WIND_ADD_HURT": "{:.1%}",
+    "FIGHT_PROP_ICE_ADD_HURT": "{:.1%}",
+    "FIGHT_PROP_WATER_ADD_HURT": "{:.1%}",
+    "FIGHT_PROP_FIRE_ADD_HURT": "{:.1%}",
+    "FIGHT_PROP_ELEC_ADD_HURT": "{:.1%}",
+    "FIGHT_PROP_GRASS_ADD_HURT": "{:.1%}",
+    "FIGHT_PROP_FIRE_SUB_HURT": "{:.1%}",
 }
 
 MainAttrNames = {
-    "FIGHT_PROP_CRITICAL":          "暴击率",
-    "FIGHT_PROP_CRITICAL_HURT":     "暴击伤害",
-    "FIGHT_PROP_ATTACK":            "攻击力",
-    "FIGHT_PROP_ATTACK_PERCENT":    "攻击力",
-    "FIGHT_PROP_ELEMENT_MASTERY":   "元素精通",
+    "FIGHT_PROP_CRITICAL": "暴击率",
+    "FIGHT_PROP_CRITICAL_HURT": "暴击伤害",
+    "FIGHT_PROP_ATTACK": "攻击力",
+    "FIGHT_PROP_ATTACK_PERCENT": "攻击力",
+    "FIGHT_PROP_ELEMENT_MASTERY": "元素精通",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "元素充能效率",
-    "FIGHT_PROP_HP":                "生命值",
-    "FIGHT_PROP_HP_PERCENT":        "生命值",
-    "FIGHT_PROP_DEFENSE":           "防御力",
-    "FIGHT_PROP_DEFENSE_PERCENT":   "防御力",
+    "FIGHT_PROP_HP": "生命值",
+    "FIGHT_PROP_HP_PERCENT": "生命值",
+    "FIGHT_PROP_DEFENSE": "防御力",
+    "FIGHT_PROP_DEFENSE_PERCENT": "防御力",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "物理伤害加成",
-    "FIGHT_PROP_HEAL_ADD":          "治疗加成",
-    "FIGHT_PROP_ROCK_ADD_HURT":     "岩元素伤害加成",
-    "FIGHT_PROP_WIND_ADD_HURT":     "风元素伤害加成",
-    "FIGHT_PROP_ICE_ADD_HURT":      "冰元素伤害加成",
-    "FIGHT_PROP_WATER_ADD_HURT":    "水元素伤害加成",
-    "FIGHT_PROP_FIRE_ADD_HURT":     "火元素伤害加成",
-    "FIGHT_PROP_ELEC_ADD_HURT":     "雷元素伤害加成",
-    "FIGHT_PROP_GRASS_ADD_HURT":    "草元素伤害加成",
-    "FIGHT_PROP_FIRE_SUB_HURT":     "火元素伤害减免",
+    "FIGHT_PROP_HEAL_ADD": "治疗加成",
+    "FIGHT_PROP_ROCK_ADD_HURT": "岩元素伤害加成",
+    "FIGHT_PROP_WIND_ADD_HURT": "风元素伤害加成",
+    "FIGHT_PROP_ICE_ADD_HURT": "冰元素伤害加成",
+    "FIGHT_PROP_WATER_ADD_HURT": "水元素伤害加成",
+    "FIGHT_PROP_FIRE_ADD_HURT": "火元素伤害加成",
+    "FIGHT_PROP_ELEC_ADD_HURT": "雷元素伤害加成",
+    # "FIGHT_PROP_GRASS_ADD_HURT":    "草元素伤害加成",
+    # "FIGHT_PROP_FIRE_SUB_HURT":     "火元素伤害减免",
 }
 AttrName2Ids = {v: i.replace('_PERCENT', '') for i, v in MainAttrNames.items()}
 
 TypeNames = ["生之花", "死之羽", "时之沙", "空之杯", "理之冠"]
 
 SubAttrNames = {
-    "FIGHT_PROP_CRITICAL":          "暴击率",
-    "FIGHT_PROP_CRITICAL_HURT":     "暴击伤害",
-    "FIGHT_PROP_ATTACK":            "攻击力",
-    "FIGHT_PROP_ATTACK_PERCENT":    "攻击力",
-    "FIGHT_PROP_ELEMENT_MASTERY":   "元素精通",
+    "FIGHT_PROP_CRITICAL": "暴击率",
+    "FIGHT_PROP_CRITICAL_HURT": "暴击伤害",
+    "FIGHT_PROP_ATTACK": "攻击力",
+    "FIGHT_PROP_ATTACK_PERCENT": "攻击力",
+    "FIGHT_PROP_ELEMENT_MASTERY": "元素精通",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "元素充能效率",
-    "FIGHT_PROP_HP":                "生命值",
-    "FIGHT_PROP_HP_PERCENT":        "生命值",
-    "FIGHT_PROP_DEFENSE":           "防御力",
-    "FIGHT_PROP_DEFENSE_PERCENT":   "防御力",
+    "FIGHT_PROP_HP": "生命值",
+    "FIGHT_PROP_HP_PERCENT": "生命值",
+    "FIGHT_PROP_DEFENSE": "防御力",
+    "FIGHT_PROP_DEFENSE_PERCENT": "防御力",
 }
 
 RarityToMaxLvs = [4, 4, 12, 16, 20]
@@ -95,199 +95,205 @@ ArtNames = [
     ["冒险家之花", "冒险家尾羽", "冒险家怀表", "冒险家金杯", "冒险家头带"],
     ["幸运儿绿花", "幸运儿鹰羽", "幸运儿沙漏", "幸运儿之杯", "幸运儿银冠"],
     ["游医的银莲", "游医的枭羽", "游医的怀钟", "游医的药壶", "游医的方巾"],
-    # todo fix typo
-    # ["勋绩之花", "昭武翎羽", "金铜时晷", "盟誓金爵", "将帅兜鍪"],
-    ["勋绩之花", "昭武翎羽", "金铜时晷", "盟誓金爵", "将帅兜鏊"],
+    ["勋绩之花", "昭武翎羽", "金铜时晷", "盟誓金爵", "将帅兜鍪"],
     ["无垢之花", "贤医之羽", "停摆之刻", "超越之盏", "嗤笑之面"],
-    ["明威之镡", "切落之羽", "雷云之笼", "绯花之壶", "华饰之兜"],   # 绝缘之旗印
-    ["羁缠之花", "思忆之矢", "朝露之时", "祈望之心", "无常之面"],   # 追忆之注连
+    ["明威之镡", "切落之羽", "雷云之笼", "绯花之壶", "华饰之兜"],  # 绝缘之旗印
+    ["羁缠之花", "思忆之矢", "朝露之时", "祈望之心", "无常之面"],  # 追忆之注连
+    ["祝圣精华", "祝圣油膏"],  # 强化材料
 ]
-Users = [
-    "空",
-    "荧",
-    "安柏",
-    "凯亚",
-    "丽莎",
-    "琴",
-    "可莉",
-    "诺艾尔",
-    "芭芭拉",
-    "温迪",
-    "雷泽",
-    "迪卢克",
-    "班尼特",
-    "菲谢尔",
-    "北斗",
-    "凝光",
-    "香菱",
-    "行秋",
-    "重云",
-    "砂糖",
-    "莫娜",
-    "刻晴",
-    "七七",
-    "达达利亚",
-    "迪奥娜",
-    "钟离",
-    "辛焱",
-    "阿贝多",
-    "甘雨",
-    "魈",
-    "胡桃",
-    "罗莎莉亚",
-    "烟绯",
-    "优菈",
-    "枫原万叶",
-    "宵宫",
-    "早柚",
-]
+
+UsersCHS = {
+    "空": "Aether",
+    "荧": "Lumine",
+    "安柏": "Amber",
+    "凯亚": "Kaeya",
+    "丽莎": "Lisa",
+    "琴": "Jean",
+    "可莉": "Klee",
+    "诺艾尔": "Noelle",
+    "芭芭拉": "Barbara",
+    "温迪": "Venti",
+    "雷泽": "Razor",
+    "迪卢克": "Diluc",
+    "班尼特": "Bennett",
+    "菲谢尔": "Fischl",
+    "北斗": "Beidou",
+    "凝光": "Ningguang",
+    "香菱": "Xiangling",
+    "行秋": "Xingqiu",
+    "重云": "Chongyun",
+    "砂糖": "Sucrose",
+    "莫娜": "Mona",
+    "刻晴": "Keqing",
+    "七七": "Qiqi",
+    "达达利亚": "Tartaglia",
+    "迪奥娜": "Diona",
+    "钟离": "Zhongli",
+    "辛焱": "Xinyan",
+    "阿贝多": "Albedo",
+    "甘雨": "Ganyu",
+    "魈": "Xiao",
+    "胡桃": "HuTao",
+    "罗莎莉亚": "Rosaria",
+    "烟绯": "Yanfei",
+    "优菈": "Eula",
+    "埃洛伊": "Aloy",
+    "珊瑚宫心海": "SangonomiyaKokomi",
+    "雷电将军": "RaidenShogun",
+    "九条裟罗": "KujouSara",
+    "早柚": "Sayu",
+    "宵宫": "Yoimiya",
+    "神里绫华": "KamisatoAyaka",
+    "枫原万叶": "KaedeharaKazuha",
+    "托马": "Thoma",
+}
 
 TypeNamesGenshinArt = ["flower", "feather", "sand", "cup", "head"]
 AttrNamesGensinArt = {
-    "FIGHT_PROP_CRITICAL":          "critical",
-    "FIGHT_PROP_CRITICAL_HURT":     "criticalDamage",
-    "FIGHT_PROP_ATTACK":            "attackStatic",
-    "FIGHT_PROP_ATTACK_PERCENT":    "attackPercentage",
-    "FIGHT_PROP_ELEMENT_MASTERY":   "elementalMastery",
+    "FIGHT_PROP_CRITICAL": "critical",
+    "FIGHT_PROP_CRITICAL_HURT": "criticalDamage",
+    "FIGHT_PROP_ATTACK": "attackStatic",
+    "FIGHT_PROP_ATTACK_PERCENT": "attackPercentage",
+    "FIGHT_PROP_ELEMENT_MASTERY": "elementalMastery",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "recharge",
-    "FIGHT_PROP_HP":                "lifeStatic",
-    "FIGHT_PROP_HP_PERCENT":        "lifePercentage",
-    "FIGHT_PROP_DEFENSE":           "defendStatic",
-    "FIGHT_PROP_DEFENSE_PERCENT":   "defendPercentage",
+    "FIGHT_PROP_HP": "lifeStatic",
+    "FIGHT_PROP_HP_PERCENT": "lifePercentage",
+    "FIGHT_PROP_DEFENSE": "defendStatic",
+    "FIGHT_PROP_DEFENSE_PERCENT": "defendPercentage",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "physicalBonus",
-    "FIGHT_PROP_HEAL_ADD":          "cureEffect",
-    "FIGHT_PROP_ROCK_ADD_HURT":     "rockBonus",
-    "FIGHT_PROP_WIND_ADD_HURT":     "windBonus",
-    "FIGHT_PROP_ICE_ADD_HURT":      "iceBonus",
-    "FIGHT_PROP_WATER_ADD_HURT":    "waterBonus",
-    "FIGHT_PROP_FIRE_ADD_HURT":     "fireBonus",
-    "FIGHT_PROP_ELEC_ADD_HURT":     "thunderBonus",
-    "FIGHT_PROP_GRASS_ADD_HURT":    "grassBonus",
-    "FIGHT_PROP_FIRE_SUB_HURT":     "fireDeduct",
+    "FIGHT_PROP_HEAL_ADD": "cureEffect",
+    "FIGHT_PROP_ROCK_ADD_HURT": "rockBonus",
+    "FIGHT_PROP_WIND_ADD_HURT": "windBonus",
+    "FIGHT_PROP_ICE_ADD_HURT": "iceBonus",
+    "FIGHT_PROP_WATER_ADD_HURT": "waterBonus",
+    "FIGHT_PROP_FIRE_ADD_HURT": "fireBonus",
+    "FIGHT_PROP_ELEC_ADD_HURT": "thunderBonus",
+    "FIGHT_PROP_GRASS_ADD_HURT": "grassBonus",
+    "FIGHT_PROP_FIRE_SUB_HURT": "fireDeduct",
 }
 SetNamesGenshinArt = [
-    "archaicPetra",             # 悠古的磐岩
-    "blizzardStrayer",          # 冰风迷途的勇士
-    "bloodstainedChivalry",     # 染血的骑士道
-    "crimsonWitch",             # 炽烈的炎之魔女
-    "gladiatorFinale",          # 角斗士的终幕礼
-    "heartOfDepth",             # 沉沦之心
-    "lavaWalker",               # 渡过烈火的贤人
-    "maidenBeloved",            # 被怜爱的少女
-    "noblesseOblige",           # 昔日宗室之仪
-    "retracingBolide",          # 逆飞的流星
-    "thunderSmoother",          # 平息鸣雷的尊者
-    "thunderingFury",           # 如雷的盛怒
-    "viridescentVenerer",       # 翠绿之影
-    "wandererTroupe",           # 流浪大地的乐团
-    "berserker",                # 战狂
-    "braveHeart",               # 勇士之心
-    "defenderWill",             # 守护之心
-    "exile",                    # 流放者
-    "gambler",                  # 赌徒
-    "instructor",               # 教官
-    "martialArtist",            # 武人
-    "prayersForDestiny",        # 祭水之人
-    "prayersForIllumination",   # 祭火之人
-    "prayersForWisdom",         # 祭雷之人
-    "prayersToSpringtime",      # 祭冰之人
-    "resolutionOfSojourner",    # 行者之心
-    "scholar",                  # 学士
-    "tinyMiracle",              # 奇迹
-    "adventurer",               # 冒险家
-    "luckyDog",                 # 幸运儿
-    "travelingDoctor",          # 游医
-    "tenacityOfTheMillelith",   # 千岩牢固
-    "paleFlame",                # 苍白之火
-    "emblemOfSeveredFate",      # 绝缘之旗印
-    "shimenawaReminiscence",    # 追忆之注连
+    "archaicPetra",  # 悠古的磐岩
+    "blizzardStrayer",  # 冰风迷途的勇士
+    "bloodstainedChivalry",  # 染血的骑士道
+    "crimsonWitch",  # 炽烈的炎之魔女
+    "gladiatorFinale",  # 角斗士的终幕礼
+    "heartOfDepth",  # 沉沦之心
+    "lavaWalker",  # 渡过烈火的贤人
+    "maidenBeloved",  # 被怜爱的少女
+    "noblesseOblige",  # 昔日宗室之仪
+    "retracingBolide",  # 逆飞的流星
+    "thunderSmoother",  # 平息鸣雷的尊者
+    "thunderingFury",  # 如雷的盛怒
+    "viridescentVenerer",  # 翠绿之影
+    "wandererTroupe",  # 流浪大地的乐团
+    "berserker",  # 战狂
+    "braveHeart",  # 勇士之心
+    "defenderWill",  # 守护之心
+    "exile",  # 流放者
+    "gambler",  # 赌徒
+    "instructor",  # 教官
+    "martialArtist",  # 武人
+    "prayersForDestiny",  # 祭水之人
+    "prayersForIllumination",  # 祭火之人
+    "prayersForWisdom",  # 祭雷之人
+    "prayersToSpringtime",  # 祭冰之人
+    "resolutionOfSojourner",  # 行者之心
+    "scholar",  # 学士
+    "tinyMiracle",  # 奇迹
+    "adventurer",  # 冒险家
+    "luckyDog",  # 幸运儿
+    "travelingDoctor",  # 游医
+    "tenacityOfTheMillelith",  # 千岩牢固
+    "paleFlame",  # 苍白之火
+    "emblemOfSeveredFate",  # 绝缘之旗印
+    "shimenawaReminiscence",  # 追忆之注连
 
 ]
 
 TypeNamesMingyuLab = ['flower', 'plume', 'eon', 'goblet', 'circlet']
 AttrNamesMingyuLab = {
-    "FIGHT_PROP_CRITICAL":          "critRate",
-    "FIGHT_PROP_CRITICAL_HURT":     "critDamage",
-    "FIGHT_PROP_ATTACK":            "flatATK",
-    "FIGHT_PROP_ATTACK_PERCENT":    "percentATK",
-    "FIGHT_PROP_ELEMENT_MASTERY":   "elementalMastery",
+    "FIGHT_PROP_CRITICAL": "critRate",
+    "FIGHT_PROP_CRITICAL_HURT": "critDamage",
+    "FIGHT_PROP_ATTACK": "flatATK",
+    "FIGHT_PROP_ATTACK_PERCENT": "percentATK",
+    "FIGHT_PROP_ELEMENT_MASTERY": "elementalMastery",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "energyRecharge",
-    "FIGHT_PROP_HP":                "flatHP",
-    "FIGHT_PROP_HP_PERCENT":        "percentHP",
-    "FIGHT_PROP_DEFENSE":           "flatDEF",
-    "FIGHT_PROP_DEFENSE_PERCENT":   "percentDEF",
+    "FIGHT_PROP_HP": "flatHP",
+    "FIGHT_PROP_HP_PERCENT": "percentHP",
+    "FIGHT_PROP_DEFENSE": "flatDEF",
+    "FIGHT_PROP_DEFENSE_PERCENT": "percentDEF",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "physicalDamage",
-    "FIGHT_PROP_HEAL_ADD":          "healing",
-    "FIGHT_PROP_ROCK_ADD_HURT":     "geoDamage",
-    "FIGHT_PROP_WIND_ADD_HURT":     "anemoDamage",
-    "FIGHT_PROP_ICE_ADD_HURT":      "cryoDamage",
-    "FIGHT_PROP_WATER_ADD_HURT":    "hydroDamage",
-    "FIGHT_PROP_FIRE_ADD_HURT":     "pyroDamage",
-    "FIGHT_PROP_ELEC_ADD_HURT":     "electroDamage",
-    "FIGHT_PROP_GRASS_ADD_HURT":    "dendroDamage",
-    "FIGHT_PROP_FIRE_SUB_HURT":     "pyroDEF",
+    "FIGHT_PROP_HEAL_ADD": "healing",
+    "FIGHT_PROP_ROCK_ADD_HURT": "geoDamage",
+    "FIGHT_PROP_WIND_ADD_HURT": "anemoDamage",
+    "FIGHT_PROP_ICE_ADD_HURT": "cryoDamage",
+    "FIGHT_PROP_WATER_ADD_HURT": "hydroDamage",
+    "FIGHT_PROP_FIRE_ADD_HURT": "pyroDamage",
+    "FIGHT_PROP_ELEC_ADD_HURT": "electroDamage",
+    "FIGHT_PROP_GRASS_ADD_HURT": "dendroDamage",
+    "FIGHT_PROP_FIRE_SUB_HURT": "pyroDEF",
 }
 
 SetNamesMingyuLab = [
-    "archaic_petra",                # 悠古的磐岩
-    "blizzard_walker",              # 冰风迷途的勇士
-    "bloodstained_chivalry",        # 染血的骑士道
-    "crimson_witch_of_flames",      # 炽烈的炎之魔女
-    "gladiators_finale",            # 角斗士的终幕礼
-    "heart_of_depth",               # 沉沦之心
-    "lavawalker",                   # 渡过烈火的贤人
-    "maiden_beloved",               # 被怜爱的少女
-    "noblesse_oblige",              # 昔日宗室之仪
-    "retracing_bolide",             # 逆飞的流星
-    "thundersoother",               # 平息雷鸣的尊者
-    "thundering_fury",              # 如雷的盛怒
-    "viridescent_venerer",          # 翠绿之影
-    "wanderers_troupe",             # 流浪大地的乐团
-    "berserker",                    # 战狂
-    "brave_heart",                  # 勇士之心
-    "defenders_will",               # 守护之心
-    "the_exile",                    # 流放者
-    "gambler",                      # 赌徒
-    "instructor",                   # 教官
-    "martial_artist",               # 武人
-    "prayers_of_destiny",           # 祭水之人
-    "prayers_of_illumination",      # 祭火之人
-    "prayers_of_wisdom",            # 祭雷之人
-    "prayers_of_springtime",        # 祭冰之人
-    "resolution_of_sojourner",      # 行者之心
-    "scholar",                      # 学士
-    "tiny_miracle",                 # 奇迹
-    "adventurer",                   # 冒险家
-    "lucky_dog",                    # 幸运儿
-    "traveling_doctor",             # 游医
-    "tenacity_of_the_millelith",    # 千岩牢固
-    "pale_flame",                   # 苍白之火
-    "seal_of_insulation",           # 绝缘之旗印
-    "reminiscence_of_shime",        # 追忆之注连
+    "archaic_petra",  # 悠古的磐岩
+    "blizzard_walker",  # 冰风迷途的勇士
+    "bloodstained_chivalry",  # 染血的骑士道
+    "crimson_witch_of_flames",  # 炽烈的炎之魔女
+    "gladiators_finale",  # 角斗士的终幕礼
+    "heart_of_depth",  # 沉沦之心
+    "lavawalker",  # 渡过烈火的贤人
+    "maiden_beloved",  # 被怜爱的少女
+    "noblesse_oblige",  # 昔日宗室之仪
+    "retracing_bolide",  # 逆飞的流星
+    "thundersoother",  # 平息雷鸣的尊者
+    "thundering_fury",  # 如雷的盛怒
+    "viridescent_venerer",  # 翠绿之影
+    "wanderers_troupe",  # 流浪大地的乐团
+    "berserker",  # 战狂
+    "brave_heart",  # 勇士之心
+    "defenders_will",  # 守护之心
+    "the_exile",  # 流放者
+    "gambler",  # 赌徒
+    "instructor",  # 教官
+    "martial_artist",  # 武人
+    "prayers_of_destiny",  # 祭水之人
+    "prayers_of_illumination",  # 祭火之人
+    "prayers_of_wisdom",  # 祭雷之人
+    "prayers_of_springtime",  # 祭冰之人
+    "resolution_of_sojourner",  # 行者之心
+    "scholar",  # 学士
+    "tiny_miracle",  # 奇迹
+    "adventurer",  # 冒险家
+    "lucky_dog",  # 幸运儿
+    "traveling_doctor",  # 游医
+    "tenacity_of_the_millelith",  # 千岩牢固
+    "pale_flame",  # 苍白之火
+    "seal_of_insulation",  # 绝缘之旗印
+    "reminiscence_of_shime",  # 追忆之注连
 ]
 
 TypeNamesGOOD = ['flower', 'plume', 'sands', 'goblet', 'circlet']
 
 AttrNamesGOOD = {
-    "FIGHT_PROP_CRITICAL":          "critRate_",
-    "FIGHT_PROP_CRITICAL_HURT":     "critDMG_",
-    "FIGHT_PROP_ATTACK":            "atk",
-    "FIGHT_PROP_ATTACK_PERCENT":    "atk_",
-    "FIGHT_PROP_ELEMENT_MASTERY":   "eleMas",
+    "FIGHT_PROP_CRITICAL": "critRate_",
+    "FIGHT_PROP_CRITICAL_HURT": "critDMG_",
+    "FIGHT_PROP_ATTACK": "atk",
+    "FIGHT_PROP_ATTACK_PERCENT": "atk_",
+    "FIGHT_PROP_ELEMENT_MASTERY": "eleMas",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "enerRech_",
-    "FIGHT_PROP_HP":                "hp",
-    "FIGHT_PROP_HP_PERCENT":        "hp_",
-    "FIGHT_PROP_DEFENSE":           "def",
-    "FIGHT_PROP_DEFENSE_PERCENT":   "def_",
+    "FIGHT_PROP_HP": "hp",
+    "FIGHT_PROP_HP_PERCENT": "hp_",
+    "FIGHT_PROP_DEFENSE": "def",
+    "FIGHT_PROP_DEFENSE_PERCENT": "def_",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "physical_dmg_",
-    "FIGHT_PROP_HEAL_ADD":          "heal_",
-    "FIGHT_PROP_ROCK_ADD_HURT":     "geo_dmg_",
-    "FIGHT_PROP_WIND_ADD_HURT":     "anemo_dmg_",
-    "FIGHT_PROP_ICE_ADD_HURT":      "cryo_dmg_",
-    "FIGHT_PROP_WATER_ADD_HURT":    "hydro_dmg_",
-    "FIGHT_PROP_FIRE_ADD_HURT":     "pyro_dmg_",
-    "FIGHT_PROP_ELEC_ADD_HURT":     "electro_dmg_",
-    "FIGHT_PROP_GRASS_ADD_HURT":    "dendro_dmg_"
+    "FIGHT_PROP_HEAL_ADD": "heal_",
+    "FIGHT_PROP_ROCK_ADD_HURT": "geo_dmg_",
+    "FIGHT_PROP_WIND_ADD_HURT": "anemo_dmg_",
+    "FIGHT_PROP_ICE_ADD_HURT": "cryo_dmg_",
+    "FIGHT_PROP_WATER_ADD_HURT": "hydro_dmg_",
+    "FIGHT_PROP_FIRE_ADD_HURT": "pyro_dmg_",
+    "FIGHT_PROP_ELEC_ADD_HURT": "electro_dmg_",
+    "FIGHT_PROP_GRASS_ADD_HURT": "dendro_dmg_"
 }
 
 SetNamesGOOD = [
@@ -307,27 +313,35 @@ SetNamesGOOD = [
 
 MainAttrValue = {
     5: {
-        "FIGHT_PROP_CRITICAL": [0.047, 0.060, 0.073, 0.086, 0.099, 0.113, 0.126, 0.139, 0.152, 0.166, 0.179, 0.192, 0.205,
+        "FIGHT_PROP_CRITICAL": [0.047, 0.060, 0.073, 0.086, 0.099, 0.113, 0.126, 0.139, 0.152, 0.166, 0.179, 0.192,
+                                0.205,
                                 0.218, 0.232, 0.245, 0.258, 0.271, 0.284, 0.298, 0.311, ],
         "FIGHT_PROP_CRITICAL_HURT": [0.093, 0.120, 0.146, 0.173, 0.199, 0.225, 0.252, 0.278, 0.305, 0.331, 0.357, 0.384,
                                      0.410, 0.437, 0.463, 0.490, 0.516, 0.542, 0.569, 0.595, 0.622, ],
         "FIGHT_PROP_ATTACK": [47, 60, 73, 86, 100, 113, 126, 139, 152, 166, 179, 192, 205, 219, 232, 245, 258, 272, 285,
                               298, 311, ],
-        "FIGHT_PROP_ATTACK_PERCENT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268, 0.288,
+        "FIGHT_PROP_ATTACK_PERCENT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268,
+                                      0.288,
                                       0.308, 0.328, 0.347, 0.367, 0.387, 0.407, 0.427, 0.446, 0.466, ],
-        "FIGHT_PROP_ELEMENT_MASTERY": [28, 36, 44, 52, 60, 68, 76, 84, 91, 99, 107, 115, 123, 131, 139, 147, 155, 163, 171,
+        "FIGHT_PROP_ELEMENT_MASTERY": [28, 36, 44, 52, 60, 68, 76, 84, 91, 99, 107, 115, 123, 131, 139, 147, 155, 163,
+                                       171,
                                        179, 187, ],
-        "FIGHT_PROP_CHARGE_EFFICIENCY": [0.078, 0.100, 0.122, 0.144, 0.166, 0.188, 0.210, 0.232, 0.254, 0.276, 0.298, 0.320,
+        "FIGHT_PROP_CHARGE_EFFICIENCY": [0.078, 0.100, 0.122, 0.144, 0.166, 0.188, 0.210, 0.232, 0.254, 0.276, 0.298,
+                                         0.320,
                                          0.342, 0.364, 0.386, 0.408, 0.430, 0.452, 0.474, 0.496, 0.518, ],
         "FIGHT_PROP_HP": [717, 920, 1123, 1326, 1530, 1733, 1936, 2139, 2342, 2545, 2749, 2952, 3155, 3358, 3561, 3764,
                           3967, 4171, 4374, 4577, 4780, ],
-        "FIGHT_PROP_HP_PERCENT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268, 0.288, 0.308,
+        "FIGHT_PROP_HP_PERCENT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268, 0.288,
+                                  0.308,
                                   0.328, 0.347, 0.367, 0.387, 0.407, 0.427, 0.446, 0.466, ],
-        "FIGHT_PROP_DEFENSE_PERCENT": [0.087, 0.112, 0.137, 0.162, 0.186, 0.211, 0.236, 0.261, 0.286, 0.310, 0.335, 0.360,
+        "FIGHT_PROP_DEFENSE_PERCENT": [0.087, 0.112, 0.137, 0.162, 0.186, 0.211, 0.236, 0.261, 0.286, 0.310, 0.335,
+                                       0.360,
                                        0.385, 0.409, 0.434, 0.459, 0.484, 0.508, 0.533, 0.558, 0.583, ],
-        "FIGHT_PROP_PHYSICAL_ADD_HURT": [0.087, 0.112, 0.137, 0.162, 0.186, 0.211, 0.236, 0.261, 0.286, 0.310, 0.335, 0.360,
+        "FIGHT_PROP_PHYSICAL_ADD_HURT": [0.087, 0.112, 0.137, 0.162, 0.186, 0.211, 0.236, 0.261, 0.286, 0.310, 0.335,
+                                         0.360,
                                          0.385, 0.409, 0.434, 0.459, 0.484, 0.508, 0.533, 0.558, 0.583, ],
-        "FIGHT_PROP_HEAL_ADD": [0.054, 0.069, 0.084, 0.100, 0.115, 0.130, 0.145, 0.161, 0.176, 0.191, 0.206, 0.221, 0.237,
+        "FIGHT_PROP_HEAL_ADD": [0.054, 0.069, 0.084, 0.100, 0.115, 0.130, 0.145, 0.161, 0.176, 0.191, 0.206, 0.221,
+                                0.237,
                                 0.252, 0.267, 0.282, 0.298, 0.313, 0.328, 0.343, 0.359, ],
         "FIGHT_PROP_ROCK_ADD_HURT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268, 0.288,
                                      0.308, 0.328, 0.347, 0.367, 0.387, 0.407, 0.427, 0.446, 0.466, ],
@@ -335,13 +349,15 @@ MainAttrValue = {
                                      0.308, 0.328, 0.347, 0.367, 0.387, 0.407, 0.427, 0.446, 0.466, ],
         "FIGHT_PROP_ICE_ADD_HURT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268, 0.288,
                                     0.308, 0.328, 0.347, 0.367, 0.387, 0.407, 0.427, 0.446, 0.466, ],
-        "FIGHT_PROP_WATER_ADD_HURT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268, 0.288,
+        "FIGHT_PROP_WATER_ADD_HURT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268,
+                                      0.288,
                                       0.308, 0.328, 0.347, 0.367, 0.387, 0.407, 0.427, 0.446, 0.466, ],
         "FIGHT_PROP_FIRE_ADD_HURT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268, 0.288,
                                      0.308, 0.328, 0.347, 0.367, 0.387, 0.407, 0.427, 0.446, 0.466, ],
         "FIGHT_PROP_ELEC_ADD_HURT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268, 0.288,
                                      0.308, 0.328, 0.347, 0.367, 0.387, 0.407, 0.427, 0.446, 0.466, ],
-        "FIGHT_PROP_GRASS_ADD_HURT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268, 0.288,
+        "FIGHT_PROP_GRASS_ADD_HURT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209, 0.228, 0.248, 0.268,
+                                      0.288,
                                       0.308, 0.328, 0.347, 0.367, 0.387, 0.407, 0.427, 0.446, 0.466, ],
     },
     4: {
@@ -386,7 +402,8 @@ MainAttrValue = {
         "FIGHT_PROP_CRITICAL_HURT": [0.070, 0.090, 0.110, 0.129, 0.149, 0.169, 0.189, 0.209,
                                      0.228, 0.248, 0.268, 0.288, 0.308, ],
         "FIGHT_PROP_ATTACK": [28, 36, 44, 52, 60, 68, 76, 84, 91, 99, 107, 115, 123, ],
-        "FIGHT_PROP_ATTACK_PERCENT": [0.052, 0.067, 0.082, 0.097, 0.112, 0.127, 0.142, 0.156, 0.171, 0.186, 0.201, 0.216, 0.231, ],
+        "FIGHT_PROP_ATTACK_PERCENT": [0.052, 0.067, 0.082, 0.097, 0.112, 0.127, 0.142, 0.156, 0.171, 0.186, 0.201,
+                                      0.216, 0.231, ],
         "FIGHT_PROP_ELEMENT_MASTERY": [21, 27, 33, 39, 45, 51, 57, 63, 69, 75, 80, 86, 92, ],
         "FIGHT_PROP_CHARGE_EFFICIENCY": [0.058, 0.075, 0.091, 0.108, 0.124, 0.141, 0.157, 0.174,
                                          0.190, 0.207, 0.223, 0.240, 0.256, ],
@@ -437,25 +454,25 @@ MainAttrValue = {
 }
 
 MainAttrNames_EN = {
-    "FIGHT_PROP_CRITICAL":          "CRIT Rate",
-    "FIGHT_PROP_CRITICAL_HURT":     "CRIT DMG",
-    "FIGHT_PROP_ATTACK":            "ATK",
-    "FIGHT_PROP_ATTACK_PERCENT":    "ATK",
-    "FIGHT_PROP_ELEMENT_MASTERY":   "Elemental Mastery",
+    "FIGHT_PROP_CRITICAL": "CRIT Rate",
+    "FIGHT_PROP_CRITICAL_HURT": "CRIT DMG",
+    "FIGHT_PROP_ATTACK": "ATK",
+    "FIGHT_PROP_ATTACK_PERCENT": "ATK",
+    "FIGHT_PROP_ELEMENT_MASTERY": "Elemental Mastery",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "Energy Recharge",
-    "FIGHT_PROP_HP":                "HP",
-    "FIGHT_PROP_HP_PERCENT":        "HP",
-    "FIGHT_PROP_DEFENSE":           "DEF",
-    "FIGHT_PROP_DEFENSE_PERCENT":   "DEF",
+    "FIGHT_PROP_HP": "HP",
+    "FIGHT_PROP_HP_PERCENT": "HP",
+    "FIGHT_PROP_DEFENSE": "DEF",
+    "FIGHT_PROP_DEFENSE_PERCENT": "DEF",
     "FIGHT_PROP_PHYSICAL_ADD_HURT": "Physical DMG Bonus",
-    "FIGHT_PROP_HEAL_ADD":          "Healing Bonus",
-    "FIGHT_PROP_ROCK_ADD_HURT":     "Geo DMG Bonus",
-    "FIGHT_PROP_WIND_ADD_HURT":     "Anemo DMG Bonus",
-    "FIGHT_PROP_ICE_ADD_HURT":      "Cryo DMG Bonus",
-    "FIGHT_PROP_WATER_ADD_HURT":    "Hydro DMG Bonus",
-    "FIGHT_PROP_FIRE_ADD_HURT":     "Pyro DMG Bonus",
-    "FIGHT_PROP_ELEC_ADD_HURT":     "Electro DMG Bonus",
-    "FIGHT_PROP_GRASS_ADD_HURT":    "Dendro DMG Bonus",
+    "FIGHT_PROP_HEAL_ADD": "Healing Bonus",
+    "FIGHT_PROP_ROCK_ADD_HURT": "Geo DMG Bonus",
+    "FIGHT_PROP_WIND_ADD_HURT": "Anemo DMG Bonus",
+    "FIGHT_PROP_ICE_ADD_HURT": "Cryo DMG Bonus",
+    "FIGHT_PROP_WATER_ADD_HURT": "Hydro DMG Bonus",
+    "FIGHT_PROP_FIRE_ADD_HURT": "Pyro DMG Bonus",
+    "FIGHT_PROP_ELEC_ADD_HURT": "Electro DMG Bonus",
+    "FIGHT_PROP_GRASS_ADD_HURT": "Dendro DMG Bonus",
 }
 
 TypeNames_EN = ["Flower of Life",
@@ -467,16 +484,16 @@ TypeNames_EN = ["Flower of Life",
 AttrName2Ids_EN = {v: i.replace('_PERCENT', '') for i, v in MainAttrNames_EN.items()}
 
 SubAttrNames_EN = {
-    "FIGHT_PROP_CRITICAL":          "CRIT Rate",
-    "FIGHT_PROP_CRITICAL_HURT":     "CRIT DMG",
-    "FIGHT_PROP_ATTACK":            "ATK",
-    "FIGHT_PROP_ATTACK_PERCENT":    "ATK",
-    "FIGHT_PROP_ELEMENT_MASTERY":   "Elemental Mastery",
+    "FIGHT_PROP_CRITICAL": "CRIT Rate",
+    "FIGHT_PROP_CRITICAL_HURT": "CRIT DMG",
+    "FIGHT_PROP_ATTACK": "ATK",
+    "FIGHT_PROP_ATTACK_PERCENT": "ATK",
+    "FIGHT_PROP_ELEMENT_MASTERY": "Elemental Mastery",
     "FIGHT_PROP_CHARGE_EFFICIENCY": "Energy Recharge",
-    "FIGHT_PROP_HP":                "HP",
-    "FIGHT_PROP_HP_PERCENT":        "HP",
-    "FIGHT_PROP_DEFENSE":           "DEF",
-    "FIGHT_PROP_DEFENSE_PERCENT":   "DEF",
+    "FIGHT_PROP_HP": "HP",
+    "FIGHT_PROP_HP_PERCENT": "HP",
+    "FIGHT_PROP_DEFENSE": "DEF",
+    "FIGHT_PROP_DEFENSE_PERCENT": "DEF",
 }
 
 ArtNames_EN = [
@@ -546,8 +563,55 @@ ArtNames_EN = [
     ['Magnificent Tsuba', 'Sundered Feather', 'Storm Cage',
      'Scarlet Vessel', 'Ornate Kabuto'],
     ['Entangling Bloom', 'Shaft of Remembrance', "Morning Dew's Moment",
-     'Hopeful Heart', 'Capricious Visage']
+     'Hopeful Heart', 'Capricious Visage'],
+    ['Sanctifying Unction', 'Sanctifying Essence']
 ]
+
+UsersEN = {
+    "Aether": "Aether",
+    "Albedo": "Albedo",
+    "Aloy": "Aloy",
+    "Amber": "Amber",
+    "Barbara": "Barbara",
+    "Beidou": "Beidou",
+    "Bennett": "Bennett",
+    "Chongyun": "Chongyun",
+    "Diluc": "Diluc",
+    "Diona": "Diona",
+    "Eula": "Eula",
+    "Fischl": "Fischl",
+    "Ganyu": "Ganyu",
+    "Hu Tao": "HuTao",
+    "Jean": "Jean",
+    "Kaedehara Kazuha": "KaedeharaKazuha",
+    "Kaeya": "Kaeya",
+    "Kamisato Ayaka": "KamisatoAyaka",
+    "Keqing": "Keqing",
+    "Klee": "Klee",
+    "Kujou Sara": "KujouSara",
+    "Lisa": "Lisa",
+    "Lumine": "Lumine",
+    "Mona": "Mona",
+    "Ningguang": "Ningguang",
+    "Noelle": "Noelle",
+    "Qiqi": "Qiqi",
+    "Raiden Shogun": "RaidenShogun",
+    "Razor": "Razor",
+    "Rosaria": "Rosaria",
+    "Sangonomiya Kokomi": "SangonomiyaKokomi",
+    "Sayu": "Sayu",
+    "Sucrose": "Sucrose",
+    "Tartaglia": "Tartaglia",
+    "Venti": "Venti",
+    "Xiangling": "Xiangling",
+    "Xiao": "Xiao",
+    "Xingqiu": "Xingqiu",
+    "Xinyan": "Xinyan",
+    "Yanfei": "Yanfei",
+    "Yoimiya": "Yoimiya",
+    "Zhongli": "Zhongli",
+    "Thoma": "Thoma"
+}
 
 SetNames = [
     "悠古的磐岩",
@@ -606,4 +670,3 @@ Setnames_EN = ['Archaic Petra',
                'Tenacity of the Millelith', 'Pale Flame',
                'Emblem of Severed Fate',
                "Shimenawa's Reminiscence"]
-

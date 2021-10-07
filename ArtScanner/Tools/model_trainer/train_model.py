@@ -58,8 +58,6 @@ MainAttrNames = {
     "FIGHT_PROP_WATER_ADD_HURT": "水元素伤害加成",
     "FIGHT_PROP_FIRE_ADD_HURT": "火元素伤害加成",
     "FIGHT_PROP_ELEC_ADD_HURT": "雷元素伤害加成",
-    "FIGHT_PROP_GRASS_ADD_HURT": "草元素伤害加成",
-    "FIGHT_PROP_FIRE_SUB_HURT": "火元素伤害减免",
 }
 AttrName2Ids = {v: i.replace('_PERCENT', '') for i, v in MainAttrNames.items()}
 
@@ -77,9 +75,6 @@ SubAttrNames = {
     "FIGHT_PROP_DEFENSE": "防御力",
     "FIGHT_PROP_DEFENSE_PERCENT": "防御力",
 }
-
-RarityToMaxLvs = [4, 4, 12, 16, 20]
-RarityToBaseStatNumber = {1: [0], 2: [0, 1], 3: [1, 2], 4: [2, 3], 5: [3, 4]}
 
 ArtNames = [
     ["磐陀裂生之花", "嵯峨群峰之翼", "星罗圭璧之晷", "巉岩琢塑之樽", "不动玄石之相"],
@@ -113,11 +108,13 @@ ArtNames = [
     ["冒险家之花", "冒险家尾羽", "冒险家怀表", "冒险家金杯", "冒险家头带"],
     ["幸运儿绿花", "幸运儿鹰羽", "幸运儿沙漏", "幸运儿之杯", "幸运儿银冠"],
     ["游医的银莲", "游医的枭羽", "游医的怀钟", "游医的药壶", "游医的方巾"],
-    ["勋绩之花", "昭武翎羽", "金铜时晷", "盟誓金爵", "将帅兜鏊"],
+    ["勋绩之花", "昭武翎羽", "金铜时晷", "盟誓金爵", "将帅兜鍪"],
     ["无垢之花", "贤医之羽", "停摆之刻", "超越之盏", "嗤笑之面"],
     ["明威之镡", "切落之羽", "雷云之笼", "绯花之壶", "华饰之兜"],  # 绝缘之旗印
     ["羁缠之花", "思忆之矢", "朝露之时", "祈望之心", "无常之面"],  # 追忆之注连
+    ["祝圣精华", "祝圣油膏"],                                  # 强化材料
 ]
+
 Users = [
     "空",
     "荧",
@@ -152,135 +149,24 @@ Users = [
     "胡桃",
     "罗莎莉亚",
     "烟绯",
-    "尤拉",
-]
-
-TypeNamesGenshinArt = ["flower", "feather", "sand", "cup", "head"]
-AttrNamesGensinArt = {
-    "FIGHT_PROP_CRITICAL": "critical",
-    "FIGHT_PROP_CRITICAL_HURT": "criticalDamage",
-    "FIGHT_PROP_ATTACK": "attackStatic",
-    "FIGHT_PROP_ATTACK_PERCENT": "attackPercentage",
-    "FIGHT_PROP_ELEMENT_MASTERY": "elementalMastery",
-    "FIGHT_PROP_CHARGE_EFFICIENCY": "recharge",
-    "FIGHT_PROP_HP": "lifeStatic",
-    "FIGHT_PROP_HP_PERCENT": "lifePercentage",
-    "FIGHT_PROP_DEFENSE": "defendStatic",
-    "FIGHT_PROP_DEFENSE_PERCENT": "defendPercentage",
-    "FIGHT_PROP_PHYSICAL_ADD_HURT": "physicalBonus",
-    "FIGHT_PROP_HEAL_ADD": "cureEffect",
-    "FIGHT_PROP_ROCK_ADD_HURT": "rockBonus",
-    "FIGHT_PROP_WIND_ADD_HURT": "windBonus",
-    "FIGHT_PROP_ICE_ADD_HURT": "iceBonus",
-    "FIGHT_PROP_WATER_ADD_HURT": "waterBonus",
-    "FIGHT_PROP_FIRE_ADD_HURT": "fireBonus",
-    "FIGHT_PROP_ELEC_ADD_HURT": "thunderBonus",
-    "FIGHT_PROP_GRASS_ADD_HURT": "grassBonus",
-    "FIGHT_PROP_FIRE_SUB_HURT": "fireDeduct",
-}
-SetNamesGenshinArt = [
-    "archaicPetra",  # 悠古的磐岩
-    "blizzardStrayer",  # 冰风迷途的勇士
-    "bloodstainedChivalry",  # 染血的骑士道
-    "crimsonWitch",  # 炽烈的炎之魔女
-    "gladiatorFinale",  # 角斗士的终幕礼
-    "heartOfDepth",  # 沉沦之心
-    "lavaWalker",  # 渡过烈火的贤人
-    "maidenBeloved",  # 被怜爱的少女
-    "noblesseOblige",  # 昔日宗室之仪
-    "retracingBolide",  # 逆飞的流星
-    "thunderSmoother",  # 平息雷鸣的尊者
-    "thunderingFury",  # 如雷的盛怒
-    "viridescentVenerer",  # 翠绿之影
-    "wandererTroupe",  # 流浪大地的乐团
-    "berserker",  # 战狂
-    "braveHeart",  # 勇士之心
-    "defenderWill",  # 守护之心
-    "exile",  # 流放者
-    "gambler",  # 赌徒
-    "instructor",  # 教官
-    "martialArtist",  # 武人
-    "prayersForDestiny",  # 祭水之人
-    "prayersForIllumination",  # 祭火之人
-    "prayersForWisdom",  # 祭雷之人
-    "prayersToSpringtime",  # 祭冰之人
-    "resolutionOfSojourner",  # 行者之心
-    "scholar",  # 学士
-    "tinyMiracle",  # 奇迹
-    "adventurer",  # 冒险家
-    "luckyDog",  # 幸运儿
-    "travelingDoctor",  # 游医
-    "tenacityOfTheMillelith",  # 千岩牢固
-    "paleFlame",  # 苍白之火
-    "shimenawaReminiscence",  # 追忆之注连
-    "emblemOfSeveredFate",  # 绝缘之旗印
-
-]
-
-TypeNamesMingyuLab = ['flower', 'plume', 'eon', 'goblet', 'circlet']
-AttrNamesMingyuLab = {
-    "FIGHT_PROP_CRITICAL": "critRate",
-    "FIGHT_PROP_CRITICAL_HURT": "critDamage",
-    "FIGHT_PROP_ATTACK": "flatATK",
-    "FIGHT_PROP_ATTACK_PERCENT": "percentATK",
-    "FIGHT_PROP_ELEMENT_MASTERY": "elementalMastery",
-    "FIGHT_PROP_CHARGE_EFFICIENCY": "energyRecharge",
-    "FIGHT_PROP_HP": "flatHP",
-    "FIGHT_PROP_HP_PERCENT": "percentHP",
-    "FIGHT_PROP_DEFENSE": "flatDEF",
-    "FIGHT_PROP_DEFENSE_PERCENT": "percentDEF",
-    "FIGHT_PROP_PHYSICAL_ADD_HURT": "physicalDamage",
-    "FIGHT_PROP_HEAL_ADD": "healing",
-    "FIGHT_PROP_ROCK_ADD_HURT": "geoDamage",
-    "FIGHT_PROP_WIND_ADD_HURT": "anemoDamage",
-    "FIGHT_PROP_ICE_ADD_HURT": "cryoDamage",
-    "FIGHT_PROP_WATER_ADD_HURT": "hydroDamage",
-    "FIGHT_PROP_FIRE_ADD_HURT": "pyroDamage",
-    "FIGHT_PROP_ELEC_ADD_HURT": "electroDamage",
-    "FIGHT_PROP_GRASS_ADD_HURT": "dendroDamage",
-    "FIGHT_PROP_FIRE_SUB_HURT": "pyroDEF",
-}
-
-SetNamesMingyuLab = [
-    "archaic_petra",  # 悠古的磐岩
-    "blizzard_walker",  # 冰风迷途的勇士
-    "bloodstained_chivalry",  # 染血的骑士道
-    "crimson_witch_of_flames",  # 炽烈的炎之魔女
-    "gladiators_finale",  # 角斗士的终幕礼
-    "heart_of_depth",  # 沉沦之心
-    "lavawalker",  # 渡过烈火的贤人
-    "maiden_beloved",  # 被怜爱的少女
-    "noblesse_oblige",  # 昔日宗室之仪
-    "retracing_bolide",  # 逆飞的流星
-    "thundersoother",  # 平息雷鸣的尊者
-    "thundering_fury",  # 如雷的盛怒
-    "viridescent_venerer",  # 翠绿之影
-    "wanderers_troupe",  # 流浪大地的乐团
-    "berserker",  # 战狂
-    "brave_heart",  # 勇士之心
-    "defenders_will",  # 守护之心
-    "the_exile",  # 流放者
-    "gambler",  # 赌徒
-    "instructor",  # 教官
-    "martial_artist",  # 武人
-    "prayers_of_destiny",  # 祭水之人
-    "prayers_of_illumination",  # 祭火之人
-    "prayers_of_wisdom",  # 祭雷之人
-    "prayers_of_springtime",  # 祭冰之人
-    "resolution_of_sojourner",  # 行者之心
-    "scholar",  # 学士
-    "tiny_miracle",  # 奇迹
-    "adventurer",  # 冒险家
-    "lucky_dog",  # 幸运儿
-    "traveling_doctor",  # 游医
-    "tenacity_of_the_millelith",  # 千岩牢固
-    "pale_flame",  # 苍白之火
-    "reminiscence_of_shime",  # 追忆之注连
-    "seal_of_insulation",  # 绝缘之旗印
+    "优菈",
+    "埃洛伊",
+    "珊瑚宫心海",
+    "雷电将军",
+    "九条裟罗",
+    "早柚",
+    "宵宫",
+    "神里绫华",
+    "枫原万叶",
+    "托马"
 ]
 
 
-def gen_name():
+def gen_num():
+    return str(np.random.randint(0, 9999))
+
+
+def gen_artifact_name():
     return np.random.choice(sum(ArtNames, []), size=1)[0]
 
 
@@ -305,6 +191,10 @@ def gen_level():
     return ["+" + str(i) for i in np.random.randint(0, 21, size=n)][0]
 
 
+def gen_equipped():
+    return np.random.choice(Users, size=1)[0] + "已装备"
+
+
 def gen_single_sub_attr():
     sub_attr_id = np.random.choice(list(SubAttrNames.keys()), size=1)[0]
     rare_sub_attr_ranges = [
@@ -317,18 +207,49 @@ def gen_single_sub_attr():
 
 
 def gen_sub_attrs(n=1):
-    return [gen_single_sub_attr() for i in range(n)]
+    return [gen_single_sub_attr() for _ in range(n)]
 
 
-def generate_images(texts, font_size_range=(15, 40)):
-    result = []
-    for text in texts:
-        result.append(generate_image(text, font_size_range=font_size_range))
-    #     return np.array(result)
-    return result
+def generate_artifact():
+    sub_attrs_num = rd.randrange(1, 5)
+    info_train = [gen_artifact_name(), gen_type(), gen_main_attr_name(), gen_main_attr_value(),
+                  gen_level(), gen_equipped(), *gen_sub_attrs(sub_attrs_num)]
+    imgs = generate_images(info_train)
+    info = {"name": imgs[0],
+            "type": imgs[1],
+            "main_attr_name": imgs[2],
+            "main_attr_value": imgs[3],
+            "level": imgs[4],
+            "equipped": imgs[5]
+            }
+    expect_info = {"name": info_train[0],
+                   "type": info_train[1],
+                   "main_attr_name": info_train[2],
+                   "main_attr_value": info_train[3],
+                   "level": info_train[4],
+                   "equipped": info_train[5]
+                   }
+    for i in range(sub_attrs_num):
+        info[f'subattr_{i + 1}'] = imgs[i + 6]
+        expect_info[f'subattr_{i + 1}'] = info_train[i + 6]
+    return info, expect_info
 
 
-fonts = {i: ImageFont.truetype("./Tools/genshin.ttf", i) for i in range(10, 100)}
+def train_generator():
+    q = 0
+    while True:
+        q += 1
+        # gen = np.random.choice([generate_artifact, generate_material], size=1)[0]
+        info, expect_info = generate_artifact()
+        x = np.concatenate([preprocess(info[key]).T[None, :, :, None]
+                            for key in sorted(info.keys())], axis=0)
+        f = [list(expect_info[key]) for key in sorted(expect_info.keys())]
+        w = []
+        for lst in f:
+            w.append([i.encode('utf-8') for i in lst] + [b''] * (max_length - len(lst)))
+        y = char_to_num(w)
+        yield x, y
+    return
 
 
 def generate_image(text, font_size_range=(15, 40)):
@@ -350,7 +271,17 @@ def generate_image(text, font_size_range=(15, 40)):
     return img
 
 
-# 灰度
+def generate_images(texts, font_size_range=(15, 40)):
+    result = []
+    for text in texts:
+        result.append(generate_image(text, font_size_range=font_size_range))
+    #     return np.array(result)
+    return result
+
+
+fonts = {i: ImageFont.truetype("../genshin.ttf", i) for i in range(10, 100)}
+
+
 def to_gray(text_img):
     text_img = np.array(text_img)
     if len(text_img.shape) > 2:
@@ -390,6 +321,10 @@ def resize_to_height(img):
             ) / 255)
 
 
+def binarization(img, thresh=0.5):
+    return np.where((img < thresh), 0, img)
+
+
 def pad_to_width(img):
     global width
     width_ = width
@@ -403,6 +338,7 @@ def pad_to_width(img):
 def preprocess(text_img):
     result = to_gray(text_img)
     result = normalize(result, True)
+    result = binarization(result)
     result = crop(result)
     result = normalize(result, False)
     result = resize_to_height(result)
@@ -478,38 +414,6 @@ class CTCAccuracy(tf.keras.metrics.Metric):
         self.all_count = 0
 
 
-def train_generator():
-    q = 0
-    while True:
-        q += 1
-        sub_attrs_num = rd.randrange(1, 5)
-        info_train = [gen_name(), gen_type(), gen_main_attr_name(), gen_main_attr_value(),
-                      gen_level(), *gen_sub_attrs(sub_attrs_num)]
-        imgs = generate_images(info_train)
-        info = {"name": imgs[0],
-                "type": imgs[1],
-                "main_attr_name": imgs[2],
-                "main_attr_value": imgs[3],
-                "level": imgs[4],
-                }
-        expect_info = {"name": info_train[0],
-                       "type": info_train[1],
-                       "main_attr_name": info_train[2],
-                       "main_attr_value": info_train[3],
-                       "level": info_train[4]}
-        for i in range(sub_attrs_num):
-            info[f'subattr_{i + 1}'] = imgs[i + 5]
-            expect_info[f'subattr_{i + 1}'] = info_train[i + 5]
-        x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
-        f = [list(expect_info[key].ljust(15)) for key in sorted(expect_info.keys())]
-        w = []
-        for t in f:
-            w.append([i.encode('utf-8') if i != ' ' else b'' for i in t])
-        y = char_to_num(w)
-        yield x, y
-    return
-
-
 scale_ratio = 1
 characters = sorted(
     [
@@ -520,6 +424,9 @@ characters = sorted(
                 + list(MainAttrNames.values())
                 + list(SubAttrNames.values())
                 + list(".,+%0123456789")
+                + list(Users)
+                + list("已装备")
+                # + list(MaterialsNameCHS)
             )
         )
     ]
@@ -564,7 +471,6 @@ model.summary()
 
 
 # test functions
-
 class Config:
     name_coords = [33, 8, 619, 69]
     type_coords = [32, 89, 350, 134]
@@ -576,6 +482,8 @@ class Config:
     subattr_2_coords = [67, 532, 560, 572]
     subattr_3_coords = [67, 584, 560, 624]
     subattr_4_coords = [67, 636, 560, 676]
+    equipped_coords = [105, 1060, 500, 1100]
+    lock_coords = [570, 405, 620, 455]
 
 
 def extract_art_info(art_img):
@@ -588,6 +496,7 @@ def extract_art_info(art_img):
     subattr_2 = art_img.crop([i * scale_ratio for i in Config.subattr_2_coords])
     subattr_3 = art_img.crop([i * scale_ratio for i in Config.subattr_3_coords])
     subattr_4 = art_img.crop([i * scale_ratio for i in Config.subattr_4_coords])
+    equipped = art_img.crop([i * scale_ratio for i in Config.equipped_coords])
     if np.all(np.abs(np.array(subattr_1, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
         del subattr_1
         del subattr_2
@@ -610,7 +519,9 @@ def detect_info(art_img):
     x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
     y = model.predict(x)
     y = decode(y)
-    return {**{key: v for key, v in zip(sorted(info.keys()), y)}, **{'star': detect_star(art_img)}}
+    return {**{key: v for key, v in zip(sorted(info.keys()), y)},
+            **{'star': detect_star(art_img),
+               'locked': detect_lock(art_img)}}
 
 
 def detect_star(art_img):
@@ -621,10 +532,24 @@ def detect_star(art_img):
     return int(round(coef))
 
 
-filepath = "./train/weights-improvement-{epoch:02d}-{ctc_accu:.2f}.hdf5"
+def detect_lock(img) -> bool:
+    lock = img.crop([i * scale_ratio for i in Config.lock_coords])
+    result = to_gray(lock)
+    result = normalize(result, auto_inverse=False)
+    result = np.where((result < 0.5), 0, 1)
+    return np.add.reduce(np.add.reduce(result)) < 500
+
+
+filepath = "./train/artifact-weights-improvement-{epoch:02d}-{ctc_accu:.2f}.hdf5"
 checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath, monitor='ctc_accu', verbose=1, save_best_only=True,
                                                 mode='max')
-reduce = keras.callbacks.ReduceLROnPlateau(monitor='ctc_accu', factor=0.5, min_lr=1e-7, verbose=1, patience=3)
+reduce = keras.callbacks.ReduceLROnPlateau(monitor='ctc_accu', factor=0.75, min_lr=1e-7, verbose=1, patience=3)
+
 callbacks_list = [reduce, checkpoint]
 
-history = model.fit(x=train_generator(), steps_per_epoch=512, epochs=168, callbacks=callbacks_list)
+# model.fit(x=train_generator(), steps_per_epoch=8192, epochs=1)
+# model.fit(x=train_generator(), steps_per_epoch=4096, epochs=2)
+# model.fit(x=train_generator(), steps_per_epoch=2048, epochs=4)
+# model.fit(x=train_generator(), steps_per_epoch=1024, epochs=16)
+#
+# history = model.fit(x=train_generator(), steps_per_epoch=512, epochs=128, callbacks=callbacks_list)

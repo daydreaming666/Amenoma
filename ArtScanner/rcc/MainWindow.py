@@ -11,12 +11,15 @@ import sys
 import os
 from . import AmenomaRc
 
+
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
         MainWindow.resize(570, 500)
-
-        bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
+        if len(sys.argv) > 1:
+            bundle_dir = sys.argv[1]
+        else:
+            bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
         ttfPath = f"{bundle_dir}/rcc/genshin.ttf"
         QtGui.QFontDatabase.addApplicationFont(ttfPath)
 

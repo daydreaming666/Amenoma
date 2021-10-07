@@ -8,11 +8,9 @@ from PIL import Image
 import ArtsInfo
 import logging
 from tensorflow import get_logger
-from tensorflow.keras.models import Model
+import tensorflow.keras.models
 from tensorflow.keras.layers.experimental.preprocessing import StringLookup
-from tensorflow.keras.layers import Input, Reshape, Dense, Dropout, Bidirectional, LSTM
 from tensorflow.keras.backend import ctc_decode
-from mobilenetv3 import MobileNetV3_Small
 from tensorflow.strings import reduce_join
 
 get_logger().setLevel(logging.ERROR)
@@ -33,10 +31,12 @@ class Config:
     subattr_2_coords = [67, 532, 560, 572]
     subattr_3_coords = [67, 584, 560, 624]
     subattr_4_coords = [67, 636, 560, 676]
+    equipped_coords = [105, 1060, 500, 1100]
+    lock_coords = [570, 405, 620, 455]
 
 
 class OCR:
-    def __init__(self, model_weight='mn_model_weight.h5', scale_ratio=1):
+    def __init__(self, model, scale_ratio=1):
         self.scale_ratio = scale_ratio
         self.characters = sorted(
             [
@@ -47,6 +47,8 @@ class OCR:
                         + list(ArtsInfo.MainAttrNames.values())
                         + list(ArtsInfo.SubAttrNames.values())
                         + list(".,+%0123456789")
+                        + list(ArtsInfo.UsersCHS)
+                        + list("已装备")
                     )
                 )
             ]
@@ -64,8 +66,9 @@ class OCR:
         self.width = 240
         self.height = 16
         self.max_length = 15
-        self.build_model(input_shape=(self.width, self.height))
-        self.model.load_weights(model_weight)
+        self.model = tensorflow.keras.models.load_model(model)
+        # self.build_model(input_shape=(self.width, self.height))
+        # self.model.load_weights(model_weight)
 
     def setScaleRatio(self, scaleRatio):
         self.scale_ratio = scaleRatio
@@ -77,7 +80,9 @@ class OCR:
             for key in sorted(info.keys())], axis=0)
         y = self.model.predict(x)
         y = self.decode(y)
-        return {**{key: v for key, v in zip(sorted(info.keys()), y)}, **{'star': self.detect_star(art_img)}}
+        return {**{key: v for key, v in zip(sorted(info.keys()), y)},
+                **{'star': self.detect_star(art_img),
+                    'locked': self.detect_lock(art_img)}}
 
     def extract_art_info(self, art_img):
         name = art_img.crop([i * self.scale_ratio for i in Config.name_coords])
@@ -89,6 +94,7 @@ class OCR:
         subattr_2 = art_img.crop([i * self.scale_ratio for i in Config.subattr_2_coords])
         subattr_3 = art_img.crop([i * self.scale_ratio for i in Config.subattr_3_coords])
         subattr_4 = art_img.crop([i * self.scale_ratio for i in Config.subattr_4_coords])
+        equipped = art_img.crop([i * self.scale_ratio for i in Config.equipped_coords])
         if np.all(np.abs(np.array(subattr_1, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
             del subattr_1
             del subattr_2
@@ -112,6 +118,13 @@ class OCR:
         coef = coef / 1.30882352 + 0.21568627
         return int(round(coef))
 
+    def detect_lock(self, img) -> bool:
+        lock = img.crop([i * self.scale_ratio for i in Config.lock_coords])
+        result = self.to_gray(lock)
+        result = self.normalize(result, auto_inverse=False)
+        result = np.where((result < 0.5), 0, 1)
+        return bool(np.add.reduce(np.add.reduce(result)) < 500)
+
     def to_gray(self, text_img):
         text_img = np.array(text_img)
         if len(text_img.shape) > 2:
@@ -124,6 +137,9 @@ class OCR:
         if auto_inverse and img[-1, -1] > 0.5:
             img = 1 - img
         return img
+
+    def binarization(self, img, thresh=0.5):
+        return np.where((img < thresh), 0, img)
 
     def crop(self, img, tol=0.7):
         # img is 2D image data
@@ -159,6 +175,7 @@ class OCR:
     def preprocess(self, text_img):
         result = self.to_gray(text_img)
         result = self.normalize(result, True)
+        result = self.binarization(result)
         result = self.crop(result)
         result = self.normalize(result, False)
         result = self.resize_to_height(result)
@@ -179,26 +196,25 @@ class OCR:
             output_text.append(res)
         return output_text
 
-    def build_model(self, input_shape):
-        input_img = Input(
-            shape=(input_shape[0], input_shape[1], 1), name="image", dtype="float32"
-        )
-        mobilenet = MobileNetV3_Small(
-            (input_shape[0], input_shape[1], 1), 0, alpha=1.0, include_top=False
-        ).build()
-        x = mobilenet(input_img)
-        new_shape = ((input_shape[0] // 8), (input_shape[1] // 8) * 576)
-        x = Reshape(target_shape=new_shape, name="reshape")(x)
-        x = Dense(64, activation="relu", name="dense1")(x)
-        x = Dropout(0.2)(x)
-
-        # RNNs
-        x = Bidirectional(LSTM(128, return_sequences=True, dropout=0.25))(x)
-        x = Bidirectional(LSTM(64, return_sequences=True, dropout=0.25))(x)
-
-        # Output layer
-        output = Dense(len(self.characters) + 2, activation="softmax", name="dense2")(x)
-
-        # Define the model
-        self.model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
-
+    # def build_model(self, input_shape):
+    #     input_img = Input(
+    #         shape=(input_shape[0], input_shape[1], 1), name="image", dtype="float32"
+    #     )
+    #     mobilenet = MobileNetV3_Small(
+    #         (input_shape[0], input_shape[1], 1), 0, alpha=1.0, include_top=False
+    #     ).build()
+    #     x = mobilenet(input_img)
+    #     new_shape = ((input_shape[0] // 8), (input_shape[1] // 8) * 576)
+    #     x = Reshape(target_shape=new_shape, name="reshape")(x)
+    #     x = Dense(64, activation="relu", name="dense1")(x)
+    #     x = Dropout(0.2)(x)
+    #
+    #     # RNNs
+    #     x = Bidirectional(LSTM(128, return_sequences=True, dropout=0.25))(x)
+    #     x = Bidirectional(LSTM(64, return_sequences=True, dropout=0.25))(x)
+    #
+    #     # Output layer
+    #     output = Dense(len(self.characters) + 2, activation="softmax", name="dense2")(x)
+    #
+    #     # Define the model
+    #     self.model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")

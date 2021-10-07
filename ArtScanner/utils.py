@@ -108,9 +108,9 @@ def name_auto_correct(name: str) -> str:
     if dis == 0:
         pass
     elif dis <= (len(name) // 3):
-        logger.info(f"Corrected attribute from [{name}] to [{corr_name}] with distance {dis}")
+        logger.info(f"Corrected name from [{name}] to [{corr_name}] with distance {dis}")
     else:
-        logger.warning(f"Corrected attribute from [{name}] to [{corr_name}] with distance {dis}")
+        logger.warning(f"Corrected name from [{name}] to [{corr_name}] with distance {dis}")
     return corr_name
 
 
@@ -143,7 +143,83 @@ def name_auto_correct_EN(name: str) -> str:
     if dis == 0:
         pass
     elif dis <= (len(name) // 3):
-        logger.info(f"Corrected attribute from [{name}] to [{corr_name}] with distance {dis}")
+        logger.info(f"Corrected name from [{name}] to [{corr_name}] with distance {dis}")
     else:
-        logger.warning(f"Corrected attribute from [{name}] to [{corr_name}] with distance {dis}")
+        logger.warning(f"Corrected name from [{name}] to [{corr_name}] with distance {dis}")
+    return corr_name
+
+
+def type_auto_correct(name: str) -> str:
+    corr_name = ""
+    dis = 10000000
+    for tname in ArtsInfo.TypeNames:
+        ndis = Levenshtein.distance(name, tname)
+        if ndis < dis:
+            corr_name = tname
+            dis = ndis
+    if dis == 0:
+        pass
+    elif dis <= (len(name) // 3):
+        logger.info(f"Corrected type from [{name}] to [{corr_name}] with distance {dis}")
+    else:
+        logger.warning(f"Corrected type from [{name}] to [{corr_name}] with distance {dis}")
+    return corr_name
+
+
+def type_auto_correct_EN(name: str) -> str:
+    corr_name = ""
+    dis = 10000000
+    for tname in ArtsInfo.TypeNames_EN:
+        ndis = Levenshtein.distance(name, tname)
+        if ndis < dis:
+            corr_name = tname
+            dis = ndis
+    if dis == 0:
+        pass
+    elif dis <= (len(name) // 3):
+        logger.info(f"Corrected type from [{name}] to [{corr_name}] with distance {dis}")
+    else:
+        logger.warning(f"Corrected type from [{name}] to [{corr_name}] with distance {dis}")
+    return corr_name
+
+
+def equipped_auto_correct(name: str) -> str:
+    if Levenshtein.distance(name[-3:], "已装备") > 1:
+        return ""
+    corr_name = ""
+    dis = 10000000
+    for tname in ArtsInfo.UsersCHS:
+        ndis = Levenshtein.distance(name[:-3], tname)
+        if ndis < dis:
+            corr_name = tname
+            dis = ndis
+    if dis == 0:
+        pass
+    elif dis <= (len(name) // 3):
+        logger.info(f"Corrected character from [{name}] to [{corr_name}] with distance {dis}")
+    else:
+        corr_name = "Traveler"
+        logger.warning(f"Failed to recognize [{name}]. Used [Traveler]")
+    return corr_name
+
+
+def equipped_auto_correct_EN(name: str) -> str:
+    if len(name) < 10:
+        return ""
+    if Levenshtein.distance(name[:10], "Equipped: ") > 4:
+        return ""
+    corr_name = ""
+    dis = 10000000
+    for tname in ArtsInfo.UsersEN:
+        ndis = Levenshtein.distance(name[10:], tname)
+        if ndis < dis:
+            corr_name = tname
+            dis = ndis
+    if dis == 0:
+        pass
+    elif dis <= (len(name) // 3):
+        logger.info(f"Corrected character from [{name}] to [{corr_name}] with distance {dis}")
+    else:
+        corr_name = "Traveler"
+        logger.warning(f"Failed to recognize [{name}]. Used [Traveler]")
     return corr_name

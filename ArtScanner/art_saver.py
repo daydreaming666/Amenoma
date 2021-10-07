@@ -120,6 +120,10 @@ class Artifact(persistent.Persistent):
         self.type = ArtifactType(typeid)
         self.level = utils.decodeValue(info['level'])
         self.rarity = info['star']
+        self.locked = info['locked']
+        self.equipped = (info['equipped']
+                         if (info['equipped'] == "" or info['equipped'] == 'Traveler')
+                         else ArtsInfo.UsersCHS[info['equipped']])
         self.stat = ArtifactStat(
             info['main_attr_name'], info['main_attr_value'],
             rarity=self.rarity, level=self.level, isMain=True)
@@ -199,6 +203,7 @@ class ArtDatabase:
             transaction.commit()
             return True
         except Exception as e:
+            utils.logger.exception(e)
             if raise_error:
                 raise
             return False
@@ -221,12 +226,12 @@ class ArtDatabase:
                     "level":       art.level,
                     "rarity":      art.rarity if 3 <= art.rarity <= 5 else 0,
                     "mainStatKey": ArtsInfo.AttrNamesGOOD[art.stat.type.name],
-                    "location":    "",      # not scanned yet
-                    "lock":        False,   # not scanned yet
+                    "location":    art.equipped,
+                    "lock":        art.locked,
                     "substats": [
                         {
                             "key":   ArtsInfo.AttrNamesGOOD[substat.type.name],
-                            "value": substat.value * 100
+                            "value": round(substat.value * 100, 1)
                             if ArtsInfo.AttrNamesGOOD[substat.type.name].endswith("_")
                             else substat.value,
                         }
