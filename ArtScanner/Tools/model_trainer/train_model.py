@@ -529,7 +529,7 @@ def detect_star(art_img):
     cropped_star = crop(normalize(to_gray(star)))
     coef = cropped_star.shape[1] / cropped_star.shape[0]
     coef = coef / 1.30882352 + 0.21568627
-    return int(round(coef))
+    return round(coef)
 
 
 def detect_lock(img) -> bool:
