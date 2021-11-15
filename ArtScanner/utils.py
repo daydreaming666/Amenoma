@@ -9,6 +9,7 @@ from mss import mss
 import Levenshtein
 import ArtsInfo
 import logging
+import MaterialInfo
 
 logger = logging.getLogger()
 logHandler = logging.FileHandler("./Amenoma.log", encoding='utf-8')
@@ -82,6 +83,8 @@ def decodeValue(v):
 def attr_auto_correct(attr: str) -> str:
     corr_name = ''
     dis = 10000000
+    if attr in ArtsInfo.MainAttrNames.values():
+        return attr
     for n in ArtsInfo.MainAttrNames.values():
         ndis = Levenshtein.distance(attr, n)
         if ndis < dis:
@@ -99,6 +102,8 @@ def attr_auto_correct(attr: str) -> str:
 def name_auto_correct(name: str) -> str:
     corr_name = ""
     dis = 10000000
+    if name in ArtsInfo.ArtNames:
+        return name
     for arts in ArtsInfo.ArtNames:
         for rname in arts:
             ndis = Levenshtein.distance(name, rname)
@@ -117,6 +122,8 @@ def name_auto_correct(name: str) -> str:
 def attr_auto_correct_EN(attr: str) -> str:
     corr_name = ''
     dis = 10000000
+    if attr in ArtsInfo.MainAttrNames_EN.values():
+        return attr
     for n in ArtsInfo.MainAttrNames_EN.values():
         ndis = Levenshtein.distance(attr, n)
         if ndis < dis:
@@ -152,6 +159,8 @@ def name_auto_correct_EN(name: str) -> str:
 def type_auto_correct(name: str) -> str:
     corr_name = ""
     dis = 10000000
+    if name in ArtsInfo.TypeNames:
+        return name
     for tname in ArtsInfo.TypeNames:
         ndis = Levenshtein.distance(name, tname)
         if ndis < dis:
@@ -169,6 +178,8 @@ def type_auto_correct(name: str) -> str:
 def type_auto_correct_EN(name: str) -> str:
     corr_name = ""
     dis = 10000000
+    if name in ArtsInfo.TypeNames_EN:
+        return name
     for tname in ArtsInfo.TypeNames_EN:
         ndis = Levenshtein.distance(name, tname)
         if ndis < dis:
@@ -188,6 +199,8 @@ def equipped_auto_correct(name: str) -> str:
         return ""
     corr_name = ""
     dis = 10000000
+    if name[:-3] in ArtsInfo.UsersCHS:
+        return name[:-3]
     for tname in ArtsInfo.UsersCHS:
         ndis = Levenshtein.distance(name[:-3], tname)
         if ndis < dis:
@@ -210,6 +223,8 @@ def equipped_auto_correct_EN(name: str) -> str:
         return ""
     corr_name = ""
     dis = 10000000
+    if name[10:] in ArtsInfo.UsersEN:
+        return name[10:]
     for tname in ArtsInfo.UsersEN:
         ndis = Levenshtein.distance(name[10:], tname)
         if ndis < dis:
@@ -222,4 +237,23 @@ def equipped_auto_correct_EN(name: str) -> str:
     else:
         corr_name = "Traveler"
         logger.warning(f"Failed to recognize [{name}]. Used [Traveler]")
+    return corr_name
+
+
+def material_name_auto_correct(name: str) -> str:
+    corr_name = ""
+    dis = 10000000
+    if name in MaterialInfo.MaterialsNameCHS:
+        return name
+    for item in MaterialInfo.MaterialsNameCHS:
+        ndis = Levenshtein.distance(name, item)
+        if ndis < dis:
+            corr_name = item
+            dis = ndis
+    if dis == 0:
+        pass
+    elif dis <= (len(name) // 3):
+        logger.info(f"Corrected material name from [{name}] to [{corr_name}] with distance {dis}")
+    else:
+        logger.warning(f"Corrected material  name from [{name}] to [{corr_name}] with distance {dis}")
     return corr_name

@@ -14,9 +14,12 @@ from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog, QWidget, QCheck
 
 import ArtsInfo
 import ocr
+import ocr_m
 import utils
 from art_saver import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
+from material_saver import MaterialDatabase
+from material_scanner_logic import MaterialScannerLogic
 from rcc import About_Dialog
 from rcc import ExtraSettings_Dialog
 from rcc import Help_Dialog
@@ -125,8 +128,10 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog.Ui_Dialog):
 
 
 class UIMain(QMainWindow, Ui_MainWindow):
-    startScanSignal = pyqtSignal(dict)
-    initializeSignal = pyqtSignal()
+    startScanArtSignal = pyqtSignal(dict)
+    startScanMaterialSignal = pyqtSignal(dict)
+    initializeArtSignal = pyqtSignal()
+    initializeMaterialSignal = pyqtSignal()
     detectGameInfoSignal = pyqtSignal(bool)
     setWindowNameSignal = pyqtSignal(str)
 
@@ -151,17 +156,25 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
         self.logger = utils.logger
 
-        # 连接按钮
+        self._isArtScannerInitialized = False
+        self._isMaterialScannerInitialized = False
+
+        # connect the buttons
+        # tab 1
         self.pushButton.clicked.connect(self.startScan)
         self.pushButton_2.clicked.connect(self.captureWindow)
-        self.pushButton_3.clicked.connect(self.showHelpDlg)
-        self.pushButton_4.clicked.connect(self.showExportedFile)
         self.pushButton_5.clicked.connect(self.showExtraSettings)
-        self.pushButton_6.clicked.connect(self.showAboutDlg)
-
         self.radioButton.clicked.connect(self.selectedMona)
         self.radioButton_2.clicked.connect(self.selectedGenmo)
         self.radioButton_3.clicked.connect(self.selectedGOOD)
+        # bottom
+        self.pushButton_3.clicked.connect(self.showHelpDlg)
+        self.pushButton_4.clicked.connect(self.showExportedFile)
+        self.pushButton_6.clicked.connect(self.showAboutDlg)
+        # tab 2
+        self.pushButton_7.clicked.connect(self.captureWindow)
+        self.pushButton_8.clicked.connect(self.startScanMaterial)
+        self.tabWidget.currentChanged.connect(self.handleTabChanged)
 
         # 创建工作线程
         self.worker = Worker()
@@ -176,9 +189,11 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.worker.endScan.connect(self.endScan)
         self.worker.showInputWindow.connect(self.showInputWindowName)
 
-        self.initializeSignal.connect(self.worker.initEngine)
+        self.initializeArtSignal.connect(self.worker.initArtEngine)
+        self.initializeMaterialSignal.connect(self.worker.initMaterialEngine)
         self.detectGameInfoSignal.connect(self.worker.detectGameInfo)
-        self.startScanSignal.connect(self.worker.scanArts)
+        self.startScanArtSignal.connect(self.worker.scanArts)
+        self.startScanMaterialSignal.connect(self.worker.scanMaterials)
         self.setWindowNameSignal.connect(self.worker.setWindowName)
 
         self.workerThread.start()
@@ -188,23 +203,45 @@ class UIMain(QMainWindow, Ui_MainWindow):
     # 通知工作线程进行初始化
     def initialize(self):
         self.logger.info("Worker thread initializing.")
+        # tab 1
         self.pushButton.setEnabled(False)
         self.pushButton_2.setEnabled(False)
-        self.initializeSignal.emit()
+        self.pushButton_5.setEnabled(False)
+        # tab 2
+        self.pushButton_7.setEnabled(False)
+        self.pushButton_8.setEnabled(False)
+        self.initializeArtSignal.emit()
 
-    @pyqtSlot()
-    def endInit(self):
+    @pyqtSlot(int)
+    def handleTabChanged(self, index: int):
+        if index == 1 and not self._isMaterialScannerInitialized:
+            self.initializeMaterialSignal.emit()
+        self.logger.info(f"switched to [{self.tabWidget.tabText(index)}]")
+
+    @pyqtSlot(int)
+    def endInit(self, type_: int):
+        if type_ == 1:
+            self._isArtScannerInitialized = True
+        elif type_ == 2:
+            self._isMaterialScannerInitialized = True
+        # tab 1
         self.pushButton.setEnabled(True)
         self.pushButton_2.setEnabled(True)
+        self.pushButton_5.setEnabled(True)
+        # tab 2
+        self.pushButton_7.setEnabled(True)
+        self.pushButton_8.setEnabled(True)
 
     @pyqtSlot()
     def onWorking(self):
         self.label.setMovie(self.gif)
+        self.label_6.setMovie(self.gif)
         self.gif.start()
 
     @pyqtSlot()
     def endWorking(self):
         self.label.setPixmap(self.picOk)
+        self.label_6.setPixmap(self.picOk)
 
     @pyqtSlot()
     def showHelpDlg(self):
@@ -312,27 +349,49 @@ class UIMain(QMainWindow, Ui_MainWindow):
                          2 if self.radioButton_3.isChecked() else -1),
             "ExtraSettings": self._settings
         }
-        self.logger.info(f"Start scan with settings. {info}")
+        self.logger.info(f"Start scan Artifacts. {info=}")
 
         self.setUIEnabled(False)
 
-        self.startScanSignal.emit(info)
+        self.startScanArtSignal.emit(info)
+
+    @pyqtSlot()
+    def startScanMaterial(self):
+        info = {
+            "options": [
+                self.checkBox_6.isChecked(),
+                self.checkBox_7.isChecked(),
+            ],
+            "delay": self.doubleSpinBox_2.value(),
+            "exporter": (0 if self.radioButton_4.isChecked() else -1),
+            "ExtraSettings": self._settings
+        }
+        self.logger.info(f"Start scan Materials. {info=}")
+        self.setUIEnabled(False)
+
+        self.startScanMaterialSignal.emit(info)
 
     def setUIEnabled(self, e: bool):
         self.pushButton.setEnabled(e)
+        self.pushButton_8.setEnabled(e)
+
         self.checkBox.setEnabled(e)
         self.checkBox_2.setEnabled(e)
         self.checkBox_3.setEnabled(e)
         self.checkBox_4.setEnabled(e)
         self.checkBox_5.setEnabled(e)
+        self.checkBox_6.setEnabled(e)
+        self.checkBox_7.setEnabled(e)
 
         self.spinBox.setEnabled(e)
         self.spinBox_2.setEnabled(e)
         self.doubleSpinBox.setEnabled(e)
+        self.doubleSpinBox_2.setEnabled(e)
 
         self.radioButton.setEnabled(e)
         self.radioButton_2.setEnabled(e)
         self.radioButton_3.setEnabled(e)
+        self.radioButton_4.setEnabled(e)
 
     @pyqtSlot(str)
     def endScan(self, filename: str):
@@ -359,7 +418,7 @@ class Worker(QObject):
     printErr = pyqtSignal(str)
     working = pyqtSignal()
     endWorking = pyqtSignal()
-    endInit = pyqtSignal()
+    endInit = pyqtSignal(int)
     endScan = pyqtSignal(str)
     showInputWindow = pyqtSignal(str, bool)
 
@@ -379,6 +438,9 @@ class Worker(QObject):
         self.model = None
         self.bundle_dir = None
 
+        # in initMaterialEngine
+        self.model_m = None
+
         # init in scanArts
         self.art_id = 0
         self.saved = 0
@@ -388,8 +450,14 @@ class Worker(QObject):
         self.star_dist_saved = [0, 0, 0, 0, 0]
         self.detectSettings = None
 
+        # init in scanMaterials
+        self.material_id = 0
+        self.saved_material = 0
+        self.skipped_material = 0
+        self.failed_material = 0
+
     @pyqtSlot()
-    def initEngine(self):
+    def initArtEngine(self):
         self.working.emit()
 
         # yield the thread
@@ -426,13 +494,43 @@ class Worker(QObject):
         if self.isWindowCaptured:
             self.log('窗口已捕获，请检查行列数正确后开始扫描')
             self.log(f'行: {self.game_info.art_rows} , 列: {self.game_info.art_cols}')
-            self.log('错误请更换分辨率后重试')
+            self.log('错误请重启游戏后重试')
         else:
             self.error('窗口未捕获，请在重新捕获窗口后开始扫描')
 
         self.log('开始扫描前请打开背包 - 圣遗物，并翻页至顶部')
         self.endWorking.emit()
-        self.endInit.emit()
+        self.endInit.emit(1)
+
+    @pyqtSlot()
+    def initMaterialEngine(self):
+        self.working.emit()
+
+        # yield the thread
+        time.sleep(0.5)
+        self.log('初始化中，请稍候...')
+
+        # 创建文件夹
+        os.makedirs('materials', exist_ok=True)
+
+        self.log('初始化材料 OCR 模型...')
+        if len(sys.argv) > 1:
+            self.bundle_dir = sys.argv[1]
+        else:
+            self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
+        self.model_m = ocr_m.OCR(model=os.path.join(self.bundle_dir, 'savedmodel_m.h5'))
+
+        self.log('初始化完成')
+        if self.isWindowCaptured:
+            self.log('窗口已捕获，请检查行列数正确后开始扫描')
+            self.log(f'行: {self.game_info.art_rows} , 列: {self.game_info.art_cols}')
+            self.log('错误请重启游戏后重试')
+        else:
+            self.error('窗口未捕获，请在重新捕获窗口后开始扫描')
+
+        self.log('开始扫描前请打开背包，并翻页至顶部')
+        self.endWorking.emit()
+        self.endInit.emit(2)
 
     # 捕获窗口与计算边界
     @pyqtSlot(bool)
@@ -485,6 +583,162 @@ class Worker(QObject):
             self.isWindowCaptured = False
             self.showInputWindow.emit(self.windowName, True)
         return hwnd
+
+    @pyqtSlot(dict)
+    def scanMaterials(self, info: dict):
+        self.working.emit()
+        if not self.isWindowCaptured:
+            self.error('窗口未捕获，请重新捕获窗口')
+            self.endScan.emit('')
+            self.endWorking.emit()
+            return
+
+        self.model_m.setScaleRatio(self.game_info.scale_ratio)
+        self.detectSettings = info
+        materialsDB = MaterialDatabase()
+        materialScanner = MaterialScannerLogic(self.game_info)
+        exporter = [materialsDB.exportGOODJSON]
+        export_name = ['materials.GOOD.json']
+
+        mouse.on_middle_click(materialScanner.interrupt)
+
+        self.log('3 秒后将开始扫描...')
+        time.sleep(1)
+        utils.setWindowToForeground(self.game_info.hwnd)
+
+        self.log('3...')
+        time.sleep(1)
+        self.log('2...')
+        time.sleep(1)
+        self.log('1...')
+        time.sleep(1)
+
+        self.log('自动对齐中...')
+        materialScanner.alignFirstRow()
+        self.log('对齐完成，即将开始扫描')
+        time.sleep(0.5)
+
+        start_row = 0
+        self.material_id = 0
+        self.saved_material = 0
+        self.skipped_material = 0
+        self.failed_material = 0
+
+        def autoCorrect(detected_info):
+            detected_info['name'] = utils.material_name_auto_correct(detected_info['name'])
+
+        def materialFilter(detected_info, detail_img, item_img):
+            """
+            0 - init value
+            1 - skipped
+            2 - saved
+            3 - failed
+            """
+            status = 0
+
+            try:
+                autoCorrect(detected_info)
+                self.log(f"识别到 [{detected_info['name']}]")
+                detected_info['amount'] = utils.decodeValue(detected_info['amount'])
+            except Exception as v:
+                self.error("数值处理失败")
+                self.logger.warning(f"[DecodeValue] error occurred")
+                self.logger.exception(v)
+                self.failed_material += 1
+                status = 3
+
+            if status != 0:
+                pass
+            elif materialsDB.add(detected_info, detail_img, item_img):
+                self.log("已保存")
+                self.logger.info(f"[MaterialDB] Scanned a Material."
+                                 f" id: {self.material_id + 1} detected info: {detected_info}")
+                self.saved_material += 1
+                status = 2
+            else:
+                self.error("数值验证失败")
+                self.logger.warning(f"[MaterialDB] Failed to scan a Material."
+                                    f" id: {self.material_id + 1} detected info: {detected_info}")
+                status = 3
+                self.failed_material += 1
+            self.material_id += 1
+            saveImg(detected_info, detail_img, item_img, status)
+
+        def saveImg(detected_info, detail_img, item_img, status):
+            if self.detectSettings['ExtraSettings']['ExportAllImages']:
+                if status == 3:
+                    detail_img.save(f'materials/fail_{self.material_id}.png')
+                    item_img.save(f'materials/item_fail_{self.material_id}.png')
+                    s = json.dumps(detected_info, ensure_ascii=False)
+                    with open(f"materials/fail_{self.material_id}.json", "wb") as f:
+                        f.write(s.encode('utf-8'))
+                else:
+                    detail_img.save(f'materials/{self.material_id}.png')
+                    item_img.save(f'materials/item_{self.material_id}.png')
+                    s = json.dumps(detected_info, ensure_ascii=False)
+                    with open(f"materials/{self.material_id}.json", "wb") as f:
+                        f.write(s.encode('utf-8'))
+            else:
+                # export only failed
+                if status == 3:
+                    detail_img.save(f'materials/fail_{self.material_id}.png')
+                    item_img.save(f'materials/item_fail_{self.material_id}.png')
+                    s = json.dumps(detected_info, ensure_ascii=False)
+                    with open(f"materials/fail_{self.material_id}.json", "wb") as f:
+                        f.write(s.encode('utf-8'))
+
+        def material_callback(detail_img, item_img):
+            detectedInfo = self.model_m.detect_info(detail_img, item_img)
+            materialFilter(detectedInfo, detail_img, item_img)
+            if not self.material_id % 7:
+                self.log(f"扫描: {self.material_id}")
+                self.log(f"  - 保存: {self.saved_material}")
+                self.log(f"  - 失败: {self.failed_material}")
+                self.log(f"  - 跳过: {self.skipped_material}")
+
+        try:
+            while True:
+                end_row = (self.game_info.art_rows - 1
+                           if start_row < self.game_info.art_rows - 1
+                           else self.game_info.art_rows)
+                if materialScanner.scanner.stopped:
+                    break
+                if not materialScanner.scanRows(rows=range(start_row, end_row),
+                                                callback=material_callback):
+                    break
+                if start_row != 0:
+                    break
+                start_row = (self.game_info.art_rows - 1 -
+                             materialScanner.scrollToRow(
+                                 self.game_info.art_rows,
+                                 max_scrolls=20,
+                                 extra_scroll=int(self.game_info.art_rows > 5),
+                                 interval=self.detectSettings['delay']))
+            if materialScanner.scanner.stopped:
+                self.log('扫描已中断')
+            else:
+                self.log('扫描已完成')
+        except Exception as e:
+            self.logger.exception(e)
+            self.error(repr(e))
+            self.log('扫描出错，已停止')
+
+        if self.saved_material != 0:
+            if info['ExtraSettings']['ExportAllFormats']:
+                # export all formats
+                list(map(lambda exp, name: exp(name), exporter, export_name))
+            else:
+                self.log(f"导出文件: {export_name[info['exporter']]}")
+                exporter[info['exporter']](export_name[info['exporter']])
+        self.log(f"扫描: {self.material_id}")
+        self.log(f"  - 保存: {self.saved_material}")
+        self.log(f"  - 失败: {self.failed_material}")
+        self.log(f"  - 跳过: {self.skipped_material}")
+        self.log('失败结果将存储至 material 文件夹')
+
+        del materialsDB
+        self.endScan.emit(export_name[info['exporter']])
+        self.endWorking.emit()
 
     @pyqtSlot(dict)
     def scanArts(self, info: dict):
@@ -552,10 +806,12 @@ class Worker(QObject):
                     detected_info[tag] = utils.attr_auto_correct(info_[0]) + "+" + info_[1]
 
         def artFilter(detected_info, art_img):
-            # 0 - init value
-            # 1 - skipped
-            # 2 - saved
-            # 3 - failed
+            """
+            0 - init value
+            1 - skipped
+            2 - saved
+            3 - failed
+            """
             status = 0
 
             self.star_dist[detected_info['star'] - 1] += 1
@@ -697,4 +953,5 @@ if __name__ == '__main__':
     except Exception as excp:
         utils.logger.exception(excp)
         win32api.ShellExecute(0, 'open', 'cmd.exe',
-                              r'/c echo Unhandled exception occurred. Please contact with the author. && pause', None, 1)
+                              r'/c echo Unhandled exception occurred. Please contact with the author. && pause',
+                              None, 1)

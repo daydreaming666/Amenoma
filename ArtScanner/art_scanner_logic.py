@@ -15,6 +15,7 @@ class GameInfo:
         self.w, self.h = win32gui.GetClientRect(self.hwnd)[2:]
         self.left, self.top = win32gui.ClientToScreen(self.hwnd, (0, 0))
 
+
     def calculateCoordinates(self):
         self.scale_ratio = min(self.w / 2560, self.h / 1440)
 
@@ -33,10 +34,11 @@ class GameInfo:
         self.info_margin = 0 if self.w < 2 * self.h else 96 * self.scale_ratio
 
         self.art_cols = int(math.floor(
-            (self.w - self.left_margin - self.right_margin + self.art_gap_x) / (self.art_width + self.art_gap_x)))
+            (self.w - self.left_margin - self.right_margin + self.art_gap_x) /
+            (self.art_width + self.art_gap_x)))
 
-        self.art_shift = ((self.w - self.left_margin - self.right_margin + self.art_gap_x) - self.art_cols * (
-                self.art_width + self.art_gap_x)) / 2
+        self.art_shift = ((self.w - self.left_margin - self.right_margin + self.art_gap_x)
+                          - self.art_cols * (self.art_width + self.art_gap_x)) / 2
 
         self.first_art_x = self.left_margin + self.art_shift
         self.first_art_y = 161 * self.scale_ratio
@@ -48,15 +50,19 @@ class GameInfo:
         self.scroll_fin_keypt_x = self.left_margin + self.art_shift + 10 * self.scale_ratio
         self.scroll_fin_keypt_y = 335 * self.scale_ratio
 
-        self.art_rows = round((1270 * self.scale_ratio + self.h - 1440 * self.scale_ratio - self.first_art_y + self.art_gap_y) / (
-                    self.art_height + self.art_gap_y))
-        self.incomplete_lastrow = ((
-                                               1270 * self.scale_ratio + self.h - 1440 * self.scale_ratio - self.first_art_y + self.art_gap_y) / (
-                                           self.art_height + self.art_gap_y) - self.art_rows + 1) < 0.7
+        self.art_rows = round((1270 * self.scale_ratio + self.h - 1440 * self.scale_ratio
+                               - self.first_art_y + self.art_gap_y) /
+                              (self.art_height + self.art_gap_y))
+        self.incomplete_lastrow = ((1270 * self.scale_ratio + self.h
+                                    - 1440 * self.scale_ratio
+                                    - self.first_art_y + self.art_gap_y) /
+                                   (self.art_height + self.art_gap_y) - self.art_rows + 1) < 0.7
+
+        self.lastrow_offset = 34.5 * self.scale_ratio
 
 
 class ArtScannerLogic:
-    def __init__(self, game_info):
+    def __init__(self, game_info: GameInfo):
         self.game_info = game_info
         self.stopped = False
         self.avg_response_time = 1 / 60

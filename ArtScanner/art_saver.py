@@ -13,6 +13,7 @@ from utils import logger
 
 bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
 
+
 class ArtifactType(Enum):
     FLOWER = 0
     PLUME = 1
@@ -101,17 +102,17 @@ class Artifact(persistent.Persistent):
         range(21)} for k in ArtsInfo.MainAttrNames.keys()}
 
     def __init__(self, info, image):
-        '''
+        """
             info: dict with keys:
                 'name': str, name of artifact
-                'type': str, type of artifact 
+                'type': str, type of artifact
                 'level': str/int, upgraded level of artifact, example: '+0', '0', 1
                 'star': int, rarity, 1-5
                 'main_attr_name': str, name of main stat
                 'main_attr_value': str/int/float, main stat value, example: '38.5%', '4,760', 144
                 'subattr_{i}': str, substat description, i could be 1-4, example: '暴击率+3.5%', '攻击力+130'
             image: PIL.Image, screenshot of the artifact, will be shrinked to 300x512 to save space
-        '''
+        """
 
         self.name = info['name']
 
@@ -221,16 +222,16 @@ class ArtDatabase:
             art: Artifact = self.root[str(art_id)]
             result['artifacts'].append(
                 {
-                    "setKey":      ArtsInfo.SetNamesGOOD[art.setid],
-                    "slotKey":     ArtsInfo.TypeNamesGOOD[art.type],
-                    "level":       art.level,
-                    "rarity":      art.rarity if 3 <= art.rarity <= 5 else 0,
+                    "setKey": ArtsInfo.SetNamesGOOD[art.setid],
+                    "slotKey": ArtsInfo.TypeNamesGOOD[art.type],
+                    "level": art.level,
+                    "rarity": art.rarity if 3 <= art.rarity <= 5 else 0,
                     "mainStatKey": ArtsInfo.AttrNamesGOOD[art.stat.type.name],
-                    "location":    art.equipped,
-                    "lock":        art.locked,
+                    "location": art.equipped,
+                    "lock": art.locked,
                     "substats": [
                         {
-                            "key":   ArtsInfo.AttrNamesGOOD[substat.type.name],
+                            "key": ArtsInfo.AttrNamesGOOD[substat.type.name],
                             "value": round(substat.value * 100, 1)
                             if ArtsInfo.AttrNamesGOOD[substat.type.name].endswith("_")
                             else substat.value,
