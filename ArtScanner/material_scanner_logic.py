@@ -21,6 +21,11 @@ class MaterialScannerLogic:
     def getItemCenter(self, row: int, col: int):
         return self.scanner.getArtCenter(row, col)
 
+
+    def scanMora(self):
+        """scan Mora and Primogems"""
+        pass
+
     def clickCDIButton(self):
         """click Character Development Items button"""
         mouse.move(*self.scanner.game_info.cdi_button)

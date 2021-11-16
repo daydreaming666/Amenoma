@@ -751,6 +751,8 @@ class Worker(QObject):
             materialScanner.clickMaterialButton()
             scan_materials("材料")
 
+
+
         if self.saved_material != 0:
             if info['ExtraSettings']['ExportAllFormats']:
                 # export all formats

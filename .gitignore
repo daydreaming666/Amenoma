@@ -13,8 +13,8 @@ ArtScanner/artifacts/**
 .vscode/**
 /ArtScanner/artifacts/
 /ArtScanner/.ipynb_checkpoints/
-/ArtScanner/Tools/model_trainer/.ipynb_checkpoints/
-/ArtScanner/Tools/model_trainer/train/
+/model_trainer/.ipynb_checkpoints/
+/model_trainer/train/
 .idea/**
 /AmenomaDevDocs/examples/artifacts.GOOD.json
 /ArtScanner/Amenoma.log
