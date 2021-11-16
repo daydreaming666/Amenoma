@@ -59,6 +59,12 @@ class GameInfo:
                                    (self.art_height + self.art_gap_y) - self.art_rows + 1) < 0.7
 
         self.lastrow_offset = 34.5 * self.scale_ratio
+        # Character Development Item
+        self.cdi_button = (self.left + 1025 * self.scale_ratio,
+                           self.top + 70 * self.scale_ratio)
+        # Materials
+        self.m_button = (self.left + 1270 * self.scale_ratio,
+                           self.top + 70 * self.scale_ratio)
 
 
 class ArtScannerLogic:

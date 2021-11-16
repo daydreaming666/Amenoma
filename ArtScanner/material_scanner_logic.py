@@ -1,4 +1,7 @@
+import time
+
 import art_scanner_logic
+import mouse
 from utils import captureWindow
 from typing import Tuple
 
@@ -17,6 +20,18 @@ class MaterialScannerLogic:
 
     def getItemCenter(self, row: int, col: int):
         return self.scanner.getArtCenter(row, col)
+
+    def clickCDIButton(self):
+        """click Character Development Items button"""
+        mouse.move(*self.scanner.game_info.cdi_button)
+        mouse.click()
+        time.sleep(0.5)
+
+    def clickMaterialButton(self):
+        """click Material button"""
+        mouse.move(*self.scanner.game_info.m_button)
+        mouse.click()
+        time.sleep(0.5)
 
     def scanRows(self, rows, callback) -> bool:
         def getItemCoord(row: int, col: int, lastrow=False) -> Tuple[int, int, int, int]:
@@ -39,10 +54,8 @@ class MaterialScannerLogic:
 
             return x1, y1, x2, y2
 
-        if rows[0] == 0:
-            last_row = -1
-        else:
-            last_row = rows[-1]
+        last_row = rows[0] != 0
+
         for art_row in rows:
             for art_col in range(self.scanner.game_info.art_cols):
                 if self.scanner.stopped:
@@ -59,7 +72,7 @@ class MaterialScannerLogic:
                     self.scanner.game_info.art_info_top + self.scanner.game_info.art_info_height))
                 item_img = captureWindow(self.scanner.game_info.hwnd,
                                          getItemCoord(art_row, art_col,
-                                                      art_row == last_row))
+                                                      last_row))
                 callback(detail_img, item_img)
         return True
 

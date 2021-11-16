@@ -10,7 +10,8 @@ import win32gui
 from PyQt5.QtCore import (pyqtSignal, pyqtSlot, QObject, QThread,
                           QMutex, QWaitCondition, Qt)
 from PyQt5.QtGui import (QMovie, QPixmap)
-from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog, QWidget, QCheckBox, QHBoxLayout)
+from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog,
+                             QWidget, QCheckBox, QHBoxLayout, QMessageBox)
 
 import ArtsInfo
 import ocr
@@ -175,6 +176,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.pushButton_7.clicked.connect(self.captureWindow)
         self.pushButton_8.clicked.connect(self.startScanMaterial)
         self.tabWidget.currentChanged.connect(self.handleTabChanged)
+        self.checkBox_6.stateChanged.connect(self.handleScanOptions1Checked)
+        self.checkBox_7.stateChanged.connect(self.handleScanOptions2Checked)
 
         # 创建工作线程
         self.worker = Worker()
@@ -211,6 +214,22 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.pushButton_7.setEnabled(False)
         self.pushButton_8.setEnabled(False)
         self.initializeArtSignal.emit()
+
+    @pyqtSlot(int)
+    def handleScanOptions1Checked(self, state: int):
+        """ Choose another when deselecting this
+        Not allowed to choose neither """
+        if state == 0 and not self.checkBox_7.isChecked():
+            self.checkBox_7.setChecked(True)
+            self.printLog("已选中「材料」")
+
+    @pyqtSlot(int)
+    def handleScanOptions2Checked(self, state: int):
+        """Choose another when deselecting this
+        Not allowed to choose neither """
+        if state == 0 and not self.checkBox_6.isChecked():
+            self.checkBox_6.setChecked(True)
+            self.printLog("已选中「养成道具」")
 
     @pyqtSlot(int)
     def handleTabChanged(self, index: int):
@@ -483,7 +502,7 @@ class Worker(QObject):
         self.detectGameInfo(False)
 
         self.working.emit()
-        self.log('初始化 OCR 模型...')
+        self.log('初始化圣遗物 OCR 模型...')
         if len(sys.argv) > 1:
             self.bundle_dir = sys.argv[1]
         else:
@@ -618,7 +637,6 @@ class Worker(QObject):
         self.log('对齐完成，即将开始扫描')
         time.sleep(0.5)
 
-        start_row = 0
         self.material_id = 0
         self.saved_material = 0
         self.skipped_material = 0
@@ -696,32 +714,42 @@ class Worker(QObject):
                 self.log(f"  - 失败: {self.failed_material}")
                 self.log(f"  - 跳过: {self.skipped_material}")
 
-        try:
-            while True:
-                end_row = (self.game_info.art_rows - 1
-                           if start_row < self.game_info.art_rows - 1
-                           else self.game_info.art_rows)
+        def scan_materials(target):
+            start_row = 0
+            self.log(f"开始扫描[{target}]")
+            try:
+                while True:
+                    end_row = self.game_info.art_rows - 1
+                    if start_row != 0:
+                        end_row += 1
+                    if materialScanner.scanner.stopped:
+                        break
+                    if not materialScanner.scanRows(rows=range(start_row, end_row),
+                                                    callback=material_callback):
+                        break
+                    if start_row != 0:
+                        break
+                    start_row = (self.game_info.art_rows - 1 -
+                                 materialScanner.scrollToRow(
+                                     self.game_info.art_rows,
+                                     max_scrolls=20,
+                                     extra_scroll=int(self.game_info.art_rows > 5),
+                                     interval=self.detectSettings['delay']))
                 if materialScanner.scanner.stopped:
-                    break
-                if not materialScanner.scanRows(rows=range(start_row, end_row),
-                                                callback=material_callback):
-                    break
-                if start_row != 0:
-                    break
-                start_row = (self.game_info.art_rows - 1 -
-                             materialScanner.scrollToRow(
-                                 self.game_info.art_rows,
-                                 max_scrolls=20,
-                                 extra_scroll=int(self.game_info.art_rows > 5),
-                                 interval=self.detectSettings['delay']))
-            if materialScanner.scanner.stopped:
-                self.log('扫描已中断')
-            else:
-                self.log('扫描已完成')
-        except Exception as e:
-            self.logger.exception(e)
-            self.error(repr(e))
-            self.log('扫描出错，已停止')
+                    self.log(f'[{target}]扫描中断')
+                else:
+                    self.log(f'[{target}]扫描已完成')
+            except Exception as e:
+                self.logger.exception(e)
+                self.error(repr(e))
+                self.log('扫描出错，已停止')
+
+        if info['options'][0]:
+            materialScanner.clickCDIButton()
+            scan_materials("养成道具")
+        if info['options'][1]:
+            materialScanner.clickMaterialButton()
+            scan_materials("材料")
 
         if self.saved_material != 0:
             if info['ExtraSettings']['ExportAllFormats']:
