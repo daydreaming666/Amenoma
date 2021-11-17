@@ -364,7 +364,7 @@ def detect_lock(img) -> bool:
     return np.add.reduce(np.add.reduce(result)) < 500
 
 
-filepath = "./train/materials-weights-improvement-{epoch:02d}-{ctc_accu:.2f}.hdf5"
+filepath = "./train/materials-weights-improvement-{epoch:02d}-{ctc_accu:.3f}.hdf5"
 checkpoint = tf.keras.callbacks.ModelCheckpoint(filepath, monitor='ctc_accu', verbose=1, save_best_only=True,
                                                 mode='max')
 reduce = keras.callbacks.ReduceLROnPlateau(monitor='ctc_accu', factor=0.5, min_lr=1e-7, verbose=1, patience=5)
