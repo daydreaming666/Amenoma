@@ -1,4 +1,3 @@
-AmenomaDevDocs/examples/artifacts.genshinart.json
 ArtScanner/artifacts.mingyulab.json
 ArtScanner/artifacts.dat
 ArtScanner/artifacts.dat.index
@@ -16,6 +15,4 @@ ArtScanner/artifacts/**
 /model_trainer/.ipynb_checkpoints/
 /model_trainer/train/
 .idea/**
-/AmenomaDevDocs/examples/artifacts.GOOD.json
-/ArtScanner/Amenoma.log
-/AmenomaDevDocs/examples/materials.GOOD.json
+

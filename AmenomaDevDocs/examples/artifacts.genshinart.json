@@ -1,0 +1,2183 @@
+{
+  "version": "1",
+  "flower": [
+    {
+      "setName": "noblesseOblige",
+      "position": "flower",
+      "detailName": "宗室之花",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "lifePercentage",
+          "value": 0.057999999999999996
+        },
+        {
+          "name": "attackStatic",
+          "value": 37
+        },
+        {
+          "name": "defendStatic",
+          "value": 60
+        },
+        {
+          "name": "critical",
+          "value": 0.09300000000000001
+        }
+      ],
+      "omit": false,
+      "id": 2,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "flower",
+      "detailName": "乐团的晨光",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "attackStatic",
+          "value": 16
+        },
+        {
+          "name": "critical",
+          "value": 0.159
+        },
+        {
+          "name": "recharge",
+          "value": 0.052000000000000005
+        },
+        {
+          "name": "defendStatic",
+          "value": 37
+        }
+      ],
+      "omit": false,
+      "id": 12,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "flower",
+      "detailName": "角斗士的留恋",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "elementalMastery",
+          "value": 65
+        },
+        {
+          "name": "critical",
+          "value": 0.07400000000000001
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.099
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.132
+        }
+      ],
+      "omit": false,
+      "id": 17,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "thunderSmoother",
+      "position": "flower",
+      "detailName": "平雷之心",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "attackStatic",
+          "value": 19
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.20199999999999999
+        },
+        {
+          "name": "critical",
+          "value": 0.066
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.175
+        }
+      ],
+      "omit": false,
+      "id": 24,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "blizzardStrayer",
+      "position": "flower",
+      "detailName": "历经风雪的思念",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "attackStatic",
+          "value": 39
+        },
+        {
+          "name": "critical",
+          "value": 0.035
+        },
+        {
+          "name": "lifePercentage",
+          "value": 0.040999999999999995
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.303
+        }
+      ],
+      "omit": false,
+      "id": 25,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "emblemOfSeveredFate",
+      "position": "flower",
+      "detailName": "明威之镡",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "elementalMastery",
+          "value": 58
+        },
+        {
+          "name": "critical",
+          "value": 0.057999999999999996
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.14
+        },
+        {
+          "name": "defendStatic",
+          "value": 23
+        }
+      ],
+      "omit": false,
+      "id": 29,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "shimenawaReminiscence",
+      "position": "flower",
+      "detailName": "羁缠之花",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "critical",
+          "value": 0.027000000000000003
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.078
+        },
+        {
+          "name": "recharge",
+          "value": 0.162
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.163
+        }
+      ],
+      "omit": false,
+      "id": 35,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "tenacityOfTheMillelith",
+      "position": "flower",
+      "detailName": "勋绩之花",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "attackPercentage",
+          "value": 0.099
+        },
+        {
+          "name": "attackStatic",
+          "value": 31
+        },
+        {
+          "name": "critical",
+          "value": 0.11699999999999999
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.054000000000000006
+        }
+      ],
+      "omit": false,
+      "id": 41,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "heartOfDepth",
+      "position": "flower",
+      "detailName": "饰金胸花",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.155
+        },
+        {
+          "name": "attackStatic",
+          "value": 35
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.158
+        },
+        {
+          "name": "critical",
+          "value": 0.035
+        }
+      ],
+      "omit": false,
+      "id": 42,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "bloodstainedChivalry",
+      "position": "flower",
+      "detailName": "染血的铁之心",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "recharge",
+          "value": 0.18100000000000002
+        },
+        {
+          "name": "attackStatic",
+          "value": 29
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.14
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.040999999999999995
+        }
+      ],
+      "omit": false,
+      "id": 45,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "noblesseOblige",
+      "position": "flower",
+      "detailName": "宗室之花",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "defendStatic",
+          "value": 37
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.078
+        },
+        {
+          "name": "critical",
+          "value": 0.086
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.087
+        }
+      ],
+      "omit": false,
+      "id": 47,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "noblesseOblige",
+      "position": "flower",
+      "detailName": "宗室之花",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "defendPercentage",
+          "value": 0.066
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.152
+        },
+        {
+          "name": "attackStatic",
+          "value": 31
+        },
+        {
+          "name": "recharge",
+          "value": 0.091
+        }
+      ],
+      "omit": false,
+      "id": 48,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "viridescentVenerer",
+      "position": "flower",
+      "detailName": "野花记忆的绿野",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "critical",
+          "value": 0.105
+        },
+        {
+          "name": "lifePercentage",
+          "value": 0.047
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.062
+        },
+        {
+          "name": "attackStatic",
+          "value": 49
+        }
+      ],
+      "omit": false,
+      "id": 57,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "viridescentVenerer",
+      "position": "flower",
+      "detailName": "野花记忆的绿野",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "attackStatic",
+          "value": 33
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.047
+        },
+        {
+          "name": "recharge",
+          "value": 0.168
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.11699999999999999
+        }
+      ],
+      "omit": false,
+      "id": 58,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "flower",
+      "detailName": "角斗士的留恋",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.20199999999999999
+        },
+        {
+          "name": "critical",
+          "value": 0.07400000000000001
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.105
+        },
+        {
+          "name": "elementalMastery",
+          "value": 16
+        }
+      ],
+      "omit": false,
+      "id": 65,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "flower",
+      "detailName": "角斗士的留恋",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "attackStatic",
+          "value": 19
+        },
+        {
+          "name": "critical",
+          "value": 0.105
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.11699999999999999
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.124
+        }
+      ],
+      "omit": false,
+      "id": 66,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "flower",
+      "detailName": "角斗士的留恋",
+      "mainTag": {
+        "name": "lifeStatic",
+        "value": 4780
+      },
+      "normalTags": [
+        {
+          "name": "recharge",
+          "value": 0.057999999999999996
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.373
+        },
+        {
+          "name": "attackStatic",
+          "value": 19
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.057999999999999996
+        }
+      ],
+      "omit": false,
+      "id": 67,
+      "level": 20,
+      "star": 5
+    }
+  ],
+  "feather": [
+    {
+      "setName": "archaicPetra",
+      "position": "feather",
+      "detailName": "嵯峨群峰之翼",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "defendPercentage",
+          "value": 0.057999999999999996
+        },
+        {
+          "name": "lifeStatic",
+          "value": 598
+        },
+        {
+          "name": "recharge",
+          "value": 0.19399999999999998
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.111
+        }
+      ],
+      "omit": false,
+      "id": 1,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "crimsonWitch",
+      "position": "feather",
+      "detailName": "魔女常燃之羽",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.20199999999999999
+        },
+        {
+          "name": "recharge",
+          "value": 0.175
+        },
+        {
+          "name": "critical",
+          "value": 0.027000000000000003
+        },
+        {
+          "name": "lifeStatic",
+          "value": 508
+        }
+      ],
+      "omit": false,
+      "id": 5,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "crimsonWitch",
+      "position": "feather",
+      "detailName": "魔女常燃之羽",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "defendStatic",
+          "value": 67
+        },
+        {
+          "name": "lifeStatic",
+          "value": 299
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.249
+        },
+        {
+          "name": "recharge",
+          "value": 0.057999999999999996
+        }
+      ],
+      "omit": false,
+      "id": 6,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "feather",
+      "detailName": "琴师的箭羽",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "lifeStatic",
+          "value": 269
+        },
+        {
+          "name": "recharge",
+          "value": 0.11699999999999999
+        },
+        {
+          "name": "critical",
+          "value": 0.109
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.21
+        }
+      ],
+      "omit": false,
+      "id": 13,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "feather",
+      "detailName": "角斗士的归宿",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "defendStatic",
+          "value": 42
+        },
+        {
+          "name": "critical",
+          "value": 0.07
+        },
+        {
+          "name": "recharge",
+          "value": 0.11
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.158
+        }
+      ],
+      "omit": false,
+      "id": 20,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "feather",
+      "detailName": "角斗士的归宿",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "defendStatic",
+          "value": 39
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.14800000000000002
+        },
+        {
+          "name": "lifeStatic",
+          "value": 568
+        },
+        {
+          "name": "critical",
+          "value": 0.113
+        }
+      ],
+      "omit": false,
+      "id": 21,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "maidenBeloved",
+      "position": "feather",
+      "detailName": "少女飘摇的思念",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.155
+        },
+        {
+          "name": "critical",
+          "value": 0.066
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.152
+        },
+        {
+          "name": "lifePercentage",
+          "value": 0.099
+        }
+      ],
+      "omit": false,
+      "id": 23,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "blizzardStrayer",
+      "position": "feather",
+      "detailName": "摧冰而行的执望",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "lifeStatic",
+          "value": 209
+        },
+        {
+          "name": "lifePercentage",
+          "value": 0.09300000000000001
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.124
+        },
+        {
+          "name": "critical",
+          "value": 0.14
+        }
+      ],
+      "omit": false,
+      "id": 27,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "emblemOfSeveredFate",
+      "position": "feather",
+      "detailName": "切落之羽",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.054000000000000006
+        },
+        {
+          "name": "recharge",
+          "value": 0.045
+        },
+        {
+          "name": "lifeStatic",
+          "value": 299
+        },
+        {
+          "name": "critical",
+          "value": 0.16699999999999998
+        }
+      ],
+      "omit": false,
+      "id": 31,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "emblemOfSeveredFate",
+      "position": "feather",
+      "detailName": "切落之羽",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "critical",
+          "value": 0.078
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.16899999999999998
+        },
+        {
+          "name": "recharge",
+          "value": 0.052000000000000005
+        },
+        {
+          "name": "defendStatic",
+          "value": 32
+        }
+      ],
+      "omit": false,
+      "id": 32,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "shimenawaReminiscence",
+      "position": "feather",
+      "detailName": "思忆之矢",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "defendPercentage",
+          "value": 0.051
+        },
+        {
+          "name": "critical",
+          "value": 0.09300000000000001
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.11699999999999999
+        },
+        {
+          "name": "recharge",
+          "value": 0.11
+        }
+      ],
+      "omit": false,
+      "id": 37,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "shimenawaReminiscence",
+      "position": "feather",
+      "detailName": "思忆之矢",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "elementalMastery",
+          "value": 37
+        },
+        {
+          "name": "critical",
+          "value": 0.09300000000000001
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.14
+        },
+        {
+          "name": "lifeStatic",
+          "value": 269
+        }
+      ],
+      "omit": false,
+      "id": 38,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "heartOfDepth",
+      "position": "feather",
+      "detailName": "追忆之风",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.14
+        },
+        {
+          "name": "defendPercentage",
+          "value": 0.124
+        },
+        {
+          "name": "critical",
+          "value": 0.113
+        },
+        {
+          "name": "elementalMastery",
+          "value": 21
+        }
+      ],
+      "omit": false,
+      "id": 43,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "noblesseOblige",
+      "position": "feather",
+      "detailName": "宗室之翎",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "attackPercentage",
+          "value": 0.14
+        },
+        {
+          "name": "defendPercentage",
+          "value": 0.066
+        },
+        {
+          "name": "lifeStatic",
+          "value": 538
+        },
+        {
+          "name": "lifePercentage",
+          "value": 0.08199999999999999
+        }
+      ],
+      "omit": false,
+      "id": 49,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "viridescentVenerer",
+      "position": "feather",
+      "detailName": "猎人青翠的箭羽",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.078
+        },
+        {
+          "name": "recharge",
+          "value": 0.155
+        },
+        {
+          "name": "lifeStatic",
+          "value": 627
+        },
+        {
+          "name": "critical",
+          "value": 0.031
+        }
+      ],
+      "omit": false,
+      "id": 61,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "viridescentVenerer",
+      "position": "feather",
+      "detailName": "猎人青翠的箭羽",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "critical",
+          "value": 0.124
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.062
+        },
+        {
+          "name": "defendStatic",
+          "value": 19
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.105
+        }
+      ],
+      "omit": false,
+      "id": 62,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "feather",
+      "detailName": "角斗士的归宿",
+      "mainTag": {
+        "name": "attackStatic",
+        "value": 311
+      },
+      "normalTags": [
+        {
+          "name": "critical",
+          "value": 0.128
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.053
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.062
+        },
+        {
+          "name": "defendStatic",
+          "value": 42
+        }
+      ],
+      "omit": false,
+      "id": 69,
+      "level": 20,
+      "star": 5
+    }
+  ],
+  "sand": [
+    {
+      "setName": "emblemOfSeveredFate",
+      "position": "sand",
+      "detailName": "雷云之笼",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.14800000000000002
+        },
+        {
+          "name": "defendPercentage",
+          "value": 0.051
+        },
+        {
+          "name": "recharge",
+          "value": 0.168
+        },
+        {
+          "name": "lifeStatic",
+          "value": 837
+        }
+      ],
+      "omit": false,
+      "id": 0,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "sand",
+      "detailName": "终幕的时计",
+      "mainTag": {
+        "name": "recharge",
+        "value": 0.518
+      },
+      "normalTags": [
+        {
+          "name": "lifeStatic",
+          "value": 747
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.171
+        },
+        {
+          "name": "elementalMastery",
+          "value": 16
+        },
+        {
+          "name": "critical",
+          "value": 0.07400000000000001
+        }
+      ],
+      "omit": false,
+      "id": 7,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "sand",
+      "detailName": "终幕的时计",
+      "mainTag": {
+        "name": "recharge",
+        "value": 0.518
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.319
+        },
+        {
+          "name": "lifeStatic",
+          "value": 209
+        },
+        {
+          "name": "attackStatic",
+          "value": 18
+        },
+        {
+          "name": "critical",
+          "value": 0.054000000000000006
+        }
+      ],
+      "omit": false,
+      "id": 8,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "sand",
+      "detailName": "终幕的时计",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "lifeStatic",
+          "value": 777
+        },
+        {
+          "name": "attackStatic",
+          "value": 33
+        },
+        {
+          "name": "critical",
+          "value": 0.054000000000000006
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.132
+        }
+      ],
+      "omit": false,
+      "id": 9,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "sand",
+      "detailName": "终幕的时计",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "elementalMastery",
+          "value": 75
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.19399999999999998
+        },
+        {
+          "name": "defendStatic",
+          "value": 21
+        },
+        {
+          "name": "recharge",
+          "value": 0.065
+        }
+      ],
+      "omit": false,
+      "id": 10,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "sand",
+      "detailName": "终幕的时计",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "defendPercentage",
+          "value": 0.124
+        },
+        {
+          "name": "attackStatic",
+          "value": 31
+        },
+        {
+          "name": "elementalMastery",
+          "value": 35
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.21
+        }
+      ],
+      "omit": false,
+      "id": 11,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "sand",
+      "detailName": "角斗士的希冀",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "elementalMastery",
+          "value": 37
+        },
+        {
+          "name": "critical",
+          "value": 0.14
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.07
+        },
+        {
+          "name": "recharge",
+          "value": 0.11699999999999999
+        }
+      ],
+      "omit": false,
+      "id": 15,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "sand",
+      "detailName": "角斗士的希冀",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "lifePercentage",
+          "value": 0.087
+        },
+        {
+          "name": "attackStatic",
+          "value": 54
+        },
+        {
+          "name": "critical",
+          "value": 0.08900000000000001
+        },
+        {
+          "name": "defendStatic",
+          "value": 16
+        }
+      ],
+      "omit": false,
+      "id": 16,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "emblemOfSeveredFate",
+      "position": "sand",
+      "detailName": "雷云之笼",
+      "mainTag": {
+        "name": "recharge",
+        "value": 0.518
+      },
+      "normalTags": [
+        {
+          "name": "defendStatic",
+          "value": 23
+        },
+        {
+          "name": "attackStatic",
+          "value": 29
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.16899999999999998
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.14
+        }
+      ],
+      "omit": false,
+      "id": 28,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "shimenawaReminiscence",
+      "position": "sand",
+      "detailName": "朝露之时",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "recharge",
+          "value": 0.10400000000000001
+        },
+        {
+          "name": "attackStatic",
+          "value": 49
+        },
+        {
+          "name": "critical",
+          "value": 0.031
+        },
+        {
+          "name": "elementalMastery",
+          "value": 42
+        }
+      ],
+      "omit": false,
+      "id": 34,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "paleFlame",
+      "position": "sand",
+      "detailName": "停摆之刻",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.078
+        },
+        {
+          "name": "critical",
+          "value": 0.136
+        },
+        {
+          "name": "attackStatic",
+          "value": 19
+        },
+        {
+          "name": "elementalMastery",
+          "value": 37
+        }
+      ],
+      "omit": false,
+      "id": 39,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "tenacityOfTheMillelith",
+      "position": "sand",
+      "detailName": "金铜时晷",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "lifeStatic",
+          "value": 598
+        },
+        {
+          "name": "critical",
+          "value": 0.057999999999999996
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.124
+        },
+        {
+          "name": "attackStatic",
+          "value": 33
+        }
+      ],
+      "omit": false,
+      "id": 40,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "sand",
+      "detailName": "终幕的时计",
+      "mainTag": {
+        "name": "lifePercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "attackPercentage",
+          "value": 0.105
+        },
+        {
+          "name": "defendPercentage",
+          "value": 0.19699999999999998
+        },
+        {
+          "name": "lifeStatic",
+          "value": 508
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.07
+        }
+      ],
+      "omit": false,
+      "id": 53,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "sand",
+      "detailName": "角斗士的希冀",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.078
+        },
+        {
+          "name": "recharge",
+          "value": 0.052000000000000005
+        },
+        {
+          "name": "attackStatic",
+          "value": 39
+        },
+        {
+          "name": "defendPercentage",
+          "value": 0.284
+        }
+      ],
+      "omit": false,
+      "id": 63,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "sand",
+      "detailName": "角斗士的希冀",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "attackStatic",
+          "value": 33
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.078
+        },
+        {
+          "name": "defendStatic",
+          "value": 39
+        },
+        {
+          "name": "critical",
+          "value": 0.105
+        }
+      ],
+      "omit": false,
+      "id": 64,
+      "level": 20,
+      "star": 5
+    }
+  ],
+  "cup": [
+    {
+      "setName": "noblesseOblige",
+      "position": "cup",
+      "detailName": "宗室银瓮",
+      "mainTag": {
+        "name": "lifePercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "attackStatic",
+          "value": 14
+        },
+        {
+          "name": "defendStatic",
+          "value": 79
+        },
+        {
+          "name": "lifeStatic",
+          "value": 837
+        },
+        {
+          "name": "elementalMastery",
+          "value": 21
+        }
+      ],
+      "omit": false,
+      "id": 4,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "cup",
+      "detailName": "吟游者之壶",
+      "mainTag": {
+        "name": "fireBonus",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.187
+        },
+        {
+          "name": "attackStatic",
+          "value": 33
+        },
+        {
+          "name": "critical",
+          "value": 0.062
+        },
+        {
+          "name": "elementalMastery",
+          "value": 35
+        }
+      ],
+      "omit": false,
+      "id": 14,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "emblemOfSeveredFate",
+      "position": "cup",
+      "detailName": "绯花之壶",
+      "mainTag": {
+        "name": "waterBonus",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "recharge",
+          "value": 0.065
+        },
+        {
+          "name": "lifePercentage",
+          "value": 0.111
+        },
+        {
+          "name": "defendStatic",
+          "value": 32
+        },
+        {
+          "name": "critical",
+          "value": 0.113
+        }
+      ],
+      "omit": false,
+      "id": 33,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "noblesseOblige",
+      "position": "cup",
+      "detailName": "宗室银瓮",
+      "mainTag": {
+        "name": "waterBonus",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "attackStatic",
+          "value": 16
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.040999999999999995
+        },
+        {
+          "name": "recharge",
+          "value": 0.065
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.303
+        }
+      ],
+      "omit": false,
+      "id": 50,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "noblesseOblige",
+      "position": "cup",
+      "detailName": "宗室银瓮",
+      "mainTag": {
+        "name": "fireBonus",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "critical",
+          "value": 0.027000000000000003
+        },
+        {
+          "name": "attackStatic",
+          "value": 64
+        },
+        {
+          "name": "elementalMastery",
+          "value": 37
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.053
+        }
+      ],
+      "omit": false,
+      "id": 51,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "cup",
+      "detailName": "吟游者之壶",
+      "mainTag": {
+        "name": "rockBonus",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "attackPercentage",
+          "value": 0.157
+        },
+        {
+          "name": "defendStatic",
+          "value": 65
+        },
+        {
+          "name": "critical",
+          "value": 0.031
+        },
+        {
+          "name": "lifeStatic",
+          "value": 269
+        }
+      ],
+      "omit": false,
+      "id": 55,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "cup",
+      "detailName": "吟游者之壶",
+      "mainTag": {
+        "name": "windBonus",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "criticalDamage",
+          "value": 0.187
+        },
+        {
+          "name": "critical",
+          "value": 0.035
+        },
+        {
+          "name": "recharge",
+          "value": 0.065
+        },
+        {
+          "name": "attackStatic",
+          "value": 47
+        }
+      ],
+      "omit": false,
+      "id": 56,
+      "level": 20,
+      "star": 5
+    }
+  ],
+  "head": [
+    {
+      "setName": "noblesseOblige",
+      "position": "head",
+      "detailName": "宗室面具",
+      "mainTag": {
+        "name": "critical",
+        "value": 0.311
+      },
+      "normalTags": [
+        {
+          "name": "lifeStatic",
+          "value": 478
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.040999999999999995
+        },
+        {
+          "name": "recharge",
+          "value": 0.285
+        },
+        {
+          "name": "lifePercentage",
+          "value": 0.040999999999999995
+        }
+      ],
+      "omit": false,
+      "id": 3,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "head",
+      "detailName": "角斗士的凯旋",
+      "mainTag": {
+        "name": "critical",
+        "value": 0.311
+      },
+      "normalTags": [
+        {
+          "name": "elementalMastery",
+          "value": 19
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.257
+        },
+        {
+          "name": "lifePercentage",
+          "value": 0.105
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.087
+        }
+      ],
+      "omit": false,
+      "id": 18,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "head",
+      "detailName": "角斗士的凯旋",
+      "mainTag": {
+        "name": "criticalDamage",
+        "value": 0.622
+      },
+      "normalTags": [
+        {
+          "name": "critical",
+          "value": 0.07
+        },
+        {
+          "name": "elementalMastery",
+          "value": 56
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.157
+        },
+        {
+          "name": "defendPercentage",
+          "value": 0.073
+        }
+      ],
+      "omit": false,
+      "id": 19,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "maidenBeloved",
+      "position": "head",
+      "detailName": "少女易逝的芳颜",
+      "mainTag": {
+        "name": "cureEffect",
+        "value": 0.359
+      },
+      "normalTags": [
+        {
+          "name": "recharge",
+          "value": 0.168
+        },
+        {
+          "name": "critical",
+          "value": 0.035
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.20199999999999999
+        },
+        {
+          "name": "lifeStatic",
+          "value": 478
+        }
+      ],
+      "omit": false,
+      "id": 22,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "blizzardStrayer",
+      "position": "head",
+      "detailName": "破冰踏雪的回音",
+      "mainTag": {
+        "name": "attackPercentage",
+        "value": 0.466
+      },
+      "normalTags": [
+        {
+          "name": "attackStatic",
+          "value": 35
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.11699999999999999
+        },
+        {
+          "name": "recharge",
+          "value": 0.13
+        },
+        {
+          "name": "critical",
+          "value": 0.08900000000000001
+        }
+      ],
+      "omit": false,
+      "id": 26,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "emblemOfSeveredFate",
+      "position": "head",
+      "detailName": "华饰之兜",
+      "mainTag": {
+        "name": "critical",
+        "value": 0.311
+      },
+      "normalTags": [
+        {
+          "name": "recharge",
+          "value": 0.233
+        },
+        {
+          "name": "attackStatic",
+          "value": 37
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.054000000000000006
+        },
+        {
+          "name": "elementalMastery",
+          "value": 23
+        }
+      ],
+      "omit": false,
+      "id": 30,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "shimenawaReminiscence",
+      "position": "head",
+      "detailName": "无常之面",
+      "mainTag": {
+        "name": "criticalDamage",
+        "value": 0.622
+      },
+      "normalTags": [
+        {
+          "name": "attackPercentage",
+          "value": 0.11699999999999999
+        },
+        {
+          "name": "lifeStatic",
+          "value": 448
+        },
+        {
+          "name": "attackStatic",
+          "value": 16
+        },
+        {
+          "name": "critical",
+          "value": 0.09300000000000001
+        }
+      ],
+      "omit": false,
+      "id": 36,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "archaicPetra",
+      "position": "head",
+      "detailName": "不动玄石之相",
+      "mainTag": {
+        "name": "criticalDamage",
+        "value": 0.622
+      },
+      "normalTags": [
+        {
+          "name": "attackPercentage",
+          "value": 0.09300000000000001
+        },
+        {
+          "name": "defendPercentage",
+          "value": 0.051
+        },
+        {
+          "name": "elementalMastery",
+          "value": 37
+        },
+        {
+          "name": "lifeStatic",
+          "value": 866
+        }
+      ],
+      "omit": false,
+      "id": 44,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "bloodstainedChivalry",
+      "position": "head",
+      "detailName": "染血的铁假面",
+      "mainTag": {
+        "name": "criticalDamage",
+        "value": 0.622
+      },
+      "normalTags": [
+        {
+          "name": "critical",
+          "value": 0.09699999999999999
+        },
+        {
+          "name": "recharge",
+          "value": 0.052000000000000005
+        },
+        {
+          "name": "lifeStatic",
+          "value": 478
+        },
+        {
+          "name": "lifePercentage",
+          "value": 0.087
+        }
+      ],
+      "omit": false,
+      "id": 46,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "crimsonWitch",
+      "position": "head",
+      "detailName": "焦灼的魔女帽",
+      "mainTag": {
+        "name": "critical",
+        "value": 0.311
+      },
+      "normalTags": [
+        {
+          "name": "elementalMastery",
+          "value": 42
+        },
+        {
+          "name": "attackStatic",
+          "value": 33
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.132
+        },
+        {
+          "name": "defendStatic",
+          "value": 42
+        }
+      ],
+      "omit": false,
+      "id": 52,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "wandererTroupe",
+      "position": "head",
+      "detailName": "指挥的礼帽",
+      "mainTag": {
+        "name": "criticalDamage",
+        "value": 0.622
+      },
+      "normalTags": [
+        {
+          "name": "defendStatic",
+          "value": 37
+        },
+        {
+          "name": "critical",
+          "value": 0.039
+        },
+        {
+          "name": "elementalMastery",
+          "value": 63
+        },
+        {
+          "name": "recharge",
+          "value": 0.09699999999999999
+        }
+      ],
+      "omit": false,
+      "id": 54,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "viridescentVenerer",
+      "position": "head",
+      "detailName": "翠绿的猎人之冠",
+      "mainTag": {
+        "name": "criticalDamage",
+        "value": 0.622
+      },
+      "normalTags": [
+        {
+          "name": "critical",
+          "value": 0.10099999999999999
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.040999999999999995
+        },
+        {
+          "name": "attackStatic",
+          "value": 53
+        },
+        {
+          "name": "lifeStatic",
+          "value": 239
+        }
+      ],
+      "omit": false,
+      "id": 59,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "viridescentVenerer",
+      "position": "head",
+      "detailName": "翠绿的猎人之冠",
+      "mainTag": {
+        "name": "critical",
+        "value": 0.311
+      },
+      "normalTags": [
+        {
+          "name": "lifeStatic",
+          "value": 508
+        },
+        {
+          "name": "attackStatic",
+          "value": 62
+        },
+        {
+          "name": "criticalDamage",
+          "value": 0.062
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.057999999999999996
+        }
+      ],
+      "omit": false,
+      "id": 60,
+      "level": 20,
+      "star": 5
+    },
+    {
+      "setName": "gladiatorFinale",
+      "position": "head",
+      "detailName": "角斗士的凯旋",
+      "mainTag": {
+        "name": "criticalDamage",
+        "value": 0.622
+      },
+      "normalTags": [
+        {
+          "name": "elementalMastery",
+          "value": 37
+        },
+        {
+          "name": "critical",
+          "value": 0.07400000000000001
+        },
+        {
+          "name": "attackStatic",
+          "value": 56
+        },
+        {
+          "name": "attackPercentage",
+          "value": 0.040999999999999995
+        }
+      ],
+      "omit": false,
+      "id": 68,
+      "level": 20,
+      "star": 5
+    }
+  ]
+}
