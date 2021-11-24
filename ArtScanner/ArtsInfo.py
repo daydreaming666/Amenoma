@@ -99,6 +99,8 @@ ArtNames = [
     ["无垢之花", "贤医之羽", "停摆之刻", "超越之盏", "嗤笑之面"],
     ["明威之镡", "切落之羽", "雷云之笼", "绯花之壶", "华饰之兜"],  # 绝缘之旗印
     ["羁缠之花", "思忆之矢", "朝露之时", "祈望之心", "无常之面"],  # 追忆之注连
+    ['荣花之期', '华馆之羽', '众生之谣', '梦醒之瓢', '形骸之笠'],  # 华馆梦醒形骸记
+    ['海染之花', '渊宫之羽', '离别之贝', '真珠之笼', '海祇之冠'],  # 海染砗磲
     ["祝圣精华", "祝圣油膏"],  # 强化材料
 ]
 
@@ -146,6 +148,8 @@ UsersCHS = {
     "神里绫华": "KamisatoAyaka",
     "枫原万叶": "KaedeharaKazuha",
     "托马": "Thoma",
+    "荒泷一斗": "AratakiItto",
+    "五郎": "Gorou"
 }
 
 TypeNamesGenshinArt = ["flower", "feather", "sand", "cup", "head"]
@@ -168,8 +172,8 @@ AttrNamesGensinArt = {
     "FIGHT_PROP_WATER_ADD_HURT": "waterBonus",
     "FIGHT_PROP_FIRE_ADD_HURT": "fireBonus",
     "FIGHT_PROP_ELEC_ADD_HURT": "thunderBonus",
-    "FIGHT_PROP_GRASS_ADD_HURT": "grassBonus",
-    "FIGHT_PROP_FIRE_SUB_HURT": "fireDeduct",
+    # "FIGHT_PROP_GRASS_ADD_HURT": "grassBonus",
+    # "FIGHT_PROP_FIRE_SUB_HURT": "fireDeduct",
 }
 SetNamesGenshinArt = [
     "archaicPetra",  # 悠古的磐岩
@@ -207,7 +211,8 @@ SetNamesGenshinArt = [
     "paleFlame",  # 苍白之火
     "emblemOfSeveredFate",  # 绝缘之旗印
     "shimenawaReminiscence",  # 追忆之注连
-
+    "huskOfOpulentDreams",      # 华馆梦醒形骸记
+    "oceanHuedClam"      # 海染砗磲
 ]
 
 TypeNamesMingyuLab = ['flower', 'plume', 'eon', 'goblet', 'circlet']
@@ -230,8 +235,8 @@ AttrNamesMingyuLab = {
     "FIGHT_PROP_WATER_ADD_HURT": "hydroDamage",
     "FIGHT_PROP_FIRE_ADD_HURT": "pyroDamage",
     "FIGHT_PROP_ELEC_ADD_HURT": "electroDamage",
-    "FIGHT_PROP_GRASS_ADD_HURT": "dendroDamage",
-    "FIGHT_PROP_FIRE_SUB_HURT": "pyroDEF",
+    # "FIGHT_PROP_GRASS_ADD_HURT": "dendroDamage",
+    # "FIGHT_PROP_FIRE_SUB_HURT": "pyroDEF",
 }
 
 SetNamesMingyuLab = [
@@ -269,7 +274,9 @@ SetNamesMingyuLab = [
     "tenacity_of_the_millelith",  # 千岩牢固
     "pale_flame",  # 苍白之火
     "seal_of_insulation",  # 绝缘之旗印
-    "reminiscence_of_shime",  # 追忆之注连
+    "reminiscence_of_shime",   # 追忆之注连
+    "husk_of_opulent_dreams",  # 华馆梦醒形骸记
+    "divine_chorus",  # 海染砗磲
 ]
 
 TypeNamesGOOD = ['flower', 'plume', 'sands', 'goblet', 'circlet']
@@ -293,7 +300,7 @@ AttrNamesGOOD = {
     "FIGHT_PROP_WATER_ADD_HURT": "hydro_dmg_",
     "FIGHT_PROP_FIRE_ADD_HURT": "pyro_dmg_",
     "FIGHT_PROP_ELEC_ADD_HURT": "electro_dmg_",
-    "FIGHT_PROP_GRASS_ADD_HURT": "dendro_dmg_"
+    # "FIGHT_PROP_GRASS_ADD_HURT": "dendro_dmg_"
 }
 
 SetNamesGOOD = [
@@ -309,6 +316,8 @@ SetNamesGOOD = [
     'Adventurer', 'LuckyDog', 'TravelingDoctor',
     'TenacityOfTheMillelith', 'PaleFlame',
     'EmblemOfSeveredFate', 'ShimenawasReminiscence'
+    # todo Husk of Opulent Dreams
+    # todo Ocean-Hued Clam
 ]
 
 MainAttrValue = {
@@ -472,7 +481,7 @@ MainAttrNames_EN = {
     "FIGHT_PROP_WATER_ADD_HURT": "Hydro DMG Bonus",
     "FIGHT_PROP_FIRE_ADD_HURT": "Pyro DMG Bonus",
     "FIGHT_PROP_ELEC_ADD_HURT": "Electro DMG Bonus",
-    "FIGHT_PROP_GRASS_ADD_HURT": "Dendro DMG Bonus",
+    # "FIGHT_PROP_GRASS_ADD_HURT": "Dendro DMG Bonus",
 }
 
 TypeNames_EN = ["Flower of Life",
@@ -564,7 +573,11 @@ ArtNames_EN = [
      'Scarlet Vessel', 'Ornate Kabuto'],
     ['Entangling Bloom', 'Shaft of Remembrance', "Morning Dew's Moment",
      'Hopeful Heart', 'Capricious Visage'],
-    ['Sanctifying Unction', 'Sanctifying Essence']
+    ["Bloom Times", 'Plume of Luxury', 'Song of Life',
+     'Calabash of Awakening', 'Skeletal Hat'],      # Husk of Opulent Dreams
+    ['Sea-Dyed Blossom', "Deep Palace's Plume", 'Cowry of Parting',
+     'Pearl Cage', 'Crown of Watatsumi'],     # Ocean-Hued Clam
+    ['Sanctifying Unction', 'Sanctifying Essence']  # keep the two at last
 ]
 
 UsersEN = {
@@ -610,7 +623,9 @@ UsersEN = {
     "Yanfei": "Yanfei",
     "Yoimiya": "Yoimiya",
     "Zhongli": "Zhongli",
-    "Thoma": "Thoma"
+    "Thoma": "Thoma",
+    "Arataki Itto": "AratakiItto",
+    "Gorou": "Gorou"
 }
 
 SetNames = [
@@ -649,24 +664,30 @@ SetNames = [
     "苍白之火",
     "绝缘之旗印",
     "追忆之注连",
+    "华馆梦醒形骸记",
+    "海染砗磲"
 ]
 
-Setnames_EN = ['Archaic Petra',
-               'Blizzard Strayer',
-               'Bloodstained Chivalry',
-               'Crimson Witch of Flames',
-               "Gladiator's Finale", 'Heart of Depth',
-               'Lavawalker', 'Maiden Beloved',
-               'Noblesse Oblige', 'Retracing Bolide',
-               'Thundersoother',
-               'Thundering Fury', 'Viridescent Venerer',
-               "Wanderer's Troupe", 'Berserker',
-               'Brave Heart', "Defender's Will", 'The Exile',
-               'Gambler', 'Instructor', 'Martial Artist',
-               'Prayers for Destiny', 'Prayers for Illumination',
-               'Prayers for Wisdom', 'Prayers to Springtime',
-               'Resolution of Sojourner', 'Scholar', 'Tiny Miracle',
-               'Adventurer', 'Lucky Dog', 'Traveling Doctor',
-               'Tenacity of the Millelith', 'Pale Flame',
-               'Emblem of Severed Fate',
-               "Shimenawa's Reminiscence"]
+Setnames_EN = [
+    'Archaic Petra',
+    'Blizzard Strayer',
+    'Bloodstained Chivalry',
+    'Crimson Witch of Flames',
+    "Gladiator's Finale", 'Heart of Depth',
+    'Lavawalker', 'Maiden Beloved',
+    'Noblesse Oblige', 'Retracing Bolide',
+    'Thundersoother',
+    'Thundering Fury', 'Viridescent Venerer',
+    "Wanderer's Troupe", 'Berserker',
+    'Brave Heart', "Defender's Will", 'The Exile',
+    'Gambler', 'Instructor', 'Martial Artist',
+    'Prayers for Destiny', 'Prayers for Illumination',
+    'Prayers for Wisdom', 'Prayers to Springtime',
+    'Resolution of Sojourner', 'Scholar', 'Tiny Miracle',
+    'Adventurer', 'Lucky Dog', 'Traveling Doctor',
+    'Tenacity of the Millelith', 'Pale Flame',
+    'Emblem of Severed Fate',
+    "Shimenawa's Reminiscence",
+    "Husk of Opulent Dreams",
+    "Ocean-Hued Clam"
+]
