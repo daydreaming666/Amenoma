@@ -257,3 +257,22 @@ def material_name_auto_correct(name: str) -> str:
     else:
         logger.warning(f"Corrected material  name from [{name}] to [{corr_name}] with distance {dis}")
     return corr_name
+
+
+def material_name_auto_correct_EN(name: str) -> str:
+    corr_name = ""
+    dis = 10000000
+    if name in MaterialInfo.MaterialsNameEN:
+        return name
+    for item in MaterialInfo.MaterialsNameEN:
+        ndis = Levenshtein.distance(name, item)
+        if ndis < dis:
+            corr_name = item
+            dis = ndis
+    if dis == 0:
+        pass
+    elif dis <= (len(name) // 3):
+        logger.info(f"Corrected material name from [{name}] to [{corr_name}] with distance {dis}")
+    else:
+        logger.warning(f"Corrected material  name from [{name}] to [{corr_name}] with distance {dis}")
+    return corr_name

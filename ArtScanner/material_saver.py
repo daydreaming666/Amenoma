@@ -1,13 +1,11 @@
 import json
-import os
-import sys
 
 import ZODB
 import persistent
 import transaction
-import utils
 
 import MaterialInfo
+import utils
 
 
 class Material(persistent.Persistent):

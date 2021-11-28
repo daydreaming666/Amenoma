@@ -311,57 +311,6 @@ class Config:
     lock_coords = [570, 405, 620, 455]
 
 
-def extract_art_info(art_img):
-    name = art_img.crop([i * scale_ratio for i in Config.name_coords])
-    type = art_img.crop([i * scale_ratio for i in Config.type_coords])
-    main_attr_name = art_img.crop([i * scale_ratio for i in Config.main_attr_name_coords])
-    main_attr_value = art_img.crop([i * scale_ratio for i in Config.main_attr_value_coords])
-    level = art_img.crop([i * scale_ratio for i in Config.level_coords])
-    subattr_1 = art_img.crop([i * scale_ratio for i in Config.subattr_1_coords])  # [73, 83, 102]
-    subattr_2 = art_img.crop([i * scale_ratio for i in Config.subattr_2_coords])
-    subattr_3 = art_img.crop([i * scale_ratio for i in Config.subattr_3_coords])
-    subattr_4 = art_img.crop([i * scale_ratio for i in Config.subattr_4_coords])
-    equipped = art_img.crop([i * scale_ratio for i in Config.equipped_coords])
-    if np.all(np.abs(np.array(subattr_1, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
-        del subattr_1
-        del subattr_2
-        del subattr_3
-        del subattr_4
-    elif np.all(np.abs(np.array(subattr_2, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
-        del subattr_2
-        del subattr_3
-        del subattr_4
-    elif np.all(np.abs(np.array(subattr_3, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
-        del subattr_3
-        del subattr_4
-    elif np.all(np.abs(np.array(subattr_4, np.float) - [[[73, 83, 102]]]).max(axis=-1) > 25):
-        del subattr_4
-    return {key: value for key, value in locals().items() if key not in ['art_img']}
-
-
-def detect_info(art_img):
-    info = extract_art_info(art_img)
-    x = np.concatenate([preprocess(info[key]).T[None, :, :, None] for key in sorted(info.keys())], axis=0)
-    y = model.predict(x)
-    y = decode(y)
-    return {**{key: v for key, v in zip(sorted(info.keys()), y)},
-            **{'star': detect_star(art_img), 'locked': detect_lock(art_img)}}
-
-
-def detect_star(art_img):
-    star = art_img.crop([i * scale_ratio for i in Config.star_coords])
-    cropped_star = crop(normalize(to_gray(star)))
-    coef = cropped_star.shape[1] / cropped_star.shape[0]
-    coef = coef / 1.30882352 + 0.21568627
-    return int(round(coef))
-
-
-def detect_lock(img) -> bool:
-    lock = img.crop([i * scale_ratio for i in Config.lock_coords])
-    result = to_gray(lock)
-    result = normalize(result, auto_inverse=False)
-    result = np.where((result < 0.5), 0, 1)
-    return np.add.reduce(np.add.reduce(result)) < 500
 
 
 filepath = "./train/materials-weights-improvement-{epoch:02d}-{ctc_accu:.3f}.hdf5"
@@ -379,7 +328,7 @@ model.summary()
 model.fit(x=train_generator(), steps_per_epoch=8192, epochs=1)
 model.fit(x=train_generator(), steps_per_epoch=4096, epochs=2)
 model.fit(x=train_generator(), steps_per_epoch=2048, epochs=4)
-model.fit(x=train_generator(), steps_per_epoch=1024, epochs=16)
+model.fit(x=train_generator(), steps_per_epoch=1024, epochs=4)
 
 
 history = model.fit(x=train_generator(), steps_per_epoch=512, epochs=512, callbacks=callbacks_list)

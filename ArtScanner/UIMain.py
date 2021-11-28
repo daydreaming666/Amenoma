@@ -507,7 +507,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model = ocr.OCR(model=os.path.join(self.bundle_dir, 'savedmodel.h5'))
+        self.model = ocr.OCR(model=os.path.join(self.bundle_dir, 'model_artifact.h5'))
 
         self.log('初始化完成')
         if self.isWindowCaptured:
@@ -537,7 +537,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model_m = ocr_m.OCR(model=os.path.join(self.bundle_dir, 'savedmodel_m.h5'))
+        self.model_m = ocr_m.OCR(model=os.path.join(self.bundle_dir, 'model_material.h5'))
 
         self.log('初始化完成')
         if self.isWindowCaptured:
