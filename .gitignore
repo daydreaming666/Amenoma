@@ -16,3 +16,4 @@ ArtScanner/artifacts/**
 /model_trainer/train/
 .idea/**
 
+/ArtScanner/materials/
