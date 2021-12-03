@@ -377,7 +377,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 2.3.0-preview"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 2.3.0"))
         self.pushButton_2.setText(_translate("MainWindow", "Capture\n"
 "Window"))
         self.pushButton.setText(_translate("MainWindow", "Start\n"
