@@ -316,8 +316,8 @@ SetNamesGOOD = [
     'Adventurer', 'LuckyDog', 'TravelingDoctor',
     'TenacityOfTheMillelith', 'PaleFlame',
     'EmblemOfSeveredFate', 'ShimenawasReminiscence',
-    'HuskOfOpulentDreams',  # todo Husk of Opulent Dreams
-    'OceanHuedClam'         # todo Ocean-Hued Clam
+    'HuskOfOpulentDreams', 
+    'OceanHuedClam'
 ]
 
 MainAttrValue = {

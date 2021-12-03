@@ -4,11 +4,32 @@
 
 > 「天目流的诀窍就是滴水穿石的耐心和全力以赴的意志」
 
-扫描背包中的圣遗物，并导出至 json 格式。之后可导入圣遗物分析工具( [莫娜占卜铺](https://www.mona-uranai.com) 、 [原魔计算器](https://genshin.mingyulab.com) 、 [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer ) 进行计算与规划等。
+扫描背包中的圣遗物和材料，并导出至 json 格式。之后可导入至圣遗物分析工具与材料规划工具进行分析与规划。
+
+### 圣遗物
+
+* 支持的格式
+* 莫娜占卜铺
+* 原魔计算器
+* GOOD (Genshin Open Object Description)
+
+* 分析工具
+* [莫娜占卜铺](https://www.mona-uranai.com)
+* [原魔计算器](https://genshin.mingyulab.com)
+* [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer)
+
+### 材料
+
+* 支持的格式
+* GOOD (Genshin Open Object Description)
+
+* 规划工具
+* [Seelie 仙灵](https://seelie.me)
+* [Genshin Center](https://genshin-center.com/)
 
 > 加入
 > 
-> Discord Server [Amenoma Smithy](https://discord.gg/S3B9NB7Bk2)
+> Discord Server [Amenoma Smithy](https://discord.gg/5e3WyFNG9A)
 >
 > QQ 群： 910549414
 > 
@@ -39,6 +60,7 @@
 
 ## 用法
 
+### 扫描圣遗物
 1. 双击 Amenoma.exe 打开程序，等待一会儿代码的解压
 2. 将原神调整分辨率为 1600 * 900
 3. 打开背包 - 圣遗物
@@ -50,31 +72,24 @@
    - `artifacts.genmocalc.json`  原魔计算器 
    - `artifacts.GOOD.json`       Genshin Optimizer
 
+### 扫描材料
+与上述步骤类似，但注意导出文件名为`materials.GOOD.json`.
+
 > [其他问题](#qa)
 
 
 ## Release Notes
 
-2.1.1.1版本已发布。
+2.3.0版本已发布。
 
-新功能：
+- 新功能：
+- 支持扫描材料，现在可以扫描材料并一键导入 *Seelie 仙灵 / Genshin Center* 来进行物品规划。
+- 已更新原神 2.3 版本的圣遗物。
+- 增加了对于类型名称的自动纠错
+- 增加了对于装备位置和是否上锁的检测
 
-- 根据导出器自动调节调出选项
-- 适配 GOOD (Genshin Open Object Description)
-- 好用的 logger
-- 副词条名自动纠错
-- 更多的扫描和导出选项
-  - 使用增强的捕获窗口（云游戏适配）
-  - 一次性导出所有格式（方便使用多种工具对比）
-  - 可选择导出所有图片（不止导出失败的图片）
-  - 根据套装过滤圣遗物
-- 微小的 UI 调整
-
-bug 修复：
-
-- 修复了一个可能识别出错误星星数量的 bug
-- 已扫描数量统计错误
-- 错误的 GOOD 数据
+- bug 修复：
+- GOOD 格式的浮点误差
 
 
 ## 开发环境搭建
@@ -116,9 +131,9 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 
 已知的问题：
 
-1. 祝圣精华/祝圣油膏没有被识别出，并且会导致一个错误。这并不影响扫描结果，忽略错误即可。
-2. 有时，对鼠标的控制完全不生效，包括滚轮和点击。假如你遇到了这个情况，请联系我，我需要更多的信息来找出原因。
-3. 有时，对齐操作进行的不正常。在扫描一开始时就会把列表向下滚动。检查下是否启用了色彩滤镜（如 NVIDIA） ，关闭重新扫描即可。
+1. 有时，对鼠标的控制完全不生效，包括滚轮和点击。假如你遇到了这个情况，请联系我，我需要更多的信息来找出原因。
+2. 有时，对齐操作进行的不正常。在扫描一开始时就会把列表向下滚动。检查下是否启用了色彩滤镜（如 NVIDIA） ，关闭重新扫描即可。
+3. 因翻页时坐标有一定的误差，部分物品的数量会识别失败。
 
 > 如果遇到问题或任何建议，请提交 issues 或邮件至 [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
 

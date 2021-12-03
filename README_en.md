@@ -4,9 +4,30 @@
 
 > The essence of Amenoma Art is to have the patience to move mountains and unrelenting willpower.
 
-Scan the Artifact in the Inventory and export them to json format. Then, they can be imported to Artifact analysis tools ([Mona-uranai](https://www.mona-uranai.com), [Genmo Calculator](https://genshin.mingyulab.com), [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer )) for calculation and planning, etc. 
+Scan the Artifact and Materials in the Inventory and export them to json format. Then, they can be imported to Artifact analysis tools and Material Planning tools for calculation and planning, etc. 
 
-> Join My Discord Server for reporting bugs & suggestions or just chatting with us. `-->` [Amenoma Smithy](https://discord.gg/S3B9NB7Bk2)
+### Artifact
+
+* Supported Formats
+* Mona-Uranai
+* Genmo Calculator
+* GOOD (Genshin Open Object Description)
+
+* Analysis Tools
+* [Mona-uranai](https://www.mona-uranai.com)
+* [Genmo Calculator](https://genshin.mingyulab.com)
+* [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer)
+
+### Materials
+
+* Supported Formats
+* GOOD (Genshin Open Object Description)
+
+* Planning Tools
+* [Seelie](https://seelie.me)
+* [Genshin Center](https://genshin-center.com/)
+
+> Join My Discord Server for reporting bugs & suggestions or just chatting with us. `-->` [Amenoma Smithy](https://discord.gg/5e3WyFNG9A)
 
 If you are using it for the first time, make sure to read this file. If anything confuses, contact me.
 
@@ -31,6 +52,8 @@ Multiple versions available for download:
 
 ## Usage
 
+
+### Scan Artifacts
 1. Double-click ArtScanner.exe to open the program, and wait a while for the program to decompress. 
 2. Adjust the resolution of the *Genshin Impact* to 1600 * 900 (Or others that meets 16:9).
 3. Open Inventory - Artifacts.
@@ -42,31 +65,25 @@ Multiple versions available for download:
    - `artifacts.genmocalc.json`   Genmo Calculator
    - `artifacts.GOOD.json`        Genshin Optimizer
 
+### Scan Materials
+Similar to above.
+And the exported json file is `materials.GOOD.json`
+
 > [Other Questions](#qa)
 
 
 ## Release Notes
 
-Version 2.1.1.1 released 
+Version 2.3.0 released 
 
-New Features:
+- New Features:
+- Scanning materials supported. You can scan materials and import the to *Seelie / Genshin Center* in one click.
+- updated Genshin 2.3.0 Artifacts.
+- Added autocorrection for the type of Artifact
+- Added the detection of location and locked status of the Artifact
 
-- Automatically adjust options according to the exporter
-- Adapt to GOOD (Genshin Open Object Description)
-- A useful logger 
-- Automatic correction of sub attributes name 
-- More options about scanning and exporting 
-  - A Enhanced capture window function(for cloud game players)
-  - Export all formats at once (use multiple tools for comparison) 
-  - Option to export all pictures (not only the failed Items)
-  - Filter Artifacts by set name
-- A little adjustments of UI
-
-Bug Fixes:
-
-- Fixed a bug that could identify the wrong number of stars 
-- The count of *Scanned* wrong.
-- wrong GOOD values
+- Bug Fixes:
+- floating point errors as GOOD values
 
 ## Development Environment Setup 
 
@@ -105,11 +122,9 @@ When you download or use this software, you are deemed to know and agree to the 
 
 known issues:
 
-known issues:
-1. Some fields of GOOD is wrong, caused error when importing. Will be fixed next subversion. Fixed. Use GOOD freely.
-2. Sanctifying Essence/Unction is not recognizable and will cause an error. It doesn't matter and will not affect the exporting. Just ignore the error.
-3. In some cases, mouse controlling not work at all, including moving and clicking. Check if you're in pad mode, which will cause the error.
-4. The aligner doesn't work well in some cases. It scrolls down the list even at the beginning of scanning. If this happens, check that if you are using any color filters, e.g. Nvidia ... , close them and try scanning again.
+1. In some cases, mouse controlling not work at all, including moving and clicking. Check if you're in pad mode, which will cause the error.
+2. The aligner doesn't work well in some cases. It scrolls down the list even at the beginning of scanning. If this happens, check that if you are using any color filters, e.g. Nvidia ... , close them and try scanning again.
+3. Some amount of the Materials are not correct, because of the error coordinates while turning the page.
 
 
 > If you encounter problems or any suggestions, please submit issues or email to [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
