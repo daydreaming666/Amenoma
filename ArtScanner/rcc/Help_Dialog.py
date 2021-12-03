@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(380, 390)
+        Dialog.resize(400, 500)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -151,6 +151,7 @@ class Ui_Dialog(object):
         Dialog.setPalette(palette)
         Dialog.setStyleSheet("font: 9pt \"HYWenHei-85W\";")
         self.verticalLayout = QtWidgets.QVBoxLayout(Dialog)
+        self.verticalLayout.setContentsMargins(15, 15, 15, 15)
         self.verticalLayout.setObjectName("verticalLayout")
         self.textBrowser = QtWidgets.QTextBrowser(Dialog)
         self.textBrowser.setMinimumSize(QtCore.QSize(270, 315))
@@ -179,14 +180,16 @@ class Ui_Dialog(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'HYWenHei-85W\'; font-size:9pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'等线\'; font-size:10pt;\"><br /></span></p>\n"
+"<p style=\" margin-top:14px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:large;\">扫描圣遗物</span></p>\n"
 "<ol style=\"margin-top: 0px; margin-bottom: 0px; margin-left: 0px; margin-right: 0px; -qt-list-indent: 1;\"><li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">将原神调整分辨率为 1600 * 900 (或其他满足 16 : 9 的分辨率)</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">打开背包 - 圣遗物</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">捕获窗口</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">调整扫描选项</li>\n"
 "<li style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">开始扫描（鼠标中键结束）</li>\n"
-"<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">扫描结果存储在运行文件夹 <br /> <span style=\" color:#517fcb;\">artifacts.genshinart.json</span>(莫娜占卜铺)<br /> <span style=\" color:#517fcb;\">artifacts.mingyulab.json</span>(原魔计算器)<br /> <span style=\" color:#517fcb;\">artifacts.GOOD.json</span>(Genshin Optimizer)</li></ol>\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'等线\'; font-size:10pt;\"><br /></p></body></html>"))
+"<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">扫描结果存储在运行文件夹 <br /> <span style=\" color:#517fcb;\">artifacts.genshinart.json</span>(莫娜占卜铺)<br /> <span style=\" color:#517fcb;\">artifacts.genmocalc.json</span>(原魔计算器)<br /> <span style=\" color:#517fcb;\">artifacts.GOOD.json</span><br />(Genshin Optimizer)</li></ol>\n"
+"<p style=\" margin-top:14px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:large;\">扫描材料</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">调整分辨率 -- 打开背包 -- 调整扫描选项 -- 开始！</p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">导出结果存储为<br /><span style=\" color:#517fcb;\">materials.GOOD.json</span></p></body></html>"))
         self.pushButton.setText(_translate("Dialog", "关闭"))
 
 from . import AmenomaRc
