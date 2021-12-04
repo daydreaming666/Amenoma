@@ -8,22 +8,22 @@
 
 ### 圣遗物
 
-* 支持的格式
+**支持的格式**
 * 莫娜占卜铺
 * 原魔计算器
 * GOOD (Genshin Open Object Description)
-
-* 分析工具
+-------------------------
+**分析工具**
 * [莫娜占卜铺](https://www.mona-uranai.com)
 * [原魔计算器](https://genshin.mingyulab.com)
 * [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer)
 
 ### 材料
 
-* 支持的格式
+**支持的格式**
 * GOOD (Genshin Open Object Description)
-
-* 规划工具
+---------------------------------
+**规划工具**
 * [Seelie 仙灵](https://seelie.me)
 * [Genshin Center](https://genshin-center.com/)
 

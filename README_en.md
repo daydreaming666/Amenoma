@@ -8,22 +8,22 @@ Scan the Artifact and Materials in the Inventory and export them to json format.
 
 ### Artifact
 
-* Supported Formats
+*Supported Formats*
 * Mona-Uranai
 * Genmo Calculator
 * GOOD (Genshin Open Object Description)
-
-* Analysis Tools
+-------------------------------
+*Analysis Tools*
 * [Mona-uranai](https://www.mona-uranai.com)
 * [Genmo Calculator](https://genshin.mingyulab.com)
 * [Genshin Optimizer](https://frzyc.github.io/genshin-optimizer)
 
 ### Materials
 
-* Supported Formats
+*Supported Formats*
 * GOOD (Genshin Open Object Description)
-
-* Planning Tools
+---------------------------------
+*Planning Tools*
 * [Seelie](https://seelie.me)
 * [Genshin Center](https://genshin-center.com/)
 
