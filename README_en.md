@@ -74,6 +74,9 @@ And the exported json file is `materials.GOOD.json`
 
 ## Release Notes
 
+2.3.2
+- Significantly increase the scanning speed of materials 
+
 2.3.1
 - Rollback the refactoring of click and page turning, so that the speed can return to the previous one.
 - (if the code can run, don't touch it)
