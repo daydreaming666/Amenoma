@@ -5,6 +5,7 @@
       <excludeFolder url="file://$MODULE_DIR$/ArtScanner/artifacts" />
       <excludeFolder url="file://$MODULE_DIR$/ArtScanner/build" />
       <excludeFolder url="file://$MODULE_DIR$/ArtScanner/dist" />
+      <excludeFolder url="file://$MODULE_DIR$/model_trainer/train" />
     </content>
     <orderEntry type="jdk" jdkName="Python 3.8 (ArtScanner)" jdkType="Python SDK" />
     <orderEntry type="sourceFolder" forTests="false" />

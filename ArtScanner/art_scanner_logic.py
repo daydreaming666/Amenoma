@@ -27,7 +27,10 @@ class GameInfo:
         self.art_info_width = 656 * self.scale_ratio
         self.art_info_height = 1119 * self.scale_ratio
 
-        self.left_margin = (199.33 if self.w < 2 * self.h else 295.33) * self.scale_ratio
+        # == in <=2.4 ==
+        # self.left_margin = (199.33 if self.w < 2 * self.h else 295.33) * self.scale_ratio
+        # == updated in 2.5 ==
+        self.left_margin = (155 if self.w < 2 * self.h else 295.33) * self.scale_ratio
         self.right_margin = (871.33 if self.w < 2 * self.h else 967.33) * self.scale_ratio
         self.info_margin = 0 if self.w < 2 * self.h else 96 * self.scale_ratio
 
@@ -42,7 +45,10 @@ class GameInfo:
         self.first_art_y = 161 * self.scale_ratio
 
         self.art_info_top = 160 * self.scale_ratio
-        self.art_info_left = self.w - 837 * self.scale_ratio - self.info_margin
+        # == in <=2.4 ==
+        # self.art_info_left = self.w - 837 * self.scale_ratio - self.info_margin
+        # == updated in 2.5 ==
+        self.art_info_left = self.w - 816 * self.scale_ratio - self.info_margin
         # scroll_keypt_x = left_margin + art_shift + 158*scale_ratio
         # scroll_keypt_y = 1270*scale_ratio+h-1440*scale_ratio
         self.scroll_fin_keypt_x = self.left_margin + self.art_shift + 10 * self.scale_ratio

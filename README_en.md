@@ -59,7 +59,7 @@ Multiple versions available for download:
 3. Open Inventory - Artifacts.
 4. Capture the window. (If it is not been captured)
 5. Adjust scanning options.
-6. Start scanning 
+6. Start scanning (Mouse middle-click to interrupt).
 7. Scan results are stored in current running folder.
    - `artifacts.genshinart.json`  Mona-uranai 
    - `artifacts.genmocalc.json`   Genmo Calculator
@@ -73,6 +73,10 @@ And the exported json file is `materials.GOOD.json`
 
 
 ## Release Notes
+
+2.5.0
+- Add support for Genshin Impact 2.5.0
+- The feature of scanning materials is temporarily disabled due to the re-training of the model.
 
 2.3.2
 - Significantly increase the scanning speed of materials 

@@ -293,8 +293,6 @@ output = Dense(len(characters) + 2, activation="softmax", name="dense2")(x)
 model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
 
 
-
-
 # test functions
 class Config:
     name_coords = [33, 8, 619, 69]
@@ -309,8 +307,6 @@ class Config:
     subattr_4_coords = [67, 636, 560, 676]
     equipped_coords = [105, 1060, 500, 1100]
     lock_coords = [570, 405, 620, 455]
-
-
 
 
 filepath = "./train/materials-weights-improvement-{epoch:02d}-{ctc_accu:.3f}.hdf5"

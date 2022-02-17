@@ -49,5 +49,5 @@ output = Dense(len(characters) + 2, activation="softmax", name="dense2")(x)
 
 # Define the model
 model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
-model.load_weights("../train/materials-weights-improvement-68-1.000.hdf5")
+# model.load_weights("../train/materials-weights-improvement-68-1.000.hdf5")
 model.save("./model_material.h5")

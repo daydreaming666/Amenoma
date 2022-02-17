@@ -63,7 +63,8 @@ class MaterialScannerLogic:
         if len(rows) < 1:
             return True
         art_center_x, art_center_y = self.getItemCenter(rows[0], 0)
-        mouse.move(self.scanner.game_info.left + art_center_x, self.scanner.game_info.top + art_center_y)
+        mouse.move(self.scanner.game_info.left + art_center_x,
+                   self.scanner.game_info.top + art_center_y)
         mouse.click()
 
         if last_row:

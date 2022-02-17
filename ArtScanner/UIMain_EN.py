@@ -714,7 +714,7 @@ class Worker(QObject):
         def material_callback(detail_img, item_img):
             detectedInfo = self.model_m.detect_info(detail_img, item_img)
             materialFilter(detectedInfo, detail_img, item_img)
-            if not self.material_id % 7:
+            if not self.material_id % self.game_info.art_cols:
                 self.log(f"Scanned: {self.material_id}")
                 self.log(f"  - Saved: {self.saved_material}")
                 self.log(f"  - Failed: {self.failed_material}")
@@ -922,7 +922,7 @@ class Worker(QObject):
         def artscannerCallback(art_img):
             detectedInfo = self.model.detect_info(art_img)
             artFilter(detectedInfo, art_img)
-            if not self.art_id % 7:
+            if not self.art_id % self.game_info.art_cols:
                 self.log(f"Scanned: {self.art_id}")
                 self.log(f"  - Saved: {self.saved}")
                 self.log(f"  - Failed: {self.failed}")
