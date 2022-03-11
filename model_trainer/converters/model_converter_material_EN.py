@@ -1,9 +1,13 @@
+import os
+
 from tensorflow.keras.layers import Input, Reshape, Dense, Dropout, Bidirectional, LSTM
 from tensorflow.keras.layers.experimental.preprocessing import StringLookup
 from tensorflow.keras.models import Model
 
 from ArtScanner.MaterialInfo import MaterialsNameEN as MaterialsName
 from model_trainer.mobilenetv3 import MobileNetV3_Small
+
+import model_trainer.model_info as model_info
 
 MaterialsNameEN = list(MaterialsName.keys())
 
@@ -48,5 +52,10 @@ output = Dense(len(characters) + 2, activation="softmax", name="dense2")(x)
 
 # Define the model
 model = Model(inputs=[input_img], outputs=output, name="ocr_model_v1")
-# model.load_weights("../train/materials-weights-improvement-EN-84-1.000.hdf5")
-model.save("./model_material_EN.h5")
+model.load_weights(os.path.join("..", model_info.MODEL_DIR, model_info.MATERIALS_MODEL_NAME_EN))
+
+
+def convert():
+    model.summary()
+    model.save(os.path.join(model_info.OUTPUT_DIR,
+                            f"material_model_EN_{model_info.MODEL_TARGET_VERSION}.h5"))

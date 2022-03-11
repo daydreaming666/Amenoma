@@ -1,9 +1,13 @@
+import os.path
+
 from tensorflow.keras.layers import Input, Reshape, Dense, Dropout, Bidirectional, LSTM
 from tensorflow.keras.layers.experimental.preprocessing import StringLookup
 from tensorflow.keras.models import Model
 
 import ArtScanner.ArtsInfo as Info
 from model_trainer.mobilenetv3 import MobileNetV3_Small
+
+import model_trainer.model_info as model_info
 
 Users_EN = list(Info.UsersEN.keys())
 
@@ -55,5 +59,10 @@ output = Dense(len(characters) + 2, activation="softmax", name="dense2")(x)
 # Define the model
 model = Model(inputs=[input_img], outputs=output, name="ocr_model_en")
 
-model.load_weights("../train/artifact-weights-improvement-EN-99-0.999.hdf5")
-model.save("./model_artifact_EN.h5")
+model.load_weights(os.path.join("..", model_info.MODEL_DIR, model_info.ARTIFACTS_MODEL_NAME_EN))
+
+
+def convert():
+    model.summary()
+    model.save(os.path.join(model_info.OUTPUT_DIR,
+                            f"artifact_model_EN_{model_info.MODEL_TARGET_VERSION}.h5"))
