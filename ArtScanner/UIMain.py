@@ -472,7 +472,6 @@ class Worker(QObject):
         # init in scanMaterials
         self.material_id = 0
         self.saved_material = 0
-        self.skipped_material = 0
         self.failed_material = 0
 
     @pyqtSlot()
@@ -507,7 +506,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model = ocr.OCR(model=os.path.join(self.bundle_dir, 'model_artifact.h5'))
+        self.model = ocr.OCR(model=os.path.join(self.bundle_dir, 'rcc/models_CHS/artifact_model_2.5.0.h5'))
 
         self.log('初始化完成')
         if self.isWindowCaptured:
@@ -537,7 +536,7 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model_m = ocr_m.OCR(model=os.path.join(self.bundle_dir, 'model_material.h5'))
+        self.model_m = ocr_m.OCR(model=os.path.join(self.bundle_dir, 'rcc/models_CHS/material_model_2.5.0.h5'))
 
         self.log('初始化完成')
         if self.isWindowCaptured:
@@ -639,7 +638,6 @@ class Worker(QObject):
 
         self.material_id = 0
         self.saved_material = 0
-        self.skipped_material = 0
         self.failed_material = 0
 
         def autoCorrect(detected_info):
@@ -712,7 +710,6 @@ class Worker(QObject):
                 self.log(f"扫描: {self.material_id}")
                 self.log(f"  - 保存: {self.saved_material}")
                 self.log(f"  - 失败: {self.failed_material}")
-                self.log(f"  - 跳过: {self.skipped_material}")
 
         def scan_materials(target):
             start_row = 0
@@ -763,7 +760,6 @@ class Worker(QObject):
         self.log(f"扫描: {self.material_id}")
         self.log(f"  - 保存: {self.saved_material}")
         self.log(f"  - 失败: {self.failed_material}")
-        self.log(f"  - 跳过: {self.skipped_material}")
         self.log('失败结果将存储至 material 文件夹')
 
         del materialsDB

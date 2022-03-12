@@ -74,7 +74,8 @@ class MaterialScannerLogic:
                 if self.scanner.stopped:
                     return False
 
-                if self.scanner.waitSwitched(art_center_x, art_center_y, min_wait=0.1, max_wait=3):
+                if self.scanner.waitSwitched(*self.scanner.getArtCenter(art_row, art_col),
+                                             min_wait=0.1, max_wait=3):
                     detail_img = captureWindow(self.scanner.game_info.hwnd, (
                         self.scanner.game_info.art_info_left,
                         self.scanner.game_info.art_info_top,

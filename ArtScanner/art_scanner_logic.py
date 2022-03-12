@@ -6,6 +6,7 @@ import numpy as np
 import win32gui
 
 from utils import captureWindow
+from utils import logger
 
 
 class GameInfo:
@@ -62,7 +63,10 @@ class GameInfo:
                                     - self.first_art_y + self.art_gap_y) /
                                    (self.art_height + self.art_gap_y) - self.art_rows + 1) < 0.7
 
-        self.lastrow_offset = 34.5 * self.scale_ratio
+        # == in <=2.4 ==
+        # self.lastrow_offset = 34.5 * self.scale_ratio
+        # == updated in 2.5 ==
+        self.lastrow_offset = 125.5 * self.scale_ratio
         # Character Development Item
         self.cdi_button = (self.left + 1025 * self.scale_ratio,
                            self.top + 70 * self.scale_ratio)
@@ -83,7 +87,9 @@ class ArtScannerLogic:
                      condition=lambda pix: sum(pix) / 3 > 200):
         start = time.time()
         total_wait = 0
+        count = 0
         while True:
+            count += 1
             mouse.move(self.game_info.left + art_center_x, self.game_info.top + art_center_y)
             mouse.click()
             pix = captureWindow(self.game_info.hwnd, (
@@ -93,6 +99,7 @@ class ArtScannerLogic:
                 art_center_y + 1.5))
             if condition(pix.getpixel((0, 0))):
                 self.avg_response_time = 0.5 * self.avg_response_time + 0.5 * (time.time() - start)
+                logger.info("waitSwitched: %d times, avg response time: %f" % (count, self.avg_response_time))
                 return True
             else:
                 time.sleep(min_wait)
@@ -121,7 +128,7 @@ class ArtScannerLogic:
             for art_col in range(self.game_info.art_cols):
                 if self.stopped:
                     return False
-                if self.waitSwitched(art_center_x, art_center_y, min_wait=0.1, max_wait=3):
+                if self.waitSwitched(*self.getArtCenter(art_row, art_col), min_wait=0.1, max_wait=3):
                     art_img = captureWindow(self.game_info.hwnd, (
                         self.game_info.art_info_left,
                         self.game_info.art_info_top,

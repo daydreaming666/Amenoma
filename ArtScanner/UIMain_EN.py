@@ -474,7 +474,6 @@ class Worker(QObject):
         # init in scanMaterials
         self.material_id = 0
         self.saved_material = 0
-        self.skipped_material = 0
         self.failed_material = 0
 
     @pyqtSlot()
@@ -511,7 +510,8 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model = ocr_EN.OCR(model=os.path.join(self.bundle_dir, 'model_artifact_EN.h5'))
+        self.model = ocr_EN.OCR(model=os.path.join(self.bundle_dir,
+                                                   'rcc/models_EN/artifact_model_EN_2.5.0.h5'))
 
         self.log('Initialize is finished.')
         if self.isWindowCaptured:
@@ -542,7 +542,8 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model_m = ocr_m_EN.OCR(model=os.path.join(self.bundle_dir, 'model_material_EN.h5'))
+        self.model_m = ocr_m_EN.OCR(model=os.path.join(self.bundle_dir,
+                                                       'rcc/models_EN/material_model_EN_2.5.0.h5'))
 
         self.log('Initializing finished')
         if self.isWindowCaptured:
@@ -645,7 +646,6 @@ class Worker(QObject):
 
         self.material_id = 0
         self.saved_material = 0
-        self.skipped_material = 0
         self.failed_material = 0
 
         def autoCorrect(detected_info):
@@ -718,7 +718,6 @@ class Worker(QObject):
                 self.log(f"Scanned: {self.material_id}")
                 self.log(f"  - Saved: {self.saved_material}")
                 self.log(f"  - Failed: {self.failed_material}")
-                self.log(f"  - Skipped: {self.skipped_material}")
 
         def scan_materials(target):
             start_row = 0
@@ -769,7 +768,6 @@ class Worker(QObject):
         self.log(f"Scanned: {self.material_id}")
         self.log(f"  - Saved: {self.saved_material}")
         self.log(f"  - Failed: {self.failed_material}")
-        self.log(f"  - Skipped: {self.skipped_material}")
         self.log('The failed result will be stored in the folder [material].')
 
         del materialsDB
