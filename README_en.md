@@ -38,17 +38,18 @@ Give me star if you think it's easy to use. Thanks!
 - [Github Release](https://github.com/daydreaming666/Amenoma/releases)
 - [Google Drive](https://drive.google.com/drive/folders/1FYrsXy_nznVcV_aN4731FTDWQcAacivy?usp=sharing)
 
-Multiple versions available for download: 
-
 - Amenoma_EN.exe
-  Single-file version with GUI, which takes longer to start.
-- Amenoma_EN.zip 
-  Multi-file version with GUI, can be used after decompression, and the startup time is shorter.The disadvantage is that it takes up more space after decompression.
+  
+  English version.
 
-> For EngLish users:
+- Amenoma.exe
+  
+  Chinese version.
+
+> For English users:
 > 
-> Please make sure to download the version with the suffix *_EN*. Versions in different languages **cannot** be used universally. 
-
+> **DO NOT** download the *Amenoma.exe* file, which is build for the Chinese version.
+> Download the *Amenoma_EN.exe* file instead.
 
 ## Usage
 

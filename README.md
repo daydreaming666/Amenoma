@@ -45,18 +45,15 @@
 - [Google Drive](https://drive.google.com/drive/folders/1FYrsXy_nznVcV_aN4731FTDWQcAacivy?usp=sharing)
 - [百度网盘 提取码:i2hd](https://pan.baidu.com/s/1CDHgZAbFWEPoqt4183GT9A)
 
-有多个版本可供下载：
+- Amenoma.exe 
 
-- Amenoma.exe
-  带界面的单文件版本，启动时间略长。(推荐)
+  中文版
 
-- Amenoma.zip
-  带界面的多文件版本，解压后使用，启动时间较短。缺点是解压后占用空间较大。
+- Amenoma_EN.exe
+  
+  英文版
 
-- AmenomaCLI.exe
-  使用命令行的单文件版本。(该版本仅维护圣遗物名称识别模型)
-
-> 使用中文界面时，请确保下载不带有后缀 *_EN* 的版本。不同语言的版本不能通用。
+> 使用中文界面时，请**不要**下载 *Amenoma_EN.exe* 的版本。不同语言的版本不能通用。
 
 ## 用法
 
