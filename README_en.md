@@ -73,28 +73,13 @@ And the exported json file is `materials.GOOD.json`
 
 
 ## Release Notes
+2.5.1
+- Fixed the scanning of materials.
+- Refactored the code.
 
 2.5.0
 - Add support for Genshin Impact 2.5.0
 - The feature of scanning materials is temporarily disabled due to the re-training of the model.
-
-2.3.2
-- Significantly increase the scanning speed of materials 
-
-2.3.1
-- Rollback the refactoring of click and page turning, so that the speed can return to the previous one.
-- (if the code can run, don't touch it)
-
-Version 2.3.0 released 
-
-- New Features:
-- Scanning materials supported. You can scan materials and import the to *Seelie / Genshin Center* in one click.
-- updated Genshin 2.3.0 Artifacts.
-- Added autocorrection for the type of Artifact
-- Added the detection of location and locked status of the Artifact
-
-- Bug Fixes:
-- floating point errors as GOOD values
 
 ## Development Environment Setup 
 
