@@ -1,3 +1,12 @@
+import os
+import json
+
+current_path = os.path.dirname(os.path.abspath(__file__))
+char_data = json.load(open(os.path.join(current_path, 'rcc/char_map_v26.json'), encoding='utf-8'))
+
+UsersCHS = char_data['CHS']
+UsersEN = char_data['EN']
+
 Formats = {
     "FIGHT_PROP_CRITICAL": "{:.1%}",
     "FIGHT_PROP_CRITICAL_HURT": "{:.1%}",
@@ -101,56 +110,10 @@ ArtNames = [
     ["羁缠之花", "思忆之矢", "朝露之时", "祈望之心", "无常之面"],  # 追忆之注连
     ['荣花之期', '华馆之羽', '众生之谣', '梦醒之瓢', '形骸之笠'],  # 华馆梦醒形骸记
     ['海染之花', '渊宫之羽', '离别之贝', '真珠之笼', '海祇之冠'],  # 海染砗磲
+    ['魂香之花', '垂玉之叶', '祝祀之凭', '涌泉之盏', '浮溯之珏'],  # 来歆余响
+    ['生灵之华', '潜光片羽', '阳辔之遗', '结契之刻', '虺雷之姿'],  # 辰砂往生录
     ["祝圣精华", "祝圣油膏"],  # 强化材料
 ]
-
-UsersCHS = {
-    "空": "Aether",
-    "荧": "Lumine",
-    "安柏": "Amber",
-    "凯亚": "Kaeya",
-    "丽莎": "Lisa",
-    "琴": "Jean",
-    "可莉": "Klee",
-    "诺艾尔": "Noelle",
-    "芭芭拉": "Barbara",
-    "温迪": "Venti",
-    "雷泽": "Razor",
-    "迪卢克": "Diluc",
-    "班尼特": "Bennett",
-    "菲谢尔": "Fischl",
-    "北斗": "Beidou",
-    "凝光": "Ningguang",
-    "香菱": "Xiangling",
-    "行秋": "Xingqiu",
-    "重云": "Chongyun",
-    "砂糖": "Sucrose",
-    "莫娜": "Mona",
-    "刻晴": "Keqing",
-    "七七": "Qiqi",
-    "达达利亚": "Tartaglia",
-    "迪奥娜": "Diona",
-    "钟离": "Zhongli",
-    "辛焱": "Xinyan",
-    "阿贝多": "Albedo",
-    "甘雨": "Ganyu",
-    "魈": "Xiao",
-    "胡桃": "HuTao",
-    "罗莎莉亚": "Rosaria",
-    "烟绯": "Yanfei",
-    "优菈": "Eula",
-    "埃洛伊": "Aloy",
-    "珊瑚宫心海": "SangonomiyaKokomi",
-    "雷电将军": "RaidenShogun",
-    "九条裟罗": "KujouSara",
-    "早柚": "Sayu",
-    "宵宫": "Yoimiya",
-    "神里绫华": "KamisatoAyaka",
-    "枫原万叶": "KaedeharaKazuha",
-    "托马": "Thoma",
-    "荒泷一斗": "AratakiItto",
-    "五郎": "Gorou"
-}
 
 TypeNamesGenshinArt = ["flower", "feather", "sand", "cup", "head"]
 AttrNamesGensinArt = {
@@ -212,7 +175,9 @@ SetNamesGenshinArt = [
     "emblemOfSeveredFate",  # 绝缘之旗印
     "shimenawaReminiscence",  # 追忆之注连
     "huskOfOpulentDreams",      # 华馆梦醒形骸记
-    "oceanHuedClam"      # 海染砗磲
+    "oceanHuedClam",       # 海染砗磲
+    "EchoesOfAnOffering",  # 来歆余响
+    "VermillionHereafter"  # 辰砂往生录
 ]
 
 TypeNamesMingyuLab = ['flower', 'plume', 'eon', 'goblet', 'circlet']
@@ -273,10 +238,12 @@ SetNamesMingyuLab = [
     "traveling_doctor",  # 游医
     "tenacity_of_the_millelith",  # 千岩牢固
     "pale_flame",  # 苍白之火
-    "seal_of_insulation",  # 绝缘之旗印
-    "reminiscence_of_shime",   # 追忆之注连
-    "husk_of_opulent_dreams",  # 华馆梦醒形骸记
-    "divine_chorus",  # 海染砗磲
+    "seal_of_insulation",       # 绝缘之旗印
+    "reminiscence_of_shime",    # 追忆之注连
+    "husk_of_opulent_dreams",   # 华馆梦醒形骸记
+    "divine_chorus",            # 海染砗磲
+    "echoes_of_an_offering",    # 来歆余响
+    "vermillion_hereafter"      # 辰砂往生录
 ]
 
 TypeNamesGOOD = ['flower', 'plume', 'sands', 'goblet', 'circlet']
@@ -317,7 +284,9 @@ SetNamesGOOD = [
     'TenacityOfTheMillelith', 'PaleFlame',
     'EmblemOfSeveredFate', 'ShimenawasReminiscence',
     'HuskOfOpulentDreams', 
-    'OceanHuedClam'
+    'OceanHuedClam',
+    "EchoesOfAnOffering",   # 来歆余响
+    "VermillionHereafter"   # 辰砂往生录
 ]
 
 MainAttrValue = {
@@ -577,56 +546,13 @@ ArtNames_EN = [
      'Calabash of Awakening', 'Skeletal Hat'],      # Husk of Opulent Dreams
     ['Sea-Dyed Blossom', "Deep Palace's Plume", 'Cowry of Parting',
      'Pearl Cage', 'Crown of Watatsumi'],     # Ocean-Hued Clam
+    ['Soulscent Bloom', 'Jade Leaf', 'Symbol of Felicitation',
+     'Chalice of the Font', 'Flowing Rings'],  # "Echoes of an Offering",
+    ['Flowering Life', 'Feather of Nascent Light', 'Solar Relic',
+     'Moment of the Pact', 'Thundering Poise'],  # 'Vermillion Hereafter'
+
     ['Sanctifying Unction', 'Sanctifying Essence']  # keep the two at last
 ]
-
-UsersEN = {
-    "Aether": "Aether",
-    "Albedo": "Albedo",
-    "Aloy": "Aloy",
-    "Amber": "Amber",
-    "Barbara": "Barbara",
-    "Beidou": "Beidou",
-    "Bennett": "Bennett",
-    "Chongyun": "Chongyun",
-    "Diluc": "Diluc",
-    "Diona": "Diona",
-    "Eula": "Eula",
-    "Fischl": "Fischl",
-    "Ganyu": "Ganyu",
-    "Hu Tao": "HuTao",
-    "Jean": "Jean",
-    "Kaedehara Kazuha": "KaedeharaKazuha",
-    "Kaeya": "Kaeya",
-    "Kamisato Ayaka": "KamisatoAyaka",
-    "Keqing": "Keqing",
-    "Klee": "Klee",
-    "Kujou Sara": "KujouSara",
-    "Lisa": "Lisa",
-    "Lumine": "Lumine",
-    "Mona": "Mona",
-    "Ningguang": "Ningguang",
-    "Noelle": "Noelle",
-    "Qiqi": "Qiqi",
-    "Raiden Shogun": "RaidenShogun",
-    "Razor": "Razor",
-    "Rosaria": "Rosaria",
-    "Sangonomiya Kokomi": "SangonomiyaKokomi",
-    "Sayu": "Sayu",
-    "Sucrose": "Sucrose",
-    "Tartaglia": "Tartaglia",
-    "Venti": "Venti",
-    "Xiangling": "Xiangling",
-    "Xiao": "Xiao",
-    "Xingqiu": "Xingqiu",
-    "Xinyan": "Xinyan",
-    "Yanfei": "Yanfei",
-    "Yoimiya": "Yoimiya",
-    "Zhongli": "Zhongli",
-    "Thoma": "Thoma",
-    "Arataki Itto": "AratakiItto",
-    "Gorou": "Gorou"
-}
 
 SetNames = [
     "悠古的磐岩",
@@ -665,7 +591,9 @@ SetNames = [
     "绝缘之旗印",
     "追忆之注连",
     "华馆梦醒形骸记",
-    "海染砗磲"
+    "海染砗磲",
+    "来歆余响",
+    "辰砂往生录"
 ]
 
 Setnames_EN = [
@@ -689,5 +617,7 @@ Setnames_EN = [
     'Emblem of Severed Fate',
     "Shimenawa's Reminiscence",
     "Husk of Opulent Dreams",
-    "Ocean-Hued Clam"
+    "Ocean-Hued Clam",
+    "Echoes of an Offering",
+    'Vermillion Hereafter'
 ]
