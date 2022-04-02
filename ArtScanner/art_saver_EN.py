@@ -13,6 +13,7 @@ from utils import logger
 
 bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
 
+
 class ArtifactType(Enum):
     FLOWER = 0
     PLUME = 1
@@ -223,29 +224,28 @@ class ArtDatabase:
             art: Artifact = self.root[str(art_id)]
             result['artifacts'].append(
                 {
-                    "setKey":      ArtsInfo.SetNamesGOOD[art.setid],
-                    "slotKey":     ArtsInfo.TypeNamesGOOD[art.type],
-                    "level":       art.level,
-                    "rarity":      art.rarity if 3 <= art.rarity <= 5 else 0,
+                    "setKey": ArtsInfo.SetNamesGOOD[art.setid],
+                    "slotKey": ArtsInfo.TypeNamesGOOD[art.type],
+                    "level": art.level,
+                    "rarity": art.rarity if 3 <= art.rarity <= 5 else 0,
                     "mainStatKey": ArtsInfo.AttrNamesGOOD[art.stat.type.name],
-                    "location":    art.equipped,
-                    "lock":        art.locked,
+                    "location": art.equipped,
+                    "lock": art.locked,
                     "substats": [
                         {
-                            "key":   ArtsInfo.AttrNamesGOOD[substat.type.name],
+                            "key": ArtsInfo.AttrNamesGOOD[substat.type.name],
                             "value": round(substat.value * 100, 1)
                             if ArtsInfo.AttrNamesGOOD[substat.type.name].endswith("_")
                             else substat.value,
                         }
                         for substat in art.substats
                     ]
-                }
-            )
-            f = open(path, "wb")
-            s = json.dumps(result, ensure_ascii=False)
-            f.write(s.encode('utf-8'))
-            f.close()
+                })
 
+        if path and path != "":
+            self.exportFile(path, result)
+        else:
+            return result
 
     def exportGenshinArtJSON(self, path):
         result = {"version": "1", "flower": [],
@@ -274,10 +274,11 @@ class ArtDatabase:
                     'star': art.rarity
                 }
             )
-        f = open(path, "wb")
-        s = json.dumps(result, ensure_ascii=False)
-        f.write(s.encode('utf-8'))
-        f.close()
+
+        if path and path != "":
+            self.exportFile(path, result)
+        else:
+            return result
 
     def exportGenmoCalcJSON(self, path):
         result = []
@@ -293,9 +294,16 @@ class ArtDatabase:
             })
             for i, stat in enumerate(art.substats):
                 result[-1][f"subStat{i + 1}Type"] = ArtsInfo.AttrNamesMingyuLab[stat.type.name]
-                result[-1][f"subStat{i + 1}Value"] = ArtsInfo.Formats[stat.type.name].format(stat.value).replace('%',
-                                                                                                                 '').replace(
-                    ',', '')
+                result[-1][f"subStat{i + 1}Value"] = ArtsInfo.Formats[stat.type.name] \
+                    .format(stat.value).replace('%', '').replace(',', '')
+
+        if path and path != "":
+            self.exportFile(path, result)
+        else:
+            return result
+
+    @staticmethod
+    def exportFile(path, result):
         f = open(path, "wb")
         s = json.dumps(result, ensure_ascii=False)
         f.write(s.encode('utf-8'))

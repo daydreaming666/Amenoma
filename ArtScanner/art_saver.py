@@ -236,12 +236,12 @@ class ArtDatabase:
                         }
                         for substat in art.substats
                     ]
-                }
-            )
-            f = open(path, "wb")
-            s = json.dumps(result, ensure_ascii=False)
-            f.write(s.encode('utf-8'))
-            f.close()
+                })
+
+        if path and path != "":
+            self.exportFile(path, result)
+        else:
+            return result
 
     def exportGenshinArtJSON(self, path):
         result = {"version": "1", "flower": [],
@@ -268,12 +268,12 @@ class ArtDatabase:
                     "id": art_id,
                     'level': art.level,
                     'star': art.rarity
-                }
-            )
-        f = open(path, "wb")
-        s = json.dumps(result, ensure_ascii=False)
-        f.write(s.encode('utf-8'))
-        f.close()
+                })
+
+        if path and path != "":
+            self.exportFile(path, result)
+        else:
+            return result
 
     def exportGenmoCalcJSON(self, path):
         result = []
@@ -295,10 +295,18 @@ class ArtDatabase:
                     ArtsInfo.Formats[stat.type.name].format(stat.value).replace('%', '').replace(',', '')
             result.append(info)
 
+        if path and path != "":
+            self.exportFile(path, result)
+        else:
+            return result
+
+    @staticmethod
+    def exportFile(path, result):
         f = open(path, "wb")
         s = json.dumps(result, ensure_ascii=False)
         f.write(s.encode('utf-8'))
         f.close()
+
 
 
 if __name__ == '__main__':
