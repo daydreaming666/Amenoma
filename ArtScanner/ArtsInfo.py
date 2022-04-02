@@ -116,7 +116,7 @@ ArtNames = [
 ]
 
 TypeNamesGenshinArt = ["flower", "feather", "sand", "cup", "head"]
-AttrNamesGensinArt = {
+AttrNamesGenshinArt = {
     "FIGHT_PROP_CRITICAL": "critical",
     "FIGHT_PROP_CRITICAL_HURT": "criticalDamage",
     "FIGHT_PROP_ATTACK": "attackStatic",

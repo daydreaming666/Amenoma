@@ -301,6 +301,18 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.spinBox.setValue(4)
         self.spinBox_2.setValue(20)
 
+        QMessageBox.information(self,
+                                "提示",
+                                "<html>"
+                                "您选择了「原魔计算器」格式，将在输出时自动过滤其不支持的数据。\n"
+                                "(其仅支持导入"
+                                "<span style=\"font-weight:600;color:#636399\">四词条</span>"
+                                "的"
+                                "<span style=\"font-weight:600;color:#636399e\">五星</span>"
+                                "圣遗物)"
+                                "</html>")
+
+
     @pyqtSlot()
     def selectedGOOD(self):
         self.logger.info("GOOD selected.")
@@ -747,8 +759,6 @@ class Worker(QObject):
         if info['options'][1]:
             materialScanner.clickMaterialButton()
             scan_materials("材料")
-
-
 
         if self.saved_material != 0:
             if info['ExtraSettings']['ExportAllFormats']:

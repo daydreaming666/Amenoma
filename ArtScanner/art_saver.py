@@ -214,9 +214,7 @@ class ArtDatabase:
             "format": "GOOD",
             "version": 1,  # artifact only
             "source": "Amenoma",
-            # "characters": [],
             "artifacts": [],
-            # "weapons": []
         }
         for art_id in range(self.root['size']):
             art: Artifact = self.root[str(art_id)]
@@ -256,12 +254,12 @@ class ArtDatabase:
                     "position": ArtsInfo.TypeNamesGenshinArt[art.type],
                     "detailName": art.name,
                     "mainTag": {
-                        'name': ArtsInfo.AttrNamesGensinArt[art.stat.type.name],
+                        'name': ArtsInfo.AttrNamesGenshinArt[art.stat.type.name],
                         'value': art.stat.value
                     },
                     "normalTags": [
                         {
-                            'name': ArtsInfo.AttrNamesGensinArt[stat.type.name],
+                            'name': ArtsInfo.AttrNamesGenshinArt[stat.type.name],
                             'value': stat.value
                         }
                         for stat in art.substats
@@ -281,19 +279,22 @@ class ArtDatabase:
         result = []
         for art_id in range(self.root['size']):
             art = self.root[str(art_id)]
-            result.append({
+            if len(art.substats) < 4 or art.rarity != 5:
+                continue
+            info = {
                 "asKey": ArtsInfo.SetNamesMingyuLab[art.setid],
                 "rarity": art.rarity,
                 "slot": ArtsInfo.TypeNamesMingyuLab[art.type],
                 "level": art.level,
                 "mainStat": ArtsInfo.AttrNamesMingyuLab[art.stat.type.name],
                 "mark": "none"
-            })
+            }
             for i, stat in enumerate(art.substats):
-                result[-1][f"subStat{i + 1}Type"] = ArtsInfo.AttrNamesMingyuLab[stat.type.name]
-                result[-1][f"subStat{i + 1}Value"] = ArtsInfo.Formats[stat.type.name].format(stat.value).replace('%',
-                                                                                                                 '').replace(
-                    ',', '')
+                info[f"subStat{i + 1}Type"] = ArtsInfo.AttrNamesMingyuLab[stat.type.name]
+                info[f"subStat{i + 1}Value"] = \
+                    ArtsInfo.Formats[stat.type.name].format(stat.value).replace('%', '').replace(',', '')
+            result.append(info)
+
         f = open(path, "wb")
         s = json.dumps(result, ensure_ascii=False)
         f.write(s.encode('utf-8'))

@@ -258,12 +258,12 @@ class ArtDatabase:
                     "position": ArtsInfo.TypeNamesGenshinArt[art.type],
                     "detailName": art.name,
                     "mainTag": {
-                        'name': ArtsInfo.AttrNamesGensinArt[art.stat.type.name],
+                        'name': ArtsInfo.AttrNamesGenshinArt[art.stat.type.name],
                         'value': art.stat.value
                     },
                     "normalTags": [
                         {
-                            'name': ArtsInfo.AttrNamesGensinArt[stat.type.name],
+                            'name': ArtsInfo.AttrNamesGenshinArt[stat.type.name],
                             'value': stat.value
                         }
                         for stat in art.substats
