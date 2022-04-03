@@ -17,6 +17,7 @@ import ArtsInfo
 import ocr
 import ocr_m
 import utils
+import config
 from art_saver import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
 from material_saver import MaterialDatabase
@@ -518,7 +519,8 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model = ocr.OCR(model=os.path.join(self.bundle_dir, 'rcc/models_CHS/artifact_model_2.5.0.h5'))
+        self.model = ocr.OCR(model=os.path.join(self.bundle_dir,
+                                                f'rcc/models_CHS/artifact_model_{config.TARGET_VERSION}.h5'))
 
         self.log('初始化完成')
         if self.isWindowCaptured:
@@ -548,7 +550,8 @@ class Worker(QObject):
             self.bundle_dir = sys.argv[1]
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
-        self.model_m = ocr_m.OCR(model=os.path.join(self.bundle_dir, 'rcc/models_CHS/material_model_2.5.0.h5'))
+        self.model_m = ocr_m.OCR(model=os.path.join(self.bundle_dir,
+                                                    f'rcc/models_CHS/material_model_{config.TARGET_VERSION}.h5'))
 
         self.log('初始化完成')
         if self.isWindowCaptured:
@@ -923,6 +926,7 @@ class Worker(QObject):
 
         def artscannerCallback(art_img):
             detectedInfo = self.model.detect_info(art_img)
+            utils.logger.info(f"Detected info: {detectedInfo}")
             artFilter(detectedInfo, art_img)
             if not self.art_id % self.game_info.art_cols:
                 self.log(f"扫描: {self.art_id}")

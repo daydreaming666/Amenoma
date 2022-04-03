@@ -17,6 +17,7 @@ import ArtsInfo
 import ocr_EN
 import ocr_m_EN
 import utils
+import config
 from art_saver_EN import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
 from material_saver_EN import MaterialDatabase
@@ -511,7 +512,7 @@ class Worker(QObject):
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
         self.model = ocr_EN.OCR(model=os.path.join(self.bundle_dir,
-                                                   'rcc/models_EN/artifact_model_EN_2.5.0.h5'))
+                                                   f'rcc/models_EN/artifact_model_EN_{config.TARGET_VERSION}.h5'))
 
         self.log('Initialize is finished.')
         if self.isWindowCaptured:
@@ -543,7 +544,7 @@ class Worker(QObject):
         else:
             self.bundle_dir = getattr(sys, '_MEIPASS', os.path.abspath(os.path.dirname(__file__)))
         self.model_m = ocr_m_EN.OCR(model=os.path.join(self.bundle_dir,
-                                                       'rcc/models_EN/material_model_EN_2.5.0.h5'))
+                                                       f'rcc/models_EN/material_model_EN_{config.TARGET_VERSION}.h5'))
 
         self.log('Initializing finished')
         if self.isWindowCaptured:
@@ -755,8 +756,6 @@ class Worker(QObject):
         if info['options'][1]:
             materialScanner.clickMaterialButton()
             scan_materials("Materials")
-
-
 
         if self.saved_material != 0:
             if info['ExtraSettings']['ExportAllFormats']:
@@ -985,4 +984,5 @@ if __name__ == '__main__':
     except Exception as excp:
         utils.logger.exception(excp)
         win32api.ShellExecute(0, 'open', 'cmd.exe',
-                              r'/c echo Unhandled exception occurred. Please contact with the author. && pause', None, 1)
+                              r'/c echo Unhandled exception occurred. Please contact with the author. && pause', None,
+                              1)
