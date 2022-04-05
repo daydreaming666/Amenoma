@@ -74,13 +74,10 @@ And the exported json file is `materials.GOOD.json`
 
 
 ## Release Notes
-2.5.1
-- Fixed the scanning of materials.
-- Refactored the code.
 
-2.5.0
-- Add support for Genshin Impact 2.5.0
-- The feature of scanning materials is temporarily disabled due to the re-training of the model.
+2.6.0
+- Update for Genshin 2.6
+- A new feature of format conversion.
 
 ## Development Environment Setup 
 
@@ -112,17 +109,28 @@ When you download or use this software, you are deemed to know and agree to the 
 ## Thanks
 
 - [ProblemFactory/GenshinArtScanner](https://github.com/ProblemFactory/GenshinArtScanner) This project uses the model of GenshinArtScanner.
-- [honeyhunterworld](https://genshin.honeyhunterworld.com/) Data support.
+- [theBowja/genshin-db](https://github.com/theBowja/genshin-db) Data support.
 - Supports from users and testers.
 
 ## Q&A
 
-known issues:
+- Q: Wrong Columns/Lines while using a ultra-wide screen.
+- A: Restart the game after changing resolution.
 
-1. In some cases, mouse controlling not work at all, including moving and clicking. Check if you're in pad mode, which will cause the error.
-2. The aligner doesn't work well in some cases. It scrolls down the list even at the beginning of scanning. If this happens, check that if you are using any color filters, e.g. Nvidia ... , close them and try scanning again.
-3. Some amount of the Materials are not correct, because of the error coordinates while turning the page.
+---------------
 
+- Q: Could not scan while using a controller.
+- A: Switch the control mode to 「Mouse & Keyboard」 before using.
+
+---------------
+
+- Q: The numbers of items/materials are not completely accurate.
+- A: This is normal because it scans the screen for recognition instead of reading memory。
+
+---------------
+
+- Q: Not supported the artifact/materials from the latest version.
+- A: Just update the program. Because it's a manually-trained model, it takes me a few days to update the program.
 
 > If you encounter problems or any suggestions, please submit issues or email to [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
 

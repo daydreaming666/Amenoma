@@ -76,13 +76,10 @@
 
 
 ## Release Notes
-2.5.1
-- 修复了物品扫描
-- 重构部分代码
 
-2.5.0
-- 适配新版本原神
-- 物品扫描因为模型须重新训练的原因暂时不可用
+2.6.0
+- 更新适配原神2.6
+- 增加格式转换功能
 
 
 ## 开发环境搭建
@@ -116,17 +113,29 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 
 - [ProblemFactory/GenshinArtScanner](https://github.com/ProblemFactory/GenshinArtScanner)
 的项目，本项目使用了GenshinArtScanner的模型
-- [honeyhunterworld](https://genshin.honeyhunterworld.com/) 的数据支持
+- [theBowja/genshin-db](https://github.com/theBowja/genshin-db) 数据支持
 - 各位测试与使用者的支持
 
 
 ## Q&A
 
-已知的问题：
+- Q: 当使用超宽屏时，背包的行列数不对。
+- A: 更改分辨率后重启游戏即可。
 
-1. 有时，对鼠标的控制完全不生效，包括滚轮和点击。假如你遇到了这个情况，请联系我，我需要更多的信息来找出原因。
-2. 有时，对齐操作进行的不正常。在扫描一开始时就会把列表向下滚动。检查下是否启用了色彩滤镜（如 NVIDIA） ，关闭重新扫描即可。
-3. 因翻页时坐标有一定的误差，部分物品的数量会识别失败。
+---------------
+
+- Q: 使用手柄进行游戏时无法扫描。
+- A: 扫描前请将操作模式切换为「鼠标 & 键盘」。
+
+---------------
+
+- Q: 扫描物品时数目并非完全正确。
+- A: 因为是扫描屏幕识别而非读取内存，所以这是正常现象。
+
+---------------
+
+- Q: 未支持最新版本的圣遗物/材料。
+- A: 更新程序即可。因为是自训练模型，我从获取到新版本数据到更新程序需要一定时间（大概要数天到一周）。
 
 > 如果遇到问题或任何建议，请提交 issues 或邮件至 [daydreaming@foxmail.com](mailto://daydreaming@foxmail.com)
 
