@@ -14,7 +14,7 @@ from . import AmenomaRc
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(585, 550)
+        MainWindow.resize(600, 560)
         if len(sys.argv) > 1:
             bundle_dir = sys.argv[1]
         else:
@@ -74,8 +74,8 @@ class Ui_MainWindow(object):
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
-        self.verticalLayout_6 = QtWidgets.QVBoxLayout(self.tab)
-        self.verticalLayout_6.setObjectName("verticalLayout_6")
+        self.verticalLayout_8 = QtWidgets.QVBoxLayout(self.tab)
+        self.verticalLayout_8.setObjectName("verticalLayout_8")
         self.verticalLayout_2 = QtWidgets.QVBoxLayout()
         self.verticalLayout_2.setObjectName("verticalLayout_2")
         self.horizontalLayout_3 = QtWidgets.QHBoxLayout()
@@ -135,7 +135,7 @@ class Ui_MainWindow(object):
         self.label_9.setTextFormat(QtCore.Qt.RichText)
         self.label_9.setObjectName("label_9")
         self.verticalLayout_2.addWidget(self.label_9)
-        self.verticalLayout_6.addLayout(self.verticalLayout_2)
+        self.verticalLayout_8.addLayout(self.verticalLayout_2)
         self.groupBox_2 = QtWidgets.QGroupBox(self.tab)
         self.groupBox_2.setObjectName("groupBox_2")
         self.horizontalLayout_4 = QtWidgets.QHBoxLayout(self.groupBox_2)
@@ -161,7 +161,7 @@ class Ui_MainWindow(object):
         self.checkBox_5.setChecked(False)
         self.checkBox_5.setObjectName("checkBox_5")
         self.horizontalLayout_4.addWidget(self.checkBox_5)
-        self.verticalLayout_6.addWidget(self.groupBox_2)
+        self.verticalLayout_8.addWidget(self.groupBox_2)
         self.groupBox_3 = QtWidgets.QGroupBox(self.tab)
         self.groupBox_3.setObjectName("groupBox_3")
         self.horizontalLayout_7 = QtWidgets.QHBoxLayout(self.groupBox_3)
@@ -194,7 +194,7 @@ class Ui_MainWindow(object):
         self.spinBox_2.setObjectName("spinBox_2")
         self.horizontalLayout_5.addWidget(self.spinBox_2)
         self.horizontalLayout_7.addLayout(self.horizontalLayout_5)
-        self.verticalLayout_6.addWidget(self.groupBox_3)
+        self.verticalLayout_8.addWidget(self.groupBox_3)
         self.horizontalLayout_9 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_9.setObjectName("horizontalLayout_9")
         self.groupBox_4 = QtWidgets.QGroupBox(self.tab)
@@ -239,15 +239,21 @@ class Ui_MainWindow(object):
         spacerItem2 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout.addItem(spacerItem2)
         self.horizontalLayout_9.addWidget(self.groupBox_5)
-        self.verticalLayout_6.addLayout(self.horizontalLayout_9)
+        self.verticalLayout_8.addLayout(self.horizontalLayout_9)
         self.horizontalLayout_10 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_10.setObjectName("horizontalLayout_10")
         spacerItem3 = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.horizontalLayout_10.addItem(spacerItem3)
+        self.verticalLayout_6 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_6.setObjectName("verticalLayout_6")
         self.pushButton_5 = QtWidgets.QPushButton(self.tab)
         self.pushButton_5.setObjectName("pushButton_5")
-        self.horizontalLayout_10.addWidget(self.pushButton_5)
-        self.verticalLayout_6.addLayout(self.horizontalLayout_10)
+        self.verticalLayout_6.addWidget(self.pushButton_5)
+        self.pushButton_9 = QtWidgets.QPushButton(self.tab)
+        self.pushButton_9.setObjectName("pushButton_9")
+        self.verticalLayout_6.addWidget(self.pushButton_9)
+        self.horizontalLayout_10.addLayout(self.verticalLayout_6)
+        self.verticalLayout_8.addLayout(self.horizontalLayout_10)
         self.tabWidget.addTab(self.tab, "")
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
@@ -401,12 +407,12 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 2.5.1"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 2.6"))
         self.pushButton_2.setText(_translate("MainWindow", "Capture\n"
 "Window"))
         self.pushButton.setText(_translate("MainWindow", "Start\n"
 "Scanning"))
-        self.label_9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#aa0000;\">Tips: Milddle click to interrupt </span></p></body></html>"))
+        self.label_9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#636399;\">Tips: Milddle click to interrupt </span></p></body></html>"))
         self.groupBox_2.setToolTip(_translate("MainWindow", "Filter the Artifacts by Stars"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Stars"))
         self.checkBox.setText(_translate("MainWindow", "5"))
@@ -426,7 +432,8 @@ class Ui_MainWindow(object):
         self.groupBox_5.setToolTip(_translate("MainWindow", "Delay between recognition.(turn it up moderately if fails sometimes.)"))
         self.groupBox_5.setTitle(_translate("MainWindow", "Delay"))
         self.label_4.setText(_translate("MainWindow", "s"))
-        self.pushButton_5.setText(_translate("MainWindow", "Extra Settings..."))
+        self.pushButton_5.setText(_translate("MainWindow", "More Settings..."))
+        self.pushButton_9.setText(_translate("MainWindow", "Format Converter..."))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "Artifacts"))
         self.pushButton_7.setText(_translate("MainWindow", "Capture\n"
 "Window"))
@@ -452,6 +459,6 @@ class Ui_MainWindow(object):
         self.groupBox.setTitle(_translate("MainWindow", "Log"))
         self.pushButton_3.setText(_translate("MainWindow", "Help..."))
         self.pushButton_6.setText(_translate("MainWindow", "About..."))
-        self.pushButton_4.setText(_translate("MainWindow", "Show Exported File"))
+        self.pushButton_4.setText(_translate("MainWindow", "Show Exported File..."))
 
 

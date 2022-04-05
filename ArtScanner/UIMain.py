@@ -18,6 +18,7 @@ import ocr
 import ocr_m
 import utils
 import config
+
 from art_saver import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
 from material_saver import MaterialDatabase
@@ -27,7 +28,7 @@ from rcc import ExtraSettings_Dialog
 from rcc import Help_Dialog
 from rcc import InputWindow_Dialog
 from rcc.MainWindow import Ui_MainWindow
-
+import ToolboxMain
 
 class AboutDlg(QDialog, About_Dialog.Ui_Dialog):
     def __init__(self, parent=None):
@@ -169,6 +170,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.radioButton.clicked.connect(self.selectedMona)
         self.radioButton_2.clicked.connect(self.selectedGenmo)
         self.radioButton_3.clicked.connect(self.selectedGOOD)
+        self.pushButton_9.clicked.connect(self.openToolbox)
         # bottom
         self.pushButton_3.clicked.connect(self.showHelpDlg)
         self.pushButton_4.clicked.connect(self.showExportedFile)
@@ -437,6 +439,11 @@ class UIMain(QMainWindow, Ui_MainWindow):
             win32api.ShellExecute(None, "open", "explorer.exe", s, None, 1)
         else:
             self.printErr("无导出文件")
+
+    @pyqtSlot()
+    def openToolbox(self):
+        toolbox = ToolboxMain.ToolboxUiMain()
+        toolbox.show()
 
     @pyqtSlot(dict)
     def handleExtraSettings(self, ret: dict):

@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(400, 500)
+        Dialog.resize(400, 550)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -189,7 +189,8 @@ class Ui_Dialog(object):
 "<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">扫描结果存储在运行文件夹 <br /> <span style=\" color:#517fcb;\">artifacts.genshinart.json</span>(莫娜占卜铺)<br /> <span style=\" color:#517fcb;\">artifacts.genmocalc.json</span>(原魔计算器)<br /> <span style=\" color:#517fcb;\">artifacts.GOOD.json</span><br />(Genshin Optimizer)</li></ol>\n"
 "<p style=\" margin-top:14px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:large;\">扫描材料</span></p>\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">调整分辨率 -- 打开背包 -- 调整扫描选项 -- 开始！</p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">导出结果存储为<br /><span style=\" color:#517fcb;\">materials.GOOD.json</span></p></body></html>"))
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">导出结果存储为<br /><span style=\" color:#517fcb;\">materials.GOOD.json</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">详细帮助 / Q&amp;A <br /><a href=\"https://github.com/daydreaming666/Amenoma#readme\"><span style=\" text-decoration: underline; color:#0000ff;\"> https://github.com/daydreaming666/Amenoma#readme </span></a></p></body></html>"))
         self.pushButton.setText(_translate("Dialog", "关闭"))
 
 import Amenoma_rc

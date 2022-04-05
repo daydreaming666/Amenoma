@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>585</width>
-    <height>550</height>
+    <width>600</width>
+    <height>560</height>
    </rect>
   </property>
   <property name="palette">
@@ -138,7 +138,7 @@
          <attribute name="title">
           <string>Artifacts</string>
          </attribute>
-         <layout class="QVBoxLayout" name="verticalLayout_6">
+         <layout class="QVBoxLayout" name="verticalLayout_8">
           <item>
            <layout class="QVBoxLayout" name="verticalLayout_2">
             <item>
@@ -246,7 +246,7 @@ Scanning</string>
                </sizepolicy>
               </property>
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#aa0000;&quot;&gt;Tips: Milddle click to interrupt &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#636399;&quot;&gt;Tips: Milddle click to interrupt &lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="textFormat">
                <enum>Qt::RichText</enum>
@@ -517,11 +517,22 @@ Scanning</string>
              </spacer>
             </item>
             <item>
-             <widget class="QPushButton" name="pushButton_5">
-              <property name="text">
-               <string>Extra Settings...</string>
-              </property>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_6">
+              <item>
+               <widget class="QPushButton" name="pushButton_5">
+                <property name="text">
+                 <string>More Settings...</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QPushButton" name="pushButton_9">
+                <property name="text">
+                 <string>Format Converter...</string>
+                </property>
+               </widget>
+              </item>
+             </layout>
             </item>
            </layout>
           </item>
@@ -845,7 +856,7 @@ Scanning</string>
       <item>
        <widget class="QPushButton" name="pushButton_4">
         <property name="text">
-         <string>Show Exported File</string>
+         <string>Show Exported File...</string>
         </property>
        </widget>
       </item>

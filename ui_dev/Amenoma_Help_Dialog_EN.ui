@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>450</width>
-    <height>500</height>
+    <height>550</height>
    </rect>
   </property>
   <property name="palette">
@@ -460,7 +460,8 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Scan results are stored in &lt;br /&gt; &lt;span style=&quot; color:#517fcb;&quot;&gt;artifacts.genshinart.json&lt;/span&gt; (Mona-uranai)&lt;br /&gt; &lt;span style=&quot; color:#517fcb;&quot;&gt;artifacts.genmocalc.json&lt;/span&gt; (Genmo Calculator)&lt;br /&gt; &lt;span style=&quot; color:#517fcb;&quot;&gt;artifacts.GOOD.json&lt;/span&gt;(Genshin Optimizer)&lt;/li&gt;&lt;/ol&gt;
 &lt;p style=&quot; margin-top:14px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;span style=&quot; font-size:large;&quot;&gt;Scan Materials&lt;/span&gt;&lt;/p&gt;
 &lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Resolution -- Inventory -- Options -- Start!&lt;/p&gt;
-&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Result will be stored as &lt;br /&gt;&lt;span style=&quot; color:#517fcb;&quot;&gt;materials.GOOD.json&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;Result will be stored as &lt;br /&gt;&lt;span style=&quot; color:#517fcb;&quot;&gt;materials.GOOD.json&lt;/span&gt;&lt;/p&gt;
+&lt;p style=&quot; margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;More Help / Q&amp;amp;A &lt;br /&gt;&lt;a href=&quot;https://github.com/daydreaming666/Amenoma/blob/main/README_en.md&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt; https://github.com/daydreaming666/Amenoma/blob/main/README_en.md &lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
    </item>

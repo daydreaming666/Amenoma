@@ -18,6 +18,7 @@ import ocr_EN
 import ocr_m_EN
 import utils
 import config
+import ToolboxMain_EN
 from art_saver_EN import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
 from material_saver_EN import MaterialDatabase
@@ -169,6 +170,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.radioButton.clicked.connect(self.selectedMona)
         self.radioButton_2.clicked.connect(self.selectedGenmo)
         self.radioButton_3.clicked.connect(self.selectedGOOD)
+        self.pushButton_9.clicked.connect(self.openToolbox)
         # bottom
         self.pushButton_3.clicked.connect(self.showHelpDlg)
         self.pushButton_4.clicked.connect(self.showExportedFile)
@@ -419,6 +421,11 @@ class UIMain(QMainWindow, Ui_MainWindow):
     def endScan(self, filename: str):
         self.setUIEnabled(True)
         self.exportFileName = filename
+
+    @pyqtSlot()
+    def openToolbox(self):
+        toolbox = ToolboxMain_EN.ToolboxUiMain()
+        toolbox.show()
 
     @pyqtSlot()
     def showExportedFile(self):

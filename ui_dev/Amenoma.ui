@@ -147,7 +147,7 @@
       <item>
        <widget class="QPushButton" name="pushButton_4">
         <property name="text">
-         <string>打开导出文件</string>
+         <string>打开导出文件...</string>
         </property>
        </widget>
       </item>
@@ -291,7 +291,7 @@
                </sizepolicy>
               </property>
               <property name="text">
-               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#aa0000;&quot;&gt;提示：鼠标中键停止&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+               <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; color:#636399;&quot;&gt;提示：鼠标中键停止&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
               </property>
               <property name="textFormat">
                <enum>Qt::RichText</enum>
@@ -574,6 +574,13 @@
              <widget class="QPushButton" name="pushButton_5">
               <property name="text">
                <string>更多设置...</string>
+              </property>
+             </widget>
+            </item>
+            <item>
+             <widget class="QPushButton" name="pushButton_9">
+              <property name="text">
+               <string>格式转换器...</string>
               </property>
              </widget>
             </item>

@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(450, 500)
+        Dialog.resize(450, 550)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -189,7 +189,8 @@ class Ui_Dialog(object):
 "<li style=\" margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Scan results are stored in <br /> <span style=\" color:#517fcb;\">artifacts.genshinart.json</span> (Mona-uranai)<br /> <span style=\" color:#517fcb;\">artifacts.genmocalc.json</span> (Genmo Calculator)<br /> <span style=\" color:#517fcb;\">artifacts.GOOD.json</span>(Genshin Optimizer)</li></ol>\n"
 "<p style=\" margin-top:14px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:large;\">Scan Materials</span></p>\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Resolution -- Inventory -- Options -- Start!</p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Result will be stored as <br /><span style=\" color:#517fcb;\">materials.GOOD.json</span></p></body></html>"))
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">Result will be stored as <br /><span style=\" color:#517fcb;\">materials.GOOD.json</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:20px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\">More Help / Q&amp;A <br /><a href=\"https://github.com/daydreaming666/Amenoma/blob/main/README_en.md\"><span style=\" text-decoration: underline; color:#0000ff;\"> https://github.com/daydreaming666/Amenoma/blob/main/README_en.md </span></a></p></body></html>"))
         self.pushButton.setText(_translate("Dialog", "close"))
 
 import Amenoma_rc
