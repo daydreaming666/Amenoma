@@ -155,6 +155,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
             "TabIndex": 0
         }
         self._helpDlg = HelpDlg(self)
+        self._toolbox = ToolboxMain_EN.ToolboxUiMain()
         self._isHelpDlgShowing = False
 
         self.logger = utils.logger

@@ -147,7 +147,7 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "Import..."))
         self.pushButton.setText(_translate("MainWindow", "Convert"))
         self.groupBox.setTitle(_translate("MainWindow", "Input"))
-        self.textEdit.setPlaceholderText(_translate("MainWindow", "Drag and drop file here"))
+        self.textEdit.setPlaceholderText(_translate("MainWindow", "Paste or import file..."))
         self.groupBox_2.setTitle(_translate("MainWindow", "Output"))
         self.pushButton_3.setText(_translate("MainWindow", "Copy"))
         self.pushButton_4.setText(_translate("MainWindow", "Export..."))

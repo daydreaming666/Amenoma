@@ -39,6 +39,8 @@ class ToolboxUiMain(QMainWindow, ToolboxMainWindow.Ui_MainWindow):
         self.inputPath = "./"
         self.outputPath = "./"
 
+        self.setAcceptDrops(True)
+
         self.textEdit.dropEventSignal.connect(self.handleOpenFile)
 
         self.pushButton_2.clicked.connect(self.openFileButtonClicked)

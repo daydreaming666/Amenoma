@@ -139,7 +139,7 @@ class Ui_MainWindow(object):
         self.pushButton_2.setText(_translate("MainWindow", "导入..."))
         self.pushButton.setText(_translate("MainWindow", "转换"))
         self.groupBox.setTitle(_translate("MainWindow", "输入"))
-        self.textEdit.setPlaceholderText(_translate("MainWindow", "将文件拖至此处"))
+        self.textEdit.setPlaceholderText(_translate("MainWindow", "粘贴或导入文件..."))
         self.groupBox_2.setTitle(_translate("MainWindow", "输出"))
         self.pushButton_3.setText(_translate("MainWindow", "复制"))
         self.pushButton_4.setText(_translate("MainWindow", "导出..."))
