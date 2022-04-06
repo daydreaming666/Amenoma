@@ -18,6 +18,7 @@ import ocr
 import ocr_m
 import utils
 import config
+import ToolboxMain
 
 from art_saver import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
@@ -28,7 +29,6 @@ from rcc import ExtraSettings_Dialog
 from rcc import Help_Dialog
 from rcc import InputWindow_Dialog
 from rcc.MainWindow import Ui_MainWindow
-import ToolboxMain
 
 class AboutDlg(QDialog, About_Dialog.Ui_Dialog):
     def __init__(self, parent=None):
@@ -155,6 +155,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
             "TabIndex": 0
         }
         self._helpDlg = HelpDlg(self)
+        self._toolbox = ToolboxMain.ToolboxUiMain(self)
         self._isHelpDlgShowing = False
 
         self.logger = utils.logger
@@ -170,7 +171,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.radioButton.clicked.connect(self.selectedMona)
         self.radioButton_2.clicked.connect(self.selectedGenmo)
         self.radioButton_3.clicked.connect(self.selectedGOOD)
-        self.pushButton_9.clicked.connect(self.openToolbox)
+        self.pushButton_9.clicked.connect(self.showToolbox)
         # bottom
         self.pushButton_3.clicked.connect(self.showHelpDlg)
         self.pushButton_4.clicked.connect(self.showExportedFile)
@@ -279,6 +280,14 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.logger.info("About dialog shown.")
         dlg = AboutDlg(self)
         dlg.exec()
+
+    @pyqtSlot()
+    def showToolbox(self):
+        if self._toolbox.isHidden():
+            point = self.rect().topRight()
+            globalPoint = self.mapToGlobal(point)
+            self._toolbox.move(globalPoint)
+            self._toolbox.show()
 
     @pyqtSlot()
     def selectedMona(self):
@@ -439,11 +448,6 @@ class UIMain(QMainWindow, Ui_MainWindow):
             win32api.ShellExecute(None, "open", "explorer.exe", s, None, 1)
         else:
             self.printErr("无导出文件")
-
-    @pyqtSlot()
-    def openToolbox(self):
-        toolbox = ToolboxMain.ToolboxUiMain()
-        toolbox.show()
 
     @pyqtSlot(dict)
     def handleExtraSettings(self, ret: dict):

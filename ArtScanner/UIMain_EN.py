@@ -11,7 +11,7 @@ from PyQt5.QtCore import (pyqtSignal, pyqtSlot, QObject, QThread,
                           QMutex, QWaitCondition, Qt)
 from PyQt5.QtGui import (QMovie, QPixmap)
 from PyQt5.QtWidgets import (QMainWindow, QApplication, QDialog,
-                             QWidget, QCheckBox, QHBoxLayout)
+                             QWidget, QCheckBox, QHBoxLayout, QMessageBox)
 
 import ArtsInfo
 import ocr_EN
@@ -19,6 +19,7 @@ import ocr_m_EN
 import utils
 import config
 import ToolboxMain_EN
+
 from art_saver_EN import ArtDatabase
 from art_scanner_logic import ArtScannerLogic, GameInfo
 from material_saver_EN import MaterialDatabase
@@ -28,7 +29,6 @@ from rcc import Help_Dialog_EN
 from rcc import ExtraSettings_Dialog_EN
 from rcc import InputWindow_Dialog_EN
 from rcc.MainWindow_EN import Ui_MainWindow
-
 
 class AboutDlg(QDialog, About_Dialog_EN.Ui_Dialog):
     def __init__(self, parent=None):
@@ -170,7 +170,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
         self.radioButton.clicked.connect(self.selectedMona)
         self.radioButton_2.clicked.connect(self.selectedGenmo)
         self.radioButton_3.clicked.connect(self.selectedGOOD)
-        self.pushButton_9.clicked.connect(self.openToolbox)
+        self.pushButton_9.clicked.connect(self.showToolbox)
         # bottom
         self.pushButton_3.clicked.connect(self.showHelpDlg)
         self.pushButton_4.clicked.connect(self.showExportedFile)
@@ -281,6 +281,14 @@ class UIMain(QMainWindow, Ui_MainWindow):
         dlg.exec()
 
     @pyqtSlot()
+    def showToolbox(self):
+        if self._toolbox.isHidden():
+            point = self.rect().topRight()
+            globalPoint = self.mapToGlobal(point)
+            self._toolbox.move(globalPoint)
+            self._toolbox.show()
+
+    @pyqtSlot()
     def selectedMona(self):
         self.logger.info("Mona selected.")
         self.checkBox.setChecked(True)
@@ -303,6 +311,18 @@ class UIMain(QMainWindow, Ui_MainWindow):
 
         self.spinBox.setValue(4)
         self.spinBox_2.setValue(20)
+
+        QMessageBox.information(self,
+                                "Info",
+                                "<html>"
+                                "You've choose the format Genmo calc. "
+                                "It will automatically filter unsupported data during output.\n"
+                                "(It only supports import"
+                                "<span style=\"font-weight:600;color:#636399e\">5-star</span>"
+                                "Artifacts with"
+                                "<span style=\"font-weight:600;color:#636399\">4 sub stats</span>)"
+                                "</html>")
+
 
     @pyqtSlot()
     def selectedGOOD(self):
@@ -421,11 +441,6 @@ class UIMain(QMainWindow, Ui_MainWindow):
     def endScan(self, filename: str):
         self.setUIEnabled(True)
         self.exportFileName = filename
-
-    @pyqtSlot()
-    def openToolbox(self):
-        toolbox = ToolboxMain_EN.ToolboxUiMain()
-        toolbox.show()
 
     @pyqtSlot()
     def showExportedFile(self):

@@ -103,17 +103,17 @@ class Artifact(persistent.Persistent):
         range(21)} for k in ArtsInfo.MainAttrNames_EN.keys()}
 
     def __init__(self, info, image):
-        '''
+        """
             info: dict with keys:
                 'name': str, name of artifact
-                'type': str, type of artifact 
+                'type': str, type of artifact
                 'level': str/int, upgraded level of artifact, example: '+0', '0', 1
                 'star': int, rarity, 1-5
                 'main_attr_name': str, name of main stat
                 'main_attr_value': str/int/float, main stat value, example: '38.5%', '4,760', 144
                 'subattr_{i}': str, substat description, i could be 1-4, example: '暴击率+3.5%', '攻击力+130'
             image: PIL.Image, screenshot of the artifact, will be shrinked to 300x512 to save space
-        '''
+        """
 
         self.name = info['name']
 
@@ -216,9 +216,7 @@ class ArtDatabase:
             "format": "GOOD",
             "version": 1,  # artifact only
             "source": "Amenoma",
-            # "characters": [],
             "artifacts": [],
-            # "weapons": []
         }
         for art_id in range(self.root['size']):
             art: Artifact = self.root[str(art_id)]
@@ -284,18 +282,21 @@ class ArtDatabase:
         result = []
         for art_id in range(self.root['size']):
             art = self.root[str(art_id)]
-            result.append({
+            if len(art.substats) < 4 or art.rarity != 5:
+                continue
+            info = {
                 "asKey": ArtsInfo.SetNamesMingyuLab[art.setid],
                 "rarity": art.rarity,
                 "slot": ArtsInfo.TypeNamesMingyuLab[art.type],
                 "level": art.level,
                 "mainStat": ArtsInfo.AttrNamesMingyuLab[art.stat.type.name],
                 "mark": "none"
-            })
+            }
             for i, stat in enumerate(art.substats):
-                result[-1][f"subStat{i + 1}Type"] = ArtsInfo.AttrNamesMingyuLab[stat.type.name]
-                result[-1][f"subStat{i + 1}Value"] = ArtsInfo.Formats[stat.type.name] \
-                    .format(stat.value).replace('%', '').replace(',', '')
+                info[f"subStat{i + 1}Type"] = ArtsInfo.AttrNamesMingyuLab[stat.type.name]
+                info[f"subStat{i + 1}Value"] = \
+                    ArtsInfo.Formats[stat.type.name].format(stat.value).replace('%', '').replace(',', '')
+            result.append(info)
 
         if path and path != "":
             self.exportFile(path, result)

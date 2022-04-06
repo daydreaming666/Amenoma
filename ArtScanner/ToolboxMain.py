@@ -4,13 +4,13 @@ import json
 
 from PyQt5.QtCore import pyqtSlot
 
-from ArtScanner.art_saver import ArtDatabase
+from art_saver import ArtDatabase
 
-from ArtScanner.ArtsInfo import (ArtNames, TypeNames, MainAttrNames, SubAttrNames,
-                                 AttrNamesGenshinArt, SetNamesGenshinArt, TypeNamesGenshinArt,
-                                 AttrNamesMingyuLab, SetNamesMingyuLab, TypeNamesMingyuLab,
-                                 AttrNamesGOOD, SetNamesGOOD, TypeNamesGOOD,
-                                 MainAttrValue, UsersCHS)
+from ArtsInfo import (ArtNames, TypeNames, MainAttrNames, SubAttrNames,
+                      AttrNamesGenshinArt, SetNamesGenshinArt, TypeNamesGenshinArt,
+                      AttrNamesMingyuLab, SetNamesMingyuLab, TypeNamesMingyuLab,
+                      AttrNamesGOOD, SetNamesGOOD, TypeNamesGOOD,
+                      MainAttrValue, UsersCHS)
 
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from rcc import ToolboxMainWindow
@@ -29,8 +29,8 @@ genmoPercentageValues = ["critRate", "critDamage", "percentATK", "energyRecharge
 
 
 class ToolboxUiMain(QMainWindow, ToolboxMainWindow.Ui_MainWindow):
-    def __init__(self):
-        super(ToolboxUiMain, self).__init__()
+    def __init__(self, parent=None):
+        super(ToolboxUiMain, self).__init__(parent)
         self.setupUi(self)
 
         self.isConverted = False
@@ -63,7 +63,6 @@ class ToolboxUiMain(QMainWindow, ToolboxMainWindow.Ui_MainWindow):
             with open(filepath[0], "w", encoding="utf-8") as f:
                 data = self.textEdit_2.toPlainText()
                 f.write(data)
-
 
     @pyqtSlot()
     def handleCopyButton(self):

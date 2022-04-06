@@ -188,7 +188,7 @@ class Artifact(persistent.Persistent):
 
 
 class ArtDatabase:
-    def __init__(self, path='artifacts.dat'):
+    def __init__(self):
         self.db = ZODB.DB(None)
         self.conn = self.db.open()
         self.root = self.conn.root()
