@@ -8,7 +8,7 @@
 import os
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from ArtScanner.rcc.CustomWidgets import DropTextEdit
+from rcc.CustomWidgets import DropTextEdit
 
 
 class Ui_MainWindow(object):
