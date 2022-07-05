@@ -2,7 +2,7 @@ import os
 import json
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-char_data = json.load(open(os.path.join(current_path, 'rcc/char_map_v26.json'), encoding='utf-8'))
+char_data = json.load(open(os.path.join(current_path, 'rcc/char_map_v27.json'), encoding='utf-8'))
 
 UsersCHS = char_data['CHS']
 UsersEN = char_data['EN']

@@ -2,7 +2,8 @@ import json
 import os
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-data = json.load(open(os.path.join(current_path, 'rcc/material_names_v26.json'), encoding='utf-8'))
+data = json.load(open(os.path.join(current_path, 'rcc/material_names_v27.json'),
+                      encoding='utf-8'))
 
 MaterialsNameCHS = data['CHS']
 MaterialsNameEN = data['EN']

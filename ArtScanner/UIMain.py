@@ -30,6 +30,7 @@ from rcc import Help_Dialog
 from rcc import InputWindow_Dialog
 from rcc.MainWindow import Ui_MainWindow
 
+
 class AboutDlg(QDialog, About_Dialog.Ui_Dialog):
     def __init__(self, parent=None):
         super(AboutDlg, self).__init__(parent)
@@ -85,6 +86,7 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog.Ui_Dialog):
         self.checkBox_3.setChecked(settings['FilterArtsByName'])
         self.checkBox_4.setEnabled(settings['FilterArtsByName'])
         self.checkBox_5.setChecked(settings['ExportAllImages'])
+        self.checkBox_6.setChecked(settings['ExportLocationField'])
         self.tableWidget.setEnabled(settings['FilterArtsByName'])
         self.tabWidget.setCurrentIndex(settings["TabIndex"])
 
@@ -124,6 +126,7 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog.Ui_Dialog):
             "ExportAllFormats": self.checkBox_2.isChecked(),
             "ExportAllImages": self.checkBox_5.isChecked(),
             "FilterArtsByName": self.checkBox_3.isChecked(),
+            "ExportLocationField": self.checkBox_6.isChecked(),
             "Filter": [i.isChecked() for i in self._checkboxes],
             "TabIndex": self.tabWidget.currentIndex()
         }
@@ -151,6 +154,7 @@ class UIMain(QMainWindow, Ui_MainWindow):
             "ExportAllFormats": False,
             "ExportAllImages": False,
             "FilterArtsByName": False,
+            "ExportLocationField": True,
             "Filter": [True for _ in ArtsInfo.SetNames],
             "TabIndex": 0
         }
@@ -323,7 +327,6 @@ class UIMain(QMainWindow, Ui_MainWindow):
                                 "<span style=\"font-weight:600;color:#636399e\">五星</span>"
                                 "圣遗物)"
                                 "</html>")
-
 
     @pyqtSlot()
     def selectedGOOD(self):
@@ -970,7 +973,8 @@ class Worker(QObject):
                 list(map(lambda exp, name: exp(name), exporter, export_name))
             else:
                 self.log(f"导出文件: {export_name[info['exporter']]}")
-                exporter[info['exporter']](export_name[info['exporter']])
+                exporter[info['exporter']]({"path": export_name[info['exporter']],
+                                            "exportLocation": info['ExtraSettings']['ExportLocationField']})
         self.log(f"扫描: {self.art_id}")
         self.log(f"  - 保存: {self.saved}")
         self.log(f"  - 失败: {self.failed}")

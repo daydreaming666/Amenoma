@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(550, 450)
+        Dialog.resize(550, 550)
         palette = QtGui.QPalette()
         brush = QtGui.QBrush(QtGui.QColor(0, 0, 0))
         brush.setStyle(QtCore.Qt.SolidPattern)
@@ -180,6 +180,10 @@ class Ui_Dialog(object):
         self.checkBox_5 = QtWidgets.QCheckBox(self.tab_2)
         self.checkBox_5.setObjectName("checkBox_5")
         self.verticalLayout_3.addWidget(self.checkBox_5)
+        self.checkBox_6 = QtWidgets.QCheckBox(self.tab_2)
+        self.checkBox_6.setChecked(True)
+        self.checkBox_6.setObjectName("checkBox_6")
+        self.verticalLayout_3.addWidget(self.checkBox_6)
         self.horizontalLayout_2 = QtWidgets.QHBoxLayout()
         self.horizontalLayout_2.setObjectName("horizontalLayout_2")
         self.checkBox_3 = QtWidgets.QCheckBox(self.tab_2)
@@ -224,6 +228,15 @@ class Ui_Dialog(object):
         self.pushButton.clicked.connect(Dialog.accept)
         self.pushButton_2.clicked.connect(Dialog.close)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
+        Dialog.setTabOrder(self.tabWidget, self.checkBox)
+        Dialog.setTabOrder(self.checkBox, self.checkBox_2)
+        Dialog.setTabOrder(self.checkBox_2, self.checkBox_5)
+        Dialog.setTabOrder(self.checkBox_5, self.checkBox_6)
+        Dialog.setTabOrder(self.checkBox_6, self.checkBox_3)
+        Dialog.setTabOrder(self.checkBox_3, self.checkBox_4)
+        Dialog.setTabOrder(self.checkBox_4, self.tableWidget)
+        Dialog.setTabOrder(self.tableWidget, self.pushButton)
+        Dialog.setTabOrder(self.pushButton, self.pushButton_2)
 
     def retranslateUi(self, Dialog):
         _translate = QtCore.QCoreApplication.translate
@@ -232,6 +245,7 @@ class Ui_Dialog(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("Dialog", "扫描"))
         self.checkBox_2.setText(_translate("Dialog", "导出所有格式的json文件"))
         self.checkBox_5.setText(_translate("Dialog", "导出所有圣遗物图片和识别结果"))
+        self.checkBox_6.setText(_translate("Dialog", "在GOOD格式中包含圣遗物的装备信息（实验性）"))
         self.checkBox_3.setText(_translate("Dialog", "使用套装名过滤圣遗物"))
         self.checkBox_4.setText(_translate("Dialog", "全(不)选"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_2), _translate("Dialog", "导出"))

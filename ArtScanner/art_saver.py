@@ -209,7 +209,8 @@ class ArtDatabase:
                 raise
             return False
 
-    def exportGOODJSON(self, path):
+    def exportGOODJSON(self, settings: dict):
+        path = settings['path']
         result = {
             "format": "GOOD",
             "version": 1,  # artifact only
@@ -218,8 +219,7 @@ class ArtDatabase:
         }
         for art_id in range(self.root['size']):
             art: Artifact = self.root[str(art_id)]
-            result['artifacts'].append(
-                {
+            res = {
                     "setKey": ArtsInfo.SetNamesGOOD[art.setid],
                     "slotKey": ArtsInfo.TypeNamesGOOD[art.type],
                     "level": art.level,
@@ -236,14 +236,18 @@ class ArtDatabase:
                         }
                         for substat in art.substats
                     ]
-                })
+                }
+            if not settings['exportLocation']:
+                del res['location']
+            result['artifacts'].append(res)
 
         if path and path != "":
             self.exportFile(path, result)
         else:
             return result
 
-    def exportGenshinArtJSON(self, path):
+    def exportGenshinArtJSON(self, settings: dict):
+        path = settings['path']
         result = {"version": "1", "flower": [],
                   "feather": [], "sand": [], "cup": [], "head": []}
         for art_id in range(self.root['size']):
@@ -275,7 +279,8 @@ class ArtDatabase:
         else:
             return result
 
-    def exportGenmoCalcJSON(self, path):
+    def exportGenmoCalcJSON(self, settings: dict):
+        path = settings['path']
         result = []
         for art_id in range(self.root['size']):
             art = self.root[str(art_id)]

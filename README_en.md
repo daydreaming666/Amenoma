@@ -75,6 +75,9 @@ And the exported json file is `materials.GOOD.json`
 
 ## Release Notes
 
+2.7.0
+- Update for Genshin 2.7
+
 2.6.0
 - Update for Genshin 2.6
 - A new feature of format conversion.
@@ -124,7 +127,7 @@ When you download or use this software, you are deemed to know and agree to the 
 
 ---------------
 
-- Q: The numbers of items/materials are not completely accurate.
+- Q: The numbers of items/materials are not completely accurate and some fail to be scanned.
 - A: This is normal because it scans the screen for recognition instead of reading memory。
 
 ---------------

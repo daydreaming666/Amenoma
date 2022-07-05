@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>550</width>
-    <height>450</height>
+    <height>550</height>
    </rect>
   </property>
   <property name="palette">
@@ -516,6 +516,16 @@
         </widget>
        </item>
        <item>
+        <widget class="QCheckBox" name="checkBox_6">
+         <property name="text">
+          <string>在GOOD格式中包含圣遗物的装备信息（实验性）</string>
+         </property>
+         <property name="checked">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item>
         <layout class="QHBoxLayout" name="horizontalLayout_2">
          <item>
           <widget class="QCheckBox" name="checkBox_3">
@@ -630,6 +640,18 @@
    </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>tabWidget</tabstop>
+  <tabstop>checkBox</tabstop>
+  <tabstop>checkBox_2</tabstop>
+  <tabstop>checkBox_5</tabstop>
+  <tabstop>checkBox_6</tabstop>
+  <tabstop>checkBox_3</tabstop>
+  <tabstop>checkBox_4</tabstop>
+  <tabstop>tableWidget</tabstop>
+  <tabstop>pushButton</tabstop>
+  <tabstop>pushButton_2</tabstop>
+ </tabstops>
  <resources>
   <include location="Amenoma.qrc"/>
  </resources>
@@ -641,8 +663,8 @@
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>404</x>
-     <y>381</y>
+     <x>416</x>
+     <y>533</y>
     </hint>
     <hint type="destinationlabel">
      <x>431</x>
@@ -657,8 +679,8 @@
    <slot>close()</slot>
    <hints>
     <hint type="sourcelabel">
-     <x>493</x>
-     <y>379</y>
+     <x>533</x>
+     <y>533</y>
     </hint>
     <hint type="destinationlabel">
      <x>504</x>

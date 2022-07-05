@@ -85,6 +85,7 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
         self.checkBox_3.setChecked(settings['FilterArtsByName'])
         self.checkBox_4.setEnabled(settings['FilterArtsByName'])
         self.checkBox_5.setChecked(settings['ExportAllImages'])
+        self.checkBox_6.setChecked(settings['ExportLocationField'])
         self.tableWidget.setEnabled(settings['FilterArtsByName'])
         self.tabWidget.setCurrentIndex(settings["TabIndex"])
 
@@ -124,6 +125,7 @@ class ExtraSettingsDlg(QDialog, ExtraSettings_Dialog_EN.Ui_Dialog):
             "ExportAllFormats": self.checkBox_2.isChecked(),
             "ExportAllImages": self.checkBox_5.isChecked(),
             "FilterArtsByName": self.checkBox_3.isChecked(),
+            "ExportLocationField": self.checkBox_6.isChecked(),
             "Filter": [i.isChecked() for i in self._checkboxes],
             "TabIndex": self.tabWidget.currentIndex()
         }
@@ -151,7 +153,8 @@ class UIMain(QMainWindow, Ui_MainWindow):
             "ExportAllFormats": False,
             "ExportAllImages": False,
             "FilterArtsByName": False,
-            "Filter": [True for _ in ArtsInfo.Setnames_EN],
+            "ExportLocationField": True,
+            "Filter": [True for _ in ArtsInfo.SetNames],
             "TabIndex": 0
         }
         self._helpDlg = HelpDlg(self)
@@ -941,6 +944,7 @@ class Worker(QObject):
 
         def artscannerCallback(art_img):
             detectedInfo = self.model.detect_info(art_img)
+            utils.logger.info(f"Detected info: {detectedInfo}")
             artFilter(detectedInfo, art_img)
             if not self.art_id % self.game_info.art_cols:
                 self.log(f"Scanned: {self.art_id}")
@@ -973,7 +977,8 @@ class Worker(QObject):
                 list(map(lambda exp, name: exp(name), exporter, export_name))
             else:
                 self.log(f"File exported as: {export_name[info['exporter']]}")
-                exporter[info['exporter']](export_name[info['exporter']])
+                exporter[info['exporter']]({"path": export_name[info['exporter']],
+                                            "exportLocation": info['ExtraSettings']['ExportLocationField']})
         self.log(f"Scanned: {self.art_id}")
         self.log(f"  - Saved: {self.saved}")
         self.log(f"  - Failed: {self.failed}")

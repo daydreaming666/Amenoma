@@ -411,7 +411,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 2.6"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 2.7"))
         self.pushButton_3.setText(_translate("MainWindow", "帮助..."))
         self.pushButton_6.setText(_translate("MainWindow", "关于..."))
         self.pushButton_4.setText(_translate("MainWindow", "打开导出文件..."))
@@ -443,7 +443,7 @@ class Ui_MainWindow(object):
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab), _translate("MainWindow", "圣遗物"))
         self.pushButton_7.setText(_translate("MainWindow", "捕获窗口"))
         self.pushButton_8.setText(_translate("MainWindow", "开始扫描"))
-        self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#aa0000;\">提示：鼠标中键停止</span></p></body></html>"))
+        self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#636399;\">提示：鼠标中键停止</span></p></body></html>"))
         self.groupBox_6.setTitle(_translate("MainWindow", "扫描选项"))
         self.checkBox_6.setText(_translate("MainWindow", "养成道具"))
         self.checkBox_7.setText(_translate("MainWindow", "材料"))

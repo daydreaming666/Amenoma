@@ -407,12 +407,12 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 2.6"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 2.7"))
         self.pushButton_2.setText(_translate("MainWindow", "Capture\n"
 "Window"))
         self.pushButton.setText(_translate("MainWindow", "Start\n"
 "Scanning"))
-        self.label_9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#636399;\">Tips: Milddle click to interrupt </span></p></body></html>"))
+        self.label_9.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#636399;\">Tips: Middle click to interrupt </span></p></body></html>"))
         self.groupBox_2.setToolTip(_translate("MainWindow", "Filter the Artifacts by Stars"))
         self.groupBox_2.setTitle(_translate("MainWindow", "Stars"))
         self.checkBox.setText(_translate("MainWindow", "5"))
@@ -439,7 +439,7 @@ class Ui_MainWindow(object):
 "Window"))
         self.pushButton_8.setText(_translate("MainWindow", "Start\n"
 "Scanning"))
-        self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#aa0000;\">Tips: Milddle click to interrupt </span></p></body></html>"))
+        self.label_10.setText(_translate("MainWindow", "<html><head/><body><p align=\"center\"><span style=\" color:#636399;\">Tips: Middle click to interrupt </span></p></body></html>"))
         self.groupBox_6.setTitle(_translate("MainWindow", "Options"))
         self.checkBox_6.setText(_translate("MainWindow", "Character Development Items"))
         self.checkBox_7.setText(_translate("MainWindow", "Materials"))
