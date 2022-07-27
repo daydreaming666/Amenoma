@@ -1,4 +1,6 @@
 # 「天目」 -- Amenoma
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdaydreaming666%2FAmenoma.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdaydreaming666%2FAmenoma?ref=badge_shield)
+
 
 [简体中文](README.md) | [English](README_en.md)
 
@@ -152,3 +154,7 @@ conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
 支付宝： 15269372273
 
 [PayPal@daydreaming666](https://www.paypal.me/daydreaming666)
+
+
+## License
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fdaydreaming666%2FAmenoma.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Fdaydreaming666%2FAmenoma?ref=badge_large)
