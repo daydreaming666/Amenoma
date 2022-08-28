@@ -75,12 +75,11 @@ And the exported json file is `materials.GOOD.json`
 
 ## Release Notes
 
+3.0
+- Update for Genshin 3.0
+
 2.7.0
 - Update for Genshin 2.7
-
-2.6.0
-- Update for Genshin 2.6
-- A new feature of format conversion.
 
 ## Development Environment Setup 
 

@@ -407,7 +407,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 2.7"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 3.0"))
         self.pushButton_2.setText(_translate("MainWindow", "Capture\n"
 "Window"))
         self.pushButton.setText(_translate("MainWindow", "Start\n"
@@ -445,7 +445,7 @@ class Ui_MainWindow(object):
         self.checkBox_7.setText(_translate("MainWindow", "Materials"))
         self.groupBox_7.setTitle(_translate("MainWindow", "Export Format"))
         self.radioButton_4.setText(_translate("MainWindow", "GOOD"))
-        self.groupBox_9.setToolTip(_translate("MainWindow", "<html><head/><body><p>在两次识别之间的延迟(如果识别失败可适当调大)</p></body></html>"))
+        self.groupBox_9.setToolTip(_translate("MainWindow", "<html><head/><body><p>Delay between two recognitions</p></body></html>"))
         self.groupBox_9.setTitle(_translate("MainWindow", "Delay"))
         self.label_8.setText(_translate("MainWindow", "s"))
         self.groupBox_8.setTitle(_translate("MainWindow", "Supported Websites"))

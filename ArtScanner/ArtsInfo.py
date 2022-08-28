@@ -2,7 +2,7 @@ import os
 import json
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-char_data = json.load(open(os.path.join(current_path, 'rcc/char_map_v27.json'), encoding='utf-8'))
+char_data = json.load(open(os.path.join(current_path, 'rcc/char_map_v30.json'), encoding='utf-8'))
 
 UsersCHS = char_data['CHS']
 UsersEN = char_data['EN']
@@ -49,7 +49,7 @@ MainAttrNames = {
     "FIGHT_PROP_WATER_ADD_HURT": "水元素伤害加成",
     "FIGHT_PROP_FIRE_ADD_HURT": "火元素伤害加成",
     "FIGHT_PROP_ELEC_ADD_HURT": "雷元素伤害加成",
-    # "FIGHT_PROP_GRASS_ADD_HURT":    "草元素伤害加成",
+    "FIGHT_PROP_GRASS_ADD_HURT":    "草元素伤害加成",
     # "FIGHT_PROP_FIRE_SUB_HURT":     "火元素伤害减免",
 }
 AttrName2Ids = {v: i.replace('_PERCENT', '') for i, v in MainAttrNames.items()}
@@ -112,6 +112,8 @@ ArtNames = [
     ['海染之花', '渊宫之羽', '离别之贝', '真珠之笼', '海祇之冠'],  # 海染砗磲
     ['魂香之花', '垂玉之叶', '祝祀之凭', '涌泉之盏', '浮溯之珏'],  # 来歆余响
     ['生灵之华', '潜光片羽', '阳辔之遗', '结契之刻', '虺雷之姿'],  # 辰砂往生录
+    ['迷宫的游人', '翠蔓的智者', '贤智的定期', '迷误者之灯', '月桂的宝冠'],  # 深林的记忆
+    ['梦中的铁花', '裁断的翎羽', '沉金的岁月', '如蜜的终宴', '沙王的投影'],  # 饰金之梦
     ["祝圣精华", "祝圣油膏"],  # 强化材料
 ]
 
@@ -135,7 +137,7 @@ AttrNamesGenshinArt = {
     "FIGHT_PROP_WATER_ADD_HURT": "waterBonus",
     "FIGHT_PROP_FIRE_ADD_HURT": "fireBonus",
     "FIGHT_PROP_ELEC_ADD_HURT": "thunderBonus",
-    # "FIGHT_PROP_GRASS_ADD_HURT": "grassBonus",
+    "FIGHT_PROP_GRASS_ADD_HURT": "grassBonus",
     # "FIGHT_PROP_FIRE_SUB_HURT": "fireDeduct",
 }
 SetNamesGenshinArt = [
@@ -177,7 +179,9 @@ SetNamesGenshinArt = [
     "huskOfOpulentDreams",      # 华馆梦醒形骸记
     "oceanHuedClam",       # 海染砗磲
     "EchoesOfAnOffering",  # 来歆余响
-    "VermillionHereafter"  # 辰砂往生录
+    "VermillionHereafter",  # 辰砂往生录
+    "DeepwoodMemories",  # 深林的记忆
+    "GildedDreams"  # 饰金之梦
 ]
 
 TypeNamesMingyuLab = ['flower', 'plume', 'eon', 'goblet', 'circlet']
@@ -200,7 +204,7 @@ AttrNamesMingyuLab = {
     "FIGHT_PROP_WATER_ADD_HURT": "hydroDamage",
     "FIGHT_PROP_FIRE_ADD_HURT": "pyroDamage",
     "FIGHT_PROP_ELEC_ADD_HURT": "electroDamage",
-    # "FIGHT_PROP_GRASS_ADD_HURT": "dendroDamage",
+    "FIGHT_PROP_GRASS_ADD_HURT": "dendroDamage",
     # "FIGHT_PROP_FIRE_SUB_HURT": "pyroDEF",
 }
 
@@ -244,6 +248,8 @@ SetNamesMingyuLab = [
     "divine_chorus",            # 海染砗磲
     "echoes_of_an_offering",    # 来歆余响
     "vermillion_hereafter"      # 辰砂往生录
+    "deepwood_memories",        # 深林的记忆
+    "gilded_dreams"             # 饰金之梦
 ]
 
 TypeNamesGOOD = ['flower', 'plume', 'sands', 'goblet', 'circlet']
@@ -267,7 +273,7 @@ AttrNamesGOOD = {
     "FIGHT_PROP_WATER_ADD_HURT": "hydro_dmg_",
     "FIGHT_PROP_FIRE_ADD_HURT": "pyro_dmg_",
     "FIGHT_PROP_ELEC_ADD_HURT": "electro_dmg_",
-    # "FIGHT_PROP_GRASS_ADD_HURT": "dendro_dmg_"
+    "FIGHT_PROP_GRASS_ADD_HURT": "dendro_dmg_"
 }
 
 SetNamesGOOD = [
@@ -283,10 +289,12 @@ SetNamesGOOD = [
     'Adventurer', 'LuckyDog', 'TravelingDoctor',
     'TenacityOfTheMillelith', 'PaleFlame',
     'EmblemOfSeveredFate', 'ShimenawasReminiscence',
-    'HuskOfOpulentDreams', 
+    'HuskOfOpulentDreams',
     'OceanHuedClam',
     "EchoesOfAnOffering",   # 来歆余响
     "VermillionHereafter"   # 辰砂往生录
+    "DeepwoodMemories",     # 深林的记忆
+    "GildedDreams"          # 饰金之梦
 ]
 
 MainAttrValue = {
@@ -450,7 +458,7 @@ MainAttrNames_EN = {
     "FIGHT_PROP_WATER_ADD_HURT": "Hydro DMG Bonus",
     "FIGHT_PROP_FIRE_ADD_HURT": "Pyro DMG Bonus",
     "FIGHT_PROP_ELEC_ADD_HURT": "Electro DMG Bonus",
-    # "FIGHT_PROP_GRASS_ADD_HURT": "Dendro DMG Bonus",
+    "FIGHT_PROP_GRASS_ADD_HURT": "Dendro DMG Bonus",
 }
 
 TypeNames_EN = ["Flower of Life",
@@ -547,9 +555,13 @@ ArtNames_EN = [
     ['Sea-Dyed Blossom', "Deep Palace's Plume", 'Cowry of Parting',
      'Pearl Cage', 'Crown of Watatsumi'],     # Ocean-Hued Clam
     ['Soulscent Bloom', 'Jade Leaf', 'Symbol of Felicitation',
-     'Chalice of the Font', 'Flowing Rings'],  # "Echoes of an Offering",
+     'Chalice of the Font', 'Flowing Rings'],  # Echoes of an Offering
     ['Flowering Life', 'Feather of Nascent Light', 'Solar Relic',
-     'Moment of the Pact', 'Thundering Poise'],  # 'Vermillion Hereafter'
+     'Moment of the Pact', 'Thundering Poise'],  # Vermillion Hereafter
+    ['Labyrinth Wayfarer', 'Scholar of Vines', 'A Time of Insight',
+     'Lamp of the Lost', 'Laurel Coronet'],     # Deepwood Memories
+    ['Dreaming Steelbloom', 'Feather of Judgment', 'The Sunken Years',
+     'Honeyed Final Feast', 'Shadow of the Sand King'],  # Gilded Dreams
 
     ['Sanctifying Unction', 'Sanctifying Essence']  # keep the two at last
 ]
@@ -593,7 +605,9 @@ SetNames = [
     "华馆梦醒形骸记",
     "海染砗磲",
     "来歆余响",
-    "辰砂往生录"
+    "辰砂往生录",
+    "深林的记忆",
+    "饰金之梦"
 ]
 
 Setnames_EN = [
@@ -619,5 +633,7 @@ Setnames_EN = [
     "Husk of Opulent Dreams",
     "Ocean-Hued Clam",
     "Echoes of an Offering",
-    'Vermillion Hereafter'
+    'Vermillion Hereafter',
+    'Deepwood Memories',
+    'Gilded Dreams'
 ]
