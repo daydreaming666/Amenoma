@@ -137,7 +137,7 @@ AttrNamesGenshinArt = {
     "FIGHT_PROP_WATER_ADD_HURT": "waterBonus",
     "FIGHT_PROP_FIRE_ADD_HURT": "fireBonus",
     "FIGHT_PROP_ELEC_ADD_HURT": "thunderBonus",
-    "FIGHT_PROP_GRASS_ADD_HURT": "grassBonus",
+    "FIGHT_PROP_GRASS_ADD_HURT": "dendroBonus",
     # "FIGHT_PROP_FIRE_SUB_HURT": "fireDeduct",
 }
 SetNamesGenshinArt = [

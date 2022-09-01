@@ -75,6 +75,9 @@ And the exported json file is `materials.GOOD.json`
 
 ## Release Notes
 
+3.0.2
+- Fixed the issue that exporting Mona format wrong tag.
+
 3.0.1
 - Fixed the issue that exporting GenmoCalc and GOOD formats failed
 

@@ -77,6 +77,9 @@
 
 ## Release Notes
 
+3.0.2
+- 修复导出 Mona 格式的问题
+
 3.0.1
 - 修复导出 GenmoCalc 与 GOOD 格式失败的问题
 
