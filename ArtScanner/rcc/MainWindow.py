@@ -411,7 +411,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 3.0"))
+        MainWindow.setWindowTitle(_translate("MainWindow", "天目--Amenoma 3.0.1"))
         self.pushButton_3.setText(_translate("MainWindow", "帮助..."))
         self.pushButton_6.setText(_translate("MainWindow", "关于..."))
         self.pushButton_4.setText(_translate("MainWindow", "打开导出文件..."))

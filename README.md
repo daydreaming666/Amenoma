@@ -43,7 +43,7 @@
 
 - [Github Release](https://github.com/daydreaming666/Amenoma/releases)
 - [Google Drive](https://drive.google.com/drive/folders/1FYrsXy_nznVcV_aN4731FTDWQcAacivy?usp=sharing)
-- [百度网盘 提取码:i2hd](https://pan.baidu.com/s/1CDHgZAbFWEPoqt4183GT9A)
+- [百度网盘 提取码:i2hd](https://pan.baidu.com/s/1CDHgZAbFWEPoqt4183GT9A?pwd=i2hd)
 
 - Amenoma.exe 
 
@@ -77,11 +77,11 @@
 
 ## Release Notes
 
+3.0.1
+- 修复导出 GenmoCalc 与 GOOD 格式失败的问题
+
 3.0
 - 更新适配原神3.0
-
-2.7.0
-- 更新适配原神2.7
 
 
 ## 开发环境搭建

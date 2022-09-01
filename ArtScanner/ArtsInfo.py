@@ -247,7 +247,7 @@ SetNamesMingyuLab = [
     "husk_of_opulent_dreams",   # 华馆梦醒形骸记
     "divine_chorus",            # 海染砗磲
     "echoes_of_an_offering",    # 来歆余响
-    "vermillion_hereafter"      # 辰砂往生录
+    "vermillion_hereafter",      # 辰砂往生录
     "deepwood_memories",        # 深林的记忆
     "gilded_dreams"             # 饰金之梦
 ]
@@ -292,7 +292,7 @@ SetNamesGOOD = [
     'HuskOfOpulentDreams',
     'OceanHuedClam',
     "EchoesOfAnOffering",   # 来歆余响
-    "VermillionHereafter"   # 辰砂往生录
+    "VermillionHereafter",   # 辰砂往生录
     "DeepwoodMemories",     # 深林的记忆
     "GildedDreams"          # 饰金之梦
 ]

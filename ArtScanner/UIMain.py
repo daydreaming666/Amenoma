@@ -968,13 +968,20 @@ class Worker(QObject):
             self.error(repr(e))
             self.log('扫描出错，已停止')
 
-        if self.saved != 0:
-            if info['ExtraSettings']['ExportAllFormats']:
-                list(map(lambda exp, name: exp(name), exporter, export_name))
-            else:
-                self.log(f"导出文件: {export_name[info['exporter']]}")
-                exporter[info['exporter']]({"path": export_name[info['exporter']],
-                                            "exportLocation": info['ExtraSettings']['ExportLocationField']})
+        try:
+            if self.saved != 0:
+                if info['ExtraSettings']['ExportAllFormats']:
+                    list(map(lambda exp, name: exp(name), exporter, export_name))
+                else:
+                    self.log(f"导出文件: {export_name[info['exporter']]}")
+                    exporter[info['exporter']]({"path": export_name[info['exporter']],
+                                                "exportLocation": info['ExtraSettings']['ExportLocationField']})
+        except Exception as e:
+            self.logger.exception(e)
+            self.error(repr(e))
+            self.log('导出出错，已停止')
+            self.endWorking.emit()
+
         self.log(f"扫描: {self.art_id}")
         self.log(f"  - 保存: {self.saved}")
         self.log(f"  - 失败: {self.failed}")
