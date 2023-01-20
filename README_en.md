@@ -88,9 +88,13 @@ And the exported json file is `materials.GOOD.json`
 ## Development Environment Setup 
 
 > Skip this section if you're not developer.
+>
+> The project uses Anaconda to configure the virtual environment.
+>
+> Python version - 3.8
 
 ```cmd
-conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
+conda env create -f ./ArtScanner/build_env_ui.yml
 ```
 > More development docs [AmenomaDevDocs](AmenomaDevDocs/.)
 
