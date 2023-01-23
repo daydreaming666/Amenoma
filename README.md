@@ -84,9 +84,13 @@
 ## 开发环境搭建
 
 > 普通用户请跳过这一节
+>
+> 该项目使用Anaconda配置虚拟环境 
+>
+> Python版本 3.8
 
 ```cmd
-conda env create -f ./ArtScanner/Tools/model_trainer/dev_env.yml
+conda env create -f ./ArtScanner/build_env_ui.yml
 ```
 
 > 更多开发文档[AmenomaDevDocs](AmenomaDevDocs/.)
