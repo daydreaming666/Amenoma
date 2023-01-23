@@ -75,14 +75,8 @@ And the exported json file is `materials.GOOD.json`
 
 ## Release Notes
 
-3.0.2
-- Fixed the issue that exporting Mona format wrong tag.
-
-3.0.1
-- Fixed the issue that exporting GenmoCalc and GOOD formats failed
-
-3.0
-- Update for Genshin 3.0
+3.4
+- Update for Genshin 3.4
 
 
 ## Development Environment Setup 

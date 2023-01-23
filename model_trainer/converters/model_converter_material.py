@@ -41,12 +41,12 @@ mobilenet = MobileNetV3_Small(
 x = mobilenet(input_img)
 new_shape = ((input_shape[0] // 8), (input_shape[1] // 8) * 576)
 x = Reshape(target_shape=new_shape, name="reshape")(x)
-x = Dense(64, activation="relu", name="dense1")(x)
+x = Dense(96, activation="relu", name="dense1")(x)
 x = Dropout(0.2)(x)
 
 # RNNs
-x = Bidirectional(LSTM(128, return_sequences=True, dropout=0.25))(x)
-x = Bidirectional(LSTM(64, return_sequences=True, dropout=0.25))(x)
+x = Bidirectional(LSTM(192, return_sequences=True, dropout=0.25))(x)
+x = Bidirectional(LSTM(96, return_sequences=True, dropout=0.25))(x)
 
 # Output layer
 output = Dense(len(characters) + 2, activation="softmax", name="dense2")(x)

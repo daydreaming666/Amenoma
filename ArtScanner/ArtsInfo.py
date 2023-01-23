@@ -2,7 +2,7 @@ import os
 import json
 
 current_path = os.path.dirname(os.path.abspath(__file__))
-char_data = json.load(open(os.path.join(current_path, 'rcc/char_map_v30.json'), encoding='utf-8'))
+char_data = json.load(open(os.path.join(current_path, 'rcc/char_map_v34.json'), encoding='utf-8'))
 
 UsersCHS = char_data['CHS']
 UsersEN = char_data['EN']
@@ -114,6 +114,8 @@ ArtNames = [
     ['生灵之华', '潜光片羽', '阳辔之遗', '结契之刻', '虺雷之姿'],  # 辰砂往生录
     ['迷宫的游人', '翠蔓的智者', '贤智的定期', '迷误者之灯', '月桂的宝冠'],  # 深林的记忆
     ['梦中的铁花', '裁断的翎羽', '沉金的岁月', '如蜜的终宴', '沙王的投影'],  # 饰金之梦
+    ['月女的华彩', '谢落的筵席', '凝结的时刻', '守秘的魔瓶', '紫晶的花冠'],  # 乐园遗落之花
+    ['众王之都的开端', '黄金邦国的结末', '失落迷途的机芯', '迷醉长梦的守护', '流沙贵嗣的遗宝'],    # 沙上楼阁史话
     ["祝圣精华", "祝圣油膏"],  # 强化材料
 ]
 
@@ -181,7 +183,9 @@ SetNamesGenshinArt = [
     "EchoesOfAnOffering",  # 来歆余响
     "VermillionHereafter",  # 辰砂往生录
     "DeepwoodMemories",  # 深林的记忆
-    "GildedDreams"  # 饰金之梦
+    "GildedDreams",  # 饰金之梦
+    "FlowerOfParadiseLost",  # 乐园遗落之花
+    "DesertPavilionChronicle",  # 沙上楼阁史话
 ]
 
 TypeNamesMingyuLab = ['flower', 'plume', 'eon', 'goblet', 'circlet']
@@ -249,7 +253,9 @@ SetNamesMingyuLab = [
     "echoes_of_an_offering",    # 来歆余响
     "vermillion_hereafter",      # 辰砂往生录
     "deepwood_memories",        # 深林的记忆
-    "gilded_dreams"             # 饰金之梦
+    "gilded_dreams",             # 饰金之梦
+    "flower_of_paradise_lost",  # 乐园遗落之花
+    "desert_pavilion_chronicle" # 沙上楼阁史话
 ]
 
 TypeNamesGOOD = ['flower', 'plume', 'sands', 'goblet', 'circlet']
@@ -294,7 +300,9 @@ SetNamesGOOD = [
     "EchoesOfAnOffering",   # 来歆余响
     "VermillionHereafter",   # 辰砂往生录
     "DeepwoodMemories",     # 深林的记忆
-    "GildedDreams"          # 饰金之梦
+    "GildedDreams",          # 饰金之梦
+    "FlowerOfParadiseLost",  # 乐园遗落之花
+    "DesertPavilionChronicle",  # 沙上楼阁史话
 ]
 
 MainAttrValue = {
@@ -562,6 +570,10 @@ ArtNames_EN = [
      'Lamp of the Lost', 'Laurel Coronet'],     # Deepwood Memories
     ['Dreaming Steelbloom', 'Feather of Judgment', 'The Sunken Years',
      'Honeyed Final Feast', 'Shadow of the Sand King'],  # Gilded Dreams
+    ["Ay-Khanoum's Myriad", 'Wilting Feast', 'A Moment Congealed',
+     "Secret-Keeper's Magic Bottle", 'Amethyst Crown'],
+    ["The First Days of the City of Kings", 'End of the Golden Realm', 'Timepiece of the Lost Path',
+     'Defender of the Enchanting Dream', 'Legacy of the Desert High-Born'],
 
     ['Sanctifying Unction', 'Sanctifying Essence']  # keep the two at last
 ]
@@ -607,7 +619,9 @@ SetNames = [
     "来歆余响",
     "辰砂往生录",
     "深林的记忆",
-    "饰金之梦"
+    "饰金之梦",
+    "乐园遗落之花",
+    "沙上楼阁史话"
 ]
 
 Setnames_EN = [
@@ -635,5 +649,7 @@ Setnames_EN = [
     "Echoes of an Offering",
     'Vermillion Hereafter',
     'Deepwood Memories',
-    'Gilded Dreams'
+    'Gilded Dreams',
+    'Flower of Paradise Lost',
+    'Desert Pavilion Chronicle'
 ]
